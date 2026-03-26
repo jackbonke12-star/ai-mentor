@@ -4224,6 +4224,98 @@ mark.search-hl {
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
 }
 
+/* practice-58: practice card pool badge */
+.practice-pool-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: var(--gray1); border: 1.5px solid var(--gray2);
+  border-radius: 10px; padding: 2px 8px;
+  font-size: 11px; font-weight: 800; color: var(--gray4);
+  margin-top: 4px;
+}
+.practice-pool-badge.has-pool { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+.practice-pool-badge.empty-pool { background: #fef2f2; color: #b91c1c; border-color: #fecaca; }
+
+/* practice-60: personal best flash overlay */
+#practice-pb-flash-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.18s ease;
+}
+#practice-pb-flash-overlay.show {
+  opacity: 1; pointer-events: auto;
+  animation: pb-flash-in 0.22s cubic-bezier(.34,1.56,.64,1) forwards,
+             pb-flash-out 0.5s 1.6s ease-in forwards;
+}
+@keyframes pb-flash-in {
+  from { transform: scale(0.85); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+@keyframes pb-flash-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(1.06); }
+}
+.pb-flash-star {
+  font-size: 64px; line-height: 1;
+  animation: pb-star-spin 1.5s linear infinite;
+}
+@keyframes pb-star-spin {
+  from { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.15); }
+  to   { transform: rotate(360deg) scale(1); }
+}
+.pb-flash-title {
+  font-size: 28px; font-weight: 900; color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  margin: 10px 0 4px; letter-spacing: -0.5px;
+}
+.pb-flash-score {
+  font-size: 48px; font-weight: 900; color: #fff;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  letter-spacing: -1px;
+}
+.pb-flash-sub {
+  font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.88);
+  margin-top: 4px;
+}
+
+/* practice-59: wrong answer review enhanced */
+.prv-missed-detail {
+  margin-top: 4px; padding: 6px 10px;
+  background: #fef2f2; border-left: 3px solid #ef4444;
+  border-radius: 0 6px 6px 0; font-size: 12px; font-weight: 700;
+}
+.prv-missed-your-ans { color: #b91c1c; margin-bottom: 2px; }
+.prv-missed-correct-ans { color: #15803d; }
+.prv-correct-detail {
+  margin-top: 4px; padding: 4px 10px;
+  background: #f0fdf4; border-left: 3px solid #22c55e;
+  border-radius: 0 6px 6px 0; font-size: 12px; font-weight: 700; color: #15803d;
+}
+
+/* practice-57: timed countdown bar */
+.practice-timed-countdown-bar {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  border-radius: 12px; padding: 8px 16px; margin-bottom: 10px;
+  color: #fff; font-weight: 900;
+}
+.ptcb-label { font-size: 12px; font-weight: 800; opacity: 0.85; letter-spacing: 0.05em; text-transform: uppercase; }
+.ptcb-time {
+  font-size: 24px; font-weight: 900; min-width: 36px; text-align: center;
+  font-variant-numeric: tabular-nums; transition: color 0.3s;
+}
+.ptcb-time.warn { color: #fde68a; animation: ptcb-warn 0.5s ease-in-out infinite alternate; }
+.ptcb-time.danger { color: #fca5a5; animation: ptcb-warn 0.25s ease-in-out infinite alternate; }
+@keyframes ptcb-warn {
+  from { transform: scale(1); }
+  to   { transform: scale(1.08); }
+}
+.ptcb-track { flex: 1; height: 6px; background: rgba(255,255,255,0.25); border-radius: 99px; overflow: hidden; max-width: 80px; }
+.ptcb-fill { height: 100%; border-radius: 99px; background: #fff; transition: width 1s linear; }
+
 /* practice-56: lesson stats panel */
 .practice-lesson-stats-panel {
   margin-top: 14px; border: 2px solid var(--gray2);
@@ -8571,6 +8663,41 @@ mark.search-hl {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* onboarding-quiz: tech literacy quiz overlay */
+body.accessibility-simple { font-size: 18px !important; }
+body.accessibility-simple button,
+body.accessibility-simple .nav-tab,
+body.accessibility-simple .ob-btn,
+body.accessibility-simple .quiz-option { min-height: 52px !important; font-size: 17px !important; }
+body.accessibility-simple .nav-tab { gap: 4px; }
+body.accessibility-simple .nav-tab-simple-label { display: block !important; font-size: 11px !important; font-weight: 700; margin-top: 2px; text-align: center; line-height: 1.1; }
+body.accessibility-simple [data-simple-label]::after { content: attr(data-simple-label); display: block; font-size: 10px; font-weight: 700; margin-top: 2px; text-align: center; }
+[data-tip] { position: relative; }
+[data-tip].tip-active::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #333; color: #fff; font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 8px; white-space: nowrap; pointer-events: none; z-index: 9000; box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
+#onboarding-quiz-overlay { display: none; position: fixed; inset: 0; z-index: 10000; background: linear-gradient(160deg, #e8f4ff 0%, #f0fff4 100%); overflow-y: auto; -webkit-overflow-scrolling: touch; }
+#onboarding-quiz-overlay.active { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 32px 20px 40px; }
+.oq-card { background: #fff; border-radius: 24px; box-shadow: 0 4px 24px rgba(91,192,248,0.18); padding: 28px 24px; max-width: 440px; width: 100%; animation: fadeIn 0.4s ease; }
+.oq-step-indicator { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; }
+.oq-step-dot { width: 10px; height: 10px; border-radius: 50%; background: #ddd; transition: background 0.2s; }
+.oq-step-dot.active { background: #5BC0F8; }
+.oq-step-dot.done   { background: #58CC02; }
+.oq-question { font-size: 18px; font-weight: 800; color: #3c3c3c; text-align: center; margin-bottom: 20px; line-height: 1.4; }
+.oq-options { display: flex; flex-direction: column; gap: 10px; }
+.oq-option-btn { width: 100%; background: #f5f5f5; border: 2px solid #e5e5e5; border-radius: 16px; padding: 14px 18px; font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 700; color: #3c3c3c; cursor: pointer; text-align: left; transition: background 0.15s, border-color 0.15s, transform 0.1s; min-height: 52px; display: flex; align-items: center; gap: 10px; }
+.oq-option-btn:active { transform: scale(0.98); }
+.oq-option-btn.selected { background: #e8f4ff; border-color: #5BC0F8; color: #1a7ab8; }
+.oq-option-letter { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 2px solid #ddd; font-size: 13px; font-weight: 800; flex-shrink: 0; transition: background 0.15s, border-color 0.15s; }
+.oq-option-btn.selected .oq-option-letter { background: #5BC0F8; border-color: #5BC0F8; color: #fff; }
+.oq-next-btn { width: 100%; margin-top: 20px; background: #5BC0F8; color: #fff; border: none; border-radius: 16px; padding: 16px; font-family: 'Nunito', sans-serif; font-size: 17px; font-weight: 800; cursor: pointer; transition: background 0.15s, transform 0.1s; min-height: 52px; }
+.oq-next-btn:disabled { background: #ccc; cursor: not-allowed; }
+.oq-next-btn:not(:disabled):active { transform: scale(0.98); }
+.oq-skip-link { text-align: center; margin-top: 14px; font-size: 13px; color: #afafaf; cursor: pointer; text-decoration: underline; }
+.oq-result-icon { text-align: center; font-size: 48px; margin-bottom: 10px; }
+.oq-result-title { font-size: 22px; font-weight: 900; text-align: center; color: #3c3c3c; margin-bottom: 8px; }
+.oq-result-desc { font-size: 15px; font-weight: 600; text-align: center; color: #777; line-height: 1.5; margin-bottom: 22px; }
+.oq-start-btn { width: 100%; background: #58CC02; color: #fff; border: none; border-radius: 16px; padding: 16px; font-family: 'Nunito', sans-serif; font-size: 18px; font-weight: 800; cursor: pointer; transition: background 0.15s, transform 0.1s; min-height: 52px; }
+.oq-start-btn:active { transform: scale(0.98); }
+
 </style>
 
 <script>
@@ -8589,6 +8716,7 @@ mark.search-hl {
 </script>
 </head>
 <body>
+<div id="onboarding-quiz-overlay" role="dialog" aria-modal="true" aria-label="Quick setup quiz"></div>
 <div id="offline-banner">You're offline — progress will save when reconnected</div>
 <div id="app">
   <!-- TOP BAR -->
@@ -8653,7 +8781,7 @@ mark.search-hl {
             <div class="ob-expect-text">Personalised just for you</div>
           </div>
         </div>
-        <button class="btn btn-green btn-full" onclick="obNext('ob-welcome')">Nice to meet you, Clari!</button>
+        <button class="btn btn-green btn-full" onclick="obNext(&apos;ob-welcome&apos;)">Nice to meet you, Clari!</button>
       </div>
 
       <!-- ob-name -->
@@ -8688,7 +8816,7 @@ mark.search-hl {
             <div><div class="ob-card-text-main">Used it before</div><div class="ob-card-text-sub">ChatGPT, Siri, Gemini—something like that</div></div>
           </button>
         </div>
-        <button class="btn btn-green btn-full hidden" id="exp-continue-btn" onclick="obNext('ob-experience')">Continue</button>
+        <button class="btn btn-green btn-full hidden" id="exp-continue-btn" onclick="obNext(&apos;ob-experience&apos;)">Continue</button>
       </div>
 
       <!-- ob-techcomfort -->
@@ -8715,7 +8843,7 @@ mark.search-hl {
             <div><div class="ob-card-text-main">Pretty tech-savvy</div><div class="ob-card-text-sub">I pick up new tools quickly and love trying things</div></div>
           </button>
         </div>
-        <button class="btn btn-green btn-full hidden" id="tech-continue-btn" onclick="obNext('ob-techcomfort')">Continue</button>
+        <button class="btn btn-green btn-full hidden" id="tech-continue-btn" onclick="obNext(&apos;ob-techcomfort&apos;)">Continue</button>
       </div>
 
       <!-- ob-survey -->
@@ -8870,7 +8998,7 @@ mark.search-hl {
             <div id="practice-pool-size-weak" style="font-size:11px;font-weight:700;color:var(--gray4);margin-top:3px;"></div>
             <div id="pbs-chip-weak"></div>
           </div>
-          <button class="btn btn-yellow btn-sm" onclick="startPractice('weak')">Review</button>
+          <button class="btn btn-yellow btn-sm" onclick="startPractice(&apos;weak&apos;)">Review</button>
         </div>
         <div class="practice-card">
           <div class="practice-card-icon" style="background:#f2e8ff;">
@@ -8882,7 +9010,7 @@ mark.search-hl {
             <div id="practice-pool-size-timed" style="font-size:11px;font-weight:700;color:var(--gray4);margin-top:3px;"></div>
             <div id="pbs-chip-timed"></div>
           </div>
-          <button class="btn btn-purple btn-sm" onclick="showDifficultySelector('timed')">Challenge</button>
+          <button class="btn btn-purple btn-sm" onclick="showDifficultySelector(&apos;timed&apos;)">Challenge</button>
         </div>
         <div class="practice-card" id="weak-drill-card">
           <div class="practice-card-icon" style="background:#fee2e2;">
@@ -8910,15 +9038,15 @@ mark.search-hl {
           <div class="diff-card-title">Choose Difficulty</div>
           <div class="diff-card-sub" id="diff-card-sub-text">Filter questions by lesson level</div>
           <div class="diff-btn-row">
-            <button class="diff-btn" onclick="confirmDifficulty('easy')">
+            <button class="diff-btn" onclick="confirmDifficulty(&apos;easy&apos;)">
               <div class="diff-icon" style="background:#dcfce7;">&#x1F331;</div>
               <div class="diff-label">Easy<div class="diff-sub">Beginner lessons only</div></div>
             </button>
-            <button class="diff-btn" onclick="confirmDifficulty('mixed')">
+            <button class="diff-btn" onclick="confirmDifficulty(&apos;mixed&apos;)">
               <div class="diff-icon" style="background:#e0f9ff;">&#x1F4DA;</div>
               <div class="diff-label">Mixed<div class="diff-sub">All completed lessons</div></div>
             </button>
-            <button class="diff-btn" onclick="confirmDifficulty('hard')">
+            <button class="diff-btn" onclick="confirmDifficulty(&apos;hard&apos;)">
               <div class="diff-icon" style="background:#f3e8ff;">&#x1F525;</div>
               <div class="diff-label">Hard<div class="diff-sub">Advanced lessons only</div></div>
             </button>
@@ -8936,7 +9064,7 @@ mark.search-hl {
       <div id="practice-lesson-stats-wrap"></div>
       <div id="practice-leaderboard-wrap" style="margin-top:14px;"></div>
       <div class="practice-notes-section" style="margin-top:14px;">
-        <button class="practice-notes-toggle" onclick="(function(btn){btn.classList.toggle('open');var b=btn.nextElementSibling;b.classList.toggle('open');if(b.classList.contains('open'))renderPracticeSessionNotes();})(this)" aria-expanded="false">
+        <button class="practice-notes-toggle" onclick="(function(btn){btn.classList.toggle('open');var b=btn.nextElementSibling;b.classList.toggle('open');if(b.classList.contains(&apos;open&apos;))renderPracticeSessionNotes();})(this)" aria-expanded="false">
           <span>&#x1F4DD; Session Notes</span>
           <span class="pnt-arrow">&#9660;</span>
         </button>
@@ -8944,6 +9072,14 @@ mark.search-hl {
           <div id="practice-notes-list-container"></div>
         </div>
       </div>
+    </div>
+
+    <!-- practice-60: personal best flash overlay -->
+    <div id="practice-pb-flash-overlay" aria-live="assertive" role="status" aria-label="New personal best!">
+      <div class="pb-flash-star">&#x2B50;</div>
+      <div class="pb-flash-title">NEW PERSONAL BEST!</div>
+      <div class="pb-flash-score" id="pb-flash-score-val">100%</div>
+      <div class="pb-flash-sub" id="pb-flash-sub-text">Amazing work!</div>
     </div>
 
     <!-- ======== MY PLAN TAB ======== -->
@@ -9044,7 +9180,7 @@ mark.search-hl {
     <div class="unit-jump-sheet-card" id="unit-jump-sheet-card">
       <div class="unit-jump-title">Jump to Unit</div>
       <div id="unit-jump-list"></div>
-      <button class="btn btn-ghost btn-full mt8" onclick="closeModal('unit-jump-sheet')">Cancel</button>
+      <button class="btn btn-ghost btn-full mt8" onclick="closeModal(&apos;unit-jump-sheet&apos;)">Cancel</button>
     </div>
   </div>
 
@@ -9057,7 +9193,7 @@ mark.search-hl {
     <div class="unit1-cert-name" id="u1cert-name">Learner</div>
     <div class="unit1-cert-unit">Unit 1: Introduction to AI<br><small style="font-weight:600;color:var(--gray4);">AI Foundations</small></div>
     <div class="unit1-cert-date-row">Completed on <strong id="u1cert-date"></strong></div>
-    <button class="unit1-cert-view-btn" onclick="viewUnitCertificate('unit1'); closeUnit1CertModal(null, true);">
+    <button class="unit1-cert-view-btn" onclick="viewUnitCertificate(&apos;unit1&apos;); closeUnit1CertModal(null, true);">
       &#127891; View &amp; Download Certificate
     </button>
     <button class="unit1-cert-dismiss-btn" onclick="closeUnit1CertModal(null, true);">Maybe Later</button>
@@ -9066,25 +9202,25 @@ mark.search-hl {
 
 <!-- BOTTOM NAV -->
 <nav id="bottom-nav" role="navigation" aria-label="Main navigation">
-  <button class="nav-tab active" id="nav-learn" onclick="switchTab('learn')" aria-label="Learn tab">
+  <button class="nav-tab active" id="nav-learn" onclick="switchTab(&apos;learn&apos;)" aria-label="Learn tab">
     <span class="nav-pill">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
     </span>
     Learn
   </button>
-  <button class="nav-tab" id="nav-practice" onclick="switchTab('practice')" aria-label="Practice tab">
+  <button class="nav-tab" id="nav-practice" onclick="switchTab(&apos;practice&apos;)" aria-label="Practice tab">
     <span class="nav-pill">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 4h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"/><path d="M8 12h8M12 8v8"/></svg>
     </span>
     Practice
   </button>
-  <button class="nav-tab" id="nav-plan" onclick="switchTab('plan')" aria-label="My Plan tab">
+  <button class="nav-tab" id="nav-plan" onclick="switchTab(&apos;plan&apos;)" aria-label="My Plan tab">
     <span class="nav-pill">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/><path d="M12 6v6l4 2"/></svg>
     </span>
     My Plan
   </button>
-  <button class="nav-tab" id="nav-profile" onclick="switchTab('profile')" aria-label="Profile tab">
+  <button class="nav-tab" id="nav-profile" onclick="switchTab(&apos;profile&apos;)" aria-label="Profile tab">
     <span class="nav-pill">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0112 0v2"/></svg>
     </span>
@@ -9112,11 +9248,11 @@ mark.search-hl {
     <div class="modal-title">This one's part of Clari Plus</div>
     <div class="modal-sub">I want to be upfront with you — the free stuff here is genuinely good. But if you want everything unlocked, Plus is the way to go.</div>
     <div class="plan-toggle" id="plan-toggle">
-      <div class="plan-option selected" id="plan-monthly" onclick="selectPlan('monthly')">
+      <div class="plan-option selected" id="plan-monthly" onclick="selectPlan(&apos;monthly&apos;)">
         <div class="plan-option-price">$4.99</div>
         <div class="plan-option-label">per month</div>
       </div>
-      <div class="plan-option" id="plan-annual" onclick="selectPlan('annual')">
+      <div class="plan-option" id="plan-annual" onclick="selectPlan(&apos;annual&apos;)">
         <div class="plan-save-badge">Save 33%</div>
         <div class="plan-option-price">$39.99</div>
         <div class="plan-option-label">per year</div>
@@ -9124,7 +9260,7 @@ mark.search-hl {
     </div>
     <div id="premium-features"></div>
     <button class="btn btn-purple btn-full mt16" id="premium-cta-btn" onclick="activatePremium()">Start 7-Day Free Trial</button>
-    <button class="btn btn-ghost btn-full mt8" onclick="closeModal('premium-modal')">Not right now</button>
+    <button class="btn btn-ghost btn-full mt8" onclick="closeModal(&apos;premium-modal&apos;)">Not right now</button>
   </div>
 </div>
 
@@ -9135,7 +9271,7 @@ mark.search-hl {
     <div class="modal-title"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='#60a5fa' stroke='#3b82f6' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M4 9l3-5h10l3 5-10 11L4 9z'/><path d='M4 9h16'/><path d='M9 4L7 9l5 11M15 4l2 5-5 11'/></svg></span> Gem Shop</div>
     <div class="modal-sub" id="gem-shop-balance">You have 0 gems</div>
     <div class="shop-items" id="shop-items-list"></div>
-    <button class="btn btn-ghost btn-full mt8" onclick="closeModal('gem-shop-modal')">Close</button>
+    <button class="btn btn-ghost btn-full mt8" onclick="closeModal(&apos;gem-shop-modal&apos;)">Close</button>
   </div>
 </div>
 
@@ -18090,9 +18226,9 @@ function showCertificateEarned(unitId) {
       <div style="font-size:18px;font-weight:900;color:var(--text);">${S.user_name || 'You'}</div>
       <div style="font-size:12px;color:var(--gray4);margin-top:4px;">Unit ${unit.num}: ${unit.title}</div>
     </div>
-    <button onclick="viewUnitCertificate('${unitId}'); document.getElementById('cert-overlay').remove();"
+    <button onclick="viewUnitCertificate('${unitId}'); document.getElementById(&apos;cert-overlay&apos;).remove();"
       style="width:100%;padding:14px;background:${color};color:white;border:none;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;margin-bottom:10px;">View &amp; Download Certificate</button>
-    <button onclick="document.getElementById('cert-overlay').remove();"
+    <button onclick="document.getElementById(&apos;cert-overlay&apos;).remove();"
       style="width:100%;padding:12px;background:none;border:2px solid var(--gray2);border-radius:14px;font-size:14px;font-weight:700;color:var(--gray4);cursor:pointer;">Continue Learning</button>
   </div>`;
   document.body.appendChild(overlay);
@@ -18213,9 +18349,9 @@ function showWeeklyChallengeComplete(challenge) {
       <div style="font-size:14px;opacity:0.85;">XP this week</div>
       <div style="font-size:12px;opacity:0.7;margin-top:4px;">Personal Best: ${Math.min(9999, Math.max(S.weekly_xp || 0, S.weekly_best || 0))} XP</div>
     </div>
-    <button onclick="if(navigator.share){navigator.share({text:'${shareText.replace(/'/g,'&#39;')}'})};this.closest('[style*=fixed]').remove();"
+    <button onclick="if(navigator.share){navigator.share({text:'${shareText.replace(/'/g,'&#39;')}'})};this.closest(&apos;[style*=fixed]&apos;).remove();"
       style="width:100%;padding:14px;background:var(--green);color:white;border:none;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;margin-bottom:8px;">Share My Score</button>
-    <button onclick="this.closest('[style*=fixed]').remove();"
+    <button onclick="this.closest(&apos;[style*=fixed]&apos;).remove();"
       style="width:100%;padding:12px;background:none;border:2px solid var(--gray2);border-radius:14px;font-size:14px;font-weight:700;color:var(--gray4);cursor:pointer;">Keep Going</button>
   </div>`;
   document.body.appendChild(overlay);
@@ -18264,7 +18400,9 @@ function loadState() {
     best_streak: 0,
     lesson_log_dates: {},  // learn-14: lessonId -> completion timestamp (ms)
     last_lesson_opened: null,  // learn-34: last lesson id the user tapped
-    pinned_lessons: []          // learn-37: array of pinned lesson ids
+    pinned_lessons: [],         // learn-37: array of pinned lesson ids
+    onboarding_done: false,      // onboarding-quiz: has user completed the tech literacy quiz
+    accessibility_mode: 'pro'    // onboarding-quiz: 'pro' | 'standard' | 'simple'
   };
   S = {};
   for (const [k, v] of Object.entries(defaults)) {
@@ -19069,7 +19207,7 @@ function renderTrackHeader(track) {
   const collapsed = (S.track_collapsed || {})[track.id];
   const pctInt = Math.round(pct * 100);
   return `<div class="track-header" id="track-${track.id}"
-      onclick="toggleTrack('${track.id}')"
+      onclick="toggleTrack(&apos;${track.id}&apos;)"
       data-track="${track.id}"
       style="border-radius:16px;margin:16px 12px 4px;padding:10px 14px;border-left:4px solid ${track.color};background:${track.color}18;">
     <div class="track-header-left">
@@ -20983,7 +21121,7 @@ function renderLearnTab() {
     const _levelXp  = (S.xp || 0) % 100;
     const _curLevel = xpToLevel(S.xp || 0);
     const _mins     = estimateLessonMinutes(_cl);
-    html += `<div class="continue-card" onclick="startLesson('${_cl.id}')" style="margin:-12px 12px 12px;">
+    html += `<div class="continue-card" onclick="startLesson(&apos;${_cl.id}&apos;)" style="margin:-12px 12px 12px;">
       <div class="continue-card-unit" style="color:rgba(255,255,255,0.75)">Unit ${_cu.num}: ${_cu.title}</div>
       <div class="continue-card-title">${_cl.title}</div>
       <div class="continue-card-meta">~${_mins} min &bull; +${_cl.xp} XP</div>
@@ -21232,9 +21370,9 @@ function renderLearnTab() {
   html += `<div class="learn-search-wrap">
   <div class="diff-filter-row">
     <div class="diff-chip dc-all ${_dcAll}" onclick="filterDifficulty('')">All<span class="diff-chip-count">${(function(){ var _c=countLessonsByDifficulty(); return _c.all; })()}</span></div>
-    <div class="diff-chip dc-easy ${_dcEasy}" onclick="filterDifficulty('easy')">Easy<span class="diff-chip-count">${(function(){ var _c=countLessonsByDifficulty(); return _c.easy; })()}</span></div>
-    <div class="diff-chip dc-moderate ${_dcMod}" onclick="filterDifficulty('moderate')">Moderate<span class="diff-chip-count">${(function(){ var _c=countLessonsByDifficulty(); return _c.moderate; })()}</span></div>
-    <div class="diff-chip dc-hard ${_dcHard}" onclick="filterDifficulty('challenging')">Challenging<span class="diff-chip-count">${(function(){ var _c=countLessonsByDifficulty(); return _c.challenging; })()}</span></div>
+    <div class="diff-chip dc-easy ${_dcEasy}" onclick="filterDifficulty(&apos;easy&apos;)">Easy<span class="diff-chip-count">${(function(){ var _c=countLessonsByDifficulty(); return _c.easy; })()}</span></div>
+    <div class="diff-chip dc-moderate ${_dcMod}" onclick="filterDifficulty(&apos;moderate&apos;)">Moderate<span class="diff-chip-count">${(function(){ var _c=countLessonsByDifficulty(); return _c.moderate; })()}</span></div>
+    <div class="diff-chip dc-hard ${_dcHard}" onclick="filterDifficulty(&apos;challenging&apos;)">Challenging<span class="diff-chip-count">${(function(){ var _c=countLessonsByDifficulty(); return _c.challenging; })()}</span></div>
     <div class="diff-chip dc-bookmarks ${learnBookmarkFilter ? 'active' : ''}" onclick="filterBookmarks()" title="Show bookmarked lessons only">&#9733; Bookmarks</div>
     <div class="diff-chip dc-quick ${learnQuickFilter ? 'active' : ''}" onclick="filterQuick()" title="Show lessons under 5 minutes (fewer than 6 slides)">&#x23F1; Quick</div>
     <select class="learn-sort-select" onchange="setLearnSort(this.value)" title="Sort lessons" aria-label="Sort lessons">
@@ -21266,7 +21404,7 @@ function renderLearnTab() {
     <div class="learn-filter-tag ${learnFilterTag === '' ? 'active' : ''}" onclick="setLearnFilter('')">All</div>
     ${LEARN_FILTER_TAGS.map(f =>
       `<div class="learn-filter-tag ${learnFilterTag === f.tag ? 'active' : ''}"
-        onclick="setLearnFilter('${f.tag}')">${f.label}</div>`
+        onclick="setLearnFilter(&apos;${f.tag}&apos;)">${f.label}</div>`
     ).join('')}
   </div>
 </div>`;
@@ -21512,7 +21650,7 @@ function renderLearnTab() {
 
         html += `<div class="lesson-row ${done ? 'completed' : ''} ${locked ? 'locked' : ''} ${_unitTintClass} ${_isPinned37 ? 'pinned-lesson' : ''}"
           style="${_unitTintStyle}"
-          onclick="${locked ? 'openPremiumModal()' : `startLesson('${lesson.id}')`}">
+          onclick="${locked ? 'openPremiumModal()' : `startLesson(&apos;${lesson.id}&apos;)`}">
           ${_newBadge}
           <div class="lesson-icon" style="background:${iconBg}">${iconContent}</div>
           <div class="lesson-info">
@@ -21522,7 +21660,7 @@ function renderLearnTab() {
             ${_completedDateHtml}
           </div>
           ${locked ? `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#afafaf" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>` : _reviewDue ? `<span class="review-due-icon" title="Review due"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><circle cx='12' cy='13' r='8'/><polyline points='12,9 12,13 15,15'/><path d='M5 3L3 5M21 5l-2-2'/><line x1='12' y1='21' x2='12' y2='23'/></svg></span></span>${badgeHtml}` : badgeHtml}
-          <button class="lc-chevron-btn" id="lc-chevron-${lesson.id}" onclick="event.stopPropagation();toggleLearnCard('${lesson.id}')" aria-label="Toggle description" title="Show description" style="transform:${learnExpandedCards[lesson.id]?'rotate(180deg)':'rotate(0deg)'}">&#9662;</button>
+          <button class="lc-chevron-btn" id="lc-chevron-${lesson.id}" onclick="event.stopPropagation();toggleLearnCard(&apos;${lesson.id}&apos;)" aria-label="Toggle description" title="Show description" style="transform:${learnExpandedCards[lesson.id]?'rotate(180deg)':'rotate(0deg)'}">&#9662;</button>
         </div>
 ${_playHint}<button class="lesson-bookmark-btn ${(S.bookmarks||[]).includes(lesson.id) ? 'active' : ''}" onclick="toggleBookmark('${lesson.id}', event)" title="Bookmark this lesson" aria-label="Bookmark">&#9733;</button><span class="lesson-bookmark-label">Bookmarked</span>${_shareBtn}${_noteHtml}${(function(){ var _d = (lesson.slides&&lesson.slides[0]) ? (lesson.slides[0].text||lesson.slides[0].title||'') : ''; if (!_d) return ''; var _open = learnExpandedCards[lesson.id] ? 'block' : 'none'; return '<div class="lc-desc-expand" id="lc-expand-' + lesson.id + '" style="display:' + _open + '">' + escHtml(_d.slice(0,200)) + (_d.length>200?'…':'') + '</div>'; })()}`;
       });
@@ -21747,7 +21885,7 @@ function buildRecommendedStrip(n) {
 
   let cards = top.map(({ lesson, unit }) => {
     const locked = !lesson.free && !S.premium;
-    return `<div class="rec-card" onclick="${locked ? 'openPremiumModal()' : `startLesson('${lesson.id}')`}" style="border-top:3px solid ${unit.color}">
+    return `<div class="rec-card" onclick="${locked ? 'openPremiumModal()' : `startLesson(&apos;${lesson.id}&apos;)`}" style="border-top:3px solid ${unit.color}">
       <div class="rec-card-unit" style="color:${unit.color}">Unit ${unit.num}</div>
       <div class="rec-card-title">${lesson.title}</div>
       <div class="rec-card-meta">${lesson.slides.length} slides &bull; +${lesson.xp} XP</div>
@@ -27226,6 +27364,9 @@ function renderSlideQuickFire(slide) {
   if (!slide.questions && slide.items) slide.questions = slide.items;
   // Normalise timer key: Units 10-12 use 'timer', earlier units use 'timeLimit'
   const _qfTimeLimit = slide.timeLimit || slide.timer || 30;
+  // Accessibility fix #11: ready screen before timed round.
+  if (!lessonState._qfReadyToStart) { window._currentQFSlide=slide; var _lc11=document.getElementById('lesson-content'),_lf11=document.getElementById('lesson-footer'); if(_lc11){_lc11.innerHTML='<div style="display:flex;flex-direction:column;align-items:center;gap:20px;padding:32px 16px;text-align:center"><div style="font-size:52px">\u26A1</div><div style="font-size:22px;font-weight:900;color:var(--text)">Speed Round!</div><div style="font-size:15px;font-weight:700;color:var(--gray4);line-height:1.7;max-width:280px">Tap <b>True</b> or <b>False</b> for each statement as fast as you can. You have <b>'+_qfTimeLimit+' seconds</b> in total.</div></div>';} if(_lf11){_lf11.innerHTML='<button class="btn btn-green btn-full" onclick="lessonState._qfReadyToStart=true;renderSlideQuickFire(window._currentQFSlide)">\u{1F3C3} Let\'s go!</button>';} return; }
+  lessonState._qfReadyToStart = false;
   let qfState = {
     idx: 0,
     correct: 0,
@@ -27588,7 +27729,7 @@ function renderLessonComplete() {
     '<div class="lesson-rating-label">Rate this lesson</div>' +
     '<div class="lesson-rating-stars">' +
     [1,2,3,4,5].map(function(i) {
-      return '<button class="lesson-rating-star' + (i <= _existingRating ? ' filled' : '') + '" onclick="rateLessonStar(' + i + ')" aria-label="' + i + ' stars">★</button>';
+      return '<button class="lesson-rating-star' + (i <= _existingRating ? ' filled' : '') + '" onclick="rateLessonStar(&apos; + i + &apos;)" aria-label="' + i + ' stars">★</button>';
     }).join('') +
     '</div></div>';
 
@@ -27768,7 +27909,7 @@ function renderLessonComplete() {
   }
 
   document.getElementById('lesson-footer').innerHTML = `
-    ${_nextLesson ? `<button class="btn btn-blue btn-full" onclick="startLesson('${_nextLesson.id}')">Next: ${_nextLesson.title} →</button>` : ''}
+    ${_nextLesson ? `<button class="btn btn-blue btn-full" onclick="startLesson(&apos;${_nextLesson.id}&apos;)">Next: ${_nextLesson.title} →</button>` : ''}
     <button class="btn btn-green btn-full${_nextLesson ? ' mt8' : ''}" onclick="doCloseLesson()">Keep Going!</button>
     <button class="btn btn-ghost btn-full mt8" onclick="openGemShop()" style="font-size:13px;"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='#60a5fa' stroke='#3b82f6' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M4 9l3-5h10l3 5-10 11L4 9z'/><path d='M4 9h16'/><path d='M9 4L7 9l5 11M15 4l2 5-5 11'/></svg></span> Gem Shop</button>`;
 
@@ -28564,13 +28705,13 @@ function renderPracticeTab() {
   if (_dueBanner) {
     const _dueIds = getReviewsDue();
     if (_dueIds.length > 0) {
-      _dueBanner.innerHTML = `<div class="reviews-due-card" onclick="startPractice('review')">
+      _dueBanner.innerHTML = `<div class="reviews-due-card" onclick="startPractice(&apos;review&apos;)">
         <div class="reviews-due-count">${_dueIds.length}</div>
         <div style="flex:1;">
           <div class="reviews-due-label">Review${_dueIds.length > 1 ? 's' : ''} due today</div>
           <div class="reviews-due-sub">Reinforce what you've learned before you forget it — takes ~2 min</div>
         </div>
-        <button class="btn btn-yellow btn-sm" style="flex-shrink:0;" onclick="event.stopPropagation();startPractice('review')">Start</button>
+        <button class="btn btn-yellow btn-sm" style="flex-shrink:0;" onclick="event.stopPropagation();startPractice(&apos;review&apos;)">Start</button>
       </div>`;
     } else {
       _dueBanner.innerHTML = '';
@@ -28624,6 +28765,8 @@ function renderPracticeTab() {
   renderPracticeRecentSessions();
   // practice-56: lesson-specific stats
   if (typeof renderPracticeLessonStats === 'function') renderPracticeLessonStats();
+  // practice-58: pool count badges
+  if (typeof renderPracticePoolBadges === 'function') renderPracticePoolBadges();
   // Only re-render notes list if panel is open
   (function() {
     var _nb = document.getElementById('practice-notes-list-body');
@@ -28759,7 +28902,7 @@ function renderPracticeTab() {
       <span>${h.type === 'quick' ? 'Quick Practice' : h.type === 'weak' ? 'Weak Areas' : h.type === 'weak_drill' ? 'Weak Spots Drill' : 'Timed Challenge'} &bull; ${h.date}</span>
       <span class="practice-history-score">${h.score}/${h.total}</span>
     </div>`
-  ).join('') + (history.length > 10 ? `<button class="btn btn-ghost btn-sm" style="margin-top:8px;width:100%;" onclick="(function(btn){var el=btn.closest('#practice-history-list')||btn.parentElement.parentElement;el.dataset.showAll=el.dataset.showAll==='true'?'false':'true';renderPracticeHistory&&renderPracticeHistory();})(this)">${_showAll ? 'Show less' : 'Show all (' + history.length + ')'}</button>` : '');
+  ).join('') + (history.length > 10 ? `<button class="btn btn-ghost btn-sm" style="margin-top:8px;width:100%;" onclick="(function(btn){var el=btn.closest(&apos;#practice-history-list&apos;)||btn.parentElement.parentElement;el.dataset.showAll=el.dataset.showAll==='true'?'false':'true';renderPracticeHistory&&renderPracticeHistory();})(this)">${_showAll ? 'Show less' : 'Show all (' + history.length + ')'}</button>` : '');
 }
 
 function renderPracticeWeakHeatmap() {
@@ -29197,7 +29340,7 @@ function startPractice(type, difficulty) {
           <div style="flex-shrink:0;">${clariSVG('happy', 48)}</div>
           <div>
             <div style="font-size:14px;font-weight:700;color:var(--text);padding-top:4px;margin-bottom:8px;">No weak areas yet — you're crushing it! <span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><path d='M14 3a4 4 0 0 1 0 8H8'/><path d='M8 11a4 4 0 0 0 0 8h6'/><path d='M6 15h12'/></svg></span> Keep learning to build up your review queue.</div>
-            ${suggestLesson ? `<button class="btn btn-blue btn-sm" onclick="startLesson('${suggestLesson.id}')">Start: ${suggestLesson.title} →</button>` : ''}
+            ${suggestLesson ? `<button class="btn btn-blue btn-sm" onclick="startLesson(&apos;${suggestLesson.id}&apos;)">Start: ${suggestLesson.title} →</button>` : ''}
           </div>
         </div>`;
       }
@@ -29256,6 +29399,21 @@ function startPractice(type, difficulty) {
 function startTimedBar() {
   // NOTE: DOM bar is injected by renderPracticeQuestion on each render — no injection here
   lessonState.timedSeconds = 60;
+  // practice-57: inject top countdown bar
+  (function() {
+    var _lc57 = document.getElementById('lesson-content');
+    if (!_lc57) return;
+    var _existing57 = document.getElementById('practice-timed-countdown-bar');
+    if (!_existing57) {
+      var _bar57 = document.createElement('div');
+      _bar57.id = 'practice-timed-countdown-bar';
+      _bar57.className = 'practice-timed-countdown-bar';
+      _bar57.innerHTML = '<span class="ptcb-label">Time Left</span>'
+        + '<span class="ptcb-time" id="ptcb-time-display">60</span>'
+        + '<div class="ptcb-track"><div class="ptcb-fill" id="ptcb-fill" style="width:100%;"></div></div>';
+      _lc57.parentNode.insertBefore(_bar57, _lc57);
+    }
+  })();
   lessonState.timedInterval = setInterval(() => {
     lessonState.timedSeconds--;
     var _tPct = (lessonState.timedSeconds / 60) * 100;
@@ -29269,6 +29427,14 @@ function startTimedBar() {
         lessonState.timedSeconds <= 10 ? '#f97316' : '#58cc02');
     }
     if (_tLabel) _tLabel.textContent = String(lessonState.timedSeconds);
+    // practice-57: update top countdown bar
+    var _ctd57 = document.getElementById('ptcb-time-display');
+    var _ctf57 = document.getElementById('ptcb-fill');
+    if (_ctd57) {
+      _ctd57.textContent = String(lessonState.timedSeconds);
+      _ctd57.className = 'ptcb-time' + (lessonState.timedSeconds <= 5 ? ' danger' : lessonState.timedSeconds <= 10 ? ' warn' : '');
+    }
+    if (_ctf57) _ctf57.style.width = _tPct + '%';
     // Legacy bar (now hidden via CSS, kept for safety)
     var bar = document.getElementById('timed-bar');
     if (bar) bar.style.width = _tPct + '%';
@@ -29713,6 +29879,7 @@ function selectPracticeOption(el, idx, correct) {
           question: _aq.question || '',
           options: _aq.options || [],
           correct: correct,
+          userAnswer: idx,
           userCorrect: (idx === correct)
         });
       }
@@ -30102,6 +30269,8 @@ function finishPractice() {
     }
   })();
 
+  // practice-57: remove countdown bar on finish
+  (function() { var _cb57 = document.getElementById('practice-timed-countdown-bar'); if (_cb57) _cb57.remove(); })();
   document.getElementById('lesson-progress-bar').style.width = '100%';
   const _elapsed = Math.round((Date.now() - (lessonState.practiceStartTime || Date.now())) / 1000);
   const _elapsedStr = _elapsed >= 60 ? Math.floor(_elapsed/60) + 'm ' + (_elapsed%60) + 's' : _elapsed + 's';
@@ -30198,13 +30367,24 @@ function finishPractice() {
       + _attempted.map(function(a) {
           var _q = a.question.length > 60 ? a.question.slice(0, 57) + '...' : a.question;
           var _correctText = (a.options && a.options[a.correct]) ? a.options[a.correct] : '';
+          // practice-59: show user answer in review
+          var _userText = (a.options && a.userAnswer != null && a.options[a.userAnswer]) ? a.options[a.userAnswer] : '';
           var _icon = a.userCorrect
             ? '<span class="prv-icon" style="color:#22c55e;">&#x2713;</span>'
             : '<span class="prv-icon" style="color:#ef4444;">&#x2717;</span>';
+          var _detail59 = '';
+          if (!a.userCorrect) {
+            _detail59 = '<div class="prv-missed-detail">'
+              + (_userText ? '<div class="prv-missed-your-ans">&#x274C; You chose: ' + _userText + '</div>' : '')
+              + (_correctText ? '<div class="prv-missed-correct-ans">&#x2714; Correct: ' + _correctText + '</div>' : '')
+              + '</div>';
+          } else if (_correctText) {
+            _detail59 = '<div class="prv-correct-detail">&#x2714; ' + _correctText + '</div>';
+          }
           return '<div class="practice-review-item">'
                + _icon
-               + '<div><div class="prv-qtext">' + _q + '</div>'
-               + (a.userCorrect ? '' : '<div class="prv-answer correct-ans">&#x2714; ' + _correctText + '</div>')
+               + '<div style="flex:1;"><div class="prv-qtext">' + _q + '</div>'
+               + _detail59
                + '</div></div>';
         }).join('')
       + '</div>';
@@ -30243,6 +30423,18 @@ function finishPractice() {
   })();
   // practice-52: render summary share card
   setTimeout(function() { renderPracticeSummaryCard(score, total, _accuracy, _elapsed, lessonState.practiceType); }, 300);
+  // practice-60: personal best flash
+  (function() {
+    if (!_isNewBest || total === 0) return;
+    var _pbFlash60 = document.getElementById('practice-pb-flash-overlay');
+    if (!_pbFlash60) return;
+    var _scoreEl60 = document.getElementById('pb-flash-score-val');
+    var _subEl60 = document.getElementById('pb-flash-sub-text');
+    if (_scoreEl60) _scoreEl60.textContent = _accuracy + '%';
+    if (_subEl60) _subEl60.textContent = _accuracy === 100 ? 'Perfect score \u2014 flawless!' : 'Your new record for this mode!';
+    _pbFlash60.classList.add('show');
+    setTimeout(function() { _pbFlash60.classList.remove('show'); }, 2200);
+  })();
   if (_accuracy === 100 && total > 0) {
     setTimeout(function() { showClariPopup('celebrating', 'clari-tada', 'Perfect practice!', 2000); }, 600);
   }
@@ -30285,7 +30477,7 @@ function finishPractice() {
 
   document.getElementById('lesson-footer').innerHTML =
     _reviewBtn
-    + `<button class="btn btn-blue btn-full" style="margin-bottom:10px;" onclick="doCloseLesson();setTimeout(()=>startPractice('${_practiceAgainType}'),80);">Practice Again</button>`
+    + `<button class="btn btn-blue btn-full" style="margin-bottom:10px;" onclick="doCloseLesson();setTimeout(()=>startPractice(&apos;${_practiceAgainType}&apos;),80);">Practice Again</button>`
     + `<button class="btn btn-ghost btn-full" style="margin-bottom:10px;border:2px solid var(--gray3);font-weight:800;" onclick="challengeFriend()">🤝 Challenge a Friend</button>`
     + `<button class="btn-share-progress" onclick="shareSessionProgress()">📤 Share Progress</button>`
     + _pqHtml
@@ -30298,6 +30490,87 @@ function finishPractice() {
     var _qCard = document.getElementById('practice-quote-card');
     if (_qCard) _qCard.classList.add('visible');
   }, 900);
+}
+
+// ============================================================
+// practice-58: PRACTICE CARD POOL COUNT BADGES
+// ============================================================
+function renderPracticePoolBadges() {
+  var _completed58 = S.completed || [];
+  var _quickPool58 = 0;
+  _completed58.forEach(function(id) {
+    var _l58 = (typeof findLesson === 'function') ? findLesson(id) : null;
+    if (!_l58) return;
+    var _slides58 = [].concat(_l58.slides || [], _l58.pool || []);
+    _quickPool58 += _slides58.filter(function(s) { return s.type === 'quiz'; }).length;
+  });
+  var _weakPool58 = (S.wrong_bank || []).length;
+  function _setBadge58(elId, count, label) {
+    var _el58 = document.getElementById(elId);
+    if (!_el58) return;
+    var _cls58 = count === 0 ? 'empty-pool' : 'has-pool';
+    var _txt58 = count === 0 ? 'No questions yet' : count + ' ' + label;
+    _el58.innerHTML = '<span class="practice-pool-badge ' + _cls58 + '">'
+      + (count === 0 ? '&#x26A0;' : '&#x1F4DA;') + ' ' + _txt58
+      + '</span>';
+  }
+  _setBadge58('practice-pool-size-quick', _quickPool58, 'available');
+  _setBadge58('practice-pool-size-timed', Math.min(_quickPool58, 50), 'in pool');
+  _setBadge58('practice-pool-size-weak', _weakPool58, 'to review');
+}
+
+// ============================================================
+// practice-56: LESSON-SPECIFIC PRACTICE STATS
+// ============================================================
+function renderPracticeLessonStats() {
+  var _wrap56 = document.getElementById('practice-lesson-stats-wrap');
+  if (!_wrap56) return;
+  var _hist56 = S.practice_history || [];
+  if (_hist56.length < 2) { _wrap56.innerHTML = ''; return; }
+  var _completed56 = S.completed || [];
+  if (_completed56.length === 0) { _wrap56.innerHTML = ''; return; }
+  var _wrongBank56 = S.wrong_bank || [];
+  var _wrongSet56 = {};
+  _wrongBank56.forEach(function(w) {
+    if (w.lessonId) _wrongSet56[w.lessonId] = (_wrongSet56[w.lessonId] || 0) + 1;
+  });
+  var _rows56 = [];
+  _completed56.forEach(function(lid) {
+    var _lesson56 = (typeof findLesson === 'function') ? findLesson(lid) : null;
+    if (!_lesson56) return;
+    var _wrongCount56 = _wrongSet56[lid] || 0;
+    var _slides56 = [].concat(_lesson56.slides || [], _lesson56.pool || []);
+    var _qCount56 = _slides56.filter(function(s) { return s.type === 'quiz'; }).length;
+    if (_qCount56 === 0) return;
+    var _mastered56 = Math.max(0, _qCount56 - _wrongCount56);
+    var _pct56 = Math.round((_mastered56 / _qCount56) * 100);
+    _rows56.push({ name: _lesson56.title || lid, pct: _pct56 });
+  });
+  _rows56.sort(function(a, b) { return a.pct - b.pct; });
+  var _show56 = _rows56.slice(0, 6);
+  if (_show56.length === 0) { _wrap56.innerHTML = ''; return; }
+  var _existingBody56 = _wrap56.querySelector('.practice-ls-body');
+  var _isOpen56 = _existingBody56 ? _existingBody56.classList.contains('open') : false;
+  var _rowsHtml56 = _show56.map(function(r) {
+    var _cls56 = r.pct >= 80 ? '' : r.pct >= 50 ? ' ok' : ' poor';
+    var _name56 = r.name.length > 28 ? r.name.slice(0, 25) + '\u2026' : r.name;
+    return '<div class="practice-ls-row">'
+      + '<div class="practice-ls-name">' + _name56 + '</div>'
+      + '<div class="practice-ls-bar-wrap"><div class="practice-ls-bar-fill' + _cls56 + '" style="width:' + r.pct + '%;"></div></div>'
+      + '<div class="practice-ls-pct">' + r.pct + '%</div>'
+      + '</div>';
+  }).join('');
+  _wrap56.innerHTML = '<div class="practice-lesson-stats-panel">'
+    + '<button class="practice-ls-toggle' + (_isOpen56 ? ' open' : '') + '" onclick="(function(btn){'
+    + 'btn.classList.toggle(\'open\');var b=btn.nextElementSibling;b.classList.toggle(\'open\');'
+    + '})(this)" aria-expanded="' + (_isOpen56 ? 'true' : 'false') + '">'
+    + '<span>&#x1F4CA; Lesson Accuracy (' + _show56.length + ' lessons)</span>'
+    + '<span class="practice-ls-arrow">&#9660;</span>'
+    + '</button>'
+    + '<div class="practice-ls-body' + (_isOpen56 ? ' open' : '') + '">'
+    + _rowsHtml56
+    + '</div>'
+    + '</div>';
 }
 
 // ============================================================
@@ -33795,9 +34068,9 @@ function renderProfileTab() {
         <span class="settings-label">Text Size</span>
       </div>
       <div class="chip-group">
-        <div class="chip ${S.text_size === 'normal' || !S.text_size ? 'active' : ''}" onclick="setTextSize('normal')">Normal</div>
-        <div class="chip ${S.text_size === 'large' ? 'active' : ''}" onclick="setTextSize('large')">Large</div>
-        <div class="chip ${S.text_size === 'xl' ? 'active' : ''}" onclick="setTextSize('xl')">XL</div>
+        <div class="chip ${S.text_size === 'normal' || !S.text_size ? 'active' : ''}" onclick="setTextSize(&apos;normal&apos;)">Normal</div>
+        <div class="chip ${S.text_size === 'large' ? 'active' : ''}" onclick="setTextSize(&apos;large&apos;)">Large</div>
+        <div class="chip ${S.text_size === 'xl' ? 'active' : ''}" onclick="setTextSize(&apos;xl&apos;)">XL</div>
       </div>
     </div>
     <div class="settings-row">
@@ -33861,10 +34134,10 @@ function renderProfileTab() {
           <span class="settings-label">Language</span>
         </div>
         <div class="lang-chips">
-          <button class="lang-chip ${(S.lang||'en')==='en'?'lang-chip-active':''}" data-lang="en" onclick="setLanguage('en')">🇬🇧 English</button>
-          <button class="lang-chip ${(S.lang||'')==='es'?'lang-chip-active':''}" data-lang="es" onclick="setLanguage('es')">🇪🇸 Español</button>
-          <button class="lang-chip ${(S.lang||'')==='fr'?'lang-chip-active':''}" data-lang="fr" onclick="setLanguage('fr')">🇫🇷 Français</button>
-          <button class="lang-chip ${(S.lang||'')==='zh'?'lang-chip-active':''}" data-lang="zh" onclick="setLanguage('zh')">🇨🇳 普通话</button>
+          <button class="lang-chip ${(S.lang||'en')==='en'?'lang-chip-active':''}" data-lang="en" onclick="setLanguage(&apos;en&apos;)">🇬🇧 English</button>
+          <button class="lang-chip ${(S.lang||'')==='es'?'lang-chip-active':''}" data-lang="es" onclick="setLanguage(&apos;es&apos;)">🇪🇸 Español</button>
+          <button class="lang-chip ${(S.lang||'')==='fr'?'lang-chip-active':''}" data-lang="fr" onclick="setLanguage(&apos;fr&apos;)">🇫🇷 Français</button>
+          <button class="lang-chip ${(S.lang||'')==='zh'?'lang-chip-active':''}" data-lang="zh" onclick="setLanguage(&apos;zh&apos;)">🇨🇳 普通话</button>
         </div>
       </div>
     </div>
@@ -33889,7 +34162,7 @@ function renderProfileTab() {
         <span class="settings-label">Accent Color</span>
       </div>
       <div class="accent-picker-row">
-<div class="accent-swatch ${(S.accent_color||'#5BC0F8')==='#5BC0F8'?'selected':''}" data-hex="#5BC0F8" style="background:#5BC0F8;" title="Blue" onclick="setAccentColor('#5BC0F8')"></div><div class="accent-swatch ${(S.accent_color||'#5BC0F8')==='#58CC02'?'selected':''}" data-hex="#58CC02" style="background:#58CC02;" title="Green" onclick="setAccentColor('#58CC02')"></div><div class="accent-swatch ${(S.accent_color||'#5BC0F8')==='#a560f8'?'selected':''}" data-hex="#a560f8" style="background:#a560f8;" title="Purple" onclick="setAccentColor('#a560f8')"></div><div class="accent-swatch ${(S.accent_color||'#5BC0F8')==='#f97316'?'selected':''}" data-hex="#f97316" style="background:#f97316;" title="Orange" onclick="setAccentColor('#f97316')"></div><div class="accent-swatch ${(S.accent_color||'#5BC0F8')==='#FF7EB3'?'selected':''}" data-hex="#FF7EB3" style="background:#FF7EB3;" title="Pink" onclick="setAccentColor('#FF7EB3')"></div>
+<div class="accent-swatch ${(S.accent_color||'#5BC0F8')==='#5BC0F8'?'selected':''}" data-hex="#5BC0F8" style="background:#5BC0F8;" title="Blue" onclick="setAccentColor(&apos;#5BC0F8&apos;)"></div><div class="accent-swatch ${(S.accent_color||'#5BC0F8')==='#58CC02'?'selected':''}" data-hex="#58CC02" style="background:#58CC02;" title="Green" onclick="setAccentColor(&apos;#58CC02&apos;)"></div><div class="accent-swatch ${(S.accent_color||'#5BC0F8')==='#a560f8'?'selected':''}" data-hex="#a560f8" style="background:#a560f8;" title="Purple" onclick="setAccentColor(&apos;#a560f8&apos;)"></div><div class="accent-swatch ${(S.accent_color||'#5BC0F8')==='#f97316'?'selected':''}" data-hex="#f97316" style="background:#f97316;" title="Orange" onclick="setAccentColor(&apos;#f97316&apos;)"></div><div class="accent-swatch ${(S.accent_color||'#5BC0F8')==='#FF7EB3'?'selected':''}" data-hex="#FF7EB3" style="background:#FF7EB3;" title="Pink" onclick="setAccentColor(&apos;#FF7EB3&apos;)"></div>
       </div>
     </div>
     <div class="settings-row" style="border-bottom:none;">
@@ -34138,7 +34411,7 @@ function renderProfileTab() {
         const _cu = COURSE.find(c => c.id === uid);
         const _cd = UNIT_CERTS[uid];
         if (!_cu || !_cd) return '';
-        return `<div onclick="viewUnitCertificate('${uid}')" style="display:flex;align-items:center;gap:12px;padding:14px;background:${_cu.color}11;border:2px solid ${_cu.color};border-radius:14px;margin-bottom:10px;cursor:pointer;">
+        return `<div onclick="viewUnitCertificate(&apos;${uid}&apos;)" style="display:flex;align-items:center;gap:12px;padding:14px;background:${_cu.color}11;border:2px solid ${_cu.color};border-radius:14px;margin-bottom:10px;cursor:pointer;">
           <div style="width:40px;height:40px;border-radius:50%;background:${_cu.color};display:flex;align-items:center;justify-content:center;flex-shrink:0;color:white;font-weight:900;font-size:16px;"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='4,13 9,18 20,6'/></svg></span></div>
           <div style="flex:1;"><div style="font-size:14px;font-weight:800;color:var(--text);">${_cd.title}</div><div style="font-size:12px;color:var(--gray4);margin-top:2px;">Unit ${_cu.num} · ${_cd.level}</div></div>
           <div style="font-size:12px;font-weight:800;color:${_cu.color};">View →</div>
@@ -35027,7 +35300,7 @@ function renderProfileTab() {
 
     var _optHtml = _AVATARS.map(function(em, i) {
       return '<button class="avatar-enhance-opt' + (i === _cur ? ' selected' : '') + '" ' +
-        'onclick="profileSetAvatar(' + i + ')" ' +
+        'onclick="profileSetAvatar(&apos; + i + &apos;)" ' +
         'aria-label="Avatar ' + (i + 1) + '" ' +
         'title="Avatar ' + (i + 1) + '">' +
         em +
@@ -35307,7 +35580,7 @@ function renderProfileTab() {
           var _lvlColor = _levelColors[_cd.level] || _col;
           return '<div class="cert-showcase-card" ' +
             'style="border-color:' + _col + ';background:' + _col + '0d;" ' +
-            'onclick="viewUnitCertificate(' + uid + ')">' +
+            'onclick="viewUnitCertificate(&apos; + uid + &apos;)">' +
             '<div style="position:absolute;top:0;right:0;width:80px;height:80px;border-radius:50%;background:' + _col + ';opacity:0.08;transform:translate(30%,-30%);pointer-events:none;"></div>' +
             '<div class="cert-showcase-seal" style="background:' + _col + ';">' +
               '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg>' +
@@ -36174,8 +36447,27 @@ function setReminderTime(timeVal) {
 }
 
 function confirmReset() {
-  if (confirm('Reset all progress? This cannot be undone.')) {
-    const keys = ['xp','streak','streak_date','hearts','completed','premium',
+  // Accessibility fix #18: safe in-app modal replaces bare browser confirm().
+  var _ex18 = document.getElementById('_clari_reset_modal');
+  if (_ex18) _ex18.remove();
+  var _m18 = document.createElement('div');
+  _m18.id = '_clari_reset_modal';
+  _m18.setAttribute('role','alertdialog');
+  _m18.setAttribute('aria-modal','true');
+  _m18.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.65);display:flex;align-items:center;justify-content:center;padding:20px;';
+  _m18.innerHTML =
+    '<div style="background:var(--white,#fff);border-radius:20px;padding:24px;max-width:340px;width:100%;box-shadow:0 8px 40px rgba(0,0,0,0.3);">'
+    + '<div style="font-size:18px;font-weight:900;color:var(--text,#3c3c3c);margin-bottom:8px;">\u26A0\uFE0F Delete all my progress?</div>'
+    + '<div style="font-size:14px;font-weight:600;color:var(--gray4,#777);line-height:1.6;margin-bottom:12px;">This will permanently delete:<ul style="margin:8px 0 0 16px;font-size:13px;"><li>All completed lessons</li><li>Your XP, level, and day streak</li><li>All practice history</li><li>Your notes and saved words</li><li>All achievements earned</li></ul></div>'
+    + '<div style="font-size:13px;font-weight:700;color:#dc2626;background:#fff0f0;border-radius:10px;padding:10px 14px;margin-bottom:20px;">This cannot be undone. You will start from the beginning.</div>'
+    + '<div style="display:flex;flex-direction:column;gap:10px;">'
+    + '<button id="_clari_reset_yes" style="background:#ef4444;color:white;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:800;cursor:pointer;">\ud83d\uddd1\uFE0F Yes, delete everything and start over</button>'
+    + '<button style="background:var(--gray1,#f0f0f0);color:var(--text,#3c3c3c);border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:800;cursor:pointer;" onclick="document.getElementById(\'_clari_reset_modal\').remove();">\u{1F519} No, keep my progress</button>'
+    + '</div></div>';
+  document.body.appendChild(_m18);
+  var _yesBtn = document.getElementById('_clari_reset_yes');
+  if (_yesBtn) _yesBtn.addEventListener('click', function() {
+    var keys = ['xp','streak','streak_date','hearts','completed','premium',
       'user_name','experience','tech_comfort','gems','level','achievements',
       'daily_goal','goal_date','goal_today','avatar','active_days','wrong_answers','mastered_questions',
       'survey_answers','onboarded','text_size','practice_history','practice_best','practice_sessions_week',
@@ -36185,9 +36477,10 @@ function confirmReset() {
       'tts_enabled','tts_rate','earned_certs',
       'clari_tips_seen','clari_streak_celebrated','xp_log','track_collapsed','last_welcome_date',
       'avatar_custom','lesson_log','glossary','best_streak','reminder_enabled','reminder_time'];
-    keys.forEach(k => localStorage.removeItem('clariai_' + k));
+    keys.forEach(function(k) { localStorage.removeItem('clariai_' + k); });
     location.reload();
-  }
+  });
+  setTimeout(function() { var nb = _m18.querySelectorAll('button')[1]; if (nb) nb.focus(); }, 50);
 }
 
 // ============================================================
@@ -36431,7 +36724,7 @@ function showShareWinCard(lessonTitle, xpEarned, wrongCount, totalQuestions, isN
       '<div class="share-card-xp">+' + xpEarned + ' XP earned</div>' +
       '<div class="share-card-url">clari.ai</div>' +
     '</div>' +
-    '<button class="btn btn-blue btn-full" onclick="doShareWin(' + JSON.stringify(shareText) + ')">' + shareLabel + '</button>' +
+    '<button class="btn btn-blue btn-full" onclick="doShareWin(&apos; + JSON.stringify(shareText) + &apos;)">' + shareLabel + '</button>' +
     '<button class="btn btn-ghost btn-full mt8" onclick="closeModal(\'share-win-modal\')">Close</button>' +
     '</div>';
   let modal = document.getElementById('share-win-modal');
@@ -36812,6 +37105,15 @@ function init() {
     setTimeout(() => showToast('Good ' + _timeWord + '!' + _heartsMsg + S.streak + "-day streak <span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><path d='M12 22c5 0 8-3 8-7 0-2.5-1.5-4.5-3-6 .5 2-1 3.5-2 4 .5-2-1-4-3-5.5 0 3-2 4.5-3 7-.5-1-.5-2.5.5-4C7.5 12 5 14.5 5 17c0 3 3 5 7 5z' fill='#f97316'/></svg></span>", 'success', 3500), 800);
   }
 
+  // onboarding-quiz: show tech literacy quiz on very first visit
+  if (!S.onboarding_done) {
+    applyAccessibilityMode(S.accessibility_mode || 'pro');
+    hideMainUI();
+    showOnboardingQuiz();
+    return;
+  }
+  applyAccessibilityMode(S.accessibility_mode || 'pro');
+
   if (S.onboarded) {
     // Show main app
     showMainUI();
@@ -36856,6 +37158,150 @@ function init() {
     document.addEventListener('keydown', _resetIdleTimer, { passive: true });
     _resetIdleTimer();
   })();
+}
+
+// ============================================================
+// ONBOARDING QUIZ  (tech-literacy quiz — shown before first use)
+// ============================================================
+var _oqAnswers = [];
+
+function applyAccessibilityMode(mode) {
+  if (mode === 'simple') {
+    document.body.classList.add('accessibility-simple');
+  } else {
+    document.body.classList.remove('accessibility-simple');
+  }
+}
+
+var _oqQuestions = [
+  {
+    q: "How often do you use a smartphone or tablet?",
+    opts: [
+      { letter: 'A', text: "Every day" },
+      { letter: 'B', text: "A few times a week" },
+      { letter: 'C', text: "Rarely or never" }
+    ]
+  },
+  {
+    q: "Have you used a learning app before? (like Duolingo or Khan Academy)",
+    opts: [
+      { letter: 'A', text: "Yes, I use them regularly" },
+      { letter: 'B', text: "I've tried one or two" },
+      { letter: 'C', text: "Never" }
+    ]
+  },
+  {
+    q: "How comfortable are you with technology?",
+    opts: [
+      { letter: 'A', text: "Very comfortable" },
+      { letter: 'B', text: "A little comfortable" },
+      { letter: 'C', text: "Not comfortable at all" }
+    ]
+  }
+];
+
+function showOnboardingQuiz() {
+  var overlay = document.getElementById('onboarding-quiz-overlay');
+  if (!overlay) return;
+  overlay.classList.add('active');
+  _oqAnswers = [];
+  _oqRenderQuestion(0);
+}
+
+function _oqStepDots(current) {
+  var html = '<div class="oq-step-indicator">';
+  for (var i = 0; i < 3; i++) {
+    var cls = i < current ? 'done' : (i === current ? 'active' : '');
+    html += '<div class="oq-step-dot ' + cls + '"></div>';
+  }
+  return html + '</div>';
+}
+
+function _oqRenderQuestion(idx) {
+  var overlay = document.getElementById('onboarding-quiz-overlay');
+  if (!overlay) return;
+  var q = _oqQuestions[idx];
+  var selectedIdx = (_oqAnswers[idx] !== undefined) ? _oqAnswers[idx] : -1;
+  var optsHtml = '';
+  for (var i = 0; i < q.opts.length; i++) {
+    var opt = q.opts[i];
+    var selClass = (selectedIdx === i) ? ' selected' : '';
+    optsHtml += '<button class="oq-option-btn' + selClass + '" onclick="_oqSelectOption('+idx+','+i+')" aria-pressed="'+(selectedIdx===i?'true':'false')+'">'
+      + '<span class="oq-option-letter">' + opt.letter + '</span>'
+      + opt.text + '</button>';
+  }
+  var nextDisabled = (selectedIdx === -1) ? ' disabled' : '';
+  var nextLabel = (idx < 2) ? 'Next' : 'See my result';
+  overlay.innerHTML = '<div class="oq-card">'
+    + _oqStepDots(idx)
+    + '<div class="oq-question">' + q.q + '</div>'
+    + '<div class="oq-options">' + optsHtml + '</div>'
+    + '<button class="oq-next-btn" id="oq-next-btn"' + nextDisabled + ' onclick="_oqNext('+idx+')">' + nextLabel + '</button>'
+    + '<div class="oq-skip-link" onclick="finishOnboardingQuiz(&apos;pro&apos;)">Skip setup</div>'
+    + '</div>';
+}
+
+function _oqSelectOption(qIdx, optIdx) {
+  _oqAnswers[qIdx] = optIdx;
+  _oqRenderQuestion(qIdx);
+}
+
+function _oqNext(idx) {
+  if (_oqAnswers[idx] === undefined) return;
+  if (idx < 2) {
+    _oqRenderQuestion(idx + 1);
+  } else {
+    var cCount = 0, bOrCCount = 0, aCount = 0;
+    for (var i = 0; i < 3; i++) {
+      var ans = _oqAnswers[i];
+      if (ans === 0) aCount++;
+      else if (ans === 1) bOrCCount++;
+      else { bOrCCount++; cCount++; }
+    }
+    var mode;
+    if (cCount > 0 || bOrCCount >= 2) { mode = 'simple'; }
+    else if (aCount === 3)            { mode = 'pro'; }
+    else                              { mode = 'standard'; }
+    _oqShowResult(mode);
+  }
+}
+
+function _oqShowResult(mode) {
+  var overlay = document.getElementById('onboarding-quiz-overlay');
+  if (!overlay) return;
+  var icon, title, desc;
+  if (mode === 'simple') {
+    icon = '✨';
+    title = "We'll keep it simple!";
+    desc = "We've set up the app with bigger text, larger buttons, and helpful hints everywhere. You've got this!";
+  } else if (mode === 'standard') {
+    icon = String.fromCodePoint(0x1F44D);
+    title = "Great — you're good to go!";
+    desc = "We'll show you helpful tips as you discover new features. Jump right in!";
+  } else {
+    icon = String.fromCodePoint(0x1F680);
+    title = "You're all set, pro!";
+    desc = "Full experience, no hand-holding needed. Let's learn!";
+  }
+  overlay.innerHTML = '<div class="oq-card">'
+    + '<div class="oq-result-icon">' + icon + '</div>'
+    + '<div class="oq-result-title">' + title + '</div>'
+    + '<div class="oq-result-desc">' + desc + '</div>'
+    + '<button class="oq-start-btn" onclick="finishOnboardingQuiz('+mode+')">Start Learning!</button>'
+    + '</div>';
+}
+
+function finishOnboardingQuiz(mode) {
+  save('onboarding_done', true);
+  save('accessibility_mode', mode);
+  applyAccessibilityMode(mode);
+  var overlay = document.getElementById('onboarding-quiz-overlay');
+  if (overlay) { overlay.classList.remove('active'); overlay.innerHTML = ''; }
+  // Hand off to the normal first-time onboarding flow
+  hideMainUI();
+  var mascotEl = document.getElementById('ob-welcome-mascot');
+  if (mascotEl && typeof clariSVG === 'function') mascotEl.innerHTML = clariSVG('waving', 100);
+  if (typeof obShowScreen === 'function') obShowScreen('ob-welcome');
 }
 
 document.addEventListener('DOMContentLoaded', init);
