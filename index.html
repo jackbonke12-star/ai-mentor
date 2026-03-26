@@ -2873,6 +2873,181 @@ body.text-xl     { --text-scale: 1.3; }
   justify-content: center;
 }
 
+/* Practice pause overlay */
+.practice-pause-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.72);
+  border-radius: var(--radius, 12px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  z-index: 50;
+  animation: fadeIn 0.18s ease;
+}
+.practice-pause-overlay .pause-time {
+  font-size: 28px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 1px;
+}
+.practice-pause-overlay .pause-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.7);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: -8px;
+}
+.practice-pause-overlay .btn-resume {
+  background: var(--green2, #58cc02);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 32px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #3a8f00;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.practice-pause-overlay .btn-resume:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #3a8f00;
+}
+/* Pause button in timed footer */
+.practice-pause-btn {
+  background: transparent;
+  border: 2px solid var(--gray3, #e5e7eb);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--gray4, #6b7280);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.practice-pause-btn:hover { background: var(--gray1, #f9fafb); }
+
+/* Practice session share card */
+.practice-share-card {
+  margin: 12px 0 4px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #f0fdf4 0%, #e0f9ff 100%);
+  border-radius: var(--radius, 12px);
+  border: 2px solid #bbf7d0;
+  text-align: center;
+}
+.practice-share-card-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text, #111);
+  margin-bottom: 8px;
+}
+.practice-share-card-report {
+  font-size: 13px;
+  font-weight: 600;
+  color: #065f46;
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  text-align: left;
+  line-height: 1.5;
+  border: 1px solid #bbf7d0;
+  word-break: break-word;
+}
+.btn-share-progress {
+  background: #0ea5e9;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #0369a1;
+  transition: transform 0.1s, box-shadow 0.1s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  justify-content: center;
+}
+.btn-share-progress:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #0369a1;
+}
+
+/* Practice Weak Topics heatmap */
+.practice-weak-heatmap {
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  background: var(--white);
+  border-radius: var(--radius, 12px);
+  border: 2px solid var(--gray2, #e5e7eb);
+}
+.practice-weak-heatmap-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text, #111);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.practice-weak-heatmap-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.practice-weak-heatmap-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.practice-weak-heatmap-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gray5, #374151);
+  min-width: 60px;
+  flex-shrink: 0;
+}
+.practice-weak-heatmap-bar-track {
+  flex: 1;
+  height: 8px;
+  background: var(--gray2, #e5e7eb);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.practice-weak-heatmap-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #f97316, #ef4444);
+  transition: width 0.4s ease;
+}
+.practice-weak-heatmap-count {
+  font-size: 11px;
+  font-weight: 800;
+  color: #ef4444;
+  min-width: 52px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.practice-weak-heatmap-empty {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray4, #6b7280);
+  text-align: center;
+  padding: 6px 0;
+}
+
 /* Practice Personal Bests card */
 .practice-pb-card {
   margin: 0 0 14px; padding: 12px 14px;
@@ -3748,6 +3923,36 @@ body.text-xl     { --text-scale: 1.3; }
 }
 @media (pointer: coarse) { .kbd-hint { display: none; } }
 .quiz-option.kb-focus { border-color: var(--clari-blue); background: var(--bg-hover); outline: 2px solid var(--clari-blue); outline-offset: 1px; }
+/* Practice keyboard hint bar */
+.practice-kb-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gray4, #6b7280);
+  margin-top: 10px;
+  padding: 5px 10px;
+  background: var(--gray1, #f9fafb);
+  border-radius: 6px;
+  border: 1px solid var(--gray2, #e5e7eb);
+  letter-spacing: 0.3px;
+}
+.practice-kb-hint kbd {
+  display: inline-block;
+  padding: 1px 5px;
+  border: 1px solid var(--gray3, #d1d5db);
+  border-radius: 4px;
+  background: #fff;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--text, #111);
+  box-shadow: 0 1px 0 var(--gray3, #d1d5db);
+  line-height: 1.4;
+}
+.practice-kb-hint .kb-sep { color: var(--gray3, #d1d5db); }
 
 /* ============================================================
    UTILS
@@ -4682,6 +4887,7 @@ body.text-xl     { --text-scale: 1.3; }
           Focus Mode
         </button>
       </div>
+      <div id="practice-weak-heatmap"></div>
       <div id="practice-records-row"></div>
       <div id="practice-recent-sessions-wrap"></div>
       <div id="practice-diff-selector" role="dialog" aria-modal="true" aria-label="Choose difficulty">
@@ -13781,16 +13987,7 @@ function generateUnitCertificateHTML(unitId, userName) {
 </head><body><div class="cert">
   <div class="cert-header"><div class="cert-logo">ClariAI · Your Friendly AI Guide</div><div class="cert-title">${certDef.title}</div><div class="cert-subtitle">Unit ${unit.num} Certificate of Completion</div></div>
   <div class="cert-body"><div class="cert-seal"><div class="cert-seal-check"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='4,13 9,18 20,6'/></svg></span></div></div><div class="cert-issued">This certifies that</div><div class="cert-name">${userName || 'Learner'}</div><div class="cert-level">${certDef.level}</div><div class="cert-desc">${certDef.description}</div><div class="cert-footer"><div class="cert-date">Issued ${dateStr}</div><div class="cert-id">ID: ${certId}</div></div></div>
-</div><script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('./sw.js')
-      .then(function(r) { console.log('SW registered', r.scope); })
-      .catch(function(e) { console.log('SW error', e); });
-  });
-}
-</script>
-</body></html>`;
+</div></body></html>`;
 }
 
 function viewUnitCertificate(unitId) {
@@ -21335,6 +21532,7 @@ function doCloseLesson() {
   if (lessonState.timedInterval) clearInterval(lessonState.timedInterval);
   if (lessonState.qfTimerInterval) clearInterval(lessonState.qfTimerInterval);
   if (lessonState.lessonTimerInterval) clearInterval(lessonState.lessonTimerInterval);
+  _teardownPracticeKeyboardShortcuts();
   showMainUI();
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   if (lessonState.practiceMode) {
@@ -23743,6 +23941,7 @@ function renderPracticeTab() {
   renderPracticeStreakPill();
   renderWrongCountBadge();
   renderPracticeRecords();
+  renderPracticeWeakHeatmap();
   renderPracticeRecentSessions();
   // Daily goal bar
   (function() {
@@ -23842,6 +24041,51 @@ function renderPracticeTab() {
       <span class="practice-history-score">${h.score}/${h.total}</span>
     </div>`
   ).join('') + (history.length > 10 ? `<button class="btn btn-ghost btn-sm" style="margin-top:8px;width:100%;" onclick="(function(btn){var el=btn.closest('#practice-history-list')||btn.parentElement.parentElement;el.dataset.showAll=el.dataset.showAll==='true'?'false':'true';renderPracticeHistory&&renderPracticeHistory();})(this)">${_showAll ? 'Show less' : 'Show all (' + history.length + ')'}</button>` : '');
+}
+
+function renderPracticeWeakHeatmap() {
+  var _el = document.getElementById('practice-weak-heatmap');
+  if (!_el) return;
+  var _wrong = S.wrong_answers || [];
+  if (_wrong.length === 0) {
+    _el.innerHTML = '<div class="practice-weak-heatmap">'
+      + '<div class="practice-weak-heatmap-title">'
+      + '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>'
+      + 'Weak Topics</div>'
+      + '<div class="practice-weak-heatmap-empty">No weak spots yet! 🎯</div>'
+      + '</div>';
+    return;
+  }
+  // Group by unit: lessonId like "u1l2" -> "Unit 1"
+  var _unitCounts = {};
+  _wrong.forEach(function(wa) {
+    var _lid = wa.lessonId || '';
+    var _match = _lid.match(/^u(\d+)/i);
+    var _unitKey = _match ? 'Unit ' + _match[1] : 'Other';
+    _unitCounts[_unitKey] = (_unitCounts[_unitKey] || 0) + 1;
+  });
+  // Sort descending by count
+  var _entries = Object.keys(_unitCounts).map(function(k) {
+    return { label: k, count: _unitCounts[k] };
+  }).sort(function(a, b) { return b.count - a.count; });
+  var _maxCount = _entries[0].count;
+  var _rowsHtml = _entries.map(function(entry) {
+    var _pct = _maxCount > 0 ? Math.round((entry.count / _maxCount) * 100) : 0;
+    var _plural = entry.count === 1 ? 'wrong' : 'wrong';
+    return '<div class="practice-weak-heatmap-row">'
+      + '<div class="practice-weak-heatmap-label">' + entry.label + '</div>'
+      + '<div class="practice-weak-heatmap-bar-track">'
+      + '<div class="practice-weak-heatmap-bar-fill" style="width:' + _pct + '%"></div>'
+      + '</div>'
+      + '<div class="practice-weak-heatmap-count">' + entry.count + ' ' + _plural + '</div>'
+      + '</div>';
+  }).join('');
+  _el.innerHTML = '<div class="practice-weak-heatmap">'
+    + '<div class="practice-weak-heatmap-title">'
+    + '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>'
+    + 'Weak Topics</div>'
+    + '<div class="practice-weak-heatmap-list">' + _rowsHtml + '</div>'
+    + '</div>';
 }
 
 function _buildSparklineSVG(values, w, h) {
@@ -23966,10 +24210,10 @@ function renderPracticeRecentSessions() {
   _wrap.innerHTML =
     '<div class="practice-recent-sessions">' +
       '<button class="practice-recent-toggle" onclick="(function(btn){' +
-        'var body=btn.closest('.practice-recent-sessions').querySelector('.practice-recent-body');' +
-        'var chev=btn.querySelector('.practice-recent-toggle-chevron');' +
-        'var open=body.classList.toggle('open');' +
-        'if(chev){if(open)chev.classList.add('open');else chev.classList.remove('open');}' +
+        'var body=btn.closest(\".practice-recent-sessions\").querySelector(\".practice-recent-body\");' +
+        'var chev=btn.querySelector(\".practice-recent-toggle-chevron\");' +
+        'var open=body.classList.toggle("open");' +
+        'if(chev){if(open)chev.classList.add("open");else chev.classList.remove("open");}' +
       '})(this)" aria-expanded="' + (_isOpen ? 'true' : 'false') + '">' +
         'Recent Sessions' +
         '<span class="practice-recent-toggle-chevron' + (_isOpen ? ' open' : '') + '">▾</span>' +
@@ -24255,6 +24499,7 @@ function startPractice(type, difficulty) {
     practiceWrong: [],
     timedInterval: null,
     timedSeconds: 60,
+    practicePaused: false,
     matchSelected: null,
     matchLeftDone: new Set(),
     matchRightDone: new Set(),
@@ -24301,6 +24546,125 @@ function startTimedBar() {
   }, 1000);
 }
 
+var _practiceKbHandler = null;
+
+function _setupPracticeKeyboardShortcuts() {
+  _teardownPracticeKeyboardShortcuts();
+  if ('ontouchstart' in window) return; // skip on touch devices
+  lessonState.inPractice = true;
+  lessonState._kbFocusIdx = -1;
+  _practiceKbHandler = function(e) {
+    if (!lessonState || !lessonState.inPractice) { _teardownPracticeKeyboardShortcuts(); return; }
+    if (lessonState.practicePaused) return;
+    var _opts = document.querySelectorAll('.quiz-options .quiz-option');
+    if (!_opts.length) return;
+    // 1-4 keys: highlight the corresponding option
+    if (e.key >= '1' && e.key <= '4') {
+      var _numIdx = parseInt(e.key) - 1;
+      if (_numIdx >= _opts.length) return;
+      e.preventDefault();
+      // Toggle kb-focus highlight
+      _opts.forEach(function(o, i) { o.classList.toggle('kb-focus', i === _numIdx); });
+      lessonState._kbFocusIdx = _numIdx;
+      // Auto-confirm after short delay if not already answered
+      if (!lessonState.slideAnswered) {
+        setTimeout(function() {
+          if (!lessonState.slideAnswered && lessonState._kbFocusIdx === _numIdx) {
+            _opts.forEach(function(o) { o.classList.remove('kb-focus'); });
+            lessonState._kbFocusIdx = -1;
+            var _opt = document.querySelector('.quiz-options .quiz-option[data-idx="' + _numIdx + '"]');
+            if (_opt) _opt.click();
+          }
+        }, 200);
+      }
+    }
+    // Space / Enter: confirm currently focused option
+    if ((e.key === ' ' || e.key === 'Enter') && lessonState._kbFocusIdx >= 0 && !lessonState.slideAnswered) {
+      e.preventDefault();
+      var _fi = lessonState._kbFocusIdx;
+      _opts.forEach(function(o) { o.classList.remove('kb-focus'); });
+      lessonState._kbFocusIdx = -1;
+      var _opt2 = document.querySelector('.quiz-options .quiz-option[data-idx="' + _fi + '"]');
+      if (_opt2) _opt2.click();
+    }
+    // Enter on next-btn after answering
+    if (e.key === 'Enter' && lessonState.slideAnswered) {
+      var _nxt = document.getElementById('lesson-next-btn');
+      if (_nxt && !_nxt.disabled) { e.preventDefault(); _nxt.click(); }
+    }
+  };
+  document.addEventListener('keydown', _practiceKbHandler);
+}
+
+function _teardownPracticeKeyboardShortcuts() {
+  if (_practiceKbHandler) {
+    document.removeEventListener('keydown', _practiceKbHandler);
+    _practiceKbHandler = null;
+  }
+  if (typeof lessonState !== 'undefined' && lessonState) {
+    lessonState.inPractice = false;
+    lessonState._kbFocusIdx = -1;
+  }
+}
+
+function pausePractice() {
+  if (!lessonState || !lessonState.practiceType === 'timed') return;
+  if (lessonState.practicePaused) return;
+  lessonState.practicePaused = true;
+  if (lessonState.timedInterval) {
+    clearInterval(lessonState.timedInterval);
+    lessonState.timedInterval = null;
+  }
+  // Inject overlay into lesson-content wrapper
+  var _contentEl = document.getElementById('lesson-content');
+  if (!_contentEl) return;
+  // Make parent relative for absolute overlay positioning
+  _contentEl.style.position = 'relative';
+  var _overlay = document.createElement('div');
+  _overlay.className = 'practice-pause-overlay';
+  _overlay.id = 'practice-pause-overlay';
+  var _secs = lessonState.timedSeconds || 0;
+  _overlay.innerHTML = '<div class="pause-label">Paused</div>'
+    + '<div class="pause-time">' + _secs + 's remaining</div>'
+    + '<button class="btn-resume" onclick="resumePractice()">&#9654; Resume</button>';
+  _contentEl.appendChild(_overlay);
+  // Update pause button label
+  var _pbtn = document.getElementById('practice-pause-btn');
+  if (_pbtn) _pbtn.textContent = '⏵ Resume';
+}
+
+function resumePractice() {
+  if (!lessonState || !lessonState.practicePaused) return;
+  lessonState.practicePaused = false;
+  // Remove overlay
+  var _overlay = document.getElementById('practice-pause-overlay');
+  if (_overlay) _overlay.remove();
+  // Restart interval
+  lessonState.timedInterval = setInterval(function() {
+    lessonState.timedSeconds--;
+    var _tPct = (lessonState.timedSeconds / 60) * 100;
+    var _tCirc = 138.23;
+    var _tFill = document.getElementById('timed-ring-fill');
+    var _tLabel = document.getElementById('timed-ring-label');
+    if (_tFill) {
+      _tFill.setAttribute('stroke-dashoffset', String(_tCirc * (1 - _tPct / 100)));
+      _tFill.setAttribute('stroke',
+        lessonState.timedSeconds <= 5 ? '#ef4444' :
+        lessonState.timedSeconds <= 10 ? '#f97316' : '#58cc02');
+    }
+    if (_tLabel) _tLabel.textContent = String(lessonState.timedSeconds);
+    var bar = document.getElementById('timed-bar');
+    if (bar) bar.style.width = _tPct + '%';
+    if (lessonState.timedSeconds <= 0) {
+      clearInterval(lessonState.timedInterval);
+      finishPractice();
+    }
+  }, 1000);
+  // Restore pause button label
+  var _pbtn = document.getElementById('practice-pause-btn');
+  if (_pbtn) _pbtn.textContent = '⏸ Pause';
+}
+
 function renderPracticeQuestion() {
   const q = lessonState.practiceQuestions[lessonState.practiceIdx];
   const total = lessonState.practiceQuestions.length;
@@ -24309,18 +24673,23 @@ function renderPracticeQuestion() {
   document.getElementById('lesson-progress-bar').style.width = ((idx / total) * 100) + '%';
   document.getElementById('lesson-hearts').innerHTML = renderHearts(lessonState.hearts, 5);
   lessonState.slideAnswered = false;
+  lessonState.inPractice = true;
+  lessonState._kbFocusIdx = -1;
+  _setupPracticeKeyboardShortcuts();
 
   const _qCorrect = q.correct != null ? q.correct : (q.answer != null ? q.answer : 0);
   const opts = q.options.map((o, i) =>
     `<button class="quiz-option" data-idx="${i}" onclick="selectPracticeOption(this,${i},${_qCorrect})">${o}</button>`
   ).join('');
 
+  var _kbHintHtml = 'ontouchstart' in window ? '' :
+    '<div class="practice-kb-hint"><kbd>1</kbd><span class="kb-sep">&ndash;</span><kbd>4</kbd> to answer &nbsp;&bull;&nbsp; <kbd>Enter</kbd> to confirm</div>';
   document.getElementById('lesson-content').innerHTML = `
     <div style="font-size:12px;font-weight:800;color:var(--gray4);margin-bottom:12px;">Question ${idx+1} of ${total}</div>
     <div class="slide-mascot-wrap" style="margin-bottom:8px;">${clariSVG('think', 60)}</div>
     <div class="slide-quiz-title">${q.question}</div>
     <div class="quiz-options">${opts}</div>
-    <div id="quiz-feedback"></div>`;
+    <div id="quiz-feedback"></div>` + _kbHintHtml;
 
   document.getElementById('lesson-footer').innerHTML =
     `<button class="btn btn-green btn-full" id="lesson-next-btn" onclick="nextPracticeQuestion()" disabled>Next</button>`;
@@ -24343,7 +24712,18 @@ function renderPracticeQuestion() {
       '</div>' +
     '</div>';
     var footer = document.getElementById('lesson-footer');
-    footer.innerHTML = _ringHtml + footer.innerHTML;
+    // Capture the Next button HTML before overwriting footer
+    var _nextBtnOuter = footer.innerHTML;
+    var _pauseBtnHtml = '<button id="practice-pause-btn" class="practice-pause-btn" onclick="lessonState.practicePaused ? resumePractice() : pausePractice()">'
+      + '&#9208; Pause</button>';
+    footer.innerHTML = '<div style="display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap;">'
+      + _ringHtml
+      + _pauseBtnHtml
+      + '</div>'
+      + _nextBtnOuter;
+    // Re-disable the next button
+    var _nxtBtn = document.getElementById('lesson-next-btn');
+    if (_nxtBtn) _nxtBtn.disabled = true;
   }
 }
 
@@ -24575,6 +24955,29 @@ function challengeFriend() {
   }
 }
 
+function shareSessionProgress() {
+  var _score = (lessonState && lessonState.practiceScore != null) ? lessonState.practiceScore : 0;
+  var _total = (lessonState && lessonState.practiceQuestions) ? lessonState.practiceQuestions.length : 0;
+  var _pct   = _total > 0 ? Math.round((_score / _total) * 100) : 0;
+  var _typeMap = { quick: 'Quick Review', timed: 'Timed Challenge', weak: 'Weak Areas', review: 'Spaced Review', wrong: 'Mistake Review' };
+  var _typeName = _typeMap[(lessonState && lessonState.practiceType) || ''] || 'Practice';
+  var _dateStr = (typeof todayStr === 'function') ? todayStr() : new Date().toLocaleDateString();
+  var _mood = _pct === 100 ? 'Perfect score!' : _pct >= 80 ? 'Improving steadily!' : _pct >= 60 ? 'Getting better!' : 'Every try counts!';
+  var _report = '📊 Practice Report: ' + _typeName + ' — ' + _score + '/' + _total
+    + ' correct (' + _pct + '%) on ' + _dateStr + '. ' + _mood + ' #AILearning';
+  if (navigator.share) {
+    navigator.share({ title: 'My AI Mentor Practice Report', text: _report })
+      .catch(function() {});
+  } else {
+    try {
+      navigator.clipboard.writeText(_report);
+      showToast('Progress report copied to clipboard! 📋', 'success', 2500);
+    } catch(e) {
+      showToast(_report, 'info', 5000);
+    }
+  }
+}
+
 function finishPractice() {
   const total = lessonState.practiceQuestions.length;
   const score = lessonState.practiceScore;
@@ -24738,6 +25141,8 @@ function finishPractice() {
     _reviewBtn
     + `<button class="btn btn-blue btn-full" style="margin-bottom:10px;" onclick="doCloseLesson();setTimeout(()=>startPractice('${_practiceAgainType}'),80);">Practice Again</button>`
     + `<button class="btn btn-ghost btn-full" style="margin-bottom:10px;border:2px solid var(--gray3);font-weight:800;" onclick="challengeFriend()">🤝 Challenge a Friend</button>`
+    + `<button class="btn-share-progress" onclick="shareSessionProgress()">📤 Share Progress</button>`
+    + `<div style="margin-bottom:10px;"></div>`
     + `<button class="btn btn-green btn-full" onclick="doCloseLesson()">Back to Practice →</button>`;
 }
 
@@ -26724,5 +27129,14 @@ document.addEventListener('DOMContentLoaded', init);
 })();
 </script>
 
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js')
+      .then(function(r) { console.log('SW registered', r.scope); })
+      .catch(function(e) { console.log('SW error', e); });
+  });
+}
+</script>
 </body>
 </html>
