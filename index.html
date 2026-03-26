@@ -1792,6 +1792,54 @@ mark.search-hl {
 :root[data-theme="dark"] .lesson-rt-chip.rt-short  { background: #0d2b1c; color: #4ade80; border-color: #166534; }
 :root[data-theme="dark"] .lesson-rt-chip.rt-medium { background: #0d1f38; color: #93c5fd; border-color: #1e40af; }
 :root[data-theme="dark"] .lesson-rt-chip.rt-long   { background: #2a1a07; color: #fbbf24; border-color: #92400e; }
+/* learn-42: related lessons in preview modal */
+.lpm-related-section {
+  border-top: 1.5px solid var(--gray2);
+  margin-top: 12px;
+  padding-top: 10px;
+}
+.lpm-related-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gray3);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 7px;
+}
+.lpm-related-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 9px;
+  border-radius: 10px;
+  border: 1.5px solid var(--gray2);
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: background 0.14s;
+  background: var(--bg);
+}
+.lpm-related-card:hover { background: var(--bg-hover, #f0faff); }
+.lpm-related-card-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.lpm-related-card-title {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lpm-related-card-meta {
+  font-size: 11px;
+  color: var(--gray3);
+  flex-shrink: 0;
+}
 /* ============================================================
    learn-33: Lesson preview modal
    ============================================================ */
@@ -2006,6 +2054,113 @@ mark.search-hl {
 }
 :root[data-theme="dark"] .learn-tag-pill-filter { background: var(--gray2); color: var(--gray3); border-color: var(--gray3); }
 :root[data-theme="dark"] .learn-tag-pill-filter.active { background: var(--clari-blue); color: #fff; border-color: var(--clari-blue); }
+/* learn-40: lesson favourites (heart button) */
+.lesson-fav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 4px 5px;
+  color: var(--gray3);
+  transition: color 0.18s, transform 0.18s;
+  flex-shrink: 0;
+}
+.lesson-fav-btn.active {
+  color: #ff4d7e;
+  transform: scale(1.22);
+}
+.lesson-fav-btn:hover { color: #ff4d7e; }
+.favorites-strip-wrap {
+  margin: 0 12px 10px;
+  background: var(--white);
+  border-radius: 14px;
+  border: 1.5px solid #ffe0ec;
+  padding: 8px 10px 6px;
+  box-shadow: var(--shadow);
+}
+.favorites-strip-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #ff4d7e;
+  margin-bottom: 5px;
+  letter-spacing: 0.03em;
+}
+.favorites-strip { display: flex; gap: 6px; flex-wrap: wrap; }
+.favorite-chip {
+  background: #fff0f5;
+  border: 1.5px solid #ffb3cc;
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #c7185a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: background 0.15s;
+}
+.favorite-chip:hover { background: #ffe0ec; }
+.favorite-chip-heart { color: #ff4d7e; font-size: 13px; }
+
+/* learn-40: end */
+
+/* learn-41: lesson history panel */
+.lesson-history-section {
+  margin: 0 12px 10px;
+  background: var(--white);
+  border-radius: 14px;
+  border: 1.5px solid var(--gray2);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.lesson-history-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  background: var(--gray1);
+}
+.lesson-history-header:hover { background: var(--gray2); }
+.lesson-history-toggle-arrow {
+  margin-left: auto;
+  font-size: 11px;
+  opacity: 0.5;
+  transition: transform 0.2s;
+}
+.lesson-history-toggle-arrow.open { transform: rotate(180deg); }
+.lesson-history-list {
+  display: none;
+  padding: 6px 0;
+}
+.lesson-history-list.open { display: block; }
+.lesson-history-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.13s;
+  font-size: 13px;
+}
+.lesson-history-row:hover { background: var(--bg-hover, #f0faff); }
+.lesson-history-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--clari-blue);
+  flex-shrink: 0;
+}
+.lesson-history-title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lesson-history-when { font-size: 11px; color: var(--gray3); flex-shrink: 0; }
+.lesson-history-done-tick { color: var(--green); font-size: 12px; flex-shrink: 0; }
+
 /* ============================================================
    learn-39: Study time total chip
    ============================================================ */
@@ -8518,6 +8673,204 @@ mark.search-hl {
 .diff-chip.dc-bookmarks { border-color: var(--yellow); }
 .diff-chip.dc-bookmarks.active { background: var(--yellow); color: #fff; border-color: var(--yellow); }
 :root[data-theme='dark'] .diff-chip.dc-bookmarks.active { color: #1a1a1a; }
+/* learn-47: unit header progress ring complete state */
+.unit-progress-ring.ring-complete svg circle:last-child {
+  stroke: #ffc800 !important;
+  filter: drop-shadow(0 0 4px rgba(255,200,0,0.5));
+}
+.unit-progress-ring.ring-complete .unit-progress-ring-pct {
+  fill: #d48000 !important;
+  font-weight: 900;
+}
+.unit-header.unit-all-done {
+  background: linear-gradient(135deg, rgba(255,200,0,0.07) 0%, transparent 70%);
+  border-left: 3px solid #ffc800;
+  border-radius: 14px 14px 0 0;
+}
+.unit-all-done-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #d48000;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* learn-46: recently added lessons section */
+@keyframes newBadgePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,100,0,0.45); }
+  50%       { box-shadow: 0 0 0 5px rgba(255,100,0,0); }
+}
+.lc-new-badge {
+  animation: newBadgePulse 1.8s ease-in-out infinite;
+}
+.recently-added-section {
+  margin: 0 12px 10px;
+  background: var(--white);
+  border-radius: 14px;
+  border: 1.5px solid var(--gray2);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.recently-added-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: var(--gray1);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  cursor: pointer;
+  user-select: none;
+}
+.recently-added-header:hover { background: var(--gray2); }
+.recently-added-arrow {
+  margin-left: auto;
+  font-size: 11px;
+  opacity: 0.5;
+  transition: transform 0.2s;
+}
+.recently-added-arrow.open { transform: rotate(180deg); }
+.recently-added-list { display: none; padding: 4px 0; }
+.recently-added-list.open { display: block; }
+.recently-added-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.13s;
+}
+.recently-added-row:hover { background: var(--bg-hover, #f0faff); }
+.recently-added-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.recently-added-title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.recently-added-unit-label { font-size: 11px; color: var(--gray3); flex-shrink: 0; }
+
+/* learn-45: inline note quick-view on lesson cards */
+.lesson-note-quick-row {
+  display: none;
+  padding: 6px 12px 8px 44px;
+  background: #fffde7;
+  border-left: 3px solid #ffd600;
+  font-size: 12px;
+  color: #5a4800;
+  line-height: 1.5;
+}
+.lesson-note-quick-row.open { display: block; }
+.lesson-note-quick-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #bfa000;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+:root[data-theme="dark"] .lesson-note-quick-row {
+  background: #2a2600;
+  border-color: #ffd600;
+  color: #e8d88a;
+}
+:root[data-theme="dark"] .lesson-note-quick-label { color: #ffd600; }
+.lesson-note-indicator {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 4px;
+  border-radius: 6px;
+  transition: background 0.14s;
+}
+.lesson-note-indicator:hover { background: rgba(255,214,0,0.18); }
+.lesson-note-indicator .note-tooltip { display: none !important; }
+
+/* learn-44: unit completion certificate modal */
+#unit-cert-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.55);
+  padding: 20px;
+}
+#unit-cert-modal.open { display: flex; }
+.unit-cert-sheet {
+  background: var(--white);
+  border-radius: 20px;
+  max-width: 340px;
+  width: 100%;
+  padding: 28px 24px 22px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+  border: 3px solid var(--yellow, #ffc800);
+  animation: certSlideIn 0.35s cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+@keyframes certSlideIn {
+  from { opacity: 0; transform: scale(0.7) translateY(30px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.unit-cert-ribbon {
+  font-size: 48px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.unit-cert-title {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.unit-cert-sub {
+  font-size: 14px;
+  color: var(--gray4);
+  margin-bottom: 14px;
+}
+.unit-cert-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #ffc800 0%, #ff8800 100%);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 5px 18px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 8px rgba(255,136,0,0.3);
+}
+.unit-cert-unit-name {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--clari-blue);
+  margin-bottom: 16px;
+}
+.unit-cert-close-btn {
+  background: var(--clari-blue);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 11px 32px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  transition: opacity 0.15s;
+}
+.unit-cert-close-btn:hover { opacity: 0.88; }
+
+/* learn-43: sort completed-last option style */
+.learn-sort-select option[value="completed-last"] {
+  font-style: italic;
+}
+
 /* learn-09: quick filter chip */
 .diff-chip.dc-quick { border-color: var(--clari-blue); }
 .diff-chip.dc-quick.active { background: var(--clari-blue); color: #fff; border-color: var(--clari-dark); }
@@ -18401,6 +18754,9 @@ function loadState() {
     lesson_log_dates: {},  // learn-14: lessonId -> completion timestamp (ms)
     last_lesson_opened: null,  // learn-34: last lesson id the user tapped
     pinned_lessons: [],         // learn-37: array of pinned lesson ids
+    lesson_favorites: [],        // learn-40: array of favourite lesson ids
+    cert_shown: {},              // learn-44: units for which certificate was shown
+    lesson_history: [],         // learn-41: [{id, ts}] recent lesson opens
     onboarding_done: false,      // onboarding-quiz: has user completed the tech literacy quiz
     accessibility_mode: 'pro'    // onboarding-quiz: 'pro' | 'standard' | 'simple'
   };
@@ -20965,6 +21321,43 @@ function togglePinLesson(lessonId) {
   renderLearnTab();
 }
 
+// learn-41: lesson history helpers
+var _historyPanelOpen = false;
+
+function recordLessonHistory(lessonId) {
+  var _hist = (S.lesson_history || []).slice();
+  // Remove existing entry for this lesson
+  _hist = _hist.filter(function(e) { return e.id !== lessonId; });
+  _hist.unshift({ id: lessonId, ts: Date.now() });
+  // Keep max 50 entries
+  if (_hist.length > 50) _hist = _hist.slice(0, 50);
+  save('lesson_history', _hist);
+}
+
+function toggleHistoryPanel() {
+  _historyPanelOpen = !_historyPanelOpen;
+  var list = document.getElementById('lesson-history-list');
+  var arrow = document.getElementById('lesson-history-arrow');
+  if (list) list.classList.toggle('open', _historyPanelOpen);
+  if (arrow) arrow.classList.toggle('open', _historyPanelOpen);
+}
+
+// learn-40: toggle favourite lesson
+function toggleFavoriteLesson(lessonId, evt) {
+  if (evt) evt.stopPropagation();
+  var _favs = (S.lesson_favorites || []).slice();
+  var _fi = _favs.indexOf(lessonId);
+  if (_fi > -1) {
+    _favs.splice(_fi, 1);
+    showToast('Removed from favourites', 'info', 1600);
+  } else {
+    _favs.push(lessonId);
+    showToast('♥ Added to favourites', 'success', 1600);
+  }
+  save('lesson_favorites', _favs);
+  renderLearnTab();
+}
+
 // learn-34: Continue Where You Left Off banner
 var _cwylofDismissed = false;
 
@@ -21114,6 +21507,83 @@ function renderLearnTab() {
       html += '<div class="bookmarks-strip-wrap"><div class="bookmarks-strip-label">&#9733; Saved Lessons</div><div class="bookmarks-strip">' + _chips + '</div></div>';
     }
   }
+
+  // learn-40: Favourites strip
+  (function() {
+    var _favIds = S.lesson_favorites || [];
+    if (_favIds.length === 0) return;
+    var _favItems = [];
+    for (var _fui = 0; _fui < COURSE.length; _fui++) {
+      for (var _fli = 0; _fli < COURSE[_fui].lessons.length; _fli++) {
+        var _fl = COURSE[_fui].lessons[_fli];
+        if (_favIds.indexOf(_fl.id) > -1) _favItems.push({lesson:_fl,unit:COURSE[_fui]});
+      }
+    }
+    if (_favItems.length === 0) return;
+    var _fchips = _favItems.map(function(it) {
+      var _lk = !it.lesson.free && !S.premium;
+      var _oc = _lk ? 'openPremiumModal()' : "startLesson('" + it.lesson.id + "')";
+      return '<div class="favorite-chip" onclick="' + _oc + '">'
+        + '<span class="favorite-chip-heart">♥</span>' + escHtml(it.lesson.title)
+        + '<span style="margin-left:4px;font-size:10px;opacity:0.6;" onclick="toggleFavoriteLesson(\'' + it.lesson.id + '\',event)">×</span>'
+        + '</div>';
+    }).join('');
+    html += '<div class="favorites-strip-wrap"><div class="favorites-strip-label">♥ Favourites</div><div class="favorites-strip">' + _fchips + '</div></div>';
+  })();
+
+  // learn-41: Recent history panel
+  (function() {
+    var _hist41 = (S.lesson_history || []).filter(function(e) {
+      return (Date.now() - e.ts) < 7 * 24 * 60 * 60 * 1000;
+    }).slice(0, 10);
+    if (_hist41.length === 0) return;
+    var _rows41 = _hist41.map(function(e) {
+      var _les = findLesson(e.id);
+      if (!_les) return '';
+      var _done41 = S.completed.includes(e.id);
+      var _daysAgo = Math.floor((Date.now() - e.ts) / 86400000);
+      var _when41 = _daysAgo === 0 ? 'Today' : _daysAgo === 1 ? 'Yesterday' : _daysAgo + 'd ago';
+      var _lk41 = !_les.free && !S.premium;
+      var _oc41 = _lk41 ? 'openPremiumModal()' : "startLesson('" + e.id + "')";
+      return '<div class="lesson-history-row" onclick="' + _oc41 + '">'
+        + '<div class="lesson-history-dot"></div>'
+        + '<span class="lesson-history-title">' + escHtml(_les.title) + '</span>'
+        + (_done41 ? '<span class="lesson-history-done-tick">✓</span>' : '')
+        + '<span class="lesson-history-when">' + _when41 + '</span>'
+        + '</div>';
+    }).join('');
+    if (!_rows41.trim()) return;
+    html += '<div class="lesson-history-section">'
+      + '<div class="lesson-history-header" onclick="toggleHistoryPanel()">'
+      + '📋 Recent (' + _hist41.length + ')'
+      + '<span class="lesson-history-toggle-arrow" id="lesson-history-arrow">▼</span>'
+      + '</div>'
+      + '<div class="lesson-history-list" id="lesson-history-list">' + _rows41 + '</div>'
+      + '</div>';
+  })();
+
+  // learn-46: Recently Added panel
+  (function() {
+    var _ra46 = getRecentlyAddedLessons(5);
+    if (_ra46.length === 0) return;
+    var _raRows = _ra46.map(function(it46) {
+      var _lk46 = !it46.lesson.free && !S.premium;
+      var _oc46 = _lk46 ? 'openPremiumModal()' : "startLesson('" + it46.lesson.id + "')";
+      var _done46 = S.completed.includes(it46.lesson.id);
+      return '<div class="recently-added-row" onclick="' + _oc46 + '">'
+        + '<div class="recently-added-dot" style="background:' + (it46.unit.color||'var(--clari-blue)') + '"></div>'
+        + '<span class="recently-added-title">' + escHtml(it46.lesson.title) + (_done46 ? ' ✓' : '') + '</span>'
+        + '<span class="recently-added-unit-label">Unit ' + it46.unit.num + '</span>'
+        + '</div>';
+    }).join('');
+    html += '<div class="recently-added-section">'
+      + '<div class="recently-added-header" onclick="toggleRecentlyAddedPanel()">'
+      + '✨ Recently Added (' + _ra46.length + ')'
+      + '<span class="recently-added-arrow" id="recently-added-arrow">▼</span>'
+      + '</div>'
+      + '<div class="recently-added-list" id="recently-added-list">' + _raRows + '</div>'
+      + '</div>';
+  })();
 
   // Enhanced Continue Card — PRIMARY CTA (first)
   if (nextLesson) {
@@ -21380,6 +21850,7 @@ function renderLearnTab() {
       <option value="xp-desc"  ${learnSortMode==='xp-desc'  ? 'selected' : ''}>&#x2B06; Highest XP</option>
       <option value="easy-first" ${learnSortMode==='easy-first' ? 'selected' : ''}>&#x1F7E2; Easiest first</option>
       <option value="hard-first" ${learnSortMode==='hard-first' ? 'selected' : ''}>&#x1F7E3; Hardest first</option>
+      <option value="completed-last" ${learnSortMode==='completed-last' ? 'selected' : ''}>&#x2713; Not started first</option>
     </select>
   </div>
   <div class="learn-search-input-row">
@@ -21472,6 +21943,13 @@ function renderLearnTab() {
         visibleLessons.sort(function(a, b) {
           return (_diffOrderH[getLessonDifficulty(b)] || 1) - (_diffOrderH[getLessonDifficulty(a)] || 1);
         });
+      } else if (learnSortMode === 'completed-last') {
+        // learn-43: incomplete lessons first, completed last
+        visibleLessons.sort(function(a, b) {
+          var _ad = S.completed.includes(a.id) ? 1 : 0;
+          var _bd = S.completed.includes(b.id) ? 1 : 0;
+          return _ad - _bd;
+        });
       }
 
       if (activeSearch && visibleLessons.length === 0) continue;
@@ -21481,16 +21959,16 @@ function renderLearnTab() {
       const ringPct = unitLessons.length ? doneCount / unitLessons.length : 0;
 
       html += `<div class="unit-section" id="unit-section-${unit.num}">
-        <div class="unit-header">
+        <div class="unit-header${ringPct >= 1 ? ' unit-all-done' : ''}">
           <div class="unit-num" style="background:${unit.color}">${unit.num}</div>
           <div style="flex:1;min-width:0;">
             <div class="unit-title">Unit ${unit.num} · ${unit.title}</div>
-            <div class="unit-sub">${doneCount}/${unitLessons.length} done</div>
+            <div class="unit-sub">${doneCount}/${unitLessons.length} done${ringPct >= 1 ? '<span class="unit-all-done-label"> ★ Complete!</span>' : ''}</div>
             <div class="unit-prog-bar-outer"><div class="unit-prog-bar-fill ${ringPct >= 1 ? 'complete' : 'partial'}" style="width:${Math.round(ringPct*100)}%;${ringPct < 1 ? 'background:'+ unit.color +';' : ''}"></div></div>
             <div class="unit-pct-text ${ringPct >= 1 ? 'complete' : ''}">${Math.round(ringPct*100)}% complete</div>
             ${(function(){ var _remXp = unitLessons.filter(function(l){ return !S.completed.includes(l.id); }).reduce(function(s,l){ return s+(l.xp||0); },0); return _remXp > 0 ? '<div class="unit-xp-remaining">' + _remXp + ' XP remaining in this unit</div>' : ''; })()}
           </div>
-          <div class="unit-progress-ring">${smallRingHTML(ringPct, unit.color)}</div>
+          <div class="unit-progress-ring${ringPct >= 1 ? ' ring-complete' : ''}">${smallRingHTML(ringPct, unit.color, ringPct >= 1)}</div>
         </div>`;
 
       visibleLessons.forEach(lesson => {
@@ -21606,9 +22084,9 @@ function renderLearnTab() {
 
         // Note indicator
         const _noteText = (S.lesson_notes || {})[lesson.id] || '';
-        const _notePreview = _noteText.trim().slice(0, 60) + (_noteText.trim().length > 60 ? '…' : '');
+        // learn-45: note indicator now triggers inline expand (no tooltip)
         const _noteHtml = _noteText.trim()
-          ? `<span class="lesson-note-indicator" onclick="event.stopPropagation()" title="Your note">📝<span class="note-tooltip">${_notePreview.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</span></span>`
+          ? '<span class="lesson-note-indicator" onclick="toggleNoteQuickView(\'' + lesson.id + '\', event)" title="View your note">📝</span>'
           : '';
 
         // learn-11: play button title reflects completion state
@@ -21662,7 +22140,11 @@ function renderLearnTab() {
           ${locked ? `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#afafaf" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>` : _reviewDue ? `<span class="review-due-icon" title="Review due"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><circle cx='12' cy='13' r='8'/><polyline points='12,9 12,13 15,15'/><path d='M5 3L3 5M21 5l-2-2'/><line x1='12' y1='21' x2='12' y2='23'/></svg></span></span>${badgeHtml}` : badgeHtml}
           <button class="lc-chevron-btn" id="lc-chevron-${lesson.id}" onclick="event.stopPropagation();toggleLearnCard(&apos;${lesson.id}&apos;)" aria-label="Toggle description" title="Show description" style="transform:${learnExpandedCards[lesson.id]?'rotate(180deg)':'rotate(0deg)'}">&#9662;</button>
         </div>
-${_playHint}<button class="lesson-bookmark-btn ${(S.bookmarks||[]).includes(lesson.id) ? 'active' : ''}" onclick="toggleBookmark('${lesson.id}', event)" title="Bookmark this lesson" aria-label="Bookmark">&#9733;</button><span class="lesson-bookmark-label">Bookmarked</span>${_shareBtn}${_noteHtml}${(function(){ var _d = (lesson.slides&&lesson.slides[0]) ? (lesson.slides[0].text||lesson.slides[0].title||'') : ''; if (!_d) return ''; var _open = learnExpandedCards[lesson.id] ? 'block' : 'none'; return '<div class="lc-desc-expand" id="lc-expand-' + lesson.id + '" style="display:' + _open + '">' + escHtml(_d.slice(0,200)) + (_d.length>200?'…':'') + '</div>'; })()}`;
+${_playHint}<button class="lesson-bookmark-btn ${(S.bookmarks||[]).includes(lesson.id) ? 'active' : ''}" onclick="toggleBookmark('${lesson.id}', event)" title="Bookmark this lesson" aria-label="Bookmark">&#9733;</button><span class="lesson-bookmark-label">Bookmarked</span><button class="lesson-fav-btn ${(S.lesson_favorites||[]).includes(lesson.id) ? 'active' : ''}" onclick="toggleFavoriteLesson('${lesson.id}',event)" title="Favourite" aria-label="Favourite">♥</button>${_shareBtn}${_noteHtml}${(function(){ var _d = (lesson.slides&&lesson.slides[0]) ? (lesson.slides[0].text||lesson.slides[0].title||'') : ''; if (!_d) return ''; var _open = learnExpandedCards[lesson.id] ? 'block' : 'none'; return '<div class="lc-desc-expand" id="lc-expand-' + lesson.id + '" style="display:' + _open + '">' + escHtml(_d.slice(0,200)) + (_d.length>200?'…':'') + '</div>'; })()}`
+        + (_noteText.trim() ? '<div class="lesson-note-quick-row" id="note-quick-' + lesson.id + '">'
+          + '<div class="lesson-note-quick-label">📝 Your note</div>'
+          + escHtml(_noteText.trim().slice(0, 300)) + (_noteText.trim().length > 300 ? '…' : '')
+          + '</div>' : '');
       });
 
       // Motivational nudge (learn-07) — show when unit is not complete and not searching
@@ -21691,6 +22173,12 @@ ${_playHint}<button class="lesson-bookmark-btn ${(S.bookmarks||[]).includes(less
           })(unit.num, unit.title);
         }
         var _unitTotalXP = unitLessons.reduce(function(sum, l) { return sum + (l.xp || 0); }, 0);
+        // learn-44: show certificate popup (once per unit, after celebrate popup)
+        if (!(S.cert_shown || {})[unit.num]) {
+          (function(_cNum44, _cTitle44) {
+            setTimeout(function() { showUnitCertificate(_cNum44, _cTitle44); }, 1200);
+          })(unit.num, unit.title);
+        }
         html += '<div class="unit-complete-banner">' +
           '<div class="unit-complete-star">⭐</div>' +
           '<div class="unit-complete-body">' +
@@ -21899,13 +22387,16 @@ function buildRecommendedStrip(n) {
   </div>`;
 }
 
-function smallRingHTML(pct, color) {
+// learn-47: smallRingHTML extended with complete flag (gold ring)
+function smallRingHTML(pct, color, complete) {
   const size = 36, r = 14, circ = 2 * Math.PI * r;
   const dash = circ * pct;
+  const _sc = complete ? '#ffc800' : color;
   return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="transform:rotate(-90deg)">
     <circle cx="18" cy="18" r="${r}" fill="none" stroke="#eee" stroke-width="3"/>
-    <circle cx="18" cy="18" r="${r}" fill="none" stroke="${color}" stroke-width="3"
-      stroke-dasharray="${dash.toFixed(2)} ${circ.toFixed(2)}" stroke-linecap="round"/>
+    <circle cx="18" cy="18" r="${r}" fill="none" stroke="${_sc}" stroke-width="3"
+      stroke-dasharray="${dash.toFixed(2)} ${circ.toFixed(2)}" stroke-linecap="round"
+      ${complete ? 'filter="url(#gold-glow)"' : ''}/>
   </svg>`;
 }
 
@@ -21920,6 +22411,42 @@ function lessonIconSVG(color) {
 // learn-33: Lesson preview modal
 // ============================================================
 var _lpmPendingId = null;
+
+// learn-42: get related lessons (same unit, then same tags), excluding done & locked
+function getRelatedLessons(lesson, unit, maxCount) {
+  var _tags42 = lesson.tags || [];
+  var _result = [];
+  var _seen = {};
+  _seen[lesson.id] = true;
+  // Same-unit first
+  for (var _ri = 0; _ri < unit.lessons.length; _ri++) {
+    var _rl = unit.lessons[_ri];
+    if (_seen[_rl.id]) continue;
+    if (!_rl.free && !S.premium) continue;
+    _seen[_rl.id] = true;
+    _result.push({ lesson: _rl, unit: unit });
+    if (_result.length >= maxCount) return _result;
+  }
+  // Other units sharing at least one tag
+  if (_tags42.length > 0) {
+    for (var _rui = 0; _rui < COURSE.length; _rui++) {
+      var _ru42 = COURSE[_rui];
+      if (_ru42.num === unit.num) continue;
+      for (var _rli = 0; _rli < _ru42.lessons.length; _rli++) {
+        var _rls = _ru42.lessons[_rli];
+        if (_seen[_rls.id]) continue;
+        if (!_rls.free && !S.premium) continue;
+        var _rlTags = _rls.tags || [];
+        var _shared = _tags42.some(function(t) { return _rlTags.indexOf(t) > -1; });
+        if (!_shared) continue;
+        _seen[_rls.id] = true;
+        _result.push({ lesson: _rls, unit: _ru42 });
+        if (_result.length >= maxCount) return _result;
+      }
+    }
+  }
+  return _result;
+}
 
 function openLessonPreview(id, event) {
   if (event) event.stopPropagation();
@@ -21948,6 +22475,25 @@ function openLessonPreview(id, event) {
   if (_slideText) _slideHtml += '<div class="lpm-slide-text">' + escHtml(_slideText.slice(0, 220)) + (_slideText.length > 220 ? '…' : '') + '</div>';
   if (!_slideHtml) _slideHtml = '<div class="lpm-slide-text">Tap Start to begin this lesson.</div>';
   document.getElementById('lpm-first-slide').innerHTML = _slideHtml;
+  // learn-42: inject related lessons into modal
+  (function() {
+    var _rel42 = getRelatedLessons(lesson, unit || {num:0,lessons:[]}, 3);
+    var _relEl = document.getElementById('lpm-related-area');
+    if (!_relEl) return;
+    if (_rel42.length === 0) { _relEl.innerHTML = ''; return; }
+    var _relCards = _rel42.map(function(it42) {
+      var _done42 = S.completed.includes(it42.lesson.id);
+      var _m42 = (typeof estimateLessonMinutes === 'function') ? estimateLessonMinutes(it42.lesson) : '?';
+      return '<div class="lpm-related-card" onclick="openLessonPreview(\'' + it42.lesson.id + '\',null)">'
+        + '<div class="lpm-related-card-dot" style="background:' + (it42.unit.color||'var(--clari-blue)') + '"></div>'
+        + '<span class="lpm-related-card-title">' + escHtml(it42.lesson.title) + '</span>'
+        + '<span class="lpm-related-card-meta">~' + _m42 + 'm' + (_done42 ? ' ✓' : '') + '</span>'
+        + '</div>';
+    }).join('');
+    _relEl.innerHTML = '<div class="lpm-related-section">'
+      + '<div class="lpm-related-label">You might also like</div>'
+      + _relCards + '</div>';
+  })();
   var modal = document.getElementById('lesson-preview-modal');
   modal.classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -26037,6 +26583,8 @@ function startLesson(id) {
   if (!lesson) return;
   if (!lesson.free && !S.premium) { openPremiumModal(); return; }
 
+  // learn-41: record lesson history
+  recordLessonHistory(id);
   // learn-34: remember last lesson opened for "continue" banner
   save('last_lesson_opened', id);
   matchPendingLeft = null;
@@ -27927,6 +28475,70 @@ function renderLessonComplete() {
 // ============================================================
 // GAMIFICATION
 // ============================================================
+// learn-46: get recently added lessons (addedDate within 30 days, or last N)
+var _recentlyAddedPanelOpen = false;
+
+function getRecentlyAddedLessons(maxCount) {
+  var _result = [];
+  var _cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
+  // Collect all lessons with addedDate in last 30 days
+  for (var _rui = 0; _rui < COURSE.length; _rui++) {
+    var _ru46 = COURSE[_rui];
+    for (var _rli = 0; _rli < _ru46.lessons.length; _rli++) {
+      var _rl46 = _ru46.lessons[_rli];
+      if (_rl46.addedDate) {
+        var _ms = new Date(_rl46.addedDate).getTime();
+        if (!isNaN(_ms) && _ms >= _cutoff) {
+          _result.push({ lesson: _rl46, unit: _ru46 });
+        }
+      }
+    }
+  }
+  // Fallback: if none have addedDate, use last maxCount lessons in course
+  if (_result.length === 0) {
+    var _allLess46 = [];
+    for (var _aui = 0; _aui < COURSE.length; _aui++) {
+      for (var _ali = 0; _ali < COURSE[_aui].lessons.length; _ali++) {
+        _allLess46.push({ lesson: COURSE[_aui].lessons[_ali], unit: COURSE[_aui] });
+      }
+    }
+    _result = _allLess46.slice(-maxCount);
+  }
+  return _result.slice(0, maxCount);
+}
+
+function toggleRecentlyAddedPanel() {
+  _recentlyAddedPanelOpen = !_recentlyAddedPanelOpen;
+  var list = document.getElementById('recently-added-list');
+  var arrow = document.getElementById('recently-added-arrow');
+  if (list) list.classList.toggle('open', _recentlyAddedPanelOpen);
+  if (arrow) arrow.classList.toggle('open', _recentlyAddedPanelOpen);
+}
+
+// learn-45: toggle inline note quick-view
+function toggleNoteQuickView(lessonId, event) {
+  if (event) event.stopPropagation();
+  var el = document.getElementById('note-quick-' + lessonId);
+  if (el) el.classList.toggle('open');
+}
+
+// learn-44: show unit completion certificate modal
+function showUnitCertificate(unitNum, unitTitle) {
+  var _certShown = S.cert_shown || {};
+  if (_certShown[unitNum]) return;
+  _certShown[unitNum] = true;
+  save('cert_shown', _certShown);
+  var modal = document.getElementById('unit-cert-modal');
+  if (!modal) return;
+  document.getElementById('cert-unit-name').textContent = 'Unit ' + unitNum + ': ' + unitTitle;
+  modal.classList.add('open');
+}
+
+function closeUnitCertModal() {
+  var modal = document.getElementById('unit-cert-modal');
+  if (modal) modal.classList.remove('open');
+}
+
 // learn-27: unit-specific confetti burst in the unit's brand color
 function fireUnitConfetti(unitColor) {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -37444,6 +38056,17 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+<div id="unit-cert-modal" role="dialog" aria-modal="true" aria-label="Unit certificate"
+  onclick="if(event.target===this)closeUnitCertModal()">
+  <div class="unit-cert-sheet">
+    <div class="unit-cert-ribbon">🏆</div>
+    <div class="unit-cert-title">Unit Complete!</div>
+    <div class="unit-cert-badge">★ Certificate of Completion ★</div>
+    <div class="unit-cert-unit-name" id="cert-unit-name"></div>
+    <div class="unit-cert-sub">You finished every lesson in this unit. Outstanding work!</div>
+    <button class="unit-cert-close-btn" onclick="closeUnitCertModal()">Awesome! 🎉</button>
+  </div>
+</div>
 <div id="lesson-preview-modal" role="dialog" aria-modal="true" aria-label="Lesson preview"
   onclick="if(event.target===this)closeLessonPreview()">
   <div class="lpm-sheet">
@@ -37452,6 +38075,7 @@ if ('serviceWorker' in navigator) {
     <div class="lpm-title" id="lpm-title"></div>
     <div class="lpm-meta" id="lpm-meta"></div>
     <div class="lpm-first-slide" id="lpm-first-slide"></div>
+    <div id="lpm-related-area"></div>
     <div class="lpm-actions">
       <button class="lpm-btn-start" id="lpm-btn-start" onclick="closeLessonPreviewAndStart()">Start lesson &rarr;</button>
       <button class="lpm-btn-cancel" onclick="closeLessonPreview()">Cancel</button>
