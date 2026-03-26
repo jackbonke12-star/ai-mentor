@@ -2812,6 +2812,59 @@ body.text-xl     { --text-scale: 1.3; }
 .practice-difficulty-chip.medium { background: #fefce8; color: #a16207; border: 1.5px solid #fde68a; }
 .practice-difficulty-chip.hard   { background: #f3e8ff; color: #7e22ce; border: 1.5px solid #e9d5ff; }
 .practice-review-panel { margin-top: 16px; border: 2px solid var(--gray2); border-radius: var(--radius); background: var(--white); overflow: hidden; }
+/* Practice session notes */
+.practice-notes-section {
+  margin-top: 12px; border: 2px solid var(--gray2);
+  border-radius: var(--radius); background: var(--white); overflow: hidden;
+}
+.practice-notes-toggle {
+  width: 100%; background: none; border: none; cursor: pointer;
+  padding: 11px 16px; display: flex; align-items: center;
+  justify-content: space-between; font-size: 14px; font-weight: 800;
+  color: var(--text);
+}
+.practice-notes-toggle:hover { background: var(--gray1); }
+.practice-notes-toggle .pnt-arrow {
+  display: inline-block; transition: transform 0.2s; font-size: 11px; color: var(--gray4);
+}
+.practice-notes-toggle.open .pnt-arrow { transform: rotate(180deg); }
+.practice-notes-body { display: none; padding: 0 16px 14px; }
+.practice-notes-body.open { display: block; }
+.practice-note-item {
+  padding: 8px 0; border-bottom: 1px solid var(--gray1);
+  font-size: 13px; color: var(--text);
+}
+.practice-note-item:last-child { border-bottom: none; }
+.practice-note-date {
+  font-size: 11px; font-weight: 800; color: var(--gray4);
+  text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 3px;
+}
+.practice-note-text { font-weight: 600; line-height: 1.45; color: var(--text); }
+.practice-session-note-wrap {
+  margin: 12px 0 0; padding: 14px 16px; background: var(--gray1);
+  border-radius: var(--radius); border: 1.5px solid var(--gray2);
+}
+.practice-session-note-label {
+  font-size: 12px; font-weight: 800; color: var(--gray4);
+  text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;
+}
+.practice-session-note-textarea {
+  width: 100%; box-sizing: border-box; border: 1.5px solid var(--gray2);
+  border-radius: 10px; padding: 10px 12px; font-size: 14px;
+  font-family: inherit; color: var(--text); background: var(--white);
+  resize: vertical; min-height: 72px; outline: none; transition: border-color 0.15s;
+}
+.practice-session-note-textarea:focus { border-color: var(--blue); }
+.practice-session-note-save {
+  margin-top: 8px; width: 100%; padding: 9px; border: none; border-radius: 10px;
+  background: var(--blue, #1d4ed8); color: #fff; font-size: 13px;
+  font-weight: 800; cursor: pointer; transition: opacity 0.15s;
+}
+.practice-session-note-save:hover { opacity: 0.88; }
+.practice-session-note-saved {
+  text-align: center; font-size: 12px; font-weight: 800;
+  color: #15803d; margin-top: 6px; display: none;
+}
 .practice-review-toggle { width: 100%; background: none; border: none; cursor: pointer; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 800; color: var(--text); }
 .practice-review-toggle:hover { background: var(--gray1); }
 .practice-review-toggle .prv-arrow { display: inline-block; transition: transform 0.2s; font-size: 11px; color: var(--gray4); }
@@ -3177,6 +3230,40 @@ body.text-xl     { --text-scale: 1.3; }
 .score-card {
   display: flex; flex-direction: column;
   align-items: center; padding: 32px 24px; text-align: center; gap: 14px;
+}
+.practice-celebration-screen {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 28px 20px; text-align: center; gap: 12px; position: relative;
+}
+.practice-grade-badge {
+  font-size: 56px; font-weight: 900; line-height: 1;
+  animation: gradePopIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.practice-grade-badge.grade-a { color: #15803d; }
+.practice-grade-badge.grade-b { color: #1d4ed8; }
+.practice-grade-badge.grade-c { color: #a16207; }
+.practice-grade-badge.grade-d { color: #c2410c; }
+.practice-grade-badge.grade-f { color: #b91c1c; }
+@keyframes gradePopIn {
+  0%   { transform: scale(0.2) rotate(-15deg); opacity: 0; }
+  70%  { transform: scale(1.2) rotate(5deg);  opacity: 1; }
+  100% { transform: scale(1)   rotate(0deg);  opacity: 1; }
+}
+.practice-score-animated {
+  font-size: 52px; font-weight: 900; color: var(--green);
+  line-height: 1; animation: scoreCount 0.6s ease both;
+}
+@keyframes scoreCount {
+  0%   { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.practice-celeb-msg {
+  font-size: 16px; font-weight: 800; color: var(--text);
+  line-height: 1.4; max-width: 260px; margin: 0 auto;
+}
+.practice-encourage-msg {
+  font-size: 15px; font-weight: 700; color: var(--gray4);
+  line-height: 1.5; max-width: 260px; margin: 0 auto;
 }
 .score-big { font-size: 64px; font-weight: 900; color: var(--green); line-height: 1; }
 .score-label { font-size: 18px; font-weight: 800; color: var(--text); }
@@ -4997,6 +5084,15 @@ body.text-xl     { --text-scale: 1.3; }
       <div class="practice-history">
         <div class="practice-history-title">Recent Sessions</div>
         <div id="practice-history-list"></div>
+      </div>
+      <div class="practice-notes-section" style="margin-top:14px;">
+        <button class="practice-notes-toggle" onclick="(function(btn){btn.classList.toggle('open');var b=btn.nextElementSibling;b.classList.toggle('open');if(b.classList.contains('open'))renderPracticeSessionNotes();})(this)" aria-expanded="false">
+          <span>&#x1F4DD; Session Notes</span>
+          <span class="pnt-arrow">&#9660;</span>
+        </button>
+        <div class="practice-notes-body" id="practice-notes-list-body">
+          <div id="practice-notes-list-container"></div>
+        </div>
       </div>
     </div>
 
@@ -24072,6 +24168,11 @@ function renderPracticeTab() {
   renderPracticeRecords();
   renderPracticeWeakHeatmap();
   renderPracticeRecentSessions();
+  // Only re-render notes list if panel is open
+  (function() {
+    var _nb = document.getElementById('practice-notes-list-body');
+    if (_nb && _nb.classList.contains('open')) renderPracticeSessionNotes();
+  })();
   // Daily goal bar
   (function() {
     var _goalEl = document.getElementById('practice-daily-goal-bar');
@@ -25210,6 +25311,83 @@ function shareSessionProgress() {
   }
 }
 
+function savePracticeSessionNote() {
+  var _ta = document.getElementById('practice-session-note-ta');
+  var _savedMsg = document.getElementById('practice-session-note-saved');
+  if (!_ta) return;
+  var _text = _ta.value.trim();
+  if (!_text) { _ta.focus(); return; }
+  var _today = (typeof todayStr === 'function') ? todayStr() : new Date().toISOString().split('T')[0];
+  var _notes = (S.practice_notes || []).slice();
+  _notes.push({ date: _today, text: _text });
+  if (_notes.length > 10) _notes = _notes.slice(_notes.length - 10);
+  save('practice_notes', _notes);
+  _ta.value = '';
+  _ta.disabled = true;
+  var _btn = document.getElementById('practice-session-note-btn');
+  if (_btn) _btn.disabled = true;
+  if (_savedMsg) { _savedMsg.style.display = 'block'; }
+  showToast('Note saved! 📝', 'success', 2000);
+}
+
+function renderPracticeSessionNotes() {
+  var _container = document.getElementById('practice-notes-list-container');
+  if (!_container) return;
+  var _notes = (S.practice_notes || []).slice(-3).reverse();
+  if (_notes.length === 0) {
+    _container.innerHTML = '<div style="font-size:13px;color:var(--gray4);padding:8px 0;">No notes yet. Add your first note after a session!</div>';
+    return;
+  }
+  _container.innerHTML = _notes.map(function(n) {
+    return '<div class="practice-note-item">'
+      + '<div class="practice-note-date">' + n.date + '</div>'
+      + '<div class="practice-note-text">' + n.text.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+function getGradeLetter(pct) {
+  if (pct >= 90) return 'A';
+  if (pct >= 80) return 'B';
+  if (pct >= 70) return 'C';
+  if (pct >= 60) return 'D';
+  return 'F';
+}
+
+function getCelebMessage(grade) {
+  var _msgs = {
+    'A': 'Outstanding! You absolutely crushed it.',
+    'B': 'Great work! You\'ve got a solid grasp of this.',
+    'C': 'Not bad! A little more practice and you\'ll ace it.',
+    'D': 'Keep going! Every session makes you stronger.',
+    'F': 'Don\'t give up! Mistakes are how we learn best.'
+  };
+  return _msgs[grade] || 'Well done!';
+}
+
+function launchPracticeConfetti() {
+  var _wrap = document.getElementById('lesson-confetti-wrap');
+  if (!_wrap) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  _wrap.innerHTML = '';
+  var _colors = ['#58cc02','#ffc800','#1cb0f6','#ff4b4b','#a560f8','#ff7eb3','#5BC0F8','#ff9f43'];
+  for (var _i = 0; _i < 55; _i++) {
+    var _p = document.createElement('div');
+    _p.className = 'confetti-piece';
+    _p.style.cssText = [
+      'left:' + (Math.random() * 100) + '%',
+      'top:' + (Math.random() * -20) + '%',
+      'background:' + _colors[Math.floor(Math.random() * _colors.length)],
+      'animation-delay:' + (Math.random() * 0.6) + 's',
+      'animation-duration:' + (1.3 + Math.random() * 1.2) + 's',
+      'border-radius:' + (Math.random() > 0.5 ? '50%' : '3px'),
+      'width:' + (5 + Math.random() * 8) + 'px',
+      'height:' + (5 + Math.random() * 8) + 'px'
+    ].join(';');
+    _wrap.appendChild(_p);
+  }
+}
+
 function finishPractice() {
   const total = lessonState.practiceQuestions.length;
   const score = lessonState.practiceScore;
@@ -25312,22 +25490,47 @@ function finishPractice() {
         ? '<div style="font-size:12px;font-weight:800;color:#15803d;margin-top:-4px;">&#x2B50; New best! ' + _accuracy + '%</div>'
         : '<div style="font-size:12px;font-weight:600;color:var(--gray4);margin-top:-4px;">Best: ' + _prevBest + '%</div>')
     : '';
-  document.getElementById('lesson-content').innerHTML = `
-    <div class="score-card">
-      <div>${clariSVG(score >= total * 0.7 ? 'celebrating' : 'happy', 100)}</div>
-      <div class="score-big">${score}/${total}</div>
-      <div style="font-size:22px;font-weight:900;color:${_accuracy>=80?'var(--green)':_accuracy>=60?'#f59e0b':'var(--red)'}">${_accuracy}% accuracy</div>
-      ${_bestLine}
-      <div style="font-size:13px;font-weight:600;color:var(--gray4);">Time: ${_elapsedStr}</div>
-      ${(lessonState.practiceType !== 'timed' && lessonState.avgAnswerTime) ? '<div style="font-size:12px;font-weight:700;color:#0369a1;margin-top:2px;">Avg answer time: ' + lessonState.avgAnswerTime.toFixed(1) + 's per question</div>' : ''}
-      <div class="score-label">${score === total ? 'Perfect — you nailed every single one!' : score >= total * 0.7 ? 'Solid work! You\'re building real skills.' : 'Every try makes you better — come back again!'}</div>
-      <div class="xp-earned-pill">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="#5c4200"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        +${20 + bonusXP} XP earned
-      </div>
-      ${lessonState.practiceType === 'timed' ? '<div style="font-size:13px;font-weight:700;color:var(--purple);">Timed bonus XP included!</div>' : lessonState.practiceType === 'review' ? "<div style='font-size:13px;font-weight:700;color:#9a7000;'><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><path d='M9 4a5 5 0 0 0-5 5c0 2 1 3.5 2.5 4.5C5.5 15 5 16.5 5 18a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4c0-1.5-.5-3-1.5-4.5C19 12.5 20 11 20 9a5 5 0 0 0-5-5'/><path d='M12 4v16'/><path d='M9 9c0 0 1.5 1 3 0s3 0 3 0'/></svg></span> Review bonus XP — memory locked in!</div>" : ''}
-      <div id="practice-xp-breakdown-panel"></div>
-    </div>`;
+  (function() {
+    var _grade = getGradeLetter(_accuracy);
+    var _gradeClass = { 'A': 'grade-a', 'B': 'grade-b', 'C': 'grade-c', 'D': 'grade-d', 'F': 'grade-f' }[_grade] || 'grade-f';
+    var _isCelebration = _accuracy >= 80;
+    var _clariState = _isCelebration ? 'celebrating' : 'think';
+    var _mascot = clariSVG(_clariState, 100);
+    var _gradeEmoji = { 'A': '🌟', 'B': '👍', 'C': '💪', 'D': '📚', 'F': '💡' }[_grade] || '';
+    var _celebMsg = getCelebMessage(_grade);
+    var _screenHtml;
+    if (_isCelebration) {
+      _screenHtml = '<div class="practice-celebration-screen">'
+        + '<div>' + _mascot + '</div>'
+        + '<div class="practice-grade-badge ' + _gradeClass + '">' + _gradeEmoji + ' ' + _grade + '</div>'
+        + '<div class="practice-score-animated">' + _accuracy + '%</div>'
+        + '<div style="font-size:15px;font-weight:800;color:var(--gray4);">' + score + ' / ' + total + ' correct</div>'
+        + _bestLine
+        + '<div class="practice-celeb-msg">' + _celebMsg + '</div>'
+        + '<div style="font-size:13px;font-weight:600;color:var(--gray4);">Time: ' + _elapsedStr + '</div>'
+        + ((lessonState.practiceType !== 'timed' && lessonState.avgAnswerTime) ? '<div style="font-size:12px;font-weight:700;color:#0369a1;">Avg: ' + lessonState.avgAnswerTime.toFixed(1) + 's per question</div>' : '')
+        + '<div class="xp-earned-pill"><svg width="18" height="18" viewBox="0 0 24 24" fill="#5c4200"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>+' + (20 + bonusXP) + ' XP earned</div>'
+        + (lessonState.practiceType === 'timed' ? '<div style="font-size:13px;font-weight:700;color:var(--purple);">Timed bonus XP included!</div>' : lessonState.practiceType === 'review' ? "<div style='font-size:13px;font-weight:700;color:#9a7000;'>Review bonus XP — memory locked in!</div>" : '')
+        + '<div id="practice-xp-breakdown-panel"></div>'
+        + '</div>';
+    } else {
+      _screenHtml = '<div class="practice-celebration-screen">'
+        + '<div>' + _mascot + '</div>'
+        + '<div class="practice-grade-badge ' + _gradeClass + '">' + _gradeEmoji + ' ' + _grade + '</div>'
+        + '<div class="practice-score-animated" style="color:' + (_accuracy >= 60 ? '#f59e0b' : 'var(--red)') + ';">' + _accuracy + '%</div>'
+        + '<div style="font-size:15px;font-weight:800;color:var(--gray4);">' + score + ' / ' + total + ' correct</div>'
+        + _bestLine
+        + '<div class="practice-encourage-msg">' + _celebMsg + ' You\'re closer than you think!</div>'
+        + '<div style="font-size:13px;font-weight:600;color:var(--gray4);">Time: ' + _elapsedStr + '</div>'
+        + '<div class="xp-earned-pill"><svg width="18" height="18" viewBox="0 0 24 24" fill="#5c4200"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>+' + (20 + bonusXP) + ' XP earned</div>'
+        + '<div id="practice-xp-breakdown-panel"></div>'
+        + '</div>';
+    }
+    document.getElementById('lesson-content').innerHTML = _screenHtml;
+    if (_isCelebration) {
+      setTimeout(launchPracticeConfetti, 200);
+    }
+  })();
   // Render answer-review collapsible panel
   (function() {
     var _attempted = lessonState.practiceAttempted || [];
@@ -25412,11 +25615,19 @@ function finishPractice() {
       }, 800);
     }
   })();
+  var _noteHtml = '<div class="practice-session-note-wrap">'
+    + '<div class="practice-session-note-label">&#x1F4DD; Session Note</div>'
+    + '<textarea id="practice-session-note-ta" class="practice-session-note-textarea"'
+    + ' placeholder="What did you learn or struggle with today?" maxlength="400"></textarea>'
+    + '<button id="practice-session-note-btn" class="practice-session-note-save" onclick="savePracticeSessionNote()">Save Note</button>'
+    + '<div id="practice-session-note-saved" class="practice-session-note-saved">&#x2713; Note saved!</div>'
+    + '</div>';
   document.getElementById('lesson-footer').innerHTML =
     _reviewBtn
     + `<button class="btn btn-blue btn-full" style="margin-bottom:10px;" onclick="doCloseLesson();setTimeout(()=>startPractice('${_practiceAgainType}'),80);">Practice Again</button>`
     + `<button class="btn btn-ghost btn-full" style="margin-bottom:10px;border:2px solid var(--gray3);font-weight:800;" onclick="challengeFriend()">🤝 Challenge a Friend</button>`
     + `<button class="btn-share-progress" onclick="shareSessionProgress()">📤 Share Progress</button>`
+    + _noteHtml
     + `<div style="margin-bottom:10px;"></div>`
     + `<button class="btn btn-green btn-full" onclick="doCloseLesson()">Back to Practice →</button>`;
 }
