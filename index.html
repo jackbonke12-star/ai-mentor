@@ -1792,6 +1792,239 @@ mark.search-hl {
 :root[data-theme="dark"] .lesson-rt-chip.rt-short  { background: #0d2b1c; color: #4ade80; border-color: #166534; }
 :root[data-theme="dark"] .lesson-rt-chip.rt-medium { background: #0d1f38; color: #93c5fd; border-color: #1e40af; }
 :root[data-theme="dark"] .lesson-rt-chip.rt-long   { background: #2a1a07; color: #fbbf24; border-color: #92400e; }
+/* ============================================================
+   learn-33: Lesson preview modal
+   ============================================================ */
+#lesson-preview-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9100;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(0,0,0,0.45);
+  padding: 0 0 0 0;
+  animation: lpmFadeIn 0.18s ease;
+}
+#lesson-preview-modal.open { display: flex; }
+@keyframes lpmFadeIn { from { opacity: 0; } to { opacity: 1; } }
+.lpm-sheet {
+  background: var(--white);
+  border-radius: 22px 22px 0 0;
+  padding: 20px 20px 32px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 78vh;
+  overflow-y: auto;
+  animation: lpmSlideUp 0.22s cubic-bezier(0.34,1.1,0.64,1);
+}
+@keyframes lpmSlideUp { from { transform: translateY(60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.lpm-handle {
+  width: 40px; height: 4px;
+  background: var(--gray2); border-radius: 4px;
+  margin: 0 auto 16px; display: block;
+}
+.lpm-unit-label {
+  font-size: 11px; font-weight: 800; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--clari-blue);
+  margin-bottom: 4px;
+}
+.lpm-title {
+  font-size: 20px; font-weight: 900; color: var(--text);
+  line-height: 1.25; margin-bottom: 8px;
+}
+.lpm-meta {
+  font-size: 12px; color: var(--gray4); font-weight: 600;
+  margin-bottom: 14px;
+  display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+}
+.lpm-first-slide {
+  background: var(--gray1);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.lpm-slide-title {
+  font-size: 14px; font-weight: 900; color: var(--text);
+  margin-bottom: 6px;
+}
+.lpm-slide-text {
+  font-size: 13px; font-weight: 500; color: var(--gray4);
+  line-height: 1.55;
+}
+.lpm-actions {
+  display: flex; gap: 10px;
+}
+.lpm-btn-start {
+  flex: 1; padding: 13px;
+  background: var(--clari-blue); color: #fff;
+  border: none; border-radius: 14px;
+  font-size: 15px; font-weight: 800;
+  cursor: pointer; text-align: center;
+}
+.lpm-btn-cancel {
+  padding: 13px 18px;
+  background: var(--gray1); color: var(--gray4);
+  border: 1px solid var(--gray2); border-radius: 14px;
+  font-size: 14px; font-weight: 700;
+  cursor: pointer;
+}
+.lpm-btn-cancel:hover { background: var(--gray2); }
+:root[data-theme="dark"] .lpm-sheet { background: var(--card-bg, #1a1a2e); }
+:root[data-theme="dark"] .lpm-first-slide { background: var(--gray2); }
+:root[data-theme="dark"] .lpm-btn-cancel { background: var(--gray2); border-color: var(--gray3); color: var(--text); }
+/* ============================================================
+   learn-34: Continue where you left off banner
+   ============================================================ */
+.cwylof-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 12px 12px;
+  background: linear-gradient(135deg, #e8f3ff 0%, #f0fffe 100%);
+  border: 1.5px solid #b3d4f5;
+  border-radius: 16px;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+.cwylof-banner:hover { background: linear-gradient(135deg, #d6eaff 0%, #e0faff 100%); box-shadow: 0 2px 10px rgba(28,176,246,0.12); }
+.cwylof-icon {
+  font-size: 22px; flex-shrink: 0;
+}
+.cwylof-body { flex: 1; min-width: 0; }
+.cwylof-label {
+  font-size: 10px; font-weight: 800; letter-spacing: 0.07em;
+  text-transform: uppercase; color: var(--clari-blue);
+  margin-bottom: 2px;
+}
+.cwylof-title {
+  font-size: 14px; font-weight: 800; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.cwylof-meta {
+  font-size: 11px; font-weight: 600; color: var(--gray4); margin-top: 1px;
+}
+.cwylof-btn {
+  flex-shrink: 0;
+  background: var(--clari-blue); color: #fff;
+  border: none; border-radius: 10px;
+  padding: 6px 12px; font-size: 12px; font-weight: 800;
+  cursor: pointer;
+}
+.cwylof-dismiss {
+  flex-shrink: 0;
+  background: none; border: none; cursor: pointer;
+  color: var(--gray3); font-size: 16px; line-height: 1; padding: 4px;
+}
+:root[data-theme="dark"] .cwylof-banner { background: linear-gradient(135deg, #0d1f38 0%, #0d2b2b 100%); border-color: #1e3a5f; }
+:root[data-theme="dark"] .cwylof-title { color: var(--text); }
+/* ============================================================
+   learn-35: Lesson completion green flash animation
+   ============================================================ */
+@keyframes lessonCompleteFlash {
+  0%   { background: var(--white); }
+  18%  { background: #b6f5c8; box-shadow: inset 0 0 0 2px #22c55e; }
+  55%  { background: #e6f9ec; box-shadow: inset 0 0 0 2px #86efac; }
+  100% { background: var(--white); box-shadow: none; }
+}
+:root[data-theme="dark"] @keyframes lessonCompleteFlash {
+  0%   { background: var(--card-bg, #1a1a2e); }
+  18%  { background: #14532d; box-shadow: inset 0 0 0 2px #22c55e; }
+  55%  { background: #1a3a2a; box-shadow: inset 0 0 0 2px #4ade80; }
+  100% { background: var(--card-bg, #1a1a2e); box-shadow: none; }
+}
+.lesson-row.lesson-complete-flash {
+  animation: lessonCompleteFlash 0.85s ease forwards;
+}
+/* ============================================================
+   learn-36: Unit progress percentage text
+   ============================================================ */
+.unit-pct-text {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--clari-blue);
+  margin-top: 3px;
+  letter-spacing: 0.02em;
+}
+.unit-pct-text.complete {
+  color: var(--green);
+}
+/* ============================================================
+   learn-37: Pinned lessons
+   ============================================================ */
+.lesson-row.pinned-lesson {
+  border-left-color: #f59e0b !important;
+  background: #fffbeb;
+}
+:root[data-theme="dark"] .lesson-row.pinned-lesson { background: #2a1f07; }
+.lesson-pin-badge {
+  display: inline-flex; align-items: center; gap: 2px;
+  font-size: 10px; font-weight: 900;
+  background: #fef3c7; color: #92400e;
+  border: 1px solid #fcd34d;
+  padding: 1px 6px; border-radius: 20px;
+  margin-left: 6px; vertical-align: middle;
+  pointer-events: none; letter-spacing: 0.03em;
+}
+:root[data-theme="dark"] .lesson-pin-badge { background: #451a03; color: #fbbf24; border-color: #92400e; }
+.lesson-row.pin-longpress-active { opacity: 0.75; transition: opacity 0.1s; }
+@keyframes pinToastPulse {
+  0% { transform: scale(0.92); opacity: 0; }
+  60% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+/* ============================================================
+   learn-38: Tag filter pills row (auto-generated from COURSE tags)
+   ============================================================ */
+.learn-tag-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 12px 8px;
+}
+.learn-tag-pill-filter {
+  display: inline-flex; align-items: center; gap: 3px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px; font-weight: 800;
+  letter-spacing: 0.03em;
+  background: var(--gray1);
+  color: var(--gray4);
+  border: 1.5px solid var(--gray2);
+  cursor: pointer;
+  transition: background 0.13s, color 0.13s, border-color 0.13s;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.learn-tag-pill-filter:hover { background: var(--gray2); }
+.learn-tag-pill-filter.active {
+  background: var(--clari-blue);
+  color: #fff;
+  border-color: var(--clari-blue);
+}
+:root[data-theme="dark"] .learn-tag-pill-filter { background: var(--gray2); color: var(--gray3); border-color: var(--gray3); }
+:root[data-theme="dark"] .learn-tag-pill-filter.active { background: var(--clari-blue); color: #fff; border-color: var(--clari-blue); }
+/* ============================================================
+   learn-39: Study time total chip
+   ============================================================ */
+.study-time-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--gray1);
+  border: 1.5px solid var(--gray2);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 12px; font-weight: 800;
+  color: var(--gray4);
+  margin: 0 12px 10px;
+  width: fit-content;
+  letter-spacing: 0.01em;
+}
+.study-time-chip svg { flex-shrink: 0; }
+:root[data-theme="dark"] .study-time-chip { background: var(--gray2); border-color: var(--gray3); }
 /* learn-22: XP boost active badge on incomplete lesson cards */
 .lc-xp-boost-badge {
   display: inline-flex; align-items: center; gap: 3px;
@@ -4557,6 +4790,359 @@ mark.search-hl {
   display: flex; justify-content: space-between;
   font-size: 10px; font-weight: 700; color: #9ca3af;
 }
+/* --- Weekly Summary Card (plan-17) --- */
+.plan-week-summary {
+  background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%);
+  border: 1.5px solid #bbf7d0;
+  border-radius: 16px; padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.plan-week-summary-hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.plan-week-summary-title {
+  font-size: 13px; font-weight: 900; color: var(--text);
+}
+.plan-week-summary-badge {
+  font-size: 10px; font-weight: 800; color: #15803d;
+  background: #dcfce7; padding: 2px 8px; border-radius: 20px;
+}
+.plan-week-stat-row {
+  display: flex; gap: 8px; margin-bottom: 10px;
+}
+.plan-week-stat {
+  flex: 1; background: #fff;
+  border: 1px solid #e5e7eb; border-radius: 12px;
+  padding: 8px 6px; text-align: center;
+}
+.plan-week-stat-val {
+  font-size: 20px; font-weight: 900; color: var(--text);
+  line-height: 1.1;
+}
+.plan-week-stat-lbl {
+  font-size: 9px; font-weight: 700; color: #9ca3af;
+  text-transform: uppercase; letter-spacing: 0.4px;
+  margin-top: 2px;
+}
+.plan-week-note {
+  font-size: 11px; font-weight: 600; color: #374151;
+  text-align: center; font-style: italic;
+}
+/* --- Upcoming Reviews Timeline (plan-18) --- */
+.plan-reviews-wrap {
+  background: #fff; border: 1.5px solid #e5e7eb;
+  border-radius: 16px; padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.plan-reviews-hdr {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 10px;
+}
+.plan-reviews-icon {
+  width: 32px; height: 32px; border-radius: 9px;
+  background: #eff6ff; display: flex;
+  align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+.plan-reviews-title {
+  font-size: 13px; font-weight: 900; color: var(--text);
+}
+.plan-reviews-sub {
+  font-size: 10px; font-weight: 600; color: #9ca3af; margin-top: 1px;
+}
+.plan-reviews-empty {
+  font-size: 12px; font-weight: 600; color: #6b7280;
+  text-align: center; padding: 6px 0;
+}
+.plan-review-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 0; border-bottom: 1px solid #f3f4f6;
+}
+.plan-review-item:last-child { border-bottom: none; }
+.plan-review-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.plan-review-dot.rd-today   { background: #ef4444; }
+.plan-review-dot.rd-soon    { background: #f59e0b; }
+.plan-review-dot.rd-later   { background: #3b82f6; }
+.plan-review-name {
+  flex: 1; font-size: 11px; font-weight: 700; color: var(--text);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.plan-review-due {
+  font-size: 10px; font-weight: 800; padding: 2px 7px;
+  border-radius: 20px; flex-shrink: 0;
+}
+.plan-review-due.dd-today  { background: #fee2e2; color: #dc2626; }
+.plan-review-due.dd-soon   { background: #fef3c7; color: #d97706; }
+.plan-review-due.dd-later  { background: #dbeafe; color: #1d4ed8; }
+/* --- Course Completion Donut (plan-19) --- */
+.plan-donut-wrap {
+  background: #fff; border: 1.5px solid #e5e7eb;
+  border-radius: 16px; padding: 16px;
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 16px;
+}
+.plan-donut-svg-area {
+  flex-shrink: 0; position: relative;
+  width: 88px; height: 88px;
+}
+.plan-donut-svg { transform: rotate(-90deg); }
+.plan-donut-track {
+  fill: none; stroke: #f3f4f6; stroke-width: 10;
+}
+.plan-donut-fill {
+  fill: none; stroke: #58CC02; stroke-width: 10;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.plan-donut-label {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center; pointer-events: none;
+}
+.plan-donut-pct {
+  font-size: 18px; font-weight: 900; color: var(--text);
+  line-height: 1;
+}
+.plan-donut-pct-sym {
+  font-size: 10px; font-weight: 800; color: #9ca3af;
+}
+.plan-donut-info { flex: 1; }
+.plan-donut-info-title {
+  font-size: 14px; font-weight: 900; color: var(--text);
+  margin-bottom: 4px;
+}
+.plan-donut-info-sub {
+  font-size: 11px; font-weight: 600; color: #6b7280;
+  margin-bottom: 8px;
+}
+.plan-donut-stat-row {
+  display: flex; gap: 12px;
+}
+.plan-donut-stat {
+  font-size: 11px; font-weight: 700;
+}
+.plan-donut-stat span {
+  font-size: 14px; font-weight: 900; color: var(--text);
+}
+/* --- Learning Velocity Indicator (plan-20) --- */
+.plan-velocity-wrap {
+  background: #fff; border: 1.5px solid #e5e7eb;
+  border-radius: 16px; padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.plan-velocity-top {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 10px;
+}
+.plan-velocity-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.plan-velocity-up   .plan-velocity-icon { background: #dcfce7; }
+.plan-velocity-down .plan-velocity-icon { background: #fee2e2; }
+.plan-velocity-flat .plan-velocity-icon { background: #eff6ff; }
+.plan-velocity-text { flex: 1; }
+.plan-velocity-label {
+  font-size: 13px; font-weight: 900; color: var(--text);
+}
+.plan-velocity-sub {
+  font-size: 11px; font-weight: 600; color: #6b7280; margin-top: 2px;
+}
+.plan-velocity-badge {
+  font-size: 12px; font-weight: 900; padding: 3px 10px;
+  border-radius: 20px; flex-shrink: 0;
+}
+.plan-velocity-up   .plan-velocity-badge { background: #dcfce7; color: #15803d; }
+.plan-velocity-down .plan-velocity-badge { background: #fee2e2; color: #dc2626; }
+.plan-velocity-flat .plan-velocity-badge { background: #dbeafe; color: #1d4ed8; }
+.plan-velocity-dots {
+  display: flex; align-items: flex-end; gap: 4px;
+  height: 28px; margin-top: 4px;
+}
+.plan-velocity-dot {
+  flex: 1; border-radius: 3px 3px 0 0;
+  background: #e5e7eb; min-height: 4px;
+  transition: background 0.3s;
+}
+.plan-velocity-dot.vd-this { background: #58CC02; }
+/* --- Smart Break Reminder (plan-21) --- */
+.plan-break-wrap {
+  background: linear-gradient(135deg, #fff7ed 0%, #fffbeb 100%);
+  border: 1.5px solid #fed7aa;
+  border-radius: 16px; padding: 14px 16px;
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.plan-break-icon {
+  font-size: 28px; flex-shrink: 0;
+}
+.plan-break-body { flex: 1; }
+.plan-break-title {
+  font-size: 13px; font-weight: 900; color: #92400e;
+  margin-bottom: 2px;
+}
+.plan-break-msg {
+  font-size: 11px; font-weight: 600; color: #b45309;
+  line-height: 1.4;
+}
+.plan-break-count {
+  font-size: 11px; font-weight: 800; color: #d97706;
+  background: #fef3c7; padding: 2px 8px; border-radius: 20px;
+  flex-shrink: 0;
+}
+/* --- Topic Strength Radar (plan-22) --- */
+.plan-radar-wrap {
+  background: #fff; border: 1.5px solid #e5e7eb;
+  border-radius: 16px; padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.plan-radar-hdr {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+}
+.plan-radar-hdr-icon {
+  width: 32px; height: 32px; border-radius: 9px; background: #f3e8ff;
+  display: flex; align-items: center; justify-content: center; font-size: 16px;
+  flex-shrink: 0;
+}
+.plan-radar-hdr-title {
+  font-size: 13px; font-weight: 900; color: var(--text);
+}
+.plan-radar-hdr-sub {
+  font-size: 10px; font-weight: 600; color: #9ca3af; margin-top: 1px;
+}
+.plan-radar-row {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 7px;
+}
+.plan-radar-name {
+  font-size: 10px; font-weight: 700; color: #374151;
+  width: 90px; flex-shrink: 0; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap;
+}
+.plan-radar-bar-bg {
+  flex: 1; height: 6px; border-radius: 20px; background: #f3f4f6;
+  overflow: hidden;
+}
+.plan-radar-bar-fill {
+  height: 100%; border-radius: 20px;
+  transition: width 0.5s ease;
+}
+.plan-radar-bar-fill.rb-strong  { background: #58CC02; }
+.plan-radar-bar-fill.rb-build   { background: #3b82f6; }
+.plan-radar-bar-fill.rb-start   { background: #e5e7eb; }
+.plan-radar-tag {
+  font-size: 9px; font-weight: 800; width: 52px;
+  text-align: right; flex-shrink: 0;
+}
+.plan-radar-tag.rt-strong { color: #15803d; }
+.plan-radar-tag.rt-build  { color: #1d4ed8; }
+.plan-radar-tag.rt-start  { color: #9ca3af; }
+/* --- Weekly Digest Widget (plan-23) --- */
+.plan-digest-wrap {
+  background: #fff; border: 1.5px solid #e5e7eb;
+  border-radius: 16px; padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.plan-digest-hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.plan-digest-title {
+  font-size: 13px; font-weight: 900; color: var(--text);
+}
+.plan-digest-pill {
+  font-size: 10px; font-weight: 800; padding: 2px 8px;
+  border-radius: 20px; background: #eff6ff; color: #1d4ed8;
+}
+.plan-digest-kpi-row {
+  display: flex; gap: 8px; margin-bottom: 10px;
+}
+.plan-digest-kpi {
+  flex: 1; text-align: center;
+  padding: 8px 4px; background: #f9fafb;
+  border-radius: 10px;
+}
+.plan-digest-kpi-val {
+  font-size: 18px; font-weight: 900; color: var(--text); line-height: 1;
+}
+.plan-digest-kpi-lbl {
+  font-size: 9px; font-weight: 700; color: #9ca3af;
+  text-transform: uppercase; letter-spacing: 0.4px; margin-top: 2px;
+}
+.plan-digest-ach {
+  display: flex; align-items: center; gap: 8px;
+  background: #fefce8; border: 1px solid #fde68a;
+  border-radius: 10px; padding: 8px 10px;
+}
+.plan-digest-ach-icon { font-size: 18px; flex-shrink: 0; }
+.plan-digest-ach-text { flex: 1; }
+.plan-digest-ach-label {
+  font-size: 11px; font-weight: 700; color: #92400e;
+}
+.plan-digest-ach-name {
+  font-size: 12px; font-weight: 900; color: #78350f;
+}
+.plan-digest-no-ach {
+  font-size: 11px; font-weight: 600; color: #9ca3af;
+  text-align: center; padding: 4px 0;
+}
+/* --- Next Milestone Countdown (plan-24) --- */
+.plan-milestone-wrap {
+  background: linear-gradient(135deg, #fdf4ff 0%, #eff6ff 100%);
+  border: 1.5px solid #e9d5ff;
+  border-radius: 16px; padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.plan-milestone-hdr {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+}
+.plan-milestone-hdr-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: #f3e8ff; display: flex;
+  align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.plan-milestone-hdr-text { flex: 1; }
+.plan-milestone-hdr-title {
+  font-size: 13px; font-weight: 900; color: var(--text);
+}
+.plan-milestone-hdr-sub {
+  font-size: 10px; font-weight: 600; color: #7c3aed; margin-top: 1px;
+}
+.plan-milestone-name {
+  font-size: 14px; font-weight: 900; color: var(--text);
+  margin-bottom: 4px;
+}
+.plan-milestone-detail {
+  font-size: 11px; font-weight: 600; color: #6b7280;
+  margin-bottom: 8px;
+}
+.plan-milestone-bar-bg {
+  height: 8px; border-radius: 20px;
+  background: #ede9fe; overflow: hidden; margin-bottom: 5px;
+}
+.plan-milestone-bar-fill {
+  height: 100%; border-radius: 20px;
+  background: linear-gradient(90deg, #8b5cf6, #a78bfa);
+  transition: width 0.5s ease;
+}
+.plan-milestone-footer {
+  display: flex; justify-content: space-between;
+  font-size: 10px; font-weight: 700; color: #7c3aed;
+}
+/* end plan-24 css */
+/* end plan-23 css */
+/* end plan-22 css */
+/* end plan-21 css */
+/* end plan-20 css */
+/* end plan-19 css */
+/* end plan-18 css */
+/* end plan-17 css */
 /* end plan-16 css */
 /* end plan-12 css */
 
@@ -4965,6 +5551,487 @@ mark.search-hl {
 :root[data-theme="dark"] .reminder-time-input {
   background: var(--gray1); border-color: var(--gray2); color: var(--text);
 }
+/* ---- profile-28: Share Your Progress Button ---- */
+.share-progress-wrap {
+  display: flex; flex-direction: column; gap: 14px;
+}
+.share-progress-preview {
+  background: var(--bg-hover, rgba(0,0,0,0.04));
+  border: 1.5px solid var(--gray2); border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 12px; font-weight: 600; color: var(--text);
+  line-height: 1.7; white-space: pre-wrap;
+  font-family: inherit;
+}
+.share-progress-preview strong {
+  font-weight: 900;
+}
+.share-progress-actions {
+  display: flex; gap: 10px;
+}
+.share-progress-copy-btn {
+  flex: 1; padding: 12px 18px; border-radius: 14px;
+  border: 2px solid var(--green, #58cc02);
+  background: var(--green, #58cc02); color: #fff;
+  font-size: 14px; font-weight: 900; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  transition: opacity 0.15s, transform 0.12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.share-progress-copy-btn:active { opacity: 0.75; transform: scale(0.97); }
+.share-progress-copy-btn.copied {
+  background: #8b5cf6; border-color: #8b5cf6;
+}
+.share-progress-regen-btn {
+  padding: 12px 14px; border-radius: 14px;
+  border: 2px solid var(--gray2); background: var(--bg-card);
+  color: var(--text); font-size: 18px; cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.share-progress-regen-btn:hover {
+  border-color: var(--green,#58cc02); background: var(--bg-hover);
+}
+.share-progress-regen-btn:active { transform: scale(0.9); }
+.share-progress-note {
+  font-size: 10px; font-weight: 700; color: var(--gray3);
+  text-align: center;
+}
+:root[data-theme="dark"] .share-progress-preview {
+  background: var(--gray1); border-color: var(--gray2);
+}
+:root[data-theme="dark"] .share-progress-regen-btn {
+  background: var(--gray1); border-color: var(--gray2);
+}
+
+/* ---- profile-27: Days Until Goal Countdown ---- */
+.days-goal-wrap {
+  display: flex; flex-direction: column; gap: 14px;
+}
+.days-goal-hero {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 18px 0 10px;
+}
+.days-goal-num {
+  font-size: 64px; font-weight: 900; line-height: 1;
+  transition: color 0.3s;
+}
+.days-goal-num.green  { color: var(--green, #58cc02); }
+.days-goal-num.amber  { color: #f59e0b; }
+.days-goal-num.red    { color: #ef4444; }
+.days-goal-num.purple { color: #8b5cf6; }
+.days-goal-unit {
+  font-size: 14px; font-weight: 800; color: var(--gray4);
+  text-transform: uppercase; letter-spacing: 0.6px;
+}
+.days-goal-date {
+  font-size: 11px; font-weight: 700; color: var(--gray3); margin-top: 2px;
+}
+.days-goal-pace-wrap {
+  padding: 12px 14px; border-radius: 12px;
+  border: 1.5px solid var(--gray2);
+  background: var(--bg-hover, rgba(0,0,0,0.04));
+}
+.days-goal-pace-row {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; font-weight: 700; color: var(--gray4);
+  margin-bottom: 6px;
+}
+.days-goal-pace-val {
+  font-size: 13px; font-weight: 900; color: var(--text);
+}
+.days-goal-pace-bar-track {
+  height: 8px; border-radius: 8px;
+  background: var(--bg-hover, rgba(0,0,0,0.06)); overflow: hidden;
+}
+.days-goal-pace-bar-fill {
+  height: 100%; border-radius: 8px;
+  background: linear-gradient(90deg, var(--green,#58cc02), #9efc57);
+  transition: width 0.5s ease;
+}
+.days-goal-pace-sub {
+  font-size: 10px; font-weight: 700; color: var(--gray3); margin-top: 5px;
+}
+.days-goal-no-date {
+  font-size: 13px; font-weight: 600; color: var(--gray3);
+  text-align: center; padding: 16px 0 8px;
+}
+.days-goal-set-link {
+  display: block; text-align: center; margin-top: 4px;
+  font-size: 12px; font-weight: 800; color: var(--green,#58cc02);
+  cursor: pointer; text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.days-goal-set-link:hover { text-decoration: underline; }
+:root[data-theme="dark"] .days-goal-pace-wrap {
+  background: var(--gray1); border-color: var(--gray2);
+}
+:root[data-theme="dark"] .days-goal-pace-bar-track { background: var(--gray2); }
+
+/* ---- profile-26: Favorite Topic Badge ---- */
+.fav-topic-wrap {
+  display: flex; flex-direction: column; gap: 14px; align-items: center;
+}
+.fav-topic-badge-big {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  padding: 18px 24px; border-radius: 20px;
+  border: 2.5px solid var(--fav-color, var(--green,#58cc02));
+  background: color-mix(in srgb, var(--fav-color, var(--green,#58cc02)) 10%, transparent);
+  position: relative; overflow: hidden; min-width: 160px;
+}
+.fav-topic-badge-big::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 70% 30%, rgba(255,255,255,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.fav-topic-icon {
+  font-size: 40px; line-height: 1;
+}
+.fav-topic-name {
+  font-size: 16px; font-weight: 900; color: var(--text);
+  text-align: center; line-height: 1.2;
+}
+.fav-topic-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--fav-color, var(--green,#58cc02));
+  color: #fff; border-radius: 20px; padding: 3px 12px;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.3px;
+}
+.fav-topic-stats {
+  display: flex; gap: 16px; justify-content: center;
+}
+.fav-topic-stat {
+  text-align: center;
+}
+.fav-topic-stat-val {
+  font-size: 20px; font-weight: 900; color: var(--text);
+}
+.fav-topic-stat-lbl {
+  font-size: 10px; font-weight: 700; color: var(--gray4);
+  text-transform: uppercase; letter-spacing: 0.4px; margin-top: 2px;
+}
+.fav-topic-all {
+  width: 100%; display: flex; flex-direction: column; gap: 7px;
+}
+.fav-topic-unit-row {
+  display: flex; align-items: center; gap: 8px;
+}
+.fav-topic-unit-name {
+  width: 76px; flex-shrink: 0; font-size: 11px; font-weight: 700;
+  color: var(--gray4); white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fav-topic-unit-track {
+  flex: 1; height: 8px; border-radius: 4px;
+  background: var(--bg-hover, rgba(0,0,0,0.06)); overflow: hidden;
+}
+.fav-topic-unit-fill {
+  height: 100%; border-radius: 4px;
+  transition: width 0.5s ease;
+}
+.fav-topic-unit-count {
+  width: 24px; font-size: 11px; font-weight: 800;
+  color: var(--text); text-align: right;
+}
+.fav-topic-zero {
+  font-size: 13px; font-weight: 600; color: var(--gray3);
+  text-align: center; padding: 12px 0;
+}
+:root[data-theme="dark"] .fav-topic-unit-track { background: var(--gray1); }
+
+/* ---- profile-25: Total Questions Answered Counter ---- */
+.total-q-wrap {
+  display: flex; flex-direction: column; gap: 14px; align-items: center;
+}
+.total-q-hero {
+  display: flex; align-items: baseline; gap: 6px;
+}
+.total-q-number {
+  font-size: 56px; font-weight: 900; line-height: 1;
+  color: var(--text);
+}
+.total-q-unit {
+  font-size: 14px; font-weight: 800; color: var(--gray4);
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.total-q-sub {
+  font-size: 12px; font-weight: 700; color: var(--gray3);
+  text-align: center;
+}
+.total-q-milestone-wrap {
+  width: 100%;
+}
+.total-q-milestone-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 6px;
+}
+.total-q-milestone-label {
+  font-size: 11px; font-weight: 700; color: var(--gray4);
+}
+.total-q-milestone-pct {
+  font-size: 12px; font-weight: 800; color: var(--text);
+}
+.total-q-milestone-track {
+  height: 10px; border-radius: 10px;
+  background: var(--bg-hover, rgba(0,0,0,0.06)); overflow: hidden;
+}
+.total-q-milestone-fill {
+  height: 100%; border-radius: 10px;
+  background: linear-gradient(90deg, #8b5cf6, #c084fc);
+  transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1);
+}
+.total-q-milestone-sub {
+  font-size: 10px; font-weight: 700; color: var(--gray3); margin-top: 5px;
+}
+.total-q-badges {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  justify-content: center; margin-top: 4px;
+}
+.total-q-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 10px; border-radius: 20px;
+  font-size: 11px; font-weight: 800;
+  background: rgba(139,92,246,0.12);
+  color: #8b5cf6; border: 1.5px solid rgba(139,92,246,0.3);
+}
+.total-q-badge.earned {
+  background: rgba(88,204,2,0.12);
+  color: var(--green,#58cc02); border-color: rgba(88,204,2,0.3);
+}
+:root[data-theme="dark"] .total-q-milestone-track {
+  background: var(--gray1);
+}
+
+/* ---- profile-24: Longest Answer Streak Display ---- */
+.answer-streak-hero {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 6px; padding: 16px 0 8px;
+}
+.answer-streak-flame {
+  font-size: 48px; line-height: 1;
+  filter: drop-shadow(0 4px 8px rgba(249,115,22,0.4));
+  animation: streak-flame-pulse 2s ease-in-out infinite;
+}
+@keyframes streak-flame-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+.answer-streak-number {
+  font-size: 52px; font-weight: 900; line-height: 1;
+  background: linear-gradient(135deg, #f97316, #fbbf24);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.answer-streak-label {
+  font-size: 12px; font-weight: 800; color: var(--gray4);
+  text-transform: uppercase; letter-spacing: 0.6px;
+}
+.answer-streak-sub {
+  font-size: 11px; font-weight: 700; color: var(--gray3); margin-top: 2px;
+}
+.answer-streak-bars {
+  display: flex; flex-direction: column; gap: 10px; margin-top: 8px;
+}
+.answer-streak-row {
+  display: flex; align-items: center; gap: 10px;
+}
+.answer-streak-row-label {
+  width: 88px; flex-shrink: 0;
+  font-size: 11px; font-weight: 700; color: var(--gray4); text-align: right;
+}
+.answer-streak-row-track {
+  flex: 1; height: 14px; border-radius: 7px;
+  background: var(--bg-hover, rgba(0,0,0,0.06));
+  overflow: hidden;
+}
+.answer-streak-row-fill {
+  height: 100%; border-radius: 7px;
+  background: linear-gradient(90deg, #f97316, #fbbf24);
+  transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1);
+}
+.answer-streak-row-val {
+  width: 28px; font-size: 12px; font-weight: 800;
+  color: var(--text); text-align: left;
+}
+.answer-streak-zero {
+  font-size: 13px; font-weight: 600; color: var(--gray3);
+  text-align: center; padding: 12px 0;
+}
+:root[data-theme="dark"] .answer-streak-row-track {
+  background: var(--gray1);
+}
+
+/* ---- profile-23: Practice vs Learn Balance Chart ---- */
+.balance-chart-wrap {
+  display: flex; flex-direction: column; gap: 16px;
+}
+.balance-bar-row {
+  display: flex; align-items: center; gap: 12px;
+}
+.balance-bar-label {
+  width: 74px; flex-shrink: 0;
+  font-size: 11px; font-weight: 800; color: var(--gray4);
+  text-transform: uppercase; letter-spacing: 0.4px; text-align: right;
+}
+.balance-bar-track {
+  flex: 1; height: 22px; border-radius: 11px;
+  background: var(--bg-hover, rgba(0,0,0,0.06));
+  overflow: hidden; position: relative;
+}
+.balance-bar-fill {
+  height: 100%; border-radius: 11px;
+  display: flex; align-items: center; justify-content: flex-end;
+  padding-right: 8px;
+  font-size: 11px; font-weight: 800; color: #fff;
+  transition: width 0.7s cubic-bezier(0.34,1.56,0.64,1);
+  min-width: 32px;
+}
+.balance-bar-fill.learn {
+  background: linear-gradient(90deg, #1cb0f6, #3de0ff);
+}
+.balance-bar-fill.practice {
+  background: linear-gradient(90deg, var(--green,#58cc02), #9efc57);
+}
+.balance-bar-count {
+  width: 36px; flex-shrink: 0;
+  font-size: 14px; font-weight: 900; color: var(--text); text-align: left;
+}
+.balance-insight {
+  font-size: 12px; font-weight: 700; color: var(--gray4);
+  line-height: 1.5; padding: 10px 14px;
+  background: var(--bg-hover, rgba(0,0,0,0.04));
+  border-radius: 12px; border-left: 3px solid var(--green,#58cc02);
+}
+.balance-insight.practice-heavy {
+  border-left-color: var(--green,#58cc02);
+}
+.balance-insight.learn-heavy {
+  border-left-color: #1cb0f6;
+}
+.balance-insight.balanced {
+  border-left-color: #8b5cf6;
+}
+:root[data-theme="dark"] .balance-bar-track {
+  background: var(--gray1);
+}
+:root[data-theme="dark"] .balance-insight {
+  background: var(--gray1);
+}
+
+/* ---- profile-22: Username Setter ---- */
+.username-setter-wrap {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.username-setter-current {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; border-radius: 12px;
+  background: var(--bg-hover, rgba(0,0,0,0.04));
+  border: 1.5px solid var(--gray2);
+}
+.username-setter-emoji {
+  font-size: 22px; flex-shrink: 0;
+}
+.username-setter-label {
+  flex: 1;
+}
+.username-setter-label-top {
+  font-size: 10px; font-weight: 700; color: var(--gray3);
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.username-setter-label-val {
+  font-size: 15px; font-weight: 900; color: var(--text); line-height: 1.3;
+}
+.username-input-row {
+  display: flex; gap: 8px; align-items: stretch;
+}
+.username-text-input {
+  flex: 1; padding: 10px 14px; border-radius: 12px;
+  border: 2px solid var(--gray2); background: var(--bg-card);
+  font-size: 14px; font-weight: 700; color: var(--text);
+  font-family: inherit; outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.username-text-input:focus {
+  border-color: var(--green, #58cc02);
+  box-shadow: 0 0 0 3px rgba(88,204,2,0.15);
+}
+.username-text-input::placeholder { color: var(--gray3); font-weight: 600; }
+.username-save-btn {
+  padding: 10px 18px; border-radius: 12px;
+  border: 2px solid var(--green, #58cc02);
+  background: var(--green, #58cc02); color: #fff;
+  font-size: 13px; font-weight: 800; cursor: pointer;
+  transition: opacity 0.15s, transform 0.12s;
+  white-space: nowrap; flex-shrink: 0;
+}
+.username-save-btn:active { opacity: 0.75; transform: scale(0.95); }
+.username-feedback {
+  font-size: 11px; font-weight: 700; color: var(--green, #58cc02);
+  min-height: 16px; transition: opacity 0.3s;
+}
+:root[data-theme="dark"] .username-text-input {
+  background: var(--gray1); border-color: var(--gray2); color: var(--text);
+}
+:root[data-theme="dark"] .username-setter-current {
+  background: var(--gray1); border-color: var(--gray2);
+}
+
+/* ---- profile-21: Avatar Customizer Enhancement ---- */
+.avatar-enhance-preview-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; padding: 14px 0 10px; margin-bottom: 4px;
+}
+.avatar-enhance-big {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: linear-gradient(135deg, rgba(88,204,2,0.15), rgba(88,204,2,0.05));
+  border: 3px solid var(--green, #58cc02);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 38px; flex-shrink: 0;
+  box-shadow: 0 0 0 5px rgba(88,204,2,0.12);
+  transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+.avatar-enhance-big.pop { transform: scale(1.18); }
+.avatar-enhance-info {
+  display: flex; flex-direction: column; gap: 3px;
+}
+.avatar-enhance-name {
+  font-size: 17px; font-weight: 900; color: var(--text); line-height: 1.2;
+}
+.avatar-enhance-sub {
+  font-size: 11px; font-weight: 700; color: var(--gray4);
+}
+.avatar-enhance-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 8px; padding: 0 2px;
+}
+.avatar-enhance-opt {
+  aspect-ratio: 1; border-radius: 14px;
+  border: 2.5px solid var(--gray2);
+  background: var(--bg-card);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s, background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.avatar-enhance-opt:hover { border-color: rgba(88,204,2,0.5); background: var(--bg-hover); }
+.avatar-enhance-opt:active { transform: scale(0.88); }
+.avatar-enhance-opt.selected {
+  border-color: var(--green, #58cc02);
+  background: rgba(88,204,2,0.1);
+  box-shadow: 0 0 0 3px rgba(88,204,2,0.2);
+}
+:root[data-theme="dark"] .avatar-enhance-opt {
+  background: var(--gray1); border-color: var(--gray2);
+}
+:root[data-theme="dark"] .avatar-enhance-opt.selected {
+  background: rgba(88,204,2,0.15);
+}
+:root[data-theme="dark"] .avatar-enhance-big {
+  background: rgba(88,204,2,0.12);
+}
+
 /* ---- profile-20: Goal Setting Card ---- */
 .goal-card-inner {
   display: flex; flex-direction: column; gap: 14px;
@@ -6852,6 +7919,13 @@ mark.search-hl {
     <div class="section-card" id="profile-cert-showcase-card"></div>
     <div class="section-card" id="profile-habits-card"></div>
     <div class="section-card" id="profile-goal-card"></div>
+    <div class="section-card" id="profile-username-card"></div>
+    <div class="section-card" id="profile-balance-card"></div>
+    <div class="section-card" id="profile-answer-streak-card"></div>
+    <div class="section-card" id="profile-total-q-card"></div>
+    <div class="section-card" id="profile-fav-topic-card"></div>
+    <div class="section-card" id="profile-days-goal-card"></div>
+    <div class="section-card" id="profile-share-progress-card"></div>
     <div class="section-card">
       <div class="section-title">My Notes</div>
       <div id="profile-notes-list"></div>
@@ -16099,7 +17173,9 @@ function loadState() {
     reminder_enabled: false,
     reminder_time: '08:00',
     best_streak: 0,
-    lesson_log_dates: {}  // learn-14: lessonId -> completion timestamp (ms)
+    lesson_log_dates: {},  // learn-14: lessonId -> completion timestamp (ms)
+    last_lesson_opened: null,  // learn-34: last lesson id the user tapped
+    pinned_lessons: []          // learn-37: array of pinned lesson ids
   };
   S = {};
   for (const [k, v] of Object.entries(defaults)) {
@@ -16831,6 +17907,7 @@ let learnSortMode = 'default'; // 'default' | 'xp-desc' | 'easy-first' | 'hard-f
 let learnQuickFilter = false; // learn-09: true = only lessons with < 6 slides
 var _learnTabConfettiFired = false; // learn-08: confetti fires only once per session
 var learnExpandedCards = {}; // learn-16: tracks which lesson cards are expanded by id
+var _justCompletedLessonId = null; // learn-35: id of lesson just finished, for green flash
 
 /**
  * Return the difficulty tier for a lesson based on its tags.
@@ -18604,6 +19681,94 @@ function finishOnboarding() {
 // ============================================================
 // LEARN TAB
 // ============================================================
+// learn-39: compute total estimated study time for completed lessons
+function getTotalStudiedMinutes() {
+  var _total = 0;
+  var _completed = S.completed || [];
+  for (var _ui = 0; _ui < COURSE.length; _ui++) {
+    var _uls = COURSE[_ui].lessons;
+    for (var _li = 0; _li < _uls.length; _li++) {
+      var _l = _uls[_li];
+      if (_completed.indexOf(_l.id) > -1) {
+        _total += (typeof estimateLessonMinutes === 'function') ? estimateLessonMinutes(_l) : 3;
+      }
+    }
+  }
+  return _total;
+}
+
+function formatStudyTime(totalMinutes) {
+  if (totalMinutes < 1) return '< 1 min';
+  if (totalMinutes < 60) return '~' + totalMinutes + ' min studied';
+  var _h = Math.floor(totalMinutes / 60);
+  var _m = totalMinutes % 60;
+  return '~' + _h + 'h' + (_m > 0 ? ' ' + _m + 'm' : '') + ' studied';
+}
+
+// learn-38: collect all unique tags from COURSE for tag filter pills
+function getAllCourseTags() {
+  var _tagSet = {};
+  for (var _ti = 0; _ti < COURSE.length; _ti++) {
+    var _tls = COURSE[_ti].lessons;
+    for (var _tli = 0; _tli < _tls.length; _tli++) {
+      var _tgs = _tls[_tli].tags || [];
+      for (var _tgi = 0; _tgi < _tgs.length; _tgi++) {
+        _tagSet[_tgs[_tgi]] = (_tagSet[_tgs[_tgi]] || 0) + 1;
+      }
+    }
+  }
+  // Sort by frequency desc, then alpha
+  return Object.keys(_tagSet).sort(function(a, b) {
+    return (_tagSet[b] - _tagSet[a]) || a.localeCompare(b);
+  });
+}
+
+// learn-37: Pin/unpin lesson
+function togglePinLesson(lessonId) {
+  var _pins = (S.pinned_lessons || []).slice();
+  var _idx = _pins.indexOf(lessonId);
+  if (_idx > -1) {
+    _pins.splice(_idx, 1);
+    showToast('Lesson unpinned', 'info', 1800);
+  } else {
+    _pins.push(lessonId);
+    showToast('📌 Lesson pinned to top of unit', 'success', 1800);
+  }
+  save('pinned_lessons', _pins);
+  renderLearnTab();
+}
+
+// learn-34: Continue Where You Left Off banner
+var _cwylofDismissed = false;
+
+function renderCWYLOFBanner() {
+  var _id = S.last_lesson_opened || null;
+  if (!_id || _cwylofDismissed) return '';
+  // Don't show if that lesson was completed
+  if ((S.completed || []).includes(_id)) return '';
+  var _lesson = findLesson(_id);
+  if (!_lesson) return '';
+  var _locked = !_lesson.free && !S.premium;
+  if (_locked) return '';
+  // Find unit
+  var _unit = null;
+  for (var _cu = 0; _cu < COURSE.length; _cu++) {
+    if (COURSE[_cu].lessons.some(function(l){ return l.id === _id; })) { _unit = COURSE[_cu]; break; }
+  }
+  var _mins = (typeof estimateLessonMinutes === 'function') ? estimateLessonMinutes(_lesson) : '?';
+  var _metaTxt = (_unit ? 'Unit ' + _unit.num + ' • ' : '') + '~' + _mins + ' min • +' + (_lesson.xp || 0) + ' XP';
+  return '<div class="cwylof-banner" onclick="startLesson(' + "'" + _id + "'" + ')">'
+    + '<div class="cwylof-icon">▶️</div>'
+    + '<div class="cwylof-body">'
+    + '<div class="cwylof-label">Continue where you left off</div>'
+    + '<div class="cwylof-title">' + escHtml(_lesson.title) + '</div>'
+    + '<div class="cwylof-meta">' + escHtml(_metaTxt) + '</div>'
+    + '</div>'
+    + '<button class="cwylof-btn" onclick="event.stopPropagation();startLesson(' + "'" + _id + "'" + ')">Resume</button>'
+    + '<button class="cwylof-dismiss" onclick="event.stopPropagation();_cwylofDismissed=true;renderLearnTab();" title="Dismiss" aria-label="Dismiss">✕</button>'
+    + '</div>';
+}
+
 // learn-30: deterministic daily lesson pick using a date-based hash
 function getLessonOfDay() {
   var _allLotd = [];
@@ -18684,6 +19849,22 @@ function renderLearnTab() {
   // Render units
   let html = '';
 
+  // learn-39: study time total chip (show only if at least 1 lesson completed)
+  (function() {
+    var _completedCount = (S.completed || []).length;
+    if (_completedCount === 0) return;
+    var _totalMins = getTotalStudiedMinutes();
+    var _timeLabel = formatStudyTime(_totalMins);
+    html += '<div class="study-time-chip">'
+      + '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+      + ' stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
+      + '<circle cx="12" cy="12" r="9"/><polyline points="12,7 12,12 15,14"/>'
+      + '</svg>'
+      + escHtml(_timeLabel)
+      + ' • ' + _completedCount + ' lesson' + (_completedCount !== 1 ? 's' : '') + ' done'
+      + '</div>';
+  })();
+
   // Bookmarks strip
   var _bkIds = S.bookmarks || [];
   if (_bkIds.length > 0) {
@@ -18727,6 +19908,9 @@ function renderLearnTab() {
       <div class="continue-card-btn">Continue &rarr;</div>
     </div>`;
   }
+
+  // learn-34: Continue where you left off banner (before goal bar)
+  html += renderCWYLOFBanner();
 
   // Goal bar — directly below continue card
   html += '<div class="goal-strip' + (goalMet ? ' goal-complete' : '') + '" style="margin:0 12px 8px;">' +
@@ -18938,6 +20122,24 @@ function renderLearnTab() {
   var _dcEasy  = learnDiffFilter === 'easy' ? 'active' : '';
   var _dcMod   = learnDiffFilter === 'moderate' ? 'active' : '';
   var _dcHard  = learnDiffFilter === 'challenging' ? 'active' : '';
+  // learn-38: dynamic tag filter pills
+  (function() {
+    var _allTags38 = getAllCourseTags().slice(0, 14); // top 14 tags
+    if (_allTags38.length > 0) {
+      var _pillsHtml = '<div class="learn-tag-filter-row">';
+      _pillsHtml += '<button class="learn-tag-pill-filter' + (learnFilterTag === '' ? ' active' : '') + '" onclick="setLearnFilter(\'\')">All</button>';
+      for (var _ti38 = 0; _ti38 < _allTags38.length; _ti38++) {
+        var _t38 = _allTags38[_ti38];
+        var _isActive38 = learnFilterTag === _t38;
+        // capitalise first letter for display
+        var _label38 = _t38.charAt(0).toUpperCase() + _t38.slice(1);
+        _pillsHtml += '<button class="learn-tag-pill-filter' + (_isActive38 ? ' active' : '') + '" onclick="setLearnFilter(' + "'" + _t38 + "'" + ')">' + escHtml(_label38) + '</button>';
+      }
+      _pillsHtml += '</div>';
+      html += _pillsHtml;
+    }
+  })();
+
   html += `<div class="learn-search-wrap">
   <div class="diff-filter-row">
     <div class="diff-chip dc-all ${_dcAll}" onclick="filterDifficulty('')">All<span class="diff-chip-count">${(function(){ var _c=countLessonsByDifficulty(); return _c.all; })()}</span></div>
@@ -19022,6 +20224,15 @@ function renderLearnTab() {
         : unitLessons;
       // Sort filtered lessons per learnSortMode
       var visibleLessons = _filteredLessons.slice();
+      // learn-37: float pinned lessons to top within their unit
+      var _pinnedIds37 = S.pinned_lessons || [];
+      if (_pinnedIds37.length > 0) {
+        visibleLessons.sort(function(a, b) {
+          var _ap = _pinnedIds37.indexOf(a.id) > -1 ? 0 : 1;
+          var _bp = _pinnedIds37.indexOf(b.id) > -1 ? 0 : 1;
+          return _ap - _bp;
+        });
+      }
       if (learnSortMode === 'xp-desc') {
         visibleLessons.sort(function(a, b) { return (b.xp || 0) - (a.xp || 0); });
       } else if (learnSortMode === 'easy-first') {
@@ -19049,6 +20260,7 @@ function renderLearnTab() {
             <div class="unit-title">Unit ${unit.num} · ${unit.title}</div>
             <div class="unit-sub">${doneCount}/${unitLessons.length} done</div>
             <div class="unit-prog-bar-outer"><div class="unit-prog-bar-fill ${ringPct >= 1 ? 'complete' : 'partial'}" style="width:${Math.round(ringPct*100)}%;${ringPct < 1 ? 'background:'+ unit.color +';' : ''}"></div></div>
+            <div class="unit-pct-text ${ringPct >= 1 ? 'complete' : ''}">${Math.round(ringPct*100)}% complete</div>
             ${(function(){ var _remXp = unitLessons.filter(function(l){ return !S.completed.includes(l.id); }).reduce(function(s,l){ return s+(l.xp||0); },0); return _remXp > 0 ? '<div class="unit-xp-remaining">' + _remXp + ' XP remaining in this unit</div>' : ''; })()}
           </div>
           <div class="unit-progress-ring">${smallRingHTML(ringPct, unit.color)}</div>
@@ -19158,6 +20370,10 @@ function renderLearnTab() {
           _xpBoostBadge = '<span class="lc-xp-boost-badge">⚡ 2x XP</span>';
         }
 
+        // learn-37: pin badge on pinned lessons
+        var _isPinned37 = (S.pinned_lessons || []).indexOf(lesson.id) > -1;
+        var _pinBadge37 = _isPinned37 ? '<span class="lesson-pin-badge">📌 Pinned</span>' : '';
+
         const _reviewEntry = (S.lesson_reviews || {})[lesson.id];
         const _reviewDue = _reviewEntry && _reviewEntry.nextDue <= todayStr();
 
@@ -19205,13 +20421,13 @@ function renderLearnTab() {
           + '</svg>'
           + '~' + _rtMins + ' min read</span>';
 
-        html += `<div class="lesson-row ${done ? 'completed' : ''} ${locked ? 'locked' : ''} ${_unitTintClass}"
+        html += `<div class="lesson-row ${done ? 'completed' : ''} ${locked ? 'locked' : ''} ${_unitTintClass} ${_isPinned37 ? 'pinned-lesson' : ''}"
           style="${_unitTintStyle}"
           onclick="${locked ? 'openPremiumModal()' : `startLesson('${lesson.id}')`}">
           ${_newBadge}
           <div class="lesson-icon" style="background:${iconBg}">${iconContent}</div>
           <div class="lesson-info">
-            <div class="lesson-title">${learnSearchQuery.trim() ? highlightSearch(lesson.title, learnSearchQuery) : escHtml(lesson.title)}${_recentBadge}${_xpBoostBadge}</div>
+            <div class="lesson-title"><span class="lpm-title-trigger" onclick="event.stopPropagation();openLessonPreview('${lesson.id}', event)" title="Preview this lesson" style="cursor:pointer;">${learnSearchQuery.trim() ? highlightSearch(lesson.title, learnSearchQuery) : escHtml(lesson.title)}</span>${_recentBadge}${_xpBoostBadge}${_pinBadge37}</div>
             <div class="lesson-meta">${_rtChip} +${lesson.xp} XP${diffBadge}${_ratingStarsHtml}<span class="lesson-slides-count"> &bull; ${(lesson.slides||[]).length} slide${(lesson.slides||[]).length !== 1 ? 's' : ''}</span></div>
             ${starsHtml}${_tagsHtml}
             ${_completedDateHtml}
@@ -19277,6 +20493,45 @@ ${_playHint}<button class="lesson-bookmark-btn ${(S.bookmarks||[]).includes(less
   document.getElementById('units-container').innerHTML = html;
   if (typeof renderDailyTip === 'function') renderDailyTip();
   renderWeeklyChallengeBanner();
+
+  // learn-37: long-press to pin/unpin lesson rows
+  (function() {
+    var _rows37 = document.querySelectorAll('.lesson-row');
+    _rows37.forEach(function(row) {
+      var _timer37 = null;
+      var _oc37 = row.getAttribute('onclick') || '';
+      var _m37 = _oc37.match(/startLesson\('([^']+)'\)/);
+      if (!_m37) return;
+      var _lid37 = _m37[1];
+      row.addEventListener('touchstart', function() {
+        _timer37 = setTimeout(function() {
+          togglePinLesson(_lid37);
+          row.classList.add('pin-longpress-active');
+          setTimeout(function(){ row.classList.remove('pin-longpress-active'); }, 300);
+        }, 500);
+      }, { passive: true });
+      row.addEventListener('touchend', function() { clearTimeout(_timer37); }, { passive: true });
+      row.addEventListener('touchmove', function() { clearTimeout(_timer37); }, { passive: true });
+    });
+  })();
+
+  // learn-35: green flash on newly completed lesson row
+  (function() {
+    if (!_justCompletedLessonId) return;
+    var _fid = _justCompletedLessonId;
+    _justCompletedLessonId = null;
+    // Find the lesson-row by its onclick attribute containing the lesson id
+    var _allRows = document.querySelectorAll('.lesson-row');
+    _allRows.forEach(function(row) {
+      var _oc = row.getAttribute('onclick') || '';
+      if (_oc.indexOf(_fid) > -1 || (row.nextElementSibling && (row.nextElementSibling.getAttribute && (row.nextElementSibling.getAttribute('onclick') || '').indexOf(_fid) > -1))) {
+        row.classList.remove('lesson-complete-flash');
+        void row.offsetWidth; // reflow
+        row.classList.add('lesson-complete-flash');
+        setTimeout(function() { row.classList.remove('lesson-complete-flash'); }, 900);
+      }
+    });
+  })();
 
   // learn-17: attach swipe-to-bookmark touch listeners to each .lesson-row
   (function() {
@@ -19432,6 +20687,56 @@ function lessonIconSVG(color) {
     <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
     <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
   </svg>`;
+}
+
+// ============================================================
+// learn-33: Lesson preview modal
+// ============================================================
+var _lpmPendingId = null;
+
+function openLessonPreview(id, event) {
+  if (event) event.stopPropagation();
+  var lesson = findLesson(id);
+  if (!lesson) return;
+  if (!lesson.free && !S.premium) { openPremiumModal(); return; }
+  // Find unit
+  var unit = null;
+  for (var _u = 0; _u < COURSE.length; _u++) {
+    if (COURSE[_u].lessons.some(function(l){ return l.id === id; })) { unit = COURSE[_u]; break; }
+  }
+  _lpmPendingId = id;
+  document.getElementById('lpm-unit-label').textContent = unit ? ('Unit ' + unit.num + ': ' + unit.title) : '';
+  document.getElementById('lpm-title').textContent = lesson.title || '';
+  // Meta
+  var _mins = (typeof estimateLessonMinutes === 'function') ? estimateLessonMinutes(lesson) : '?';
+  var _slides = (lesson.slides || []).length;
+  var _xp = lesson.xp || 0;
+  document.getElementById('lpm-meta').innerHTML = '~' + _mins + ' min &bull; ' + _slides + ' slide' + (_slides !== 1 ? 's' : '') + ' &bull; +' + _xp + ' XP';
+  // First slide content
+  var _firstSlide = (lesson.slides || [])[0] || {};
+  var _slideTitle = _firstSlide.title || lesson.title || '';
+  var _slideText = _firstSlide.text || _firstSlide.msg || '';
+  var _slideHtml = '';
+  if (_slideTitle) _slideHtml += '<div class="lpm-slide-title">' + escHtml(_slideTitle) + '</div>';
+  if (_slideText) _slideHtml += '<div class="lpm-slide-text">' + escHtml(_slideText.slice(0, 220)) + (_slideText.length > 220 ? '…' : '') + '</div>';
+  if (!_slideHtml) _slideHtml = '<div class="lpm-slide-text">Tap Start to begin this lesson.</div>';
+  document.getElementById('lpm-first-slide').innerHTML = _slideHtml;
+  var modal = document.getElementById('lesson-preview-modal');
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLessonPreview() {
+  var modal = document.getElementById('lesson-preview-modal');
+  if (modal) modal.classList.remove('open');
+  document.body.style.overflow = '';
+  _lpmPendingId = null;
+}
+
+function closeLessonPreviewAndStart() {
+  var id = _lpmPendingId;
+  closeLessonPreview();
+  if (id) startLesson(id);
 }
 
 // ============================================================
@@ -23505,6 +24810,8 @@ function startLesson(id) {
   if (!lesson) return;
   if (!lesson.free && !S.premium) { openPremiumModal(); return; }
 
+  // learn-34: remember last lesson opened for "continue" banner
+  save('last_lesson_opened', id);
   matchPendingLeft = null;
   let startSlideIdx = 0;
   if (S.resume_lesson && S.resume_lesson.lessonId === id) {
@@ -25023,6 +26330,7 @@ function renderLessonComplete() {
   if (!S.completed.includes(lessonState.lessonId)) {
     const newCompleted = [...S.completed, lessonState.lessonId];
     save('completed', newCompleted);
+    _justCompletedLessonId = lessonState.lessonId; // learn-35: flag for flash animation
   }
 
   // Schedule first spaced repetition review (due tomorrow)
@@ -27437,6 +28745,24 @@ function finishPractice() {
   });
   if (hist.length > 20) hist.shift();
   save('practice_history', hist);
+  // profile-25: persist total questions answered
+  (function() {
+    var _sessionTotal = typeof total !== 'undefined' ? (total || 0) : 0;
+    if (_sessionTotal > 0) {
+      var _prev25 = S.total_questions_answered || 0;
+      save('total_questions_answered', _prev25 + _sessionTotal);
+    }
+  })();
+    // profile-24: persist best practice answer streak
+  (function() {
+    var _sessionMax = lessonState.practiceMaxStreak || 0;
+    if (_sessionMax > 0) {
+      var _stored = S.practice_best_streak || 0;
+      if (_sessionMax > _stored) {
+        save('practice_best_streak', _sessionMax);
+      }
+    }
+  })();
   // Increment weekly session counter
   (function() {
     const _cw = (typeof getISOWeek === 'function') ? getISOWeek() : '';
@@ -29300,6 +30626,637 @@ function renderPlanTab() {
       '</div>';
   })();
 
+  // --- Weekly Summary Card (plan-17) ---
+  (function() {
+    // Compute the ISO week string for the PREVIOUS week so we can show
+    // "last week" stats.  We store this week's data as S.weekly_* — on
+    // Monday the current week resets, so we show the previous week's best.
+    // Because we may not persist last-week data separately, we display the
+    // CURRENT week stats with a label that clarifies the period.
+
+    var _now17   = new Date();
+    var _dow17   = _now17.getDay(); // 0=Sun…6=Sat
+    // Show the card on Mondays (dow===1) AND always — it is always useful.
+
+    // Current week stats (safe fallback)
+    var _wxp17    = S.weekly_xp || 0;
+    var _wbest17  = S.weekly_best || 0;
+    var _wdone17  = (S.weekly_lessons_done || []).length;
+    var _streak17 = S.streak || 0;
+    var _total17  = (S.completed || []).length;
+
+    // Calculate total XP for last week using xp_log if available
+    var _xpLog17    = S.xp_log || [];
+    // Get Monday and Sunday of CURRENT week (Mon-start)
+    var _monOffset17 = (_dow17 === 0 ? 6 : _dow17 - 1);
+    var _monDate17   = new Date(_now17);
+    _monDate17.setDate(_now17.getDate() - _monOffset17);
+    _monDate17.setHours(0,0,0,0);
+
+    // For "this week" label
+    var _monStr17 = _monDate17.toISOString().split('T')[0];
+    var _monDisp17 = _monDate17.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+    // Count lessons and XP from xp_log this week
+    var _weekXpFromLog17  = 0;
+    var _weekLsnFromLog17 = 0;
+    for (var _i17 = 0; _i17 < _xpLog17.length; _i17++) {
+      var _entry17 = _xpLog17[_i17];
+      var _entDate17 = (_entry17.date || '').slice(0, 10);
+      if (_entDate17 >= _monStr17) {
+        _weekXpFromLog17  += (_entry17.xp || 0);
+        _weekLsnFromLog17 += 1;
+      }
+    }
+    // Use log data if richer, else fall back to S.weekly_* counters
+    var _dispXp17  = _weekXpFromLog17 > 0 ? _weekXpFromLog17 : _wxp17;
+    var _dispLsn17 = _weekLsnFromLog17 > 0 ? _weekLsnFromLog17 : _wdone17;
+
+    // Note text
+    var _notes17 = [
+      "Every lesson you finish is a brick in the wall of a skill that lasts a lifetime.",
+      "Consistency beats intensity. You showed up this week — that matters.",
+      "Progress is progress, no matter the size. Great week!",
+      "Small steps every week add up to big changes. Keep going!",
+      "You are building a habit that most people never start."
+    ];
+    var _noteIdx17 = (_total17 + _streak17) % _notes17.length;
+    var _note17    = _notes17[_noteIdx17];
+
+    // Only show if user has started (has completed at least 1 lesson)
+    if (_total17 === 0) return;
+
+    html +=
+      '<div class="plan-week-summary">' +
+        '<div class="plan-week-summary-hdr">' +
+          '<div class="plan-week-summary-title">&#128197; This Week (' + _monDisp17 + '+)</div>' +
+          '<div class="plan-week-summary-badge">Week in Review</div>' +
+        '</div>' +
+        '<div class="plan-week-stat-row">' +
+          '<div class="plan-week-stat">' +
+            '<div class="plan-week-stat-val">' + _dispLsn17 + '</div>' +
+            '<div class="plan-week-stat-lbl">Lessons</div>' +
+          '</div>' +
+          '<div class="plan-week-stat">' +
+            '<div class="plan-week-stat-val">' + _dispXp17 + '</div>' +
+            '<div class="plan-week-stat-lbl">XP Earned</div>' +
+          '</div>' +
+          '<div class="plan-week-stat">' +
+            '<div class="plan-week-stat-val">' + _streak17 + '</div>' +
+            '<div class="plan-week-stat-lbl">Day Streak</div>' +
+          '</div>' +
+          '<div class="plan-week-stat">' +
+            '<div class="plan-week-stat-val">' + _total17 + '</div>' +
+            '<div class="plan-week-stat-lbl">Total Done</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="plan-week-note">' + _note17 + '</div>' +
+      '</div>';
+  })();
+
+  // --- Upcoming Reviews Timeline (plan-18) ---
+  (function() {
+    var _reviews18 = S.lesson_reviews || {};
+    var _today18   = todayStr();
+
+    // Compute dates for next 7 days
+    function _addDays18(ds, n) {
+      var d = new Date(ds + 'T12:00:00');
+      d.setDate(d.getDate() + n);
+      return d.toISOString().split('T')[0];
+    }
+    var _maxDate18 = _addDays18(_today18, 7);
+
+    // Collect upcoming reviews (due today through +7 days)
+    var _upcoming18 = [];
+    for (var _rid18 in _reviews18) {
+      if (!_reviews18.hasOwnProperty(_rid18)) continue;
+      var _r18 = _reviews18[_rid18];
+      var _due18 = _r18.nextDue || '';
+      if (_due18 >= _today18 && _due18 <= _maxDate18) {
+        _upcoming18.push({ id: _rid18, due: _due18 });
+      }
+    }
+
+    // Sort by due date asc
+    _upcoming18.sort(function(a, b) { return a.due < b.due ? -1 : a.due > b.due ? 1 : 0; });
+
+    // Only show widget if user has any reviews scheduled
+    if (Object.keys(_reviews18).length === 0) return;
+
+    // Helper to get lesson title
+    function _getLsnTitle18(id) {
+      for (var _ui = 0; _ui < COURSE.length; _ui++) {
+        var _u = COURSE[_ui];
+        for (var _li = 0; _li < _u.lessons.length; _li++) {
+          if (_u.lessons[_li].id === id) return _u.lessons[_li].title || id;
+        }
+      }
+      return id;
+    }
+
+    // Build items HTML (cap at 5)
+    var _itemsHtml18 = '';
+    var _shown18 = 0;
+    var _cap18   = 5;
+    for (var _j18 = 0; _j18 < _upcoming18.length && _shown18 < _cap18; _j18++) {
+      var _item18  = _upcoming18[_j18];
+      var _daysOut = 0;
+      if (_item18.due > _today18) {
+        var _ms18   = new Date(_item18.due + 'T12:00:00') - new Date(_today18 + 'T12:00:00');
+        _daysOut = Math.round(_ms18 / 86400000);
+      }
+      var _dotCls18, _dueCls18, _dueLabel18;
+      if (_daysOut === 0) {
+        _dotCls18 = 'rd-today'; _dueCls18 = 'dd-today'; _dueLabel18 = 'Today';
+      } else if (_daysOut <= 2) {
+        _dotCls18 = 'rd-soon';  _dueCls18 = 'dd-soon';  _dueLabel18 = 'In ' + _daysOut + 'd';
+      } else {
+        _dotCls18 = 'rd-later'; _dueCls18 = 'dd-later'; _dueLabel18 = 'In ' + _daysOut + 'd';
+      }
+      _itemsHtml18 +=
+        '<div class="plan-review-item">' +
+          '<div class="plan-review-dot ' + _dotCls18 + '"></div>' +
+          '<div class="plan-review-name">' + _getLsnTitle18(_item18.id) + '</div>' +
+          '<div class="plan-review-due ' + _dueCls18 + '">' + _dueLabel18 + '</div>' +
+        '</div>';
+      _shown18++;
+    }
+
+    var _extra18 = _upcoming18.length - _shown18;
+    var _extraHtml18 = _extra18 > 0
+      ? '<div class="plan-reviews-empty" style="margin-top:4px;">+' + _extra18 + ' more in the next 7 days</div>'
+      : '';
+
+    if (_upcoming18.length === 0) {
+      _itemsHtml18 = '<div class="plan-reviews-empty">No reviews due in the next 7 days</div>';
+    }
+
+    html +=
+      '<div class="plan-reviews-wrap">' +
+        '<div class="plan-reviews-hdr">' +
+          '<div class="plan-reviews-icon">&#128260;</div>' +
+          '<div>' +
+            '<div class="plan-reviews-title">Upcoming Reviews</div>' +
+            '<div class="plan-reviews-sub">Spaced repetition — next 7 days</div>' +
+          '</div>' +
+        '</div>' +
+        _itemsHtml18 +
+        _extraHtml18 +
+      '</div>';
+  })();
+
+  // --- Course Completion Donut (plan-19) ---
+  (function() {
+    var _done19  = (S.completed || []).length;
+    var _total19 = 0;
+    for (var _ui19 = 0; _ui19 < COURSE.length; _ui19++) {
+      _total19 += (COURSE[_ui19].lessons || []).length;
+    }
+    if (_total19 === 0) return;
+
+    var _pct19 = Math.round((_done19 / _total19) * 100);
+
+    // SVG donut geometry
+    // r=34 => circumference = 2*PI*34 = ~213.6
+    var _r19   = 34;
+    var _circ19 = Math.round(2 * 3.14159 * _r19 * 10) / 10; // 213.6
+    var _dash19 = Math.round((_pct19 / 100) * _circ19 * 10) / 10;
+    var _gap19  = _circ19 - _dash19;
+
+    // Color by progress
+    var _color19;
+    if (_pct19 >= 75) { _color19 = '#58CC02'; }
+    else if (_pct19 >= 40) { _color19 = '#3b82f6'; }
+    else { _color19 = '#f59e0b'; }
+
+    // Remaining
+    var _rem19 = _total19 - _done19;
+
+    // Certs earned
+    var _certs19 = (S.earned_certs || []).length;
+
+    html +=
+      '<div class="plan-donut-wrap">' +
+        '<div class="plan-donut-svg-area">' +
+          '<svg class="plan-donut-svg" width="88" height="88" viewBox="0 0 88 88">' +
+            '<circle class="plan-donut-track" cx="44" cy="44" r="' + _r19 + '"/>' +
+            '<circle class="plan-donut-fill" cx="44" cy="44" r="' + _r19 + '"' +
+              ' stroke="' + _color19 + '"' +
+              ' stroke-dasharray="' + _dash19 + ' ' + _gap19 + '"' +
+              ' stroke-dashoffset="0"/>' +
+          '</svg>' +
+          '<div class="plan-donut-label">' +
+            '<div class="plan-donut-pct">' + _pct19 + '<span class="plan-donut-pct-sym">%</span></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="plan-donut-info">' +
+          '<div class="plan-donut-info-title">Course Progress</div>' +
+          '<div class="plan-donut-info-sub">' + _done19 + ' of ' + _total19 + ' lessons completed</div>' +
+          '<div class="plan-donut-stat-row">' +
+            '<div class="plan-donut-stat" style="color:#6b7280;">' +
+              '<span>' + _rem19 + '</span> left' +
+            '</div>' +
+            '<div class="plan-donut-stat" style="color:#6b7280;">' +
+              '<span>' + _certs19 + '</span> cert' + (_certs19 !== 1 ? 's' : '') +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  })();
+
+  // --- Learning Velocity Indicator (plan-20) ---
+  (function() {
+    // Only show if user has done at least 1 lesson
+    if ((S.completed || []).length === 0) return;
+
+    var _log20    = S.lesson_log || {};
+    var _today20  = todayStr();
+
+    // Helper: get Mon of the week containing a date string (Mon-start)
+    function _weekMon20(ds) {
+      var d = new Date(ds + 'T12:00:00');
+      var dow = d.getDay(); // 0=Sun
+      var offset = (dow === 0 ? 6 : dow - 1);
+      d.setDate(d.getDate() - offset);
+      return d.toISOString().split('T')[0];
+    }
+
+    // Build lessons-per-week map from lesson_log
+    var _weekMap20 = {};
+    var _dates20   = Object.keys(_log20);
+    for (var _d20 = 0; _d20 < _dates20.length; _d20++) {
+      var _ds20  = _dates20[_d20];
+      var _cnt20 = _log20[_ds20] || 0;
+      if (_cnt20 > 0) {
+        var _wk20 = _weekMon20(_ds20);
+        _weekMap20[_wk20] = (_weekMap20[_wk20] || 0) + _cnt20;
+      }
+    }
+
+    var _thisWk20 = _weekMon20(_today20);
+    var _prevWk20 = (function() {
+      var d = new Date(_thisWk20 + 'T12:00:00');
+      d.setDate(d.getDate() - 7);
+      return d.toISOString().split('T')[0];
+    })();
+
+    var _thisCount20 = _weekMap20[_thisWk20] || 0;
+    var _prevCount20 = _weekMap20[_prevWk20] || 0;
+
+    // Build 6-week sparkline (oldest left, this week right)
+    var _sparkWeeks20 = [];
+    for (var _w20 = 5; _w20 >= 0; _w20--) {
+      var _wd = new Date(_thisWk20 + 'T12:00:00');
+      _wd.setDate(_wd.getDate() - _w20 * 7);
+      var _wkStr = _wd.toISOString().split('T')[0];
+      _sparkWeeks20.push({ wk: _wkStr, cnt: _weekMap20[_wkStr] || 0 });
+    }
+    var _maxSpark20 = 1;
+    for (var _s20 = 0; _s20 < _sparkWeeks20.length; _s20++) {
+      if (_sparkWeeks20[_s20].cnt > _maxSpark20) _maxSpark20 = _sparkWeeks20[_s20].cnt;
+    }
+
+    // Trend
+    var _trendKey20, _arrow20, _badge20, _sub20;
+    if (_prevCount20 === 0 && _thisCount20 >= 0) {
+      _trendKey20 = 'flat'; _arrow20 = '&#8594;'; _badge20 = 'Stable';
+      _sub20 = 'Not enough history yet — keep going this week!';
+    } else if (_thisCount20 > _prevCount20 + 1) {
+      _trendKey20 = 'up'; _arrow20 = '&#8679;'; _badge20 = 'Trending Up';
+      _sub20 = _thisCount20 + ' lessons this week vs ' + _prevCount20 + ' last week';
+    } else if (_thisCount20 < _prevCount20 - 1) {
+      _trendKey20 = 'down'; _arrow20 = '&#8681;'; _badge20 = 'Slowing Down';
+      _sub20 = _thisCount20 + ' lessons this week vs ' + _prevCount20 + ' last week';
+    } else {
+      _trendKey20 = 'flat'; _arrow20 = '&#8596;'; _badge20 = 'Stable';
+      _sub20 = _thisCount20 + ' lessons this week — steady pace!';
+    }
+
+    // Build sparkline dots
+    var _sparkHtml20 = '';
+    for (var _k20 = 0; _k20 < _sparkWeeks20.length; _k20++) {
+      var _sw20   = _sparkWeeks20[_k20];
+      var _htPct  = Math.round((_sw20.cnt / _maxSpark20) * 100);
+      var _isCur  = _sw20.wk === _thisWk20;
+      _sparkHtml20 +=
+        '<div class="plan-velocity-dot' + (_isCur ? ' vd-this' : '') + '"' +
+          ' style="height:' + Math.max(4, Math.round(_htPct * 0.24)) + 'px;"' +
+          ' title="Week of ' + _sw20.wk + ': ' + _sw20.cnt + ' lessons"></div>';
+    }
+
+    html +=
+      '<div class="plan-velocity-wrap plan-velocity-' + _trendKey20 + '">' +
+        '<div class="plan-velocity-top">' +
+          '<div class="plan-velocity-icon">' + _arrow20 + '</div>' +
+          '<div class="plan-velocity-text">' +
+            '<div class="plan-velocity-label">Learning Velocity</div>' +
+            '<div class="plan-velocity-sub">' + _sub20 + '</div>' +
+          '</div>' +
+          '<div class="plan-velocity-badge">' + _badge20 + '</div>' +
+        '</div>' +
+        '<div class="plan-velocity-dots">' + _sparkHtml20 + '</div>' +
+      '</div>';
+  })();
+
+  // --- Smart Break Reminder (plan-21) ---
+  (function() {
+    var _today21   = todayStr();
+    var _log21     = S.lesson_log || {};
+    var _todayCnt21 = _log21[_today21] || 0;
+
+    // Only show if user has done 5+ lessons today
+    if (_todayCnt21 < 5) return;
+
+    var _msgs21 = [
+      "Amazing dedication today! Even the best learners need to rest. Your brain consolidates memories during downtime.",
+      "You have done a lot today! Step away, hydrate, and let today's lessons sink in. You will retain more.",
+      "That is serious focus! A short walk or rest now will actually make tomorrow's learning stronger.",
+      "Wow, you are on fire today! Rest is part of learning. You have earned a break.",
+      "Your brain has worked hard today. Stepping away for a bit is not slacking — it is smart."
+    ];
+    var _msgIdx21 = _todayCnt21 % _msgs21.length;
+
+    html +=
+      '<div class="plan-break-wrap">' +
+        '<div class="plan-break-icon">&#9749;</div>' +
+        '<div class="plan-break-body">' +
+          '<div class="plan-break-title">Time for a Break?</div>' +
+          '<div class="plan-break-msg">' + _msgs21[_msgIdx21] + '</div>' +
+        '</div>' +
+        '<div class="plan-break-count">' + _todayCnt21 + ' today</div>' +
+      '</div>';
+  })();
+
+  // --- Topic Strength Radar (plan-22) ---
+  (function() {
+    var _done22 = new Set(S.completed || []);
+    if (_done22.size === 0) return;
+
+    // Collect per-unit completion data
+    var _unitData22 = [];
+    for (var _ui22 = 0; _ui22 < COURSE.length; _ui22++) {
+      var _u22   = COURSE[_ui22];
+      var _lsns  = _u22.lessons || [];
+      if (_lsns.length === 0) continue;
+      var _doneU = 0;
+      for (var _li22 = 0; _li22 < _lsns.length; _li22++) {
+        if (_done22.has(_lsns[_li22].id)) _doneU++;
+      }
+      if (_doneU === 0) continue; // skip untouched units
+      _unitData22.push({
+        title: _u22.title || ('Unit ' + (_ui22 + 1)),
+        done:  _doneU,
+        total: _lsns.length,
+        pct:   Math.round((_doneU / _lsns.length) * 100)
+      });
+    }
+
+    if (_unitData22.length === 0) return;
+
+    // Sort by pct desc so strongest units appear first
+    _unitData22.sort(function(a, b) { return b.pct - a.pct; });
+
+    // Cap at 6 rows to keep the card compact
+    var _visible22 = _unitData22.slice(0, 6);
+
+    var _rowsHtml22 = '';
+    for (var _j22 = 0; _j22 < _visible22.length; _j22++) {
+      var _ud22   = _visible22[_j22];
+      var _cls22, _tagCls22, _tagTxt22;
+      if (_ud22.pct >= 70) {
+        _cls22 = 'rb-strong'; _tagCls22 = 'rt-strong'; _tagTxt22 = 'Strong';
+      } else if (_ud22.pct >= 30) {
+        _cls22 = 'rb-build';  _tagCls22 = 'rt-build';  _tagTxt22 = 'Building';
+      } else {
+        _cls22 = 'rb-start';  _tagCls22 = 'rt-start';  _tagTxt22 = 'Starting';
+      }
+      _rowsHtml22 +=
+        '<div class="plan-radar-row">' +
+          '<div class="plan-radar-name" title="' + _ud22.title + '">' + _ud22.title + '</div>' +
+          '<div class="plan-radar-bar-bg">' +
+            '<div class="plan-radar-bar-fill ' + _cls22 + '" style="width:' + _ud22.pct + '%;"></div>' +
+          '</div>' +
+          '<div class="plan-radar-tag ' + _tagCls22 + '">' + _tagTxt22 + '</div>' +
+        '</div>';
+    }
+
+    var _extra22 = _unitData22.length - _visible22.length;
+    var _footHtml22 = _extra22 > 0
+      ? '<div style="font-size:10px;font-weight:600;color:#9ca3af;margin-top:4px;text-align:right;">+' + _extra22 + ' more unit' + (_extra22 > 1 ? 's' : '') + '</div>'
+      : '';
+
+    html +=
+      '<div class="plan-radar-wrap">' +
+        '<div class="plan-radar-hdr">' +
+          '<div class="plan-radar-hdr-icon">&#127919;</div>' +
+          '<div>' +
+            '<div class="plan-radar-hdr-title">Topic Strength</div>' +
+            '<div class="plan-radar-hdr-sub">Your progress across each track</div>' +
+          '</div>' +
+        '</div>' +
+        _rowsHtml22 +
+        _footHtml22 +
+      '</div>';
+  })();
+
+  // --- Weekly Digest Widget (plan-23) ---
+  (function() {
+    // Only show if user has started
+    if ((S.completed || []).length === 0) return;
+
+    var _today23 = todayStr();
+
+    // Week start (Monday)
+    var _now23    = new Date(_today23 + 'T12:00:00');
+    var _dow23    = _now23.getDay();
+    var _off23    = (_dow23 === 0 ? 6 : _dow23 - 1);
+    var _mon23    = new Date(_now23);
+    _mon23.setDate(_now23.getDate() - _off23);
+    var _monStr23 = _mon23.toISOString().split('T')[0];
+
+    // Lessons done this week (from lesson_log)
+    var _log23    = S.lesson_log || {};
+    var _wLsn23   = 0;
+    var _dKeys23  = Object.keys(_log23);
+    for (var _d23 = 0; _d23 < _dKeys23.length; _d23++) {
+      if (_dKeys23[_d23] >= _monStr23) _wLsn23 += (_log23[_dKeys23[_d23]] || 0);
+    }
+
+    // XP earned this week (from S.weekly_xp which tracks current week)
+    var _wXp23     = S.weekly_xp || 0;
+    var _streak23  = S.streak || 0;
+
+    // Most recent achievement
+    var _achList23 = S.achievements || [];
+    var _lastAch23 = _achList23.length > 0 ? _achList23[_achList23.length - 1] : null;
+    var _achObj23  = null;
+    if (_lastAch23) {
+      for (var _ai23 = 0; _ai23 < ACHIEVEMENTS.length; _ai23++) {
+        if (ACHIEVEMENTS[_ai23].id === _lastAch23) {
+          _achObj23 = ACHIEVEMENTS[_ai23]; break;
+        }
+      }
+    }
+
+    var _achHtml23;
+    if (_achObj23) {
+      _achHtml23 =
+        '<div class="plan-digest-ach">' +
+          '<div class="plan-digest-ach-icon">&#127942;</div>' +
+          '<div class="plan-digest-ach-text">' +
+            '<div class="plan-digest-ach-label">Achievement Unlocked</div>' +
+            '<div class="plan-digest-ach-name">' + _achObj23.label + '</div>' +
+          '</div>' +
+        '</div>';
+    } else {
+      _achHtml23 =
+        '<div class="plan-digest-no-ach">Complete more lessons to unlock achievements!</div>';
+    }
+
+    html +=
+      '<div class="plan-digest-wrap">' +
+        '<div class="plan-digest-hdr">' +
+          '<div class="plan-digest-title">&#128203; Weekly Digest</div>' +
+          '<div class="plan-digest-pill">This Week</div>' +
+        '</div>' +
+        '<div class="plan-digest-kpi-row">' +
+          '<div class="plan-digest-kpi">' +
+            '<div class="plan-digest-kpi-val">' + _wLsn23 + '</div>' +
+            '<div class="plan-digest-kpi-lbl">Lessons</div>' +
+          '</div>' +
+          '<div class="plan-digest-kpi">' +
+            '<div class="plan-digest-kpi-val">' + _wXp23 + '</div>' +
+            '<div class="plan-digest-kpi-lbl">XP Earned</div>' +
+          '</div>' +
+          '<div class="plan-digest-kpi">' +
+            '<div class="plan-digest-kpi-val">' + _streak23 + '</div>' +
+            '<div class="plan-digest-kpi-lbl">Streak</div>' +
+          '</div>' +
+        '</div>' +
+        _achHtml23 +
+      '</div>';
+  })();
+
+  // --- Next Milestone Countdown (plan-24) ---
+  (function() {
+    var _done24    = S.completed || [];
+    var _xp24      = S.xp || 0;
+    var _streak24  = S.streak || 0;
+    var _earned24  = new Set(S.achievements || []);
+    var _certs24   = new Set(S.earned_certs || []);
+
+    // ---- Candidate milestones ----
+    var _candidates24 = [];
+
+    // 1. Next XP level boundary (every 100 XP)
+    var _curLvl24  = Math.floor(_xp24 / 100) + 1;
+    var _nextLvlXp = _curLvl24 * 100;           // XP needed for next level
+    var _xpNeeded24 = _nextLvlXp - _xp24;
+    var _xpPct24    = Math.round(((_xp24 % 100) / 100) * 100);
+    _candidates24.push({
+      type: 'level',
+      icon: '&#11088;',
+      name: 'Level ' + (_curLvl24 + 1),
+      detail: _xpNeeded24 + ' XP to go',
+      cur: _xp24 % 100,
+      goal: 100,
+      pct: _xpPct24,
+      distance: _xpNeeded24  // lower = closer
+    });
+
+    // 2. Next achievement (first unearned achievement by lesson count)
+    // Map achievements to a numeric threshold for ordering
+    var _achThresh24 = {
+      'first_lesson': 1, 'five_lessons': 5,
+      'streak_3': 3, 'streak_7': 7,
+      'level_5': 5, 'perfect': 1,
+      'practice_1': 1, 'plan_done': 1,
+      'all_safe': 5, 'all_unit1': 5, 'all_unit6': 5,
+      'all_unit7': 5, 'all_unit8': 5, 'all_unit9': 5,
+      'quickfire_perfect': 5, 'scenario_master': 5,
+      'practice_hot_streak': 5, 'practice_speed_demon': 10,
+      'practice_master_reviewer': 5, 'practice_addict': 10
+    };
+    for (var _ai24 = 0; _ai24 < ACHIEVEMENTS.length; _ai24++) {
+      var _a24 = ACHIEVEMENTS[_ai24];
+      if (_earned24.has(_a24.id)) continue;
+      // Rough distance: use lesson threshold or default 1
+      var _thresh24 = _achThresh24[_a24.id] || 3;
+      // For lesson-count achievements: measure vs completed.length
+      var _distA24 = Math.max(1, _thresh24 - _done24.length);
+      _candidates24.push({
+        type: 'achievement',
+        icon: '&#127942;',
+        name: _a24.label,
+        detail: _a24.desc,
+        cur: Math.min(_done24.length, _thresh24),
+        goal: _thresh24,
+        pct: Math.round((Math.min(_done24.length, _thresh24) / _thresh24) * 100),
+        distance: _distA24
+      });
+      break; // only pick the first unearned one
+    }
+
+    // 3. Next certificate (first unit with >0% but <100% completion)
+    for (var _ui24 = 0; _ui24 < COURSE.length; _ui24++) {
+      var _u24   = COURSE[_ui24];
+      if (_certs24.has(_u24.id)) continue;
+      var _lsns24 = _u24.lessons || [];
+      if (_lsns24.length === 0) continue;
+      var _doneU24 = 0;
+      for (var _li24 = 0; _li24 < _lsns24.length; _li24++) {
+        if ((_done24.indexOf ? _done24.indexOf(_lsns24[_li24].id) !== -1 : false) ||
+            (Array.isArray(_done24) && _done24.includes(_lsns24[_li24].id))) {
+          _doneU24++;
+        }
+      }
+      if (_doneU24 === 0) continue; // skip untouched units
+      var _remU24 = _lsns24.length - _doneU24;
+      _candidates24.push({
+        type: 'cert',
+        icon: '&#127891;',
+        name: _u24.title + ' Certificate',
+        detail: _remU24 + ' lesson' + (_remU24 !== 1 ? 's' : '') + ' remaining',
+        cur: _doneU24,
+        goal: _lsns24.length,
+        pct: Math.round((_doneU24 / _lsns24.length) * 100),
+        distance: _remU24
+      });
+      break; // pick closest (first in progress)
+    }
+
+    if (_candidates24.length === 0) return;
+
+    // Pick the candidate with the smallest distance
+    _candidates24.sort(function(a, b) { return a.distance - b.distance; });
+    var _best24 = _candidates24[0];
+
+    var _typeLbl24 = _best24.type === 'level'
+      ? 'Next Level'
+      : (_best24.type === 'cert' ? 'Next Certificate' : 'Next Achievement');
+
+    html +=
+      '<div class="plan-milestone-wrap">' +
+        '<div class="plan-milestone-hdr">' +
+          '<div class="plan-milestone-hdr-icon">' + _best24.icon + '</div>' +
+          '<div class="plan-milestone-hdr-text">' +
+            '<div class="plan-milestone-hdr-title">Next Milestone</div>' +
+            '<div class="plan-milestone-hdr-sub">' + _typeLbl24 + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="plan-milestone-name">' + _best24.name + '</div>' +
+        '<div class="plan-milestone-detail">' + _best24.detail + '</div>' +
+        '<div class="plan-milestone-bar-bg">' +
+          '<div class="plan-milestone-bar-fill" style="width:' + _best24.pct + '%;"></div>' +
+        '</div>' +
+        '<div class="plan-milestone-footer">' +
+          '<span>' + _best24.cur + ' / ' + _best24.goal + '</span>' +
+          '<span>' + _best24.pct + '%</span>' +
+        '</div>' +
+      '</div>';
+  })();
+
   document.getElementById('plan-content').innerHTML = html;
 }
 
@@ -30508,6 +32465,609 @@ function renderProfileTab() {
       '</div>';
   })();
 
+  // profile-28: Share Your Progress Button
+  (function() {
+    var _spEl = document.getElementById('profile-share-progress-card');
+    if (!_spEl) return;
+
+    // Gather stats
+    var _name     = S.user_name || 'Learner';
+    var _xp       = S.xp || 0;
+    var _streak   = S.streak || 0;
+    var _done     = (S.completed || []).length;
+    var _level    = (typeof xpToLevel === 'function') ? xpToLevel(_xp) : (S.level || 1);
+    var _bestStreak = S.practice_best_streak || 0;
+    var _totalQ   = S.total_questions_answered || 0;
+
+    // Favourite unit
+    var _favTitle = '';
+    var _unitCounts26 = {};
+    (S.completed || []).forEach(function(lid) {
+      var _m = lid.match(/^(u\d+)/);
+      if (_m) _unitCounts26[_m[1]] = (_unitCounts26[_m[1]] || 0) + 1;
+    });
+    if (typeof COURSE !== 'undefined') {
+      var _favId26 = null; var _favMax26 = 0;
+      Object.keys(_unitCounts26).forEach(function(uid) {
+        if (_unitCounts26[uid] > _favMax26) { _favMax26 = _unitCounts26[uid]; _favId26 = uid; }
+      });
+      if (_favId26) {
+        var _favUnit = COURSE.find(function(u) { return u.id === _favId26; });
+        if (_favUnit) _favTitle = _favUnit.title;
+      }
+    }
+
+    // Total lessons in course
+    var _total28 = 0;
+    if (typeof COURSE !== 'undefined') {
+      COURSE.forEach(function(u) { _total28 += u.lessons.length; });
+    }
+    var _pct28 = _total28 > 0 ? Math.round((_done / _total28) * 100) : 0;
+
+    // Avatar emoji
+    var _AVLIST28 = ['😀','😎','🧐','🤗','🤯','😍','🦸','🤠','🧙','🦊'];
+    var _ava28 = _AVLIST28[Math.min(S.avatar || 0, _AVLIST28.length - 1)];
+
+    // Build shareable text
+    function buildShareText() {
+      var _lines = [];
+      _lines.push(_ava28 + ' ' + _name + ' is learning AI with Clari!');
+      _lines.push('');
+      _lines.push('🏆 Level ' + _level + ' • ' + _xp + ' XP');
+      _lines.push('🔥 ' + _streak + '-day streak');
+      _lines.push('📚 ' + _done + ' / ' + (_total28 || '?') + ' lessons (' + _pct28 + '%)');
+      if (_bestStreak > 0) _lines.push('⚡ Best answer streak: ' + _bestStreak + ' in a row');
+      if (_totalQ > 0)     _lines.push('❓ ' + _totalQ + ' questions answered');
+      if (_favTitle)       _lines.push('📌 Favorite topic: ' + _favTitle);
+      _lines.push('');
+      _lines.push('🔗 Try it free → clariai.app');
+      _lines.push('#AILearning #Clari #KeepLearning');
+      return _lines.join('\n');
+    }
+
+    var _shareText = buildShareText();
+
+    _spEl.innerHTML =
+      '<div class="section-title">Share Your Progress</div>' +
+      '<div class="share-progress-wrap">' +
+        '<div class="share-progress-preview" id="share-progress-preview-text">' +
+          _shareText.replace(/</g, '&lt;').replace(/\n/g, '<br>') +
+        '</div>' +
+        '<div class="share-progress-actions">' +
+          '<button class="share-progress-copy-btn" id="share-progress-copy-btn" ' +
+            'onclick="profileCopyShareText()" aria-label="Copy progress text">' +
+            '📋 Copy to Clipboard' +
+          '</button>' +
+          '<button class="share-progress-regen-btn" onclick="profileRegenShare()" ' +
+            'aria-label="Refresh share text" title="Refresh">' +
+            '↻' +
+          '</button>' +
+        '</div>' +
+        '<div class="share-progress-note">Paste directly into any social media post or message.</div>' +
+      '</div>';
+
+    // Store text for copy helper
+    if (typeof window !== 'undefined') {
+      window._profileShareText = _shareText;
+    }
+  })();
+
+  // profile-27: Days Until Goal Countdown
+  (function() {
+    var _dgEl = document.getElementById('profile-days-goal-card');
+    if (!_dgEl) return;
+
+    var _targetDate = S.goal_target_date || '';
+    var _completed  = (S.completed || []).length;
+
+    // Total course lessons
+    var _totalLessons = 0;
+    if (typeof COURSE !== 'undefined') {
+      COURSE.forEach(function(u) { _totalLessons += u.lessons.length; });
+    }
+    var _remaining = Math.max(0, _totalLessons - _completed);
+    var _coursePct = _totalLessons > 0 ? Math.min(100, Math.round((_completed / _totalLessons) * 100)) : 0;
+    var _courseComplete = _coursePct >= 100;
+
+    if (_courseComplete) {
+      _dgEl.innerHTML =
+        '<div class="section-title">Days Until Goal</div>' +
+        '<div class="days-goal-hero">' +
+          '<div class="days-goal-num green">🎉</div>' +
+          '<div class="days-goal-unit">Course complete!</div>' +
+          '<div class="days-goal-date">You reached your goal</div>' +
+        '</div>';
+      return;
+    }
+
+    if (!_targetDate) {
+      _dgEl.innerHTML =
+        '<div class="section-title">Days Until Goal</div>' +
+        '<div class="days-goal-no-date">' +
+          'Set a target completion date in the Goals card above to see your countdown.' +
+        '</div>';
+      return;
+    }
+
+    var _target   = new Date(_targetDate + 'T00:00:00');
+    var _now      = new Date();
+    _now.setHours(0, 0, 0, 0);
+    var _diffMs   = _target.getTime() - _now.getTime();
+    var _diffDays = Math.ceil(_diffMs / 86400000);
+
+    // Color class
+    var _colorClass;
+    if (_diffDays > 30)      { _colorClass = 'green'; }
+    else if (_diffDays > 7)  { _colorClass = 'amber'; }
+    else if (_diffDays >= 0) { _colorClass = 'red'; }
+    else                     { _colorClass = 'purple'; }
+
+    var _daysLabel = Math.abs(_diffDays) === 1 ? 'day' : 'days';
+    var _numDisplay = Math.abs(_diffDays);
+    var _unitLabel;
+    if (_diffDays < 0) {
+      _unitLabel = _daysLabel + ' overdue';
+    } else if (_diffDays === 0) {
+      _unitLabel = 'due TODAY';
+    } else {
+      _unitLabel = _daysLabel + ' remaining';
+    }
+
+    // Format date nicely
+    var _dateStr = _target.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
+
+    // Required pace
+    var _paceHtml = '';
+    if (_diffDays > 0 && _remaining > 0) {
+      var _perDay  = (_remaining / _diffDays).toFixed(1);
+      var _onTrack = parseFloat(_perDay) <= 2;
+      var _pacePct = Math.min(100, Math.round((1 / Math.max(parseFloat(_perDay), 0.1)) * 100));
+      _paceHtml =
+        '<div class="days-goal-pace-wrap">' +
+          '<div class="days-goal-pace-row">' +
+            '<span>Required pace</span>' +
+            '<span class="days-goal-pace-val">' + _perDay + ' lessons/day</span>' +
+          '</div>' +
+          '<div class="days-goal-pace-bar-track">' +
+            '<div class="days-goal-pace-bar-fill" style="width:' + _pacePct + '%;' +
+              (parseFloat(_perDay) > 3 ? 'background:linear-gradient(90deg,#f97316,#fbbf24);' : '') +
+            '"></div>' +
+          '</div>' +
+          '<div class="days-goal-pace-sub">' +
+            _remaining + ' lessons left' +
+            (_onTrack ? ' — pace is manageable!' : ' — consider extending your deadline.') +
+          '</div>' +
+        '</div>';
+    } else if (_remaining === 0) {
+      _paceHtml = '<div class="days-goal-pace-sub" style="text-align:center;font-size:12px;">' +
+        'All lessons complete!' +
+      '</div>';
+    }
+
+    _dgEl.innerHTML =
+      '<div class="section-title">Days Until Goal</div>' +
+      '<div class="days-goal-wrap">' +
+        '<div class="days-goal-hero">' +
+          '<div class="days-goal-num ' + _colorClass + '">' + _numDisplay + '</div>' +
+          '<div class="days-goal-unit">' + _unitLabel + '</div>' +
+          '<div class="days-goal-date">Target: ' + _dateStr + '</div>' +
+        '</div>' +
+        _paceHtml +
+      '</div>';
+  })();
+
+  // profile-26: Favorite Topic Badge
+  (function() {
+    var _ftEl = document.getElementById('profile-fav-topic-card');
+    if (!_ftEl) return;
+
+    var _completed = S.completed || [];
+    if (_completed.length === 0) {
+      _ftEl.innerHTML =
+        '<div class="section-title">Favorite Topic</div>' +
+        '<div class="fav-topic-zero">' +
+          'Complete some lessons to discover your favorite topic.' +
+        '</div>';
+      return;
+    }
+
+    // Count completions per unit
+    var _unitCounts = {};
+    _completed.forEach(function(lessonId) {
+      var _m = lessonId.match(/^(u\d+)/);
+      if (_m) {
+        _unitCounts[_m[1]] = (_unitCounts[_m[1]] || 0) + 1;
+      }
+    });
+
+    // Get unit metadata from COURSE
+    var _unitMeta = {};
+    if (typeof COURSE !== 'undefined') {
+      COURSE.forEach(function(u) {
+        _unitMeta[u.id] = {
+          title: u.title,
+          color: u.color || 'var(--green,#58cc02)',
+          total: u.lessons.length
+        };
+      });
+    }
+
+    // Find favourite unit (most completed lessons)
+    var _favId = null;
+    var _favCount = 0;
+    Object.keys(_unitCounts).forEach(function(uid) {
+      if (_unitCounts[uid] > _favCount) {
+        _favCount = _unitCounts[uid];
+        _favId = uid;
+      }
+    });
+
+    if (!_favId) {
+      _ftEl.innerHTML =
+        '<div class="section-title">Favorite Topic</div>' +
+        '<div class="fav-topic-zero">Keep learning to discover your favorite topic!</div>';
+      return;
+    }
+
+    var _favMeta = _unitMeta[_favId] || { title: _favId, color: 'var(--green,#58cc02)', total: '?' };
+    var _favColor = _favMeta.color;
+    var _favTitle = _favMeta.title;
+    var _favTotal = _favMeta.total;
+
+    // Unit icons based on known titles
+    var _icons = {
+      'AI Basics': '🤖',
+      'Prompting': '✍️',
+      'Work & Productivity': '💼',
+      'Creative & Personal': '🎨',
+      'AI Safety & Ethics': '🔒',
+      'Advanced Topics': '🧐'
+    };
+    var _icon = _icons[_favTitle] || '📚';
+
+    // Build mini bar chart for all units (up to 4)
+    var _allUnitIds = Object.keys(_unitCounts).sort(function(a, b) {
+      return (_unitCounts[b] || 0) - (_unitCounts[a] || 0);
+    }).slice(0, 4);
+    var _maxCount = Math.max.apply(null, _allUnitIds.map(function(uid) { return _unitCounts[uid] || 0; }));
+
+    var _unitBarsHtml = _allUnitIds.map(function(uid) {
+      var _meta = _unitMeta[uid] || { title: uid, color: 'var(--green,#58cc02)' };
+      var _cnt  = _unitCounts[uid] || 0;
+      var _pct  = _maxCount > 0 ? Math.round((_cnt / _maxCount) * 100) : 0;
+      var _shortTitle = _meta.title.length > 10 ? _meta.title.slice(0, 10) + '…' : _meta.title;
+      return '<div class="fav-topic-unit-row">' +
+        '<div class="fav-topic-unit-name">' + _shortTitle + '</div>' +
+        '<div class="fav-topic-unit-track">' +
+          '<div class="fav-topic-unit-fill" style="width:' + _pct + '%;background:' + _meta.color + ';"></div>' +
+        '</div>' +
+        '<div class="fav-topic-unit-count">' + _cnt + '</div>' +
+      '</div>';
+    }).join('');
+
+    var _pctDone = _favTotal > 0 ? Math.round((_favCount / _favTotal) * 100) : 0;
+
+    _ftEl.style.setProperty('--fav-color', _favColor);
+    _ftEl.innerHTML =
+      '<div class="section-title">Favorite Topic</div>' +
+      '<div class="fav-topic-wrap">' +
+        '<div class="fav-topic-badge-big">' +
+          '<div class="fav-topic-icon">' + _icon + '</div>' +
+          '<div class="fav-topic-name">' + _favTitle + '</div>' +
+          '<div class="fav-topic-pill">Most studied</div>' +
+        '</div>' +
+        '<div class="fav-topic-stats">' +
+          '<div class="fav-topic-stat">' +
+            '<div class="fav-topic-stat-val">' + _favCount + '</div>' +
+            '<div class="fav-topic-stat-lbl">Completed</div>' +
+          '</div>' +
+          '<div class="fav-topic-stat">' +
+            '<div class="fav-topic-stat-val">' + _pctDone + '%</div>' +
+            '<div class="fav-topic-stat-lbl">of unit</div>' +
+          '</div>' +
+        '</div>' +
+        (_allUnitIds.length > 1
+          ? '<div class="fav-topic-all">' + _unitBarsHtml + '</div>'
+          : '') +
+      '</div>';
+  })();
+
+  // profile-25: Total Questions Answered Counter
+  (function() {
+    var _tqEl = document.getElementById('profile-total-q-card');
+    if (!_tqEl) return;
+
+    // Practice questions answered (from history)
+    var _hist = S.practice_history || [];
+    var _practiceQ = _hist.reduce(function(acc, h) { return acc + (h.total || 0); }, 0);
+
+    // In-lesson quiz answers are tracked via S.wrong_answers (questions answered incorrectly)
+    // and S.mastered_questions (questions answered and removed from bank).
+    // We use S.total_questions_answered if set, else combine available signals.
+    var _storedTotal = S.total_questions_answered || 0;
+    var _totalQ = Math.max(_storedTotal, _practiceQ);
+
+    // Milestone thresholds
+    var _milestones = [10, 25, 50, 100, 250, 500, 1000];
+    var _nextMilestone = _milestones[_milestones.length - 1];
+    var _prevMilestone = 0;
+    for (var _mi = 0; _mi < _milestones.length; _mi++) {
+      if (_totalQ < _milestones[_mi]) {
+        _nextMilestone = _milestones[_mi];
+        _prevMilestone = _mi > 0 ? _milestones[_mi - 1] : 0;
+        break;
+      }
+    }
+    var _range = _nextMilestone - _prevMilestone;
+    var _progress = _totalQ - _prevMilestone;
+    var _milestonePct = _range > 0 ? Math.min(100, Math.round((_progress / _range) * 100)) : 100;
+    var _remaining = _nextMilestone - _totalQ;
+
+    // Earned milestone badges
+    var _earnedBadges = _milestones.filter(function(m) { return _totalQ >= m; });
+
+    var _badgeHtml = _milestones.slice(0, 5).map(function(m) {
+      var _earned2 = _totalQ >= m;
+      return '<div class="total-q-badge' + (_earned2 ? ' earned' : '') + '">' +
+        (_earned2 ? '✓' : '○') + ' ' + m +
+      '</div>';
+    }).join('');
+
+    var _subMsg;
+    if (_totalQ === 0) {
+      _subMsg = 'Start a practice session to answer your first question.';
+    } else if (_totalQ < 10) {
+      _subMsg = 'Great start! ' + (10 - _totalQ) + ' more to reach your first milestone.';
+    } else {
+      _subMsg = _remaining + ' more to reach ' + _nextMilestone + '.';
+    }
+
+    _tqEl.innerHTML =
+      '<div class="section-title">Questions Answered</div>' +
+      '<div class="total-q-wrap">' +
+        '<div class="total-q-hero">' +
+          '<div class="total-q-number">' + _totalQ + '</div>' +
+          '<div class="total-q-unit">questions</div>' +
+        '</div>' +
+        '<div class="total-q-sub">' + _subMsg + '</div>' +
+        '<div class="total-q-milestone-wrap">' +
+          '<div class="total-q-milestone-header">' +
+            '<span class="total-q-milestone-label">To ' + _nextMilestone + ' milestone</span>' +
+            '<span class="total-q-milestone-pct">' + _milestonePct + '%</span>' +
+          '</div>' +
+          '<div class="total-q-milestone-track">' +
+            '<div class="total-q-milestone-fill" style="width:' + _milestonePct + '%;"></div>' +
+          '</div>' +
+          '<div class="total-q-milestone-sub">' + _progress + ' / ' + _range + ' toward next milestone</div>' +
+        '</div>' +
+        '<div class="total-q-badges">' + _badgeHtml + '</div>' +
+      '</div>';
+  })();
+
+  // profile-24: Longest Answer Streak Display
+  (function() {
+    var _asEl = document.getElementById('profile-answer-streak-card');
+    if (!_asEl) return;
+
+    // Derive best practice answer streak.
+    // practice_history stores {type, score, total, date} — no per-session streak.
+    // We use S.practice_best_streak (new persistent key updated when a session ends).
+    // If it doesn't exist yet, we estimate from best score ratio as a proxy.
+    var _hist = S.practice_history || [];
+    var _bestStreak = S.practice_best_streak || 0;
+
+    // If no stored streak but history exists, estimate from best scoring session
+    if (_bestStreak === 0 && _hist.length > 0) {
+      var _maxScore = 0;
+      _hist.forEach(function(h) {
+        if ((h.score || 0) > _maxScore) _maxScore = h.score || 0;
+      });
+      // A rough lower bound: if they got X in a row correctly, streak >= X
+      _bestStreak = _maxScore;
+    }
+
+    // Also check S.practice_max_streak (set by practice-15 / practiceMaxStreak logic)
+    var _altBest = S.practice_max_streak || 0;
+    if (_altBest > _bestStreak) _bestStreak = _altBest;
+
+    // Quick-fire perfect (5/5) is also a known 5-streak
+    if ((S.quickfire_perfect || 0) > 0 && _bestStreak < 5) _bestStreak = 5;
+
+    var _totalSessions = _hist.length;
+
+    if (_bestStreak === 0) {
+      _asEl.innerHTML =
+        '<div class="section-title">Best Answer Streak</div>' +
+        '<div class="answer-streak-zero">' +
+          'Complete a practice session to start tracking your longest streak.' +
+        '</div>';
+      return;
+    }
+
+    // Bar display: compare best streak vs typical run (avg score per session)
+    var _avgScore = _totalSessions > 0
+      ? Math.round(_hist.reduce(function(a, h) { return a + (h.score || 0); }, 0) / _totalSessions)
+      : 0;
+    var _maxBar = Math.max(_bestStreak, _avgScore, 1);
+    var _bestPct = Math.round((_bestStreak / _maxBar) * 100);
+    var _avgPct  = Math.round((_avgScore  / _maxBar) * 100);
+
+    // Motivational label
+    var _praise;
+    if (_bestStreak >= 15) { _praise = "Unstoppable! That streak is legendary."; }
+    else if (_bestStreak >= 10) { _praise = "Incredible focus! 10+ in a row is no small feat."; }
+    else if (_bestStreak >= 7) { _praise = "On fire! 7+ correct in a row shows real mastery."; }
+    else if (_bestStreak >= 5) { _praise = "Hot streak! Keep pushing for double digits."; }
+    else if (_bestStreak >= 3) { _praise = "Good start! Aim for 5 in a row next time."; }
+    else { _praise = "Keep practicing — your streak will grow!"; }
+
+    _asEl.innerHTML =
+      '<div class="section-title">Best Answer Streak</div>' +
+      '<div class="answer-streak-hero">' +
+        '<div class="answer-streak-flame">🔥</div>' +
+        '<div class="answer-streak-number">' + _bestStreak + '</div>' +
+        '<div class="answer-streak-label">correct in a row</div>' +
+        '<div class="answer-streak-sub">' + _praise + '</div>' +
+      '</div>' +
+      '<div class="answer-streak-bars">' +
+        '<div class="answer-streak-row">' +
+          '<div class="answer-streak-row-label">Best streak</div>' +
+          '<div class="answer-streak-row-track">' +
+            '<div class="answer-streak-row-fill" style="width:' + _bestPct + '%;"></div>' +
+          '</div>' +
+          '<div class="answer-streak-row-val">' + _bestStreak + '</div>' +
+        '</div>' +
+        '<div class="answer-streak-row">' +
+          '<div class="answer-streak-row-label">Avg score</div>' +
+          '<div class="answer-streak-row-track">' +
+            '<div class="answer-streak-row-fill" ' +
+              'style="width:' + _avgPct + '%;background:linear-gradient(90deg,#1cb0f6,#3de0ff);"></div>' +
+          '</div>' +
+          '<div class="answer-streak-row-val">' + _avgScore + '</div>' +
+        '</div>' +
+      '</div>';
+  })();
+
+  // profile-23: Practice vs Learn Balance Chart
+  (function() {
+    var _bcEl = document.getElementById('profile-balance-card');
+    if (!_bcEl) return;
+
+    // Lessons completed
+    var _lessonsCount = (S.completed || []).length;
+
+    // Practice sessions from history (capped at 20 in the save logic)
+    var _practiceHist = S.practice_history || [];
+    var _practiceCount = _practiceHist.length;
+
+    // Total for scale
+    var _total = _lessonsCount + _practiceCount;
+    if (_total === 0) {
+      _bcEl.innerHTML =
+        '<div class="section-title">Learn vs Practice</div>' +
+        '<div style="font-size:13px;font-weight:600;color:var(--gray3);padding:8px 0;">' +
+          'Complete some lessons and practice sessions to see your balance.' +
+        '</div>';
+      return;
+    }
+
+    // Percentages (capped at 100 each — relative to the larger value)
+    var _max = Math.max(_lessonsCount, _practiceCount, 1);
+    var _learnPct  = Math.round((_lessonsCount  / _max) * 100);
+    var _pracPct   = Math.round((_practiceCount / _max) * 100);
+
+    // Insight message
+    var _insightClass = 'balanced';
+    var _insightMsg;
+    if (_lessonsCount === 0) {
+      _insightClass = 'practice-heavy';
+      _insightMsg = "You haven't completed any lessons yet. Start with Unit 1 to build your foundation!";
+    } else if (_practiceCount === 0) {
+      _insightClass = 'learn-heavy';
+      _insightMsg = "Great progress on lessons! Try a practice session to reinforce what you've learned.";
+    } else {
+      var _ratio = _lessonsCount / (_practiceCount || 1);
+      if (_ratio > 3) {
+        _insightClass = 'learn-heavy';
+        _insightMsg = "You're learning fast! Mix in more practice to lock in the knowledge.";
+      } else if (_ratio < 0.5) {
+        _insightClass = 'practice-heavy';
+        _insightMsg = "Great practice habit! Keep progressing through lessons to unlock new content.";
+      } else {
+        _insightClass = 'balanced';
+        _insightMsg = "Nice balance! You're building knowledge and reinforcing it with practice.";
+      }
+    }
+
+    _bcEl.innerHTML =
+      '<div class="section-title">Learn vs Practice</div>' +
+      '<div class="balance-chart-wrap">' +
+        '<div class="balance-bar-row">' +
+          '<div class="balance-bar-label">Lessons</div>' +
+          '<div class="balance-bar-track">' +
+            '<div class="balance-bar-fill learn" style="width:' + _learnPct + '%;">' +
+              (_learnPct >= 20 ? _lessonsCount : '') +
+            '</div>' +
+          '</div>' +
+          '<div class="balance-bar-count">' + (_learnPct < 20 ? _lessonsCount : '') + '</div>' +
+        '</div>' +
+        '<div class="balance-bar-row">' +
+          '<div class="balance-bar-label">Practice</div>' +
+          '<div class="balance-bar-track">' +
+            '<div class="balance-bar-fill practice" style="width:' + _pracPct + '%;">' +
+              (_pracPct >= 20 ? _practiceCount : '') +
+            '</div>' +
+          '</div>' +
+          '<div class="balance-bar-count">' + (_pracPct < 20 ? _practiceCount : '') + '</div>' +
+        '</div>' +
+        '<div class="balance-insight ' + _insightClass + '">' + _insightMsg + '</div>' +
+      '</div>';
+  })();
+
+  // profile-22: Username Setter
+  (function() {
+    var _unEl = document.getElementById('profile-username-card');
+    if (!_unEl) return;
+
+    var _curName = (S.user_name || '').replace(/</g, '&lt;');
+    var _displayName = _curName || 'Not set';
+
+    _unEl.innerHTML =
+      '<div class="section-title">Display Name</div>' +
+      '<div class="username-setter-wrap">' +
+        '<div class="username-setter-current">' +
+          '<div class="username-setter-emoji">👤</div>' +
+          '<div class="username-setter-label">' +
+            '<div class="username-setter-label-top">Current name</div>' +
+            '<div class="username-setter-label-val" id="username-display-val">' + _displayName + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="username-input-row">' +
+          '<input class="username-text-input" id="username-setter-input" type="text" ' +
+            'maxlength="30" ' +
+            'placeholder="Enter your name..." ' +
+            'value="' + _curName + '" ' +
+            'aria-label="Display name input" ' +
+            'onkeydown="if(event.key===&apos;Enter&apos;)profileSaveUsername()">' +
+          '<button class="username-save-btn" onclick="profileSaveUsername()" aria-label="Save name">Save</button>' +
+        '</div>' +
+        '<div class="username-feedback" id="username-feedback" aria-live="polite"></div>' +
+      '</div>';
+  })();
+
+  // profile-21: Avatar Customizer Enhancement
+  (function() {
+    var _apEl = document.getElementById('avatar-picker');
+    if (!_apEl) return;
+
+    var _AVATARS = ['😀','😎','🧐','🤗','🤯','😍','🦸','🤠','🧙','🦊'];
+    var _cur = Math.min(S.avatar || 0, _AVATARS.length - 1);
+    var _name = (S.user_name || 'Learner').replace(/</g, '&lt;');
+    var _level = (typeof xpToLevel === 'function') ? xpToLevel(S.xp || 0) : (S.level || 1);
+
+    var _optHtml = _AVATARS.map(function(em, i) {
+      return '<button class="avatar-enhance-opt' + (i === _cur ? ' selected' : '') + '" ' +
+        'onclick="profileSetAvatar(' + i + ')" ' +
+        'aria-label="Avatar ' + (i + 1) + '" ' +
+        'title="Avatar ' + (i + 1) + '">' +
+        em +
+        '</button>';
+    }).join('');
+
+    _apEl.innerHTML =
+      '<div class="avatar-enhance-preview-row">' +
+        '<div class="avatar-enhance-big" id="avatar-enhance-big-preview">' + _AVATARS[_cur] + '</div>' +
+        '<div class="avatar-enhance-info">' +
+          '<div class="avatar-enhance-name">' + _name + '</div>' +
+          '<div class="avatar-enhance-sub">Level ' + _level + ' Learner</div>' +
+          '<div class="avatar-enhance-sub" style="color:var(--green,#58cc02);margin-top:2px;">' +
+            _AVATARS[_cur] + ' Selected' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="avatar-enhance-grid">' + _optHtml + '</div>';
+  })();
+
   // profile-20: Goal Setting Card
   (function() {
     var _gcEl = document.getElementById('profile-goal-card');
@@ -30980,6 +33540,90 @@ function profileGoalSaveDate() {
   if (!_inp) return;
   var _val = _inp.value || '';
   save('goal_target_date', _val);
+  renderProfileTab();
+}
+
+function profileCopyShareText() {
+  var _text = (typeof window !== 'undefined' && window._profileShareText) ? window._profileShareText : '';
+  if (!_text) return;
+  var _btn = document.getElementById('share-progress-copy-btn');
+
+  function _markCopied() {
+    if (_btn) {
+      _btn.textContent = '✔ Copied!';
+      _btn.classList.add('copied');
+      setTimeout(function() {
+        _btn.textContent = '📋 Copy to Clipboard';
+        _btn.classList.remove('copied');
+      }, 2500);
+    }
+  }
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(_text).then(_markCopied).catch(function() {
+      profileCopyFallback(_text);
+      _markCopied();
+    });
+  } else {
+    profileCopyFallback(_text);
+    _markCopied();
+  }
+}
+
+function profileCopyFallback(text) {
+  var _ta = document.createElement('textarea');
+  _ta.value = text;
+  _ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;';
+  document.body.appendChild(_ta);
+  _ta.select();
+  try { document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(_ta);
+}
+
+function profileRegenShare() {
+  renderProfileTab();
+}
+
+function profileSaveUsername() {
+  var _inp = document.getElementById('username-setter-input');
+  if (!_inp) return;
+  var _raw = _inp.value.trim();
+  if (!_raw) {
+    var _fbEl = document.getElementById('username-feedback');
+    if (_fbEl) { _fbEl.style.color = '#f97316'; _fbEl.textContent = 'Name cannot be empty.'; }
+    return;
+  }
+  save('user_name', _raw);
+  // Update header name display
+  var _nameEl = document.getElementById('profile-name-text');
+  if (_nameEl) _nameEl.textContent = _raw;
+  // Update inline current display
+  var _dispEl = document.getElementById('username-display-val');
+  if (_dispEl) _dispEl.textContent = _raw.replace(/</g, '&lt;');
+  // Show feedback
+  var _fb = document.getElementById('username-feedback');
+  if (_fb) {
+    _fb.style.color = 'var(--green,#58cc02)';
+    _fb.textContent = 'Name saved!';
+    setTimeout(function() { if (_fb) _fb.textContent = ''; }, 2500);
+  }
+}
+
+function profileSetAvatar(idx) {
+  var _AVLIST = ['😀','😎','🧐','🤗','🤯','😍','🦸','🤠','🧙','🦊'];
+  var _safeIdx = Math.min(Math.max(idx, 0), _AVLIST.length - 1);
+  save('avatar', _safeIdx);
+  // animate big preview
+  var _bigEl = document.getElementById('avatar-enhance-big-preview');
+  if (_bigEl) {
+    _bigEl.textContent = _AVLIST[_safeIdx];
+    _bigEl.classList.add('pop');
+    setTimeout(function() { _bigEl.classList.remove('pop'); }, 300);
+  }
+  // update selected ring on grid
+  var _opts = document.querySelectorAll('.avatar-enhance-opt');
+  _opts.forEach(function(btn, i) { btn.classList.toggle('selected', i === _safeIdx); });
+  // re-render full profile to sync avatar ring in header
   renderProfileTab();
 }
 
@@ -31825,5 +34469,19 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+<div id="lesson-preview-modal" role="dialog" aria-modal="true" aria-label="Lesson preview"
+  onclick="if(event.target===this)closeLessonPreview()">
+  <div class="lpm-sheet">
+    <span class="lpm-handle"></span>
+    <div class="lpm-unit-label" id="lpm-unit-label"></div>
+    <div class="lpm-title" id="lpm-title"></div>
+    <div class="lpm-meta" id="lpm-meta"></div>
+    <div class="lpm-first-slide" id="lpm-first-slide"></div>
+    <div class="lpm-actions">
+      <button class="lpm-btn-start" id="lpm-btn-start" onclick="closeLessonPreviewAndStart()">Start lesson &rarr;</button>
+      <button class="lpm-btn-cancel" onclick="closeLessonPreview()">Cancel</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
