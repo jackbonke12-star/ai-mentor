@@ -5515,6 +5515,14 @@ mark.search-hl {
   flex-shrink: 0;
 }
 /* --- Topic Strength Radar (plan-22) --- */
+/* plan-34: collapsible radar */
+.plan-radar-collapsible { border: 1px solid var(--gray2,#e5e7eb); border-radius: 12px; overflow: hidden; background: var(--card-bg,#fff); }
+.plan-radar-toggle { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; cursor: pointer; background: none; border: none; width: 100%; text-align: left; }
+.plan-radar-toggle:hover { background: var(--gray1,#f9fafb); }
+.plan-radar-toggle-label { font-size: 13px; font-weight: 800; color: var(--text); }
+.plan-radar-toggle-right { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--gray4,#999); }
+.plan-radar-body { padding: 0 14px 12px; display: none; }
+.plan-radar-body.open { display: block; }
 .plan-radar-wrap {
   background: #fff; border: 1.5px solid #e5e7eb;
   border-radius: 16px; padding: 14px 16px;
@@ -5562,11 +5570,16 @@ mark.search-hl {
 .plan-radar-tag.rt-build  { color: #1d4ed8; }
 .plan-radar-tag.rt-start  { color: #9ca3af; }
 /* --- Weekly Digest Widget (plan-23) --- */
-.plan-digest-wrap {
-  background: #fff; border: 1.5px solid #e5e7eb;
-  border-radius: 16px; padding: 14px 16px;
-  margin-bottom: 16px;
-}
+/* plan-33: collapsible digest */
+.plan-digest-wrap { border: 1px solid var(--gray2,#e5e7eb); border-radius: 12px; overflow: hidden; background: var(--card-bg,#fff); margin-bottom: 0; }
+.plan-digest-toggle { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; cursor: pointer; background: none; border: none; width: 100%; text-align: left; }
+.plan-digest-toggle:hover { background: var(--gray1,#f9fafb); }
+.plan-digest-toggle-title { font-size: 13px; font-weight: 800; color: var(--text); }
+.plan-digest-toggle-right { display: flex; align-items: center; gap: 8px; }
+.plan-digest-toggle-pill { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 99px; background: var(--gray1,#f0f0f0); color: var(--gray4,#888); }
+.plan-digest-toggle-arrow { font-size: 11px; color: var(--gray4,#999); }
+.plan-digest-body { padding: 0 14px 12px; display: none; }
+.plan-digest-body.open { display: block; }
 .plan-digest-hdr {
   display: flex; align-items: center; justify-content: space-between;
   margin-bottom: 12px;
@@ -9437,9 +9450,8 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 
     <!-- ======== MY PLAN TAB ======== -->
     <div class="view" id="view-plan">
-      <div style="padding-bottom:8px;">
-        <div class="plan-header">My AI Plan</div>
-        <div class="plan-sub">Personalized just for you</div>
+      <div style="padding-bottom:4px;">
+        <div class="plan-header">My Plan</div>
       </div>
       <div id="plan-content"></div>
     </div>
@@ -33349,17 +33361,28 @@ function renderPlanTab() {
       ? '<div style="font-size:10px;font-weight:600;color:#9ca3af;margin-top:4px;text-align:right;">+' + _extra22 + ' more unit' + (_extra22 > 1 ? 's' : '') + '</div>'
       : '';
 
+    var _radarId22 = 'plan-radar-body-22';
+    var _radarOc22 = "(function(btn){"
+      + "var b=document.getElementById('" + _radarId22 + "');"
+      + "var open=b.classList.contains('open');"
+      + "b.classList.toggle('open',!open);"
+      + "var ar=btn.querySelectorAll('span');"
+      + "for(var i=0;i<ar.length;i++){if(ar[i].dataset.arr){ar[i].textContent=open?'\u25b8':'\u25be';}}"
+      + "})(this)";
+    var _radarCountLbl22 = _visible22.length + ' track' + (_visible22.length !== 1 ? 's' : '');
     html +=
-      '<div class="plan-radar-wrap">' +
-        '<div class="plan-radar-hdr">' +
-          '<div class="plan-radar-hdr-icon">&#127919;</div>' +
-          '<div>' +
-            '<div class="plan-radar-hdr-title">Topic Strength</div>' +
-            '<div class="plan-radar-hdr-sub">Your progress across each track</div>' +
-          '</div>' +
+      '<div class="plan-radar-collapsible">' +
+        '<button class="plan-radar-toggle" onclick="' + _radarOc22 + '">' +
+          '<span class="plan-radar-toggle-label">Topic Strength</span>' +
+          '<span class="plan-radar-toggle-right">' +
+            '<span>' + _radarCountLbl22 + '</span>' +
+            '<span data-arr="1">&#9656;</span>' +
+          '</span>' +
+        '</button>' +
+        '<div class="plan-radar-body" id="' + _radarId22 + '">' +
+          _rowsHtml22 +
+          _footHtml22 +
         '</div>' +
-        _rowsHtml22 +
-        _footHtml22 +
       '</div>';
   })();
 
@@ -33417,27 +33440,39 @@ function renderPlanTab() {
         '<div class="plan-digest-no-ach">Complete more lessons to unlock achievements!</div>';
     }
 
+    var _digestId23 = 'plan-digest-body-23';
+    var _digestOc23 = "(function(btn){"
+      + "var b=document.getElementById('" + _digestId23 + "');"
+      + "var open=b.classList.contains('open');"
+      + "b.classList.toggle('open',!open);"
+      + "btn.querySelector('.plan-digest-toggle-arrow').textContent=open?'\u25b8':'\u25be';"
+      + "})(this)";
     html +=
       '<div class="plan-digest-wrap">' +
-        '<div class="plan-digest-hdr">' +
-          '<div class="plan-digest-title">&#128203; Weekly Digest</div>' +
-          '<div class="plan-digest-pill">This Week</div>' +
+        '<button class="plan-digest-toggle" onclick="' + _digestOc23 + '">' +
+          '<span class="plan-digest-toggle-title">Weekly Digest</span>' +
+          '<span class="plan-digest-toggle-right">' +
+            '<span class="plan-digest-toggle-pill">This Week</span>' +
+            '<span class="plan-digest-toggle-arrow">&#9656;</span>' +
+          '</span>' +
+        '</button>' +
+        '<div class="plan-digest-body" id="' + _digestId23 + '">' +
+          '<div class="plan-digest-kpi-row">' +
+            '<div class="plan-digest-kpi">' +
+              '<div class="plan-digest-kpi-val">' + _wLsn23 + '</div>' +
+              '<div class="plan-digest-kpi-lbl">Lessons</div>' +
+            '</div>' +
+            '<div class="plan-digest-kpi">' +
+              '<div class="plan-digest-kpi-val">' + _wXp23 + '</div>' +
+              '<div class="plan-digest-kpi-lbl">XP Earned</div>' +
+            '</div>' +
+            '<div class="plan-digest-kpi">' +
+              '<div class="plan-digest-kpi-val">' + _streak23 + '</div>' +
+              '<div class="plan-digest-kpi-lbl">Streak</div>' +
+            '</div>' +
+          '</div>' +
+          _achHtml23 +
         '</div>' +
-        '<div class="plan-digest-kpi-row">' +
-          '<div class="plan-digest-kpi">' +
-            '<div class="plan-digest-kpi-val">' + _wLsn23 + '</div>' +
-            '<div class="plan-digest-kpi-lbl">Lessons</div>' +
-          '</div>' +
-          '<div class="plan-digest-kpi">' +
-            '<div class="plan-digest-kpi-val">' + _wXp23 + '</div>' +
-            '<div class="plan-digest-kpi-lbl">XP Earned</div>' +
-          '</div>' +
-          '<div class="plan-digest-kpi">' +
-            '<div class="plan-digest-kpi-val">' + _streak23 + '</div>' +
-            '<div class="plan-digest-kpi-lbl">Streak</div>' +
-          '</div>' +
-        '</div>' +
-        _achHtml23 +
       '</div>';
   })();
 
