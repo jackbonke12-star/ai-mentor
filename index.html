@@ -15811,8 +15811,10 @@ function switchTab(tab) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
 
   const newView = document.getElementById('view-' + tab);
+  if (!newView) { console.error('View not found: view-' + tab); return; }
   newView.classList.add('active');
-  document.getElementById('nav-' + tab).classList.add('active');
+  const _navEl = document.getElementById('nav-' + tab);
+  if (_navEl) _navEl.classList.add('active');
   currentTab = tab;
 
   // Clari first-visit tips per tab
@@ -17124,7 +17126,7 @@ function renderLearnTab() {
         const locked = !lesson.free && !S.premium;
 
         // learn-12: NEW badge logic
-        var _isNew = (!done && LESSONS.indexOf(lesson) >= LESSONS.length - 3);
+        var _allLessons = (typeof COURSE !== 'undefined' ? COURSE.reduce(function(a,u){return a.concat(u.lessons||[]);}, []) : []); var _isNew = (!done && _allLessons.length > 0 && _allLessons.indexOf(lesson) >= _allLessons.length - 3);
         if (!_isNew && lesson.addedDate) {
           var _addedMs = new Date(lesson.addedDate).getTime();
           _isNew = !done && !isNaN(_addedMs) && (Date.now() - _addedMs) < 30 * 24 * 60 * 60 * 1000;
@@ -17292,7 +17294,7 @@ ${_playHint}<button class="lesson-bookmark-btn ${(S.bookmarks||[]).includes(less
   }
 
   document.getElementById('units-container').innerHTML = html;
-  renderDailyTip();
+  if (typeof renderDailyTip === 'function') renderDailyTip();
   renderWeeklyChallengeBanner();
 
   // learn-17: attach swipe-to-bookmark touch listeners to each .lesson-row
