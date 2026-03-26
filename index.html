@@ -1658,6 +1658,44 @@ body.text-xl     { --text-scale: 1.3; }
   background: #1cb0f6; color: #fff;
 }
 
+/* ============================================================
+   learn-26: search match highlight in lesson titles
+   ============================================================ */
+mark.search-hl {
+  background: #ffe066;
+  color: #1a1a1a;
+  border-radius: 3px;
+  padding: 0 2px;
+  font-weight: 800;
+}
+:root[data-theme="dark"] mark.search-hl {
+  background: #b8860b;
+  color: #fff;
+}
+/* ============================================================
+   learn-28: "Study with a friend" share button on lesson rows
+   ============================================================ */
+.lesson-share-btn {
+  position: absolute;
+  right: 56px;
+  bottom: 2px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--gray3);
+  padding: 4px 6px;
+  border-radius: 6px;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s;
+  line-height: 1;
+  z-index: 2;
+}
+.lesson-row:hover .lesson-share-btn,
+.lesson-row:focus-within .lesson-share-btn {
+  opacity: 1;
+}
+.lesson-share-btn:active { color: var(--clari-blue); transform: scale(0.88); }
+:root[data-theme="dark"] .lesson-share-btn { color: var(--gray4); }
 /* learn-22: XP boost active badge on incomplete lesson cards */
 .lc-xp-boost-badge {
   display: inline-flex; align-items: center; gap: 3px;
@@ -2649,6 +2687,22 @@ body.text-xl     { --text-scale: 1.3; }
 .lesson-tag-pill { font-size:10px; font-weight:700; background:var(--gray1); color:var(--gray4); padding:1px 7px; border-radius:20px; letter-spacing:.02em; text-transform:lowercase; }
 :root[data-theme="dark"] .lesson-tag-pill { background:var(--gray2); color:var(--gray3); }
 .dyk-text { font-size:13px; color:var(--text); line-height:1.5; }
+/* ============================================================
+   learn-25: Recommended Next — unit progress hint + time estimate
+   ============================================================ */
+.rec-next-card-meta {
+  font-size: 11px; font-weight: 600; color: var(--gray3);
+  margin-top: 3px; display: flex; align-items: center; gap: 6px;
+}
+.rec-next-unit-prog {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: #eff6ff; color: #2563eb;
+  border-radius: 20px; padding: 1px 7px;
+  font-size: 10px; font-weight: 800; letter-spacing: .02em;
+}
+:root[data-theme="dark"] .rec-next-unit-prog {
+  background: #1e3a5f; color: #93c5fd;
+}
 /* Recommended Next cards */
 .rec-next-section { margin: 0 12px 16px; }
 .rec-next-label { font-size:11px; font-weight:800; color:var(--clari-blue); text-transform:uppercase; letter-spacing:.05em; margin-bottom:8px; }
@@ -3372,6 +3426,103 @@ body.text-xl     { --text-scale: 1.3; }
 }
 .practice-xpbd-total.visible { opacity: 1; transform: translateY(0); }
 
+/* practice-37: practice hint button */
+.practice-hint-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: transparent; border: 1.5px solid #fbbf24; color: #d97706;
+  border-radius: 20px; padding: 5px 14px; font-size: 12px; font-weight: 700;
+  cursor: pointer; margin-top: 10px; transition: all 0.15s;
+}
+.practice-hint-btn:hover { background: #fef3c7; }
+.practice-hint-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.practice-hint-box {
+  display: none; background: #fffbeb; border: 1.5px solid #fde68a;
+  border-radius: 10px; padding: 10px 14px; font-size: 13px; color: #78350f;
+  margin-top: 6px; line-height: 1.5; text-align: left; width: 100%;
+  box-sizing: border-box;
+}
+.practice-hint-box.visible { display: block; animation: fadeIn 0.2s ease; }
+:root[data-theme="dark"] .practice-hint-btn { border-color: #92400e; color: #fbbf24; }
+:root[data-theme="dark"] .practice-hint-btn:hover { background: #1c1407; }
+:root[data-theme="dark"] .practice-hint-box { background: #1c0f00; border-color: #92400e; color: #fcd34d; }
+
+/* practice-38: post-session motivational quote card */
+.practice-quote-card {
+  width: 100%; max-width: 300px; margin: 8px auto 0;
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 2px solid #86efac; border-radius: 14px;
+  padding: 14px 18px; text-align: center;
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+.practice-quote-card.visible { opacity: 1; transform: translateY(0); }
+.practice-quote-text {
+  font-size: 13px; font-weight: 700; color: #166534;
+  line-height: 1.55; font-style: italic; margin-bottom: 10px;
+}
+.practice-quote-share {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #16a34a; color: #fff; border: none;
+  border-radius: 20px; padding: 5px 14px; font-size: 12px;
+  font-weight: 800; cursor: pointer; transition: background 0.15s;
+}
+.practice-quote-share:hover { background: #15803d; }
+:root[data-theme="dark"] .practice-quote-card {
+  background: linear-gradient(135deg, #052e16 0%, #14532d 100%);
+  border-color: #166534;
+}
+:root[data-theme="dark"] .practice-quote-text { color: #86efac; }
+
+/* practice-39: weak spots drill card */
+.practice-card.weak-drill-clean { opacity: 0.55; }
+.weak-drill-target-badge {
+  display: inline-block; background: #fee2e2; color: #b91c1c;
+  border-radius: 20px; padding: 2px 10px; font-size: 11px; font-weight: 800;
+  margin-top: 4px;
+}
+
+/* practice-40: local practice leaderboard */
+.practice-lb-wrap {
+  margin: 0 0 14px;
+  background: var(--white); border: 2px solid var(--gray2);
+  border-radius: var(--radius, 12px); overflow: hidden;
+}
+.practice-lb-toggle {
+  width: 100%; background: none; border: none; cursor: pointer;
+  padding: 11px 14px; display: flex; align-items: center;
+  justify-content: space-between; font-size: 13px; font-weight: 800;
+  color: var(--text);
+}
+.practice-lb-toggle:hover { background: var(--gray1); }
+.practice-lb-chevron {
+  display: inline-block; transition: transform 0.2s;
+  font-size: 11px; color: var(--gray4);
+}
+.practice-lb-chevron.open { transform: rotate(180deg); }
+.practice-lb-body { display: none; padding: 0 14px 10px; }
+.practice-lb-body.open { display: block; }
+.practice-lb-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 0; border-bottom: 1px solid var(--gray1);
+  font-size: 13px;
+}
+.practice-lb-row:last-child { border-bottom: none; }
+.practice-lb-rank {
+  font-size: 15px; font-weight: 900; min-width: 28px;
+  text-align: center; color: var(--gray4);
+}
+.practice-lb-rank.gold   { color: #f59e0b; }
+.practice-lb-rank.silver { color: #94a3b8; }
+.practice-lb-rank.bronze { color: #b45309; }
+.practice-lb-info { flex: 1; }
+.practice-lb-type { font-weight: 700; color: var(--text); font-size: 12px; }
+.practice-lb-date { font-size: 11px; color: var(--gray4); }
+.practice-lb-score { font-weight: 900; color: var(--green2); min-width: 42px; text-align: right; }
+.practice-lb-empty {
+  font-size: 13px; font-weight: 600; color: var(--gray4);
+  text-align: center; padding: 10px 0;
+}
+
 /* ============================================================
    MY PLAN TAB
    ============================================================ */
@@ -3751,6 +3902,215 @@ body.text-xl     { --text-scale: 1.3; }
 .nudge-success .plan-nudge-action { color: #15803d; }
 .nudge-info    .plan-nudge-action { color: #1d4ed8; }
 .nudge-purple  .plan-nudge-action { color: #6d28d9; }
+/* --- Today's Plan Card (plan-09) --- */
+.plan-today-card {
+  background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%);
+  border: 1.5px solid #bbf7d0;
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.plan-today-header {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 10px;
+}
+.plan-today-icon {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: #58CC02; display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0;
+}
+.plan-today-title {
+  font-size: 14px; font-weight: 900; color: var(--text);
+  flex: 1;
+}
+.plan-today-badge {
+  font-size: 11px; font-weight: 800;
+  background: #1d4ed8; color: #fff;
+  border-radius: 20px; padding: 2px 9px;
+}
+.plan-today-badge.badge-warn { background: #FF9600; }
+.plan-today-badge.badge-done { background: #58CC02; }
+.plan-today-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  cursor: pointer;
+}
+.plan-today-item:last-child { border-bottom: none; }
+.plan-today-item-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  flex-shrink: 0; margin-top: 1px;
+}
+.plan-today-item-text {
+  flex: 1; font-size: 13px; font-weight: 700; color: var(--text);
+  line-height: 1.35;
+}
+.plan-today-item-meta {
+  font-size: 11px; font-weight: 700; color: var(--gray4);
+  white-space: nowrap;
+}
+.plan-today-item-tag {
+  font-size: 10px; font-weight: 800; border-radius: 6px;
+  padding: 2px 6px; flex-shrink: 0;
+}
+.plan-today-tag-review { background: #fef3c7; color: #92400e; }
+.plan-today-tag-new    { background: #eff6ff; color: #1e40af; }
+.plan-today-empty {
+  font-size: 13px; font-weight: 700; color: #15803d;
+  text-align: center; padding: 8px 0 2px;
+}
+/* end plan-09 css */
+/* --- Forecast Chart (plan-10) --- */
+.plan-forecast-wrap {
+  background: #fff;
+  border: 1.5px solid var(--gray2, #e5e7eb);
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.plan-forecast-title {
+  font-size: 13px; font-weight: 900; color: var(--text);
+  margin-bottom: 4px;
+}
+.plan-forecast-sub {
+  font-size: 11px; font-weight: 700; color: var(--gray4);
+  margin-bottom: 12px;
+}
+.plan-forecast-bars {
+  display: flex; align-items: flex-end; gap: 4px;
+  height: 56px; margin-bottom: 6px;
+}
+.plan-forecast-bar-col {
+  display: flex; flex-direction: column; align-items: center;
+  flex: 1; gap: 2px;
+}
+.plan-forecast-bar {
+  width: 100%; border-radius: 4px 4px 0 0;
+  min-height: 3px;
+}
+.plan-forecast-bar.bar-past   { background: #58CC02; }
+.plan-forecast-bar.bar-today  { background: #1cb0f6; }
+.plan-forecast-bar.bar-future { background: #e5e7eb; }
+.plan-forecast-bar-lbl {
+  font-size: 9px; font-weight: 700; color: var(--gray4);
+  white-space: nowrap;
+}
+.plan-forecast-eta {
+  display: flex; align-items: center; gap: 8px;
+  background: #f0fdf4; border: 1px solid #bbf7d0;
+  border-radius: 10px; padding: 8px 12px; margin-top: 8px;
+}
+.plan-forecast-eta-label {
+  font-size: 12px; font-weight: 700; color: #15803d; flex: 1;
+}
+.plan-forecast-eta-date {
+  font-size: 13px; font-weight: 900; color: #15803d;
+}
+.plan-forecast-eta.eta-done {
+  background: #fefce8; border-color: #fde68a;
+}
+.plan-forecast-eta.eta-done .plan-forecast-eta-label,
+.plan-forecast-eta.eta-done .plan-forecast-eta-date { color: #92400e; }
+/* end plan-10 css */
+/* --- Study Time Tracker (plan-11) --- */
+.plan-time-wrap {
+  background: #fff;
+  border: 1.5px solid var(--gray2, #e5e7eb);
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.plan-time-header {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 12px;
+}
+.plan-time-icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.plan-time-title {
+  font-size: 13px; font-weight: 900; color: var(--text); flex: 1;
+}
+.plan-time-stats {
+  display: flex; gap: 0; margin-bottom: 10px;
+}
+.plan-time-stat {
+  flex: 1; text-align: center; padding: 10px 4px;
+  border-radius: 10px;
+}
+.plan-time-stat:first-child {
+  background: #f5f3ff; border: 1px solid #ddd6fe;
+  margin-right: 6px;
+}
+.plan-time-stat:last-child {
+  background: #f0fdf4; border: 1px solid #bbf7d0;
+}
+.plan-time-stat-num {
+  font-size: 20px; font-weight: 900; line-height: 1;
+  margin-bottom: 3px;
+}
+.plan-time-stat:first-child .plan-time-stat-num { color: #6d28d9; }
+.plan-time-stat:last-child  .plan-time-stat-num { color: #15803d; }
+.plan-time-stat-lbl {
+  font-size: 10px; font-weight: 800; color: var(--gray4);
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.plan-time-bar-bg {
+  height: 8px; background: #e5e7eb; border-radius: 999px;
+  overflow: hidden; margin-bottom: 6px;
+}
+.plan-time-bar-fill {
+  height: 100%; border-radius: 999px;
+  background: linear-gradient(90deg, #8b5cf6, #58CC02);
+}
+.plan-time-meta {
+  font-size: 11px; font-weight: 700; color: var(--gray4);
+  text-align: center;
+}
+/* end plan-11 css */
+/* --- Personalized Study Tips (plan-12) --- */
+.plan-tips-wrap { margin-bottom: 16px; }
+.plan-tips-title {
+  font-size: 13px; font-weight: 900; color: var(--text);
+  margin-bottom: 10px;
+}
+.plan-tips-row {
+  display: flex; gap: 8px; overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+.plan-tips-row::-webkit-scrollbar { display: none; }
+.plan-tip-card {
+  min-width: 160px; max-width: 200px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  padding: 12px 13px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.plan-tip-card.tip-blue   { background: #eff6ff; border: 1.5px solid #bfdbfe; }
+.plan-tip-card.tip-green  { background: #f0fdf4; border: 1.5px solid #bbf7d0; }
+.plan-tip-card.tip-purple { background: #faf5ff; border: 1.5px solid #e9d5ff; }
+.plan-tip-card.tip-amber  { background: #fffbeb; border: 1.5px solid #fde68a; }
+.plan-tip-emoji  { font-size: 20px; line-height: 1; }
+.plan-tip-heading {
+  font-size: 11px; font-weight: 900;
+  text-transform: uppercase; letter-spacing: 0.4px;
+}
+.plan-tip-card.tip-blue   .plan-tip-heading { color: #1e40af; }
+.plan-tip-card.tip-green  .plan-tip-heading { color: #15803d; }
+.plan-tip-card.tip-purple .plan-tip-heading { color: #4c1d95; }
+.plan-tip-card.tip-amber  .plan-tip-heading { color: #92400e; }
+.plan-tip-body {
+  font-size: 12px; font-weight: 700;
+  line-height: 1.45; color: var(--text);
+}
+/* end plan-12 css */
+
+
+
 /* end plan-08 css */
 
 .ach-badge-locked { opacity: 0.55; }
@@ -4154,6 +4514,178 @@ body.text-xl     { --text-scale: 1.3; }
 :root[data-theme="dark"] .reminder-time-input {
   background: var(--gray1); border-color: var(--gray2); color: var(--text);
 }
+/* ---- profile-16: Dark/Light Mode Toggle ---- */
+.profile-theme-toggle-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 10px; margin-top: 8px; margin-bottom: 2px;
+}
+.profile-theme-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 18px; border-radius: 20px;
+  border: 2px solid var(--gray2);
+  background: var(--bg-card); color: var(--text);
+  font-size: 13px; font-weight: 800; cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  -webkit-tap-highlight-color: transparent;
+}
+.profile-theme-btn:hover {
+  border-color: var(--green); background: var(--bg-hover);
+}
+.profile-theme-btn:active { transform: scale(0.97); }
+.profile-theme-btn-icon {
+  font-size: 17px; line-height: 1;
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+:root[data-theme="dark"] .profile-theme-btn {
+  border-color: var(--gray3); background: var(--gray1);
+}
+:root[data-theme="dark"] .profile-theme-btn:hover {
+  border-color: var(--green); background: var(--gray2);
+}
+
+/* ---- profile-15: Milestone Timeline ---- */
+.milestone-timeline {
+  position: relative; padding: 4px 0 4px 36px;
+}
+.milestone-timeline::before {
+  content: '';
+  position: absolute; left: 14px; top: 8px; bottom: 8px; width: 2px;
+  background: linear-gradient(to bottom, var(--green), var(--gray2));
+  border-radius: 2px;
+}
+.milestone-item {
+  position: relative; margin-bottom: 18px;
+}
+.milestone-item:last-child { margin-bottom: 0; }
+.milestone-dot {
+  position: absolute; left: -29px; top: 2px;
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800; border: 2px solid;
+  background: var(--bg-card);
+}
+.milestone-dot.earned {
+  background: var(--green); border-color: var(--green); color: #fff;
+}
+.milestone-dot.locked {
+  background: var(--gray1); border-color: var(--gray2); color: var(--gray3);
+}
+.milestone-content {
+  padding: 10px 12px; border-radius: 12px;
+  border: 1.5px solid var(--gray2); background: var(--bg-card);
+}
+.milestone-content.earned {
+  border-color: rgba(88,204,2,0.35); background: rgba(88,204,2,0.05);
+}
+.milestone-content-row {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.milestone-title {
+  font-size: 13px; font-weight: 800; color: var(--text);
+  line-height: 1.2; flex: 1;
+}
+.milestone-title.locked { color: var(--gray3); }
+.milestone-date {
+  font-size: 10px; font-weight: 700; color: var(--gray4);
+  white-space: nowrap; margin-left: 8px; flex-shrink: 0;
+}
+.milestone-desc {
+  font-size: 11px; font-weight: 600; color: var(--gray4);
+  margin-top: 3px; line-height: 1.4;
+}
+.milestone-locked-hint {
+  font-size: 10px; font-weight: 700; color: var(--gray3);
+  margin-top: 3px; font-style: italic;
+}
+:root[data-theme="dark"] .milestone-content.earned {
+  background: rgba(88,204,2,0.08);
+}
+
+/* ---- profile-14: Learning Personality Badge ---- */
+.personality-badge-wrap {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 12px; padding: 6px 0 4px;
+}
+.personality-badge-icon {
+  width: 72px; height: 72px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 34px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  border: 3px solid;
+}
+.personality-badge-title {
+  font-size: 19px; font-weight: 900; color: var(--text); text-align: center;
+}
+.personality-badge-sub {
+  font-size: 12px; font-weight: 600; color: var(--gray4);
+  text-align: center; line-height: 1.5; max-width: 240px;
+  margin: 0 auto;
+}
+.personality-badge-pills {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 6px; margin-top: 2px;
+}
+.personality-pill {
+  padding: 4px 11px; border-radius: 20px;
+  font-size: 11px; font-weight: 800;
+  border: 1.5px solid;
+}
+
+/* ---- profile-13: Shareable Profile Card ---- */
+.share-card-wrap {
+  background: linear-gradient(135deg, var(--green) 0%, #46a302 100%);
+  border-radius: 20px; padding: 20px 18px 16px;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  position: relative; overflow: hidden;
+}
+.share-card-wrap::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 80% 20%, rgba(255,255,255,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+.share-card-avatar {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: rgba(255,255,255,0.2); border: 3px solid rgba(255,255,255,0.6);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 30px; flex-shrink: 0;
+}
+.share-card-name {
+  font-size: 18px; font-weight: 900; color: #fff;
+  text-align: center; line-height: 1.2;
+}
+.share-card-badge {
+  background: rgba(255,255,255,0.22); border: 1.5px solid rgba(255,255,255,0.45);
+  border-radius: 20px; padding: 3px 12px;
+  font-size: 12px; font-weight: 800; color: #fff; letter-spacing: 0.3px;
+}
+.share-card-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 8px; width: 100%; margin-top: 4px;
+}
+.share-card-stat {
+  background: rgba(255,255,255,0.18); border-radius: 12px;
+  padding: 8px 4px; text-align: center;
+}
+.share-card-stat-val {
+  font-size: 17px; font-weight: 900; color: #fff; line-height: 1;
+}
+.share-card-stat-lbl {
+  font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.8);
+  text-transform: uppercase; letter-spacing: 0.4px; margin-top: 3px;
+}
+.share-card-copy-btn {
+  margin-top: 4px; padding: 9px 22px;
+  background: rgba(255,255,255,0.22); border: 2px solid rgba(255,255,255,0.55);
+  border-radius: 12px; font-size: 13px; font-weight: 800; color: #fff;
+  cursor: pointer; transition: background 0.18s; width: 100%;
+}
+.share-card-copy-btn:active { background: rgba(255,255,255,0.38); }
+:root[data-theme="dark"] .share-card-wrap {
+  background: linear-gradient(135deg, #2a7a1a 0%, #1a5a0d 100%);
+}
+
 /* ---- profile-12: Weekly XP Challenge Card ---- */
 .weekly-xp-wrap {
   display: flex; align-items: center; gap: 18px;
@@ -5422,6 +5954,17 @@ body.text-xl     { --text-scale: 1.3; }
           </div>
           <button class="btn btn-purple btn-sm" onclick="showDifficultySelector('timed')">Challenge</button>
         </div>
+        <div class="practice-card" id="weak-drill-card">
+          <div class="practice-card-icon" style="background:#fee2e2;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M10.5 10.677a2 2 0 0 0 2.823 2.823"/><path d="M7.362 7.561C5.68 8.875 4.279 10.835 3 13c1.889 3.482 5.12 6 9 6 1.55 0 3.01-.404 4.273-1.115"/><path d="M12 5c3.879 0 7.111 2.518 9 6a15.66 15.66 0 0 1-1.078 1.785"/></svg>
+          </div>
+          <div class="practice-card-info">
+            <div class="practice-card-title">Weak Spots Drill</div>
+            <div class="practice-card-sub">7 questions from your hardest topic</div>
+            <div id="practice-weak-drill-target" style="font-size:11px;font-weight:700;color:var(--gray4);margin-top:3px;"></div>
+          </div>
+          <button class="btn btn-sm" id="weak-drill-start-btn" style="background:#ef4444;color:#fff;border:none;" onclick="startWeakDrill()">Drill</button>
+        </div>
       </div>
       <div style="display:flex;justify-content:flex-end;margin:4px 0 10px;">
         <button id="practice-focus-toggle-btn" class="practice-focus-btn" onclick="setPracticeFocusMode(!practiceFocusMode)" aria-label="Toggle Focus Mode">
@@ -5458,6 +6001,7 @@ body.text-xl     { --text-scale: 1.3; }
         <div class="practice-history-title">Recent Sessions</div>
         <div id="practice-history-list"></div>
       </div>
+      <div id="practice-leaderboard-wrap" style="margin-top:14px;"></div>
       <div class="practice-notes-section" style="margin-top:14px;">
         <button class="practice-notes-toggle" onclick="(function(btn){btn.classList.toggle('open');var b=btn.nextElementSibling;b.classList.toggle('open');if(b.classList.contains('open'))renderPracticeSessionNotes();})(this)" aria-expanded="false">
           <span>&#x1F4DD; Session Notes</span>
@@ -5491,6 +6035,7 @@ body.text-xl     { --text-scale: 1.3; }
     <div id="profile-goal-row-wrap" style="margin-top:2px;"></div>
     <div id="profile-clari-greeting" style="margin-top:10px;padding:0;"></div>
     <div id="profile-stat-strip"></div>
+    <div id="profile-theme-toggle-wrap" style="margin-top:6px;"></div>
   </div>
   <div class="profile-body">
     <div class="section-card">
@@ -5515,6 +6060,9 @@ body.text-xl     { --text-scale: 1.3; }
     <div class="section-card" id="profile-streak-stats-card"></div>
     <div class="section-card" id="profile-skills-card"></div>
     <div class="section-card" id="profile-weekly-card"></div>
+    <div class="section-card" id="profile-share-card"></div>
+    <div class="section-card" id="profile-personality-card"></div>
+    <div class="section-card" id="profile-milestone-card"></div>
     <div class="section-card">
       <div class="section-title">My Notes</div>
       <div id="profile-notes-list"></div>
@@ -15413,6 +15961,18 @@ function setTTSRate(rate) {
 // ============================================================
 // ESCAPE HTML HELPER
 // ============================================================
+// learn-26: wrap matched query text in a <mark> for visual highlighting
+function highlightSearch(text, query) {
+  if (!query || !query.trim()) return escHtml(text);
+  var _q = query.trim();
+  var _safe = escHtml(text);
+  // Build a regex that matches the query, case-insensitive
+  try {
+    var _re = new RegExp('(' + _q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+    return _safe.replace(_re, '<mark class="search-hl">$1</mark>');
+  } catch (e) { return _safe; }
+}
+
 function escHtml(s) {
   return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
@@ -17403,7 +17963,14 @@ function renderLearnTab() {
           + '<div class="rec-next-card-unit">Unit ' + item.unit.num + ': ' + escHtml(item.unit.title) + '</div>'
           + '<div class="rec-next-card-title">' + escHtml(item.lesson.title) + '</div>'
           + '</div>'
-          + '<span class="rec-next-card-xp">+' + item.lesson.xp + ' XP</span>'
+          + (function(_it25) {
+              var _d = _it25.unit.lessons.filter(function(l) { return S.completed.includes(l.id); }).length;
+              var _t = _it25.unit.lessons.length;
+              var _m = (typeof estimateLessonMinutes === 'function') ? estimateLessonMinutes(_it25.lesson) : '?';
+              // learn-25: meta row with time, XP, and unit progress
+              return '<div class="rec-next-card-meta">~' + _m + ' min &bull; +' + _it25.lesson.xp
+                + ' XP <span class="rec-next-unit-prog">' + _d + '/' + _t + ' done</span></div>';
+            })(item)
           + '<span class="rec-next-card-btn">Start →</span>'
           + '</div>';
       }).join('');
@@ -17759,12 +18326,25 @@ function renderLearnTab() {
           + '</svg>'
           + '</button>';
 
+        // learn-28: share button (hidden until hover; not shown on locked lessons)
+        var _shareBtn = locked ? '' :
+          '<button class="lesson-share-btn"'
+          + ' onclick="shareLessonRow(\'' + lesson.id + '\', event)"'
+          + ' title="Study with a friend" aria-label="Share this lesson">'
+          + '<svg width="14" height="14" viewBox="0 0 24 24" fill="none"'
+          + ' stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
+          + '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/>'
+          + '<circle cx="18" cy="19" r="3"/>'
+          + '<line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>'
+          + '<line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>'
+          + '</svg></button>';
+
         html += `<div class="lesson-row ${done ? 'completed' : ''} ${locked ? 'locked' : ''}"
           onclick="${locked ? 'openPremiumModal()' : `startLesson('${lesson.id}')`}">
           ${_newBadge}
           <div class="lesson-icon" style="background:${iconBg}">${iconContent}</div>
           <div class="lesson-info">
-            <div class="lesson-title">${lesson.title}${_recentBadge}${_xpBoostBadge}</div>
+            <div class="lesson-title">${learnSearchQuery.trim() ? highlightSearch(lesson.title, learnSearchQuery) : escHtml(lesson.title)}${_recentBadge}${_xpBoostBadge}</div>
             <div class="lesson-meta">~${estimateLessonMinutes(lesson)} min &bull; +${lesson.xp} XP${diffBadge}${_ratingStarsHtml}<span class="lesson-slides-count"> &bull; ${(lesson.slides||[]).length} slide${(lesson.slides||[]).length !== 1 ? 's' : ''}</span></div>
             ${starsHtml}${_tagsHtml}
             ${_completedDateHtml}
@@ -17772,7 +18352,7 @@ function renderLearnTab() {
           ${locked ? `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#afafaf" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>` : _reviewDue ? `<span class="review-due-icon" title="Review due"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><circle cx='12' cy='13' r='8'/><polyline points='12,9 12,13 15,15'/><path d='M5 3L3 5M21 5l-2-2'/><line x1='12' y1='21' x2='12' y2='23'/></svg></span></span>${badgeHtml}` : badgeHtml}
           <button class="lc-chevron-btn" id="lc-chevron-${lesson.id}" onclick="event.stopPropagation();toggleLearnCard('${lesson.id}')" aria-label="Toggle description" title="Show description" style="transform:${learnExpandedCards[lesson.id]?'rotate(180deg)':'rotate(0deg)'}">&#9662;</button>
         </div>
-${_playHint}<button class="lesson-bookmark-btn ${(S.bookmarks||[]).includes(lesson.id) ? 'active' : ''}" onclick="toggleBookmark('${lesson.id}', event)" title="Bookmark this lesson" aria-label="Bookmark">&#9733;</button><span class="lesson-bookmark-label">Bookmarked</span>${_noteHtml}${(function(){ var _d = (lesson.slides&&lesson.slides[0]) ? (lesson.slides[0].text||lesson.slides[0].title||'') : ''; if (!_d) return ''; var _open = learnExpandedCards[lesson.id] ? 'block' : 'none'; return '<div class="lc-desc-expand" id="lc-expand-' + lesson.id + '" style="display:' + _open + '">' + escHtml(_d.slice(0,200)) + (_d.length>200?'…':'') + '</div>'; })()}`;
+${_playHint}<button class="lesson-bookmark-btn ${(S.bookmarks||[]).includes(lesson.id) ? 'active' : ''}" onclick="toggleBookmark('${lesson.id}', event)" title="Bookmark this lesson" aria-label="Bookmark">&#9733;</button><span class="lesson-bookmark-label">Bookmarked</span>${_shareBtn}${_noteHtml}${(function(){ var _d = (lesson.slides&&lesson.slides[0]) ? (lesson.slides[0].text||lesson.slides[0].title||'') : ''; if (!_d) return ''; var _open = learnExpandedCards[lesson.id] ? 'block' : 'none'; return '<div class="lc-desc-expand" id="lc-expand-' + lesson.id + '" style="display:' + _open + '">' + escHtml(_d.slice(0,200)) + (_d.length>200?'…':'') + '</div>'; })()}`;
       });
 
       // Motivational nudge (learn-07) — show when unit is not complete and not searching
@@ -23717,6 +24297,8 @@ function renderLessonComplete() {
     SoundManager.playAchievement && SoundManager.playAchievement();
     checkAndShowUnitCertificate(currentUnit.id);
     setTimeout(function() { showUnitCompleteModal('Unit ' + currentUnit.num + ': ' + currentUnit.title, currentUnit.color); }, 800);
+    // learn-27: unit-color confetti burst
+    setTimeout(function() { fireUnitConfetti(currentUnit.color); }, 400);
   }
 
 
@@ -23940,6 +24522,36 @@ function renderLessonComplete() {
 // ============================================================
 // GAMIFICATION
 // ============================================================
+// learn-27: unit-specific confetti burst in the unit's brand color
+function fireUnitConfetti(unitColor) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var _base = unitColor || '#58cc02';
+  // Mix unit color with white and gold for a festive palette
+  var _colors = [_base, _base, '#ffffff', '#ffd700', '#ffe066', _base, '#fff3b0'];
+  var _count = 38;
+  for (var _uc = 0; _uc < _count; _uc++) {
+    var _p = document.createElement('div');
+    var _size = 5 + Math.random() * 9;
+    _p.style.cssText = [
+      'position:fixed',
+      'pointer-events:none',
+      'z-index:10000',
+      'left:' + (10 + Math.random() * 80) + '%',
+      'top:' + (-5 + Math.random() * 35) + '%',
+      'width:' + _size + 'px',
+      'height:' + _size + 'px',
+      'background:' + _colors[Math.floor(Math.random() * _colors.length)],
+      'border-radius:' + (Math.random() > 0.45 ? '50%' : '3px'),
+      'opacity:1',
+      'animation:confetti-fall ' + (1.1 + Math.random() * 1.2) + 's ease-in ' + (Math.random() * 0.6) + 's forwards'
+    ].join(';');
+    document.body.appendChild(_p);
+    (function(el) {
+      setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, 2500);
+    })(_p);
+  }
+}
+
 function fireLearnTabConfetti() {
   // learn-08: 20-particle mini confetti burst anchored to the learn tab area
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -24087,6 +24699,39 @@ function showUnitCompleteModal(unitName, unitColor) {
 // ============================================================
 // LESSON BOOKMARK / FAVOURITE
 // ============================================================
+// learn-28: share lesson details with a friend via Web Share API or clipboard
+function shareLessonRow(lessonId, event) {
+  if (event) event.stopPropagation();
+  var _sLesson = null, _sUnit = null;
+  for (var _sui = 0; _sui < COURSE.length; _sui++) {
+    for (var _sli = 0; _sli < COURSE[_sui].lessons.length; _sli++) {
+      if (COURSE[_sui].lessons[_sli].id === lessonId) {
+        _sLesson = COURSE[_sui].lessons[_sli];
+        _sUnit   = COURSE[_sui];
+        break;
+      }
+    }
+    if (_sLesson) break;
+  }
+  if (!_sLesson) return;
+  var _m = (typeof estimateLessonMinutes === 'function') ? estimateLessonMinutes(_sLesson) : '?';
+  var _txt = ('📚 "' + _sLesson.title + '" — AI Mentor\n'
+    + 'Unit ' + _sUnit.num + ': ' + _sUnit.title
+    + ' · ~' + _m + ' min · +' + _sLesson.xp + ' XP\n'
+    + 'Study AI for free: https://clari.ai');
+  if (navigator.share) {
+    navigator.share({ title: _sLesson.title, text: _txt }).catch(function() {});
+  } else if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(_txt).then(function() {
+      showToast('📋 Copied! Share with a friend.', 'success', 2400);
+    }).catch(function() {
+      showToast('Copy failed — try long-pressing.', 'info', 2000);
+    });
+  } else {
+    showToast('📚 ' + _sLesson.title + ' — share this lesson!', 'info', 2800);
+  }
+}
+
 function toggleBookmark(lessonId, event) {
   if (event) event.stopPropagation();
   var bookmarks = S.bookmarks || [];
@@ -24700,6 +25345,39 @@ function renderPracticeTab() {
     if (_weakEl) _weakEl.textContent = _weakCount > 0 ? _weakCount + ' to review' : 'None to review yet';
   })();
   const history = S.practice_history || [];
+  // practice-39: update weak drill card target label
+  (function() {
+    var _wdCard = document.getElementById('weak-drill-card');
+    var _wdTarget = document.getElementById('practice-weak-drill-target');
+    var _wdBtn = document.getElementById('weak-drill-start-btn');
+    if (!_wdTarget || !_wdBtn) return;
+    var _wrong = S.wrong_answers || [];
+    if (_wrong.length === 0) {
+      _wdCard && _wdCard.classList.add('weak-drill-clean');
+      _wdTarget.textContent = 'No weak spots yet — keep going!';
+      _wdBtn.disabled = true;
+      _wdBtn.style.opacity = '0.45';
+      return;
+    }
+    _wdCard && _wdCard.classList.remove('weak-drill-clean');
+    _wdBtn.disabled = false;
+    _wdBtn.style.opacity = '';
+    // Find weakest unit
+    var _unitCounts = {};
+    _wrong.forEach(function(wa) {
+      var _m = (wa.lessonId || '').match(/^u(\d+)/i);
+      var _k = _m ? 'Unit ' + _m[1] : 'Other';
+      _unitCounts[_k] = (_unitCounts[_k] || 0) + 1;
+    });
+    var _worst = Object.keys(_unitCounts).reduce(function(a, b) {
+      return _unitCounts[a] >= _unitCounts[b] ? a : b;
+    });
+    _wdTarget.innerHTML = '<span class="weak-drill-target-badge">⚠️ Focus: ' + _worst + ' (' + _unitCounts[_worst] + ' wrong)</span>';
+  })();
+
+  // practice-40: render leaderboard panel
+  renderPracticeLeaderboard();
+
   const el = document.getElementById('practice-history-list');
   if (!el) return;
   const msgEl = document.getElementById('practice-clari-msg');
@@ -24715,7 +25393,7 @@ function renderPracticeTab() {
   const _visible = _showAll ? history.slice().reverse() : history.slice(-10).reverse();
   el.innerHTML = _visible.map(h =>
     `<div class="practice-history-item">
-      <span>${h.type === 'quick' ? 'Quick Practice' : h.type === 'weak' ? 'Weak Areas' : 'Timed Challenge'} &bull; ${h.date}</span>
+      <span>${h.type === 'quick' ? 'Quick Practice' : h.type === 'weak' ? 'Weak Areas' : h.type === 'weak_drill' ? 'Weak Spots Drill' : 'Timed Challenge'} &bull; ${h.date}</span>
       <span class="practice-history-score">${h.score}/${h.total}</span>
     </div>`
   ).join('') + (history.length > 10 ? `<button class="btn btn-ghost btn-sm" style="margin-top:8px;width:100%;" onclick="(function(btn){var el=btn.closest('#practice-history-list')||btn.parentElement.parentElement;el.dataset.showAll=el.dataset.showAll==='true'?'false':'true';renderPracticeHistory&&renderPracticeHistory();})(this)">${_showAll ? 'Show less' : 'Show all (' + history.length + ')'}</button>` : '');
@@ -24867,7 +25545,7 @@ function renderPracticeRecentSessions() {
     return t === 'timed' ? 40 : t === 'review' ? 35 : 20;
   }
   function _modeLabel(t) {
-    return t === 'timed' ? 'Timed' : t === 'review' ? 'Review' : t === 'weak' ? 'Weak Areas' : 'Quick';
+    return t === 'timed' ? 'Timed' : t === 'review' ? 'Review' : t === 'weak' ? 'Weak Areas' : t === 'weak_drill' ? 'Weak Drill' : 'Quick';
   }
   // Retrieve current open/closed state from DOM
   var _isOpen = false;
@@ -25393,7 +26071,8 @@ function renderPracticeQuestion() {
     <div style="text-align:center;margin-bottom:6px;">${getPracticeDifficultyChip(q.lessonId || '')}</div>
     <div class="slide-quiz-title">${q.question}</div>
     <div class="quiz-options">${opts}</div>
-    <div id="quiz-feedback"></div>` + _kbHintHtml;
+    <div id="quiz-feedback"></div>
+    <div id="practice-hint-wrap" style="text-align:center;">${lessonState.practiceType !== 'timed' ? ('<button class="practice-hint-btn" id="practice-hint-btn" onclick="showPracticeHint()" aria-label="Hint">&#x1F4A1; Hint (-2 XP)</button><div class="practice-hint-box" id="practice-hint-box"></div>') : ''}</div>` + _kbHintHtml;
 
   document.getElementById('lesson-footer').innerHTML =
     `<button class="btn btn-green btn-full" id="lesson-next-btn" onclick="nextPracticeQuestion()" disabled>Next</button>`;
@@ -26070,14 +26749,240 @@ function finishPractice() {
     + '<button id="practice-session-note-btn" class="practice-session-note-save" onclick="savePracticeSessionNote()">Save Note</button>'
     + '<div id="practice-session-note-saved" class="practice-session-note-saved">&#x2713; Note saved!</div>'
     + '</div>';
+  // practice-38: build motivational quote card html for footer
+  var _pqQuotes = (typeof MOTIVATIONAL_QUOTES !== 'undefined' && MOTIVATIONAL_QUOTES.length)
+    ? MOTIVATIONAL_QUOTES
+    : ['"The secret of getting ahead is getting started." — Mark Twain',
+       '"An investment in knowledge pays the best interest." — Benjamin Franklin'];
+  var _pqQuote = _pqQuotes[Math.floor(Math.random() * _pqQuotes.length)];
+  var _pqHtml = '<div class="practice-quote-card" id="practice-quote-card">'
+    + '<div class="practice-quote-text">' + _pqQuote + '</div>'
+    + '<button class="practice-quote-share" onclick="sharePracticeQuote(' + JSON.stringify(_pqQuote) + ',' + _accuracy + ')">'
+    + '&#x1F4E4; Share Quote</button>'
+    + '</div>';
+
   document.getElementById('lesson-footer').innerHTML =
     _reviewBtn
     + `<button class="btn btn-blue btn-full" style="margin-bottom:10px;" onclick="doCloseLesson();setTimeout(()=>startPractice('${_practiceAgainType}'),80);">Practice Again</button>`
     + `<button class="btn btn-ghost btn-full" style="margin-bottom:10px;border:2px solid var(--gray3);font-weight:800;" onclick="challengeFriend()">🤝 Challenge a Friend</button>`
     + `<button class="btn-share-progress" onclick="shareSessionProgress()">📤 Share Progress</button>`
+    + _pqHtml
     + _noteHtml
     + `<div style="margin-bottom:10px;"></div>`
     + `<button class="btn btn-green btn-full" onclick="doCloseLesson()">Back to Practice →</button>`;
+
+  // Animate quote card in after XP breakdown settles
+  setTimeout(function() {
+    var _qCard = document.getElementById('practice-quote-card');
+    if (_qCard) _qCard.classList.add('visible');
+  }, 900);
+}
+
+// ============================================================
+// practice-40: LOCAL PRACTICE LEADERBOARD
+// ============================================================
+function renderPracticeLeaderboard() {
+  var _wrap = document.getElementById('practice-leaderboard-wrap');
+  if (!_wrap) return;
+  var _hist = (S.practice_history || []).slice();
+  // Sort all sessions by percentage descending
+  _hist.sort(function(a, b) {
+    var _pA = a.total > 0 ? (a.score / a.total) : 0;
+    var _pB = b.total > 0 ? (b.score / b.total) : 0;
+    return _pB - _pA;
+  });
+  var _top = _hist.slice(0, 10);
+
+  // Preserve open state across re-renders
+  var _existingBody = _wrap.querySelector('.practice-lb-body');
+  var _isOpen = _existingBody ? _existingBody.classList.contains('open') : false;
+
+  function _typeLabel(t) {
+    if (t === 'quick')      return 'Quick Practice';
+    if (t === 'weak')       return 'Weak Areas';
+    if (t === 'timed')      return 'Timed Challenge';
+    if (t === 'weak_drill') return 'Weak Spots Drill';
+    if (t === 'review')     return 'Review';
+    return t || 'Practice';
+  }
+
+  var _rowsHtml = '';
+  if (_top.length === 0) {
+    _rowsHtml = '<div class="practice-lb-empty">No sessions yet — complete a practice to see your scores!</div>';
+  } else {
+    _rowsHtml = _top.map(function(h, i) {
+      var _pct = h.total > 0 ? Math.round((h.score / h.total) * 100) : 0;
+      var _rankClass = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
+      var _medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : String(i + 1) + '.';
+      return '<div class="practice-lb-row">'
+        + '<div class="practice-lb-rank ' + _rankClass + '">' + _medal + '</div>'
+        + '<div class="practice-lb-info">'
+        +   '<div class="practice-lb-type">' + _typeLabel(h.type) + '</div>'
+        +   '<div class="practice-lb-date">' + (h.date || '') + '</div>'
+        + '</div>'
+        + '<div class="practice-lb-score">' + _pct + '%</div>'
+        + '</div>';
+    }).join('');
+  }
+
+  _wrap.innerHTML = '<div class="practice-lb-wrap">'
+    + '<button class="practice-lb-toggle" onclick="(function(btn){'
+    + 'var body=btn.nextElementSibling;'
+    + 'var chev=btn.querySelector(".practice-lb-chevron");'
+    + 'body.classList.toggle("open");'
+    + 'if(chev)chev.classList.toggle("open");'
+    + '})(this)">'
+    + '<span>🏆 Your Best Sessions</span>'
+    + '<span class="practice-lb-chevron' + (_isOpen ? ' open' : '') + '">▾</span>'
+    + '</button>'
+    + '<div class="practice-lb-body' + (_isOpen ? ' open' : '') + '">'
+    + _rowsHtml
+    + '</div>'
+    + '</div>';
+}
+
+// ============================================================
+// practice-39: WEAK SPOTS DRILL
+// ============================================================
+function startWeakDrill() {
+  var _wrong = S.wrong_answers || [];
+  if (_wrong.length === 0) {
+    showToast('No weak spots yet! Complete a few lessons first.', 'info', 2800);
+    return;
+  }
+  // Find weakest unit (most wrong answers)
+  var _unitCounts = {};
+  _wrong.forEach(function(wa) {
+    var _m = (wa.lessonId || '').match(/^u(\d+)/i);
+    var _k = _m ? _m[1] : null;
+    if (_k) _unitCounts[_k] = (_unitCounts[_k] || 0) + 1;
+  });
+  var _worstUnitNum = Object.keys(_unitCounts).reduce(function(a, b) {
+    return _unitCounts[a] >= _unitCounts[b] ? a : b;
+  });
+  // Gather all quiz questions from that unit's completed lessons
+  var _pool = [];
+  var _seen = new Set();
+  (S.completed || []).forEach(function(id) {
+    var _m = id.match(/^u(\d+)/i);
+    if (!_m || _m[1] !== _worstUnitNum) return;
+    var _lesson = findLesson(id);
+    if (!_lesson) return;
+    var _slides = (_lesson.slides || []).concat(_lesson.pool || []);
+    _slides.forEach(function(s) {
+      if (s.type === 'quiz' && !_seen.has(s.question)) {
+        _seen.add(s.question);
+        _pool.push(Object.assign({}, s, { lessonId: id, practiceType: 'quiz' }));
+      }
+    });
+  });
+  // Prioritise questions the user got wrong
+  var _wrongQs = new Set(_wrong.map(function(wa) { return wa.question; }));
+  _pool.sort(function(a, b) {
+    var _aW = _wrongQs.has(a.question) ? 0 : 1;
+    var _bW = _wrongQs.has(b.question) ? 0 : 1;
+    return _aW - _bW;
+  });
+  if (_pool.length === 0) {
+    showToast('Complete lessons in Unit ' + _worstUnitNum + ' to unlock the drill!', 'info', 3000);
+    return;
+  }
+  var _questions = _pool.slice(0, 7);
+  showToast('⚠️ Weak Spots Drill: Unit ' + _worstUnitNum + ' — ' + _questions.length + ' questions', 'info', 2500);
+  matchPendingLeft = null;
+  lessonState = {
+    lessonId: '__practice__',
+    slideIdx: 0,
+    hearts: S.hearts,
+    wrongThisLesson: 0,
+    xpEarned: 0,
+    gemsEarned: 0,
+    slideAnswered: false,
+    practiceMode: true,
+    practiceType: 'weak_drill',
+    practiceQuestions: _questions,
+    practiceIdx: 0,
+    practiceScore: 0,
+    practiceStartTime: Date.now(),
+    practiceWrong: [],
+    timedInterval: null,
+    timedSeconds: 60,
+    practicePaused: false,
+    adaptiveLevel: 1,
+    adaptiveWindow: [],
+    matchSelected: null,
+    matchLeftDone: new Set(),
+    matchRightDone: new Set(),
+    matchPairs: [],
+    fillBlanks: [],
+    fillBankUsed: [],
+    tapSelected: new Set(),
+    correctStreak: 0,
+    practiceCombo: 0
+  };
+  document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
+  document.getElementById('view-lesson').classList.add('active');
+  document.getElementById('top-bar').classList.remove('visible');
+  document.getElementById('bottom-nav').classList.remove('visible');
+  renderPracticeQuestion();
+}
+
+// ============================================================
+// practice-38: SHARE PRACTICE QUOTE
+// ============================================================
+function sharePracticeQuote(quote, accuracy) {
+  var _text = quote + '\n\nI scored ' + accuracy + '% on my AI practice session! 💪';
+  if (navigator.share) {
+    navigator.share({ text: _text }).catch(function() {});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(_text).then(function() {
+      showToast('Quote copied to clipboard! 📋', 'success', 2500);
+    }).catch(function() {
+      showToast('Could not copy — please copy manually.', 'info', 2500);
+    });
+  } else {
+    showToast('Share not available on this device.', 'info', 2500);
+  }
+}
+
+// ============================================================
+// practice-37: PRACTICE HINT FUNCTION
+// ============================================================
+function showPracticeHint() {
+  var _btn = document.getElementById('practice-hint-btn');
+  var _box = document.getElementById('practice-hint-box');
+  if (!_btn || !_box) return;
+  if (_btn.disabled) return;
+  _btn.disabled = true;
+  _btn.innerHTML = '&#x1F4A1; Hint used';
+
+  // Deduct 2 XP
+  var _cur = S.xp || 0;
+  if (_cur >= 2) {
+    save('xp', _cur - 2);
+    showToast('-2 XP for hint', 'info', 1800);
+  }
+
+  // Get hint text from current question
+  var _q = lessonState.practiceQuestions && lessonState.practiceQuestions[lessonState.practiceIdx];
+  var _hintText = '';
+  if (_q && _q.hint) {
+    _hintText = _q.hint;
+  } else if (_q && _q.explanation) {
+    // Use first sentence of explanation as a nudge
+    var _exp = _q.explanation || '';
+    var _dot = _exp.indexOf('. ');
+    _hintText = (_dot > 0 ? _exp.slice(0, _dot + 1) : _exp.slice(0, 100)) + ' (nudge)';
+  } else if (_q && _q.options && _q.correct != null) {
+    // Generic hint: tells the user how many options are wrong
+    var _wrongCount = (_q.options.length - 1);
+    _hintText = _wrongCount + ' of the ' + _q.options.length + ' options are incorrect. Think carefully!';
+  } else {
+    _hintText = "Consider what you've learned — re-read the options slowly.";
+  }
+
+  _box.textContent = _hintText;
+  _box.classList.add('visible');
 }
 
 // ============================================================
@@ -26351,6 +27256,124 @@ function renderPlanTab() {
       '</div>';
   })();
 
+  // --- Today's Plan Card (plan-09) ---
+  (function() {
+    var _today9    = todayStr();
+    var _goalDone9 = S.goal_today || 0;
+    var _goalTgt9  = S.daily_goal || 1;
+    var _streak9   = S.streak || 0;
+    var _streakAt9 = S.streak_date || '';
+    var _freeze9   = S.streak_freeze || false;
+    var _streakRisk9 = _streak9 > 0 && _streakAt9 !== _today9 && !_freeze9;
+    var _goalRem9  = Math.max(0, _goalTgt9 - _goalDone9);
+
+    // Reviews due today from spaced-repetition engine
+    var _reviews9    = S.lesson_reviews || {};
+    var _dueLessons9 = [];
+    for (var _rid9 in _reviews9) {
+      if (_reviews9.hasOwnProperty(_rid9) && _reviews9[_rid9].nextDue <= _today9) {
+        _dueLessons9.push(_rid9);
+      }
+    }
+
+    // Next incomplete new lessons to fill remaining daily goal
+    var _needed9  = Math.max(_goalRem9, _dueLessons9.length === 0 ? 1 : 0);
+    var _dueSet9  = {};
+    for (var _di9 = 0; _di9 < _dueLessons9.length; _di9++) { _dueSet9[_dueLessons9[_di9]] = true; }
+    var _newLessons9 = [];
+    var _foundNew9 = false;
+    for (var _ui9 = 0; _ui9 < COURSE.length && !_foundNew9; _ui9++) {
+      var _u9 = COURSE[_ui9];
+      for (var _li9 = 0; _li9 < _u9.lessons.length; _li9++) {
+        var _l9 = _u9.lessons[_li9];
+        if (!S.completed.includes(_l9.id) && !_dueSet9[_l9.id] && (_l9.free || S.premium)) {
+          _newLessons9.push(_l9.id);
+          if (_newLessons9.length >= _needed9) { _foundNew9 = true; break; }
+        }
+      }
+    }
+
+    // Combine: reviews first, then new
+    var _items9 = [];
+    for (var _dj9 = 0; _dj9 < _dueLessons9.length; _dj9++) {
+      _items9.push({ id: _dueLessons9[_dj9], tag: 'review' });
+    }
+    for (var _nj9 = 0; _nj9 < _newLessons9.length; _nj9++) {
+      _items9.push({ id: _newLessons9[_nj9], tag: 'new' });
+    }
+
+    var _allDone9  = _goalDone9 >= _goalTgt9 && !_streakRisk9;
+    var _badgeTxt9 = _allDone9
+      ? 'Done!'
+      : (_items9.length + ' lesson' + (_items9.length !== 1 ? 's' : '') + ' to do');
+    var _badgeCls9 = _allDone9
+      ? 'plan-today-badge badge-done'
+      : (_streakRisk9 ? 'plan-today-badge badge-warn' : 'plan-today-badge');
+
+    var _rowsHtml9 = '';
+    if (_allDone9 && _items9.length === 0) {
+      _rowsHtml9 = '<div class="plan-today-empty">\u2705 You\'ve hit today\'s goal \u2014 great work!</div>';
+    } else {
+      for (var _ij9 = 0; _ij9 < _items9.length; _ij9++) {
+        var _it9  = _items9[_ij9];
+        var _lsn9 = findLesson(_it9.id);
+        if (!_lsn9) continue;
+        var _un9 = null;
+        for (var _uu9 = 0; _uu9 < COURSE.length; _uu9++) {
+          var _matched9 = false;
+          for (var _ml9 = 0; _ml9 < COURSE[_uu9].lessons.length; _ml9++) {
+            if (COURSE[_uu9].lessons[_ml9].id === _it9.id) { _matched9 = true; break; }
+          }
+          if (_matched9) { _un9 = COURSE[_uu9]; break; }
+        }
+        var _col9    = _un9 ? (_un9.color || '#5BC0F8') : '#5BC0F8';
+        var _tagCls9 = _it9.tag === 'review'
+          ? 'plan-today-item-tag plan-today-tag-review'
+          : 'plan-today-item-tag plan-today-tag-new';
+        var _tagLbl9 = _it9.tag === 'review' ? 'Review' : 'New';
+        var _locked9 = !_lsn9.free && !S.premium;
+        var _oc9     = _locked9 ? 'openPremiumModal()' : ('startLesson(\'' + _it9.id + '\')');
+        _rowsHtml9 +=
+          '<div class="plan-today-item" onclick="' + _oc9 + '">' +
+            '<div class="plan-today-item-dot" style="background:' + _col9 + ';"></div>' +
+            '<div class="plan-today-item-text">' + _lsn9.title + '</div>' +
+            '<div class="plan-today-item-meta">+' + _lsn9.xp + ' XP</div>' +
+            '<div class="' + _tagCls9 + '">' + _tagLbl9 + '</div>' +
+          '</div>';
+      }
+    }
+
+    var _warnRow9 = _streakRisk9
+      ? '<div style="font-size:11px;font-weight:800;color:#b45309;margin-bottom:8px;">'
+        + '\u26a0\ufe0f Streak at risk \u2014 do at least one lesson today!</div>'
+      : '';
+
+    var _sunSVG9 =
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none"'
+      + ' stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
+      + '<circle cx="12" cy="12" r="5"/>'
+      + '<line x1="12" y1="1" x2="12" y2="3"/>'
+      + '<line x1="12" y1="21" x2="12" y2="23"/>'
+      + '<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>'
+      + '<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>'
+      + '<line x1="1" y1="12" x2="3" y2="12"/>'
+      + '<line x1="21" y1="12" x2="23" y2="12"/>'
+      + '<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>'
+      + '<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>'
+      + '</svg>';
+
+    html +=
+      '<div class="plan-today-card">' +
+        '<div class="plan-today-header">' +
+          '<div class="plan-today-icon">' + _sunSVG9 + '</div>' +
+          '<div class="plan-today-title">Today\'s Plan</div>' +
+          '<div class="' + _badgeCls9 + '">' + _badgeTxt9 + '</div>' +
+        '</div>' +
+        _warnRow9 +
+        _rowsHtml9 +
+      '</div>';
+  })();
+
   // --- Smart Nudge Banner (plan-08) ---
   (function() {
     var _today8   = todayStr();
@@ -26542,6 +27565,276 @@ function renderPlanTab() {
           '<button class="plan-wxp-goal-save" onclick="' + _onclickSave + '">Save</button>' +
         '</div>' +
       '</div>' + html;
+  })();
+
+  // --- Forecast Chart (plan-10) ---
+  (function() {
+    var _today10 = todayStr();
+    var _log10   = S.lesson_log || {};
+    var _totalL10 = 0;
+    for (var _ni10 = 0; _ni10 < COURSE.length; _ni10++) {
+      _totalL10 += (COURSE[_ni10].lessons || []).length;
+    }
+    var _doneL10 = (S.completed || []).length;
+    var _remL10  = Math.max(0, _totalL10 - _doneL10);
+
+    // Build 14-day rolling window
+    var _days10   = [];
+    var _maxCnt10 = 1;
+    for (var _di10 = 13; _di10 >= 0; _di10--) {
+      var _d10 = new Date(_today10 + 'T12:00:00');
+      _d10.setDate(_d10.getDate() - _di10);
+      var _ds10  = _d10.toISOString().split('T')[0];
+      var _cnt10 = _log10[_ds10] || 0;
+      if (_cnt10 > _maxCnt10) _maxCnt10 = _cnt10;
+      _days10.push({ ds: _ds10, cnt: _cnt10, isToday: _di10 === 0 });
+    }
+
+    // Average lessons per active day
+    var _sumLpd10    = 0;
+    var _activeDays10 = 0;
+    for (var _ai10 = 0; _ai10 < _days10.length; _ai10++) {
+      if (_days10[_ai10].cnt > 0) { _sumLpd10 += _days10[_ai10].cnt; _activeDays10++; }
+    }
+    var _avgLpd10 = _activeDays10 > 0 ? (_sumLpd10 / _activeDays10) : 0;
+
+    // ETA
+    var _etaStr10;
+    var _etaDone10 = _remL10 === 0;
+    if (_etaDone10) {
+      _etaStr10 = 'Course complete!';
+    } else if (_avgLpd10 < 0.1) {
+      _etaStr10 = 'Start lessons to see forecast';
+    } else {
+      var _daysNeeded10 = Math.ceil(_remL10 / _avgLpd10);
+      var _etaDate10 = new Date(_today10 + 'T12:00:00');
+      _etaDate10.setDate(_etaDate10.getDate() + _daysNeeded10);
+      var _months10 = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      _etaStr10 = _months10[_etaDate10.getMonth()] + ' ' + _etaDate10.getDate() + ', ' + _etaDate10.getFullYear();
+    }
+
+    // Bar chart HTML (14 bars)
+    var _barMaxH10  = 48;
+    var _barsHtml10 = '';
+    var _dayNames10 = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+    for (var _bi10 = 0; _bi10 < _days10.length; _bi10++) {
+      var _b10   = _days10[_bi10];
+      var _h10   = _b10.cnt > 0 ? Math.max(4, Math.round((_b10.cnt / _maxCnt10) * _barMaxH10)) : 3;
+      var _cls10 = _b10.isToday ? 'plan-forecast-bar bar-today'
+                 : (_b10.cnt > 0 ? 'plan-forecast-bar bar-past' : 'plan-forecast-bar bar-future');
+      var _dObj10 = new Date(_b10.ds + 'T12:00:00');
+      var _lbl10  = _b10.isToday ? 'now' : _dayNames10[_dObj10.getDay()];
+      var _tip10  = _b10.ds + ': ' + _b10.cnt + ' lesson' + (_b10.cnt !== 1 ? 's' : '');
+      _barsHtml10 +=
+        '<div class="plan-forecast-bar-col">' +
+          '<div class="' + _cls10 + '" style="height:' + _h10 + 'px;" title="' + _tip10 + '"></div>' +
+          '<div class="plan-forecast-bar-lbl">' + _lbl10 + '</div>' +
+        '</div>';
+    }
+
+    var _paceStr10    = _avgLpd10 > 0 ? (_avgLpd10.toFixed(1) + ' lessons/day avg') : 'No lessons logged yet';
+    var _etaWrapCls10 = _etaDone10 ? 'plan-forecast-eta eta-done' : 'plan-forecast-eta';
+    var _calIcon10    = '📅';
+    var _trophyIcon10 = '🏆';
+    var _etaLbl10 = _etaDone10
+      ? (_trophyIcon10 + ' Course finished')
+      : (_avgLpd10 < 0.1 ? (_calIcon10 + ' Estimated finish') : (_calIcon10 + ' Finish by'));
+
+    html +=
+      '<div class="plan-forecast-wrap">' +
+        '<div class="plan-forecast-title">Completion Forecast</div>' +
+        '<div class="plan-forecast-sub">' + _paceStr10 + ' \u00b7 last 14 days</div>' +
+        '<div class="plan-forecast-bars">' + _barsHtml10 + '</div>' +
+        '<div class="' + _etaWrapCls10 + '">' +
+          '<div class="plan-forecast-eta-label">' + _etaLbl10 + '</div>' +
+          '<div class="plan-forecast-eta-date">' + _etaStr10 + '</div>' +
+        '</div>' +
+      '</div>';
+  })();
+
+  // --- Study Time Tracker (plan-11) ---
+  (function() {
+    var _MPL11 = 5; // minutes per lesson
+    var _totalL11 = 0;
+    for (var _ni11 = 0; _ni11 < COURSE.length; _ni11++) {
+      _totalL11 += (COURSE[_ni11].lessons || []).length;
+    }
+    var _doneL11   = (S.completed || []).length;
+    var _remL11    = Math.max(0, _totalL11 - _doneL11);
+    var _doneMin11 = _doneL11 * _MPL11;
+    var _remMin11  = _remL11  * _MPL11;
+    var _pct11     = _totalL11 > 0 ? Math.round((_doneL11 / _totalL11) * 100) : 0;
+
+    function _fmt11(m) {
+      if (m === 0) return '0 min';
+      if (m < 60)  return m + ' min';
+      var _h = Math.floor(m / 60);
+      var _r = m % 60;
+      return _h + 'h' + (_r > 0 ? ' ' + _r + 'm' : '');
+    }
+
+    var _doneStr11 = _fmt11(_doneMin11);
+    var _remStr11  = _remL11 === 0 ? 'Done!' : _fmt11(_remMin11);
+    var _barW11    = Math.max(2, _pct11);
+
+    var _clockSVG11 =
+      '<svg width="14" height="14" viewBox="0 0 24 24" fill="none"'
+      + ' stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'
+      + '<circle cx="12" cy="12" r="10"/>'
+      + '<polyline points="12 6 12 12 16 14"/>'
+      + '</svg>';
+
+    var _metaStr11 = _totalL11 + ' lessons \u00d7 ~5 min each = ' + _fmt11(_totalL11 * _MPL11) + ' total';
+
+    html +=
+      '<div class="plan-time-wrap">' +
+        '<div class="plan-time-header">' +
+          '<div class="plan-time-icon">' + _clockSVG11 + '</div>' +
+          '<div class="plan-time-title">Study Time</div>' +
+        '</div>' +
+        '<div class="plan-time-stats">' +
+          '<div class="plan-time-stat">' +
+            '<div class="plan-time-stat-num">' + _doneStr11 + '</div>' +
+            '<div class="plan-time-stat-lbl">Time invested</div>' +
+          '</div>' +
+          '<div class="plan-time-stat">' +
+            '<div class="plan-time-stat-num">' + _remStr11 + '</div>' +
+            '<div class="plan-time-stat-lbl">Remaining</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="plan-time-bar-bg">' +
+          '<div class="plan-time-bar-fill" style="width:' + _barW11 + '%;"></div>' +
+        '</div>' +
+        '<div class="plan-time-meta">' + _pct11 + '% complete \u00b7 ' + _metaStr11 + '</div>' +
+      '</div>';
+  })();
+
+  // --- Personalized Study Tips (plan-12) ---
+  (function() {
+    var _tips12 = [];
+
+    // --- Tip 1: Best time of day ---
+    // lesson_log_dates: { lessonId: timestamp_ms }
+    var _lld12  = S.lesson_log_dates || {};
+    var _hb12   = [0, 0, 0, 0]; // morning(5-12), afternoon(12-17), evening(17-21), night
+    var _lk12   = Object.keys(_lld12);
+    for (var _ki12 = 0; _ki12 < _lk12.length; _ki12++) {
+      var _hr12 = new Date(_lld12[_lk12[_ki12]]).getHours();
+      if      (_hr12 >= 5  && _hr12 < 12) _hb12[0]++;
+      else if (_hr12 >= 12 && _hr12 < 17) _hb12[1]++;
+      else if (_hr12 >= 17 && _hr12 < 21) _hb12[2]++;
+      else                                _hb12[3]++;
+    }
+    var _maxHb12 = 0, _maxHi12 = -1;
+    for (var _bi12 = 0; _bi12 < _hb12.length; _bi12++) {
+      if (_hb12[_bi12] > _maxHb12) { _maxHb12 = _hb12[_bi12]; _maxHi12 = _bi12; }
+    }
+    var _timeEmojis12 = ['☀️', '☉️', '🌇', '🌙'];
+    var _timeTips12   = [
+      'You tend to learn in the morning \u2014 keep scheduling lessons before your day gets busy!',
+      'Afternoons are your learning zone \u2014 block 10 minutes after lunch to keep the habit.',
+      'Evening is your prime study time \u2014 wind down with a lesson before bed.',
+      'Night owl! Late-night focus works for you \u2014 keep lessons short to stay sharp.'
+    ];
+    if (_maxHi12 >= 0 && _maxHb12 > 0) {
+      _tips12.push({
+        emoji: _timeEmojis12[_maxHi12],
+        heading: 'Your best time',
+        body: _timeTips12[_maxHi12],
+        cls: 'tip-blue'
+      });
+    } else {
+      _tips12.push({
+        emoji: '⏰',
+        heading: 'Find your time',
+        body: 'Complete a few more lessons and we will spot your best study window automatically!',
+        cls: 'tip-blue'
+      });
+    }
+
+    // --- Tip 2: Strongest unit ---
+    var _bestUnit12 = null, _bestPct12 = -1;
+    for (var _ui12 = 0; _ui12 < COURSE.length; _ui12++) {
+      var _u12   = COURSE[_ui12];
+      var _tot12 = (_u12.lessons || []).length;
+      if (_tot12 === 0) continue;
+      var _done12 = 0;
+      for (var _li12 = 0; _li12 < _u12.lessons.length; _li12++) {
+        if ((S.completed || []).indexOf(_u12.lessons[_li12].id) > -1) _done12++;
+      }
+      if (_done12 > 0 && (_done12 / _tot12) > _bestPct12) {
+        _bestPct12 = _done12 / _tot12; _bestUnit12 = _u12;
+      }
+    }
+    if (_bestUnit12) {
+      var _pctLbl12 = Math.round(_bestPct12 * 100);
+      _tips12.push({
+        emoji: '🏆',
+        heading: 'Strongest topic',
+        body: _bestUnit12.title + ' \u2014 ' + _pctLbl12 + '% done. Keep building on your strength!',
+        cls: 'tip-green'
+      });
+    } else {
+      _tips12.push({
+        emoji: '📚',
+        heading: 'Start strong',
+        body: 'Finish your first unit to unlock your personalised strength analysis!',
+        cls: 'tip-green'
+      });
+    }
+
+    // --- Tip 3: Streak / consistency ---
+    var _streak12      = S.streak || 0;
+    var _bestStreak12  = S.best_streak || _streak12;
+    var _wrongCnt12    = (S.wrong_answers || []).length;
+    var _totalDone12   = (S.completed || []).length;
+    if (_streak12 >= 7) {
+      _tips12.push({
+        emoji: '🔥',
+        heading: 'On a roll!',
+        body: _streak12 + '-day streak! Consistency is the #1 predictor of success. Protect your study time.',
+        cls: 'tip-purple'
+      });
+    } else if (_wrongCnt12 > 3 && _totalDone12 > 0) {
+      _tips12.push({
+        emoji: '🧠',
+        heading: 'Review tip',
+        body: 'You have had ' + _wrongCnt12 + ' tricky questions. The Practice tab targets exactly those \u2014 a quick review locks in the knowledge.',
+        cls: 'tip-amber'
+      });
+    } else if (_bestStreak12 > _streak12 && _bestStreak12 >= 3) {
+      _tips12.push({
+        emoji: '⚡',
+        heading: 'Beat your best',
+        body: 'Your best streak was ' + _bestStreak12 + ' days. You are at ' + _streak12 + ' now \u2014 you can beat it!',
+        cls: 'tip-purple'
+      });
+    } else {
+      _tips12.push({
+        emoji: '📆',
+        heading: 'Build the habit',
+        body: 'Even one lesson a day compounds fast. Set a daily reminder and watch your streak climb!',
+        cls: 'tip-purple'
+      });
+    }
+
+    // Render cards
+    var _cardsHtml12 = '';
+    for (var _ti12 = 0; _ti12 < _tips12.length; _ti12++) {
+      var _t12 = _tips12[_ti12];
+      _cardsHtml12 +=
+        '<div class="plan-tip-card ' + _t12.cls + '">' +
+          '<div class="plan-tip-emoji">' + _t12.emoji + '</div>' +
+          '<div class="plan-tip-heading">' + _t12.heading + '</div>' +
+          '<div class="plan-tip-body">' + _t12.body + '</div>' +
+        '</div>';
+    }
+
+    html +=
+      '<div class="plan-tips-wrap">' +
+        '<div class="plan-tips-title">Personalized Tips</div>' +
+        '<div class="plan-tips-row">' + _cardsHtml12 + '</div>' +
+      '</div>';
   })();
 
   document.getElementById('plan-content').innerHTML = html;
@@ -27515,6 +28808,270 @@ function renderProfileTab() {
       </div>`;
     renderGlossary('');
   }
+  // profile-16: Dark/Light Mode Toggle
+  (function() {
+    var _ttWrap = document.getElementById('profile-theme-toggle-wrap');
+    if (!_ttWrap) return;
+    var _isDark = !!S.dark_mode;
+    var _icon   = _isDark ? '🌞' : '🌙';
+    var _label  = _isDark ? 'Light Mode' : 'Dark Mode';
+    _ttWrap.innerHTML =
+      '<div class="profile-theme-toggle-row">' +
+        '<button class="profile-theme-btn" id="profile-theme-btn" '
+          + 'onclick="profileToggleTheme()" '
+          + 'aria-label="Toggle dark/light mode" '
+          + 'title="Switch to ' + (_isDark ? 'light' : 'dark') + ' mode">' +
+          '<span class="profile-theme-btn-icon">' + _icon + '</span>' +
+          '<span>' + _label + '</span>' +
+        '</button>' +
+      '</div>';
+  })();
+
+  // profile-15: Milestone Timeline
+  (function() {
+    var _mtEl = document.getElementById('profile-milestone-card');
+    if (!_mtEl) return;
+    var _lessons    = (S.completed || []).length;
+    var _xp         = S.xp || 0;
+    var _streak     = S.streak || 0;
+    var _bestStreak = Math.max(S.best_streak || 0, _streak);
+    var _lld        = S.lesson_log_dates || {};
+    var _activeDays = S.active_days || [];
+
+    // Helper: format a timestamp to short date string
+    function _fmtTs(ts) {
+      if (!ts) return '';
+      var d = new Date(ts);
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+    }
+
+    // Sort all lesson completion timestamps ascending
+    var _allTs = Object.values(_lld).filter(function(v) { return typeof v === 'number'; });
+    _allTs.sort(function(a,b) { return a - b; });
+
+    // Find N-th lesson completion timestamp (1-indexed)
+    function _nthLessonTs(n) {
+      if (_allTs.length < n) return null;
+      return _allTs[n - 1];
+    }
+
+    // Build milestone definitions
+    var _milestones = [
+      {
+        icon: '📚', title: 'First Lesson',
+        desc: 'Completed your very first lesson. The journey begins!',
+        hint: 'Complete 1 lesson',
+        earned: _lessons >= 1,
+        date: _nthLessonTs(1) ? _fmtTs(_nthLessonTs(1)) : ''
+      },
+      {
+        icon: '🔥', title: 'First Streak Day',
+        desc: 'Kept your learning streak alive for the first time.',
+        hint: 'Maintain a streak',
+        earned: _bestStreak >= 1,
+        date: _activeDays.length >= 1 ? _activeDays[0] : ''
+      },
+      {
+        icon: '💯', title: '10 Lessons',
+        desc: 'Hit double digits! You are building real habits.',
+        hint: 'Complete 10 lessons',
+        earned: _lessons >= 10,
+        date: _nthLessonTs(10) ? _fmtTs(_nthLessonTs(10)) : ''
+      },
+      {
+        icon: '🏆', title: '7-Day Streak',
+        desc: 'A full week of daily learning. Unstoppable!',
+        hint: 'Reach a 7-day streak',
+        earned: _bestStreak >= 7,
+        date: ''
+      },
+      {
+        icon: '⭐', title: 'Level 5',
+        desc: 'Reached Level 5 — you are no beginner anymore.',
+        hint: 'Reach Level 5 (400+ XP)',
+        earned: _xp >= 400,
+        date: ''
+      },
+      {
+        icon: '📚', title: '25 Lessons',
+        desc: 'A quarter century of lessons — serious dedication.',
+        hint: 'Complete 25 lessons',
+        earned: _lessons >= 25,
+        date: _nthLessonTs(25) ? _fmtTs(_nthLessonTs(25)) : ''
+      },
+      {
+        icon: '🔥', title: '30-Day Streak',
+        desc: 'A whole month of daily practice. Elite level!',
+        hint: 'Reach a 30-day streak',
+        earned: _bestStreak >= 30,
+        date: ''
+      },
+      {
+        icon: '🎫', title: '50 Lessons',
+        desc: 'Half a century of lessons. You are on fire!',
+        hint: 'Complete 50 lessons',
+        earned: _lessons >= 50,
+        date: _nthLessonTs(50) ? _fmtTs(_nthLessonTs(50)) : ''
+      }
+    ];
+
+    var _earnedCount = _milestones.filter(function(m) { return m.earned; }).length;
+
+    var _rows = _milestones.map(function(m) {
+      var _dotClass   = m.earned ? 'milestone-dot earned' : 'milestone-dot locked';
+      var _dotIcon    = m.earned ? '✓' : '·';
+      var _cardClass  = m.earned ? 'milestone-content earned' : 'milestone-content';
+      var _titleClass = m.earned ? 'milestone-title' : 'milestone-title locked';
+      return '<div class="milestone-item">' +
+        '<div class="' + _dotClass + '">' + _dotIcon + '</div>' +
+        '<div class="' + _cardClass + '">' +
+          '<div class="milestone-content-row">' +
+            '<span style="font-size:15px;margin-right:7px;flex-shrink:0;">' + m.icon + '</span>' +
+            '<span class="' + _titleClass + '">' + m.title + '</span>' +
+            (m.earned && m.date ? '<span class="milestone-date">' + m.date + '</span>' : '') +
+          '</div>' +
+          (m.earned
+            ? '<div class="milestone-desc">' + m.desc + '</div>'
+            : '<div class="milestone-locked-hint">🔒 ' + m.hint + '</div>') +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    _mtEl.innerHTML =
+      '<div class="section-title">Milestone Timeline' +
+        '<span style="font-size:12px;font-weight:700;color:var(--gray3);margin-left:8px;">' + _earnedCount + ' / ' + _milestones.length + ' earned</span>' +
+      '</div>' +
+      '<div class="milestone-timeline">' + _rows + '</div>';
+  })();
+
+  // profile-14: Learning Personality Badge
+  (function() {
+    var _pbEl = document.getElementById('profile-personality-card');
+    if (!_pbEl) return;
+    var _lessons    = (S.completed || []).length;
+    var _streak     = S.streak || 0;
+    var _bestStreak = Math.max(S.best_streak || 0, _streak);
+    var _pracSess   = (S.practice_history || []).length;
+    var _activeDays = (S.active_days || []).length;
+    var _xp         = S.xp || 0;
+
+    // Determine badge
+    var _badge;
+    if (_lessons === 0 && _streak === 0) {
+      _badge = {
+        icon: '🌱', title: 'Rising Star',
+        sub: 'You\'re just getting started! Complete your first lesson to discover your learning style.',
+        color: '#22c55e', bg: 'rgba(34,197,94,0.12)',
+        pills: [{ label: 'New Learner', color: '#22c55e' }]
+      };
+    } else if (_bestStreak >= 7 && _activeDays > 0 && (_activeDays / Math.max(_lessons, 1)) > 0.7) {
+      _badge = {
+        icon: '🏆', title: 'Consistent Learner',
+        sub: 'You show up every day. Your steady habit is your superpower.',
+        color: '#3b82f6', bg: 'rgba(59,130,246,0.12)',
+        pills: [
+          { label: '🔥 ' + _bestStreak + '-day best streak', color: '#3b82f6' },
+          { label: '📅 ' + _activeDays + ' active days', color: '#3b82f6' }
+        ]
+      };
+    } else if (_pracSess > 0 && (_pracSess / Math.max(_lessons, 1)) > 1.5) {
+      _badge = {
+        icon: '🧠', title: 'Deep Diver',
+        sub: 'You love practicing until it clicks. Mastery is your goal.',
+        color: '#8b5cf6', bg: 'rgba(139,92,246,0.12)',
+        pills: [
+          { label: '🏋 ' + _pracSess + ' practice sessions', color: '#8b5cf6' },
+          { label: '📚 ' + _lessons + ' lessons', color: '#8b5cf6' }
+        ]
+      };
+    } else if (_xp >= 10 && (_xp / Math.max(_lessons, 1)) >= 25) {
+      _badge = {
+        icon: '🚀', title: 'Speed Runner',
+        sub: 'You blaze through lessons at an impressive pace. Fast and sharp!',
+        color: '#f97316', bg: 'rgba(249,115,22,0.12)',
+        pills: [
+          { label: '⚡ ' + Math.round(_xp / Math.max(_lessons, 1)) + ' XP/lesson avg', color: '#f97316' },
+          { label: '📚 ' + _lessons + ' lessons', color: '#f97316' }
+        ]
+      };
+    } else if (_streak === 0 && _lessons >= 3 && _bestStreak >= 3) {
+      _badge = {
+        icon: '💪', title: 'Comeback Kid',
+        sub: 'You\'ve taken a break but you always come back. Resilience is key!',
+        color: '#ec4899', bg: 'rgba(236,72,153,0.12)',
+        pills: [
+          { label: '📚 ' + _lessons + ' lessons total', color: '#ec4899' },
+          { label: '🏆 ' + _bestStreak + '-day best', color: '#ec4899' }
+        ]
+      };
+    } else {
+      _badge = {
+        icon: '💫', title: 'Rising Star',
+        sub: 'You\'re building momentum. Keep going and unlock your learning persona!',
+        color: '#fbbf24', bg: 'rgba(251,191,36,0.12)',
+        pills: [
+          { label: '📚 ' + _lessons + ' lesson' + (_lessons !== 1 ? 's' : ''), color: '#fbbf24' },
+          { label: '🔥 ' + _streak + '-day streak', color: '#fbbf24' }
+        ]
+      };
+    }
+
+    var _pillsHTML = _badge.pills.map(function(p) {
+      return '<div class="personality-pill" style="color:' + p.color + ';border-color:' + p.color + ';background:' + _badge.bg + '">' + p.label + '</div>';
+    }).join('');
+
+    _pbEl.innerHTML =
+      '<div class="section-title">Learning Personality</div>' +
+      '<div class="personality-badge-wrap">' +
+        '<div class="personality-badge-icon" style="background:' + _badge.bg + ';border-color:' + _badge.color + ';"><span style="font-size:34px;">' + _badge.icon + '</span></div>' +
+        '<div class="personality-badge-title" style="color:' + _badge.color + '">' + _badge.title + '</div>' +
+        '<div class="personality-badge-sub">' + _badge.sub + '</div>' +
+        '<div class="personality-badge-pills">' + _pillsHTML + '</div>' +
+      '</div>';
+  })();
+
+  // profile-13: Shareable Profile Card
+  (function() {
+    var _scEl = document.getElementById('profile-share-card');
+    if (!_scEl) return;
+    var _scLevel  = xpToLevel(S.xp || 0);
+    var _scName   = S.user_name || 'Learner';
+    var _scXP     = S.xp || 0;
+    var _scStreak = S.streak || 0;
+    var _scDone   = (S.completed || []).length;
+    var _scTop    = computeLevelTopPercent(_scLevel);
+    var _scAvaList = ['😀','😎','🧐','🤗','🤯','😍','🧑','🦸','🦹','🧗','🤠','👽'];
+    var _scAvaEmoji = _scAvaList[Math.min(S.avatar || 0, 11)];
+    if (S.avatar_custom) _scAvaEmoji = '👤';
+    _scEl.innerHTML =
+      '<div class="section-title">My Stats Card</div>' +
+      '<div class="share-card-wrap">' +
+        '<div class="share-card-avatar">' + _scAvaEmoji + '</div>' +
+        '<div class="share-card-name">' + _scName.replace(/</g, '&lt;') + '</div>' +
+        '<div class="share-card-badge">⭐ Level ' + _scLevel + ' · Top ' + _scTop + '%</div>' +
+        '<div class="share-card-stats">' +
+          '<div class="share-card-stat">' +
+            '<div class="share-card-stat-val">' + _scXP + '</div>' +
+            '<div class="share-card-stat-lbl">Total XP</div>' +
+          '</div>' +
+          '<div class="share-card-stat">' +
+            '<div class="share-card-stat-val">' + _scStreak + '</div>' +
+            '<div class="share-card-stat-lbl">Streak</div>' +
+          '</div>' +
+          '<div class="share-card-stat">' +
+            '<div class="share-card-stat-val">' + _scDone + '</div>' +
+            '<div class="share-card-stat-lbl">Lessons</div>' +
+          '</div>' +
+          '<div class="share-card-stat">' +
+            '<div class="share-card-stat-val">' + _scLevel + '</div>' +
+            '<div class="share-card-stat-lbl">Level</div>' +
+          '</div>' +
+        '</div>' +
+        '<button class="share-card-copy-btn" onclick="copyProfileCard()">📋 Copy Stats</button>' +
+      '</div>';
+  })();
+
   // Render lesson notes
   renderProfileNotes();
   renderUnit1CertBtn();
@@ -28148,6 +29705,50 @@ function computeTopPercent(xp) {
 // ============================================================
 // DARK MODE TOGGLE
 // ============================================================
+function profileToggleTheme() {
+  var _isDark = !S.dark_mode;
+  save('dark_mode', _isDark);
+  if (_isDark) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+  }
+  // Brief icon spin animation before re-render
+  var _btn = document.getElementById('profile-theme-btn');
+  if (_btn) {
+    var _ic = _btn.querySelector('.profile-theme-btn-icon');
+    if (_ic) {
+      _ic.style.transform = 'rotate(180deg) scale(1.3)';
+      setTimeout(function() { renderProfileTab(); }, 300);
+    } else {
+      renderProfileTab();
+    }
+  } else {
+    renderProfileTab();
+  }
+  showToast(_isDark ? '🌙 Dark mode on' : '🌞 Light mode on', 'success', 1800);
+}
+
+function copyProfileCard() {
+  var _level  = xpToLevel(S.xp || 0);
+  var _name   = S.user_name || 'Learner';
+  var _top    = computeLevelTopPercent(_level);
+  var _text   = '🎓 ' + _name + '\'s Learning Stats\n' +
+    '⭐ Level ' + _level + ' | Top ' + _top + '%\n' +
+    '💥 ' + (S.xp || 0) + ' XP  🔥 ' + (S.streak || 0) + '-day streak\n' +
+    '📚 ' + (S.completed || []).length + ' lessons completed\n' +
+    '#AI #Learning #ClariAI';
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(_text).then(function() {
+      showToast('📋 Stats copied!', 'success', 2000);
+    }).catch(function() {
+      showToast('Could not copy — try selecting text manually', 'error', 2500);
+    });
+  } else {
+    showToast('📋 ' + _text.split('\n')[0], 'success', 2500);
+  }
+}
+
 function toggleDarkMode() {
   const isDark = !S.dark_mode;
   save('dark_mode', isDark);
