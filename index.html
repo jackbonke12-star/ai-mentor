@@ -26,6 +26,27 @@
 .lesson-row.swipe-bookmark-flash {
   animation: swipeBookmarkFlash 0.3s ease forwards;
 }
+
+/* ============================================================
+   learn-24: lesson card tap ripple effect
+   ============================================================ */
+@keyframes lessonTapRipple {
+  0%   { opacity: 0.7; transform: scale(0.85); }
+  60%  { opacity: 0.25; transform: scale(1.04); }
+  100% { opacity: 0; transform: scale(1.08); }
+}
+.lesson-row::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(28, 176, 246, 0.15);
+  pointer-events: none;
+  opacity: 0;
+}
+.lesson-row.lesson-tap::after {
+  animation: lessonTapRipple 0.38s ease forwards;
+}
 /* ============================================================
    CLARI AI — DESIGN SYSTEM
    ============================================================ */
@@ -482,7 +503,7 @@ body.text-xl     { --text-scale: 1.3; }
 #app {
   max-width: 480px;
   margin: 0 auto;
-  height: 100vh;
+  height: calc(var(--real-vh, 1vh) * 100);
   background: var(--white);
   position: relative;
   overflow: hidden;
@@ -1053,6 +1074,30 @@ body.text-xl     { --text-scale: 1.3; }
   transition: transform 0.15s, box-shadow 0.15s;
 }
 #unit-jump-fab:active { transform: scale(0.92); box-shadow: 0 2px 6px rgba(91,192,248,0.3); }
+
+/* learn-23: "Next →" FAB on learn tab */
+#learn-next-fab {
+  position: fixed;
+  bottom: 80px;
+  right: 16px;
+  display: none;
+  align-items: center; justify-content: center;
+  gap: 5px;
+  padding: 0 18px;
+  height: 46px;
+  border-radius: 23px;
+  background: var(--clari-blue);
+  color: #fff;
+  font-size: 14px; font-weight: 800;
+  border: none; cursor: pointer;
+  z-index: 90;
+  box-shadow: 0 4px 14px rgba(28,176,246,0.45);
+  transition: transform 0.15s, box-shadow 0.15s, opacity 0.2s;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+#learn-next-fab:active { transform: scale(0.93); box-shadow: 0 2px 6px rgba(28,176,246,0.3); }
+:root[data-theme="dark"] #learn-next-fab { background: var(--clari-blue); }
 #unit-jump-sheet .modal-card {
   position: absolute; bottom: 0; left: 0; right: 0;
   border-radius: 20px 20px 0 0;
@@ -1599,6 +1644,36 @@ body.text-xl     { --text-scale: 1.3; }
   color: var(--gray3); margin-top: 3px; letter-spacing: 0.01em;
 }
 :root[data-theme="dark"] .lc-completed-date { color: var(--gray3); }
+
+/* learn-21: "This week" recent badge on lesson cards */
+.lc-recent-badge {
+  display: inline-block; font-size: 10px; font-weight: 800;
+  background: #1cb0f6; color: #fff;
+  padding: 1px 7px; border-radius: 20px;
+  letter-spacing: 0.03em; margin-left: 6px;
+  vertical-align: middle; pointer-events: none;
+  line-height: 1.6; text-transform: uppercase;
+}
+:root[data-theme="dark"] .lc-recent-badge {
+  background: #1cb0f6; color: #fff;
+}
+
+/* learn-22: XP boost active badge on incomplete lesson cards */
+.lc-xp-boost-badge {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 10px; font-weight: 900;
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  color: #5c4200;
+  padding: 1px 7px; border-radius: 20px;
+  letter-spacing: 0.03em; margin-left: 6px;
+  vertical-align: middle; pointer-events: none;
+  line-height: 1.6; text-transform: uppercase;
+  box-shadow: 0 1px 4px rgba(245,158,11,0.35);
+}
+:root[data-theme="dark"] .lc-xp-boost-badge {
+  background: linear-gradient(135deg, #d97706, #f59e0b);
+  color: #fff;
+}
 
 
 /* ============================================================
@@ -3551,7 +3626,133 @@ body.text-xl     { --text-scale: 1.3; }
 .ach-progress-pct { font-size: 8px; color: var(--gray4); text-align: center; margin-top: 2px; font-weight: 700; }
 .ach-earned-chip { font-size: 8px; font-weight: 800; color: #92400e; background: #fef3c7; border-radius: 4px; padding: 1px 4px; margin-top: 2px; }
 
+/* --- Weekly XP Goal Progress (plan-05) --- */
+.plan-wxp-wrap {
+  background: var(--white, #fff);
+  border: 2px solid var(--gray2, #e5e7eb);
+  border-radius: 16px; padding: 14px 16px 12px; margin-bottom: 16px;
+}
+.plan-wxp-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 8px;
+}
+.plan-wxp-title { font-size: 13px; font-weight: 900; color: var(--text); }
+.plan-wxp-edit-btn {
+  background: none; border: 1px solid var(--gray2, #e5e7eb);
+  border-radius: 8px; padding: 2px 8px;
+  font-size: 11px; font-weight: 700; color: var(--gray4); cursor: pointer; line-height: 1.6;
+}
+.plan-wxp-edit-btn:hover { border-color: var(--purple, #a78bfa); color: var(--purple, #a78bfa); }
+.plan-wxp-bar-bg {
+  height: 10px; border-radius: 6px;
+  background: var(--gray1, #f3f4f6); overflow: hidden; margin-bottom: 6px;
+}
+.plan-wxp-bar-fill {
+  height: 100%; border-radius: 6px;
+  background: linear-gradient(90deg, var(--purple, #a78bfa), var(--blue, #5BC0F8));
+  transition: width 0.5s ease; min-width: 2px;
+}
+.plan-wxp-bar-fill.wxp-met { background: linear-gradient(90deg, #58CC02, #92d900); }
+.plan-wxp-meta {
+  display: flex; justify-content: space-between;
+  font-size: 11px; font-weight: 700; color: var(--gray4);
+}
+.plan-wxp-meta .wxp-earned { color: var(--purple, #a78bfa); }
+.plan-wxp-meta .wxp-earned.wxp-met { color: #58CC02; }
+.plan-wxp-goal-row {
+  display: none; align-items: center; gap: 6px;
+  margin-top: 8px; padding-top: 8px;
+  border-top: 1px solid var(--gray1, #f3f4f6);
+}
+.plan-wxp-goal-row.visible { display: flex; }
+.plan-wxp-goal-input {
+  width: 64px; padding: 4px 6px;
+  border: 1.5px solid var(--gray2, #e5e7eb); border-radius: 8px;
+  font-size: 13px; font-weight: 700; text-align: center; outline: none;
+}
+.plan-wxp-goal-input:focus { border-color: var(--purple, #a78bfa); }
+.plan-wxp-goal-save {
+  background: var(--purple, #a78bfa); color: white;
+  border: none; border-radius: 8px;
+  padding: 4px 12px; font-size: 12px; font-weight: 800; cursor: pointer;
+}
+.plan-wxp-goal-save:hover { opacity: 0.88; }
+/* --- Weekly XP Goal Progress (plan-05) --- */
 /* --- Achievement Showcase Improvements (plan-04) --- */
+
+/* --- Estimated Time to Complete (plan-06) --- */
+.plan-etc-wrap {
+  display: flex; align-items: center; gap: 12px;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border: 1.5px solid #bae6fd;
+  border-radius: 14px; padding: 12px 14px; margin-bottom: 16px;
+}
+.plan-etc-icon {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: #0ea5e9; display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0;
+}
+.plan-etc-body { flex: 1; }
+.plan-etc-title { font-size: 12px; font-weight: 900; color: #0369a1; margin-bottom: 2px; }
+.plan-etc-time { font-size: 20px; font-weight: 900; color: #0c4a6e; line-height: 1.1; }
+.plan-etc-sub { font-size: 11px; font-weight: 600; color: #0369a1; margin-top: 2px; }
+.plan-etc-pct-wrap {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 2px;
+}
+.plan-etc-pct-num { font-size: 22px; font-weight: 900; color: #58CC02; line-height: 1; }
+.plan-etc-pct-lbl { font-size: 10px; font-weight: 700; color: #166534; }
+/* end plan-06 css */
+/* --- Difficulty Curve Chart (plan-07) --- */
+.plan-diff-wrap {
+  background: var(--white, #fff);
+  border: 2px solid var(--gray2, #e5e7eb);
+  border-radius: 16px; padding: 14px 16px 12px; margin-bottom: 16px;
+}
+.plan-diff-title { font-size: 13px; font-weight: 900; color: var(--text); margin-bottom: 10px; }
+.plan-diff-row {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 7px;
+}
+.plan-diff-label {
+  font-size: 10px; font-weight: 700; color: var(--gray4);
+  width: 48px; flex-shrink: 0; text-align: right;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.plan-diff-bar-bg {
+  flex: 1; height: 8px; border-radius: 5px;
+  background: var(--gray1, #f3f4f6); overflow: hidden;
+}
+.plan-diff-bar-fill { height: 100%; border-radius: 5px; transition: width 0.5s ease; }
+.plan-diff-pct { font-size: 10px; font-weight: 800; width: 28px; text-align: right; flex-shrink: 0; }
+/* end plan-07 css */
+/* --- Smart Nudge Banner (plan-08) --- */
+.plan-nudge {
+  display: flex; align-items: flex-start; gap: 10px;
+  border-radius: 14px; padding: 11px 14px; margin-bottom: 14px;
+  border: 1.5px solid transparent;
+}
+.plan-nudge.nudge-warning { background: #fff7ed; border-color: #fed7aa; }
+.plan-nudge.nudge-success { background: #f0fdf4; border-color: #bbf7d0; }
+.plan-nudge.nudge-info    { background: #eff6ff; border-color: #bfdbfe; }
+.plan-nudge.nudge-purple  { background: #faf5ff; border-color: #e9d5ff; }
+.plan-nudge-icon { font-size: 18px; line-height: 1; flex-shrink: 0; margin-top: 1px; }
+.plan-nudge-text { flex: 1; font-size: 13px; font-weight: 700; line-height: 1.45; }
+.plan-nudge.nudge-warning .plan-nudge-text { color: #92400e; }
+.plan-nudge.nudge-success .plan-nudge-text { color: #14532d; }
+.plan-nudge.nudge-info    .plan-nudge-text { color: #1e3a8a; }
+.plan-nudge.nudge-purple  .plan-nudge-text { color: #4c1d95; }
+.plan-nudge-action {
+  background: none; border: none; cursor: pointer;
+  font-size: 11px; font-weight: 800;
+  padding: 3px 8px; border-radius: 8px;
+  margin-top: 6px; display: inline-block;
+  text-decoration: underline; text-underline-offset: 2px;
+}
+.nudge-warning .plan-nudge-action { color: #b45309; }
+.nudge-success .plan-nudge-action { color: #15803d; }
+.nudge-info    .plan-nudge-action { color: #1d4ed8; }
+.nudge-purple  .plan-nudge-action { color: #6d28d9; }
+/* end plan-08 css */
+
 .ach-badge-locked { opacity: 0.55; }
 .ach-lock-overlay {
   position: absolute; bottom: -2px; right: -2px;
@@ -3953,6 +4154,163 @@ body.text-xl     { --text-scale: 1.3; }
 :root[data-theme="dark"] .reminder-time-input {
   background: var(--gray1); border-color: var(--gray2); color: var(--text);
 }
+/* ---- profile-12: Weekly XP Challenge Card ---- */
+.weekly-xp-wrap {
+  display: flex; align-items: center; gap: 18px;
+}
+.weekly-ring-wrap {
+  position: relative; width: 88px; height: 88px; flex-shrink: 0;
+}
+.weekly-ring-svg {
+  width: 88px; height: 88px;
+  transform: rotate(-90deg);
+}
+.weekly-ring-track {
+  fill: none; stroke: var(--gray1); stroke-width: 9;
+}
+.weekly-ring-fill {
+  fill: none; stroke: var(--yellow); stroke-width: 9;
+  stroke-linecap: round;
+  stroke-dasharray: 239;
+  stroke-dashoffset: 239;
+  transition: stroke-dashoffset 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+.weekly-ring-label {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  pointer-events: none;
+}
+.weekly-ring-val {
+  font-size: 18px; font-weight: 900; color: var(--text); line-height: 1;
+}
+.weekly-ring-unit {
+  font-size: 9px; font-weight: 700; color: var(--gray4);
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.weekly-xp-details { flex: 1; }
+.weekly-xp-headline {
+  font-size: 15px; font-weight: 900; color: var(--text); margin-bottom: 4px;
+}
+.weekly-xp-sub {
+  font-size: 12px; font-weight: 600; color: var(--gray4); line-height: 1.5;
+}
+.weekly-xp-best {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: rgba(251,191,36,0.12); border: 1.5px solid rgba(251,191,36,0.35);
+  border-radius: 10px; padding: 3px 8px;
+  font-size: 11px; font-weight: 800; color: #d97706; margin-top: 6px;
+}
+.weekly-xp-msg {
+  margin-top: 10px; padding: 8px 12px;
+  background: var(--gray1); border-radius: 10px;
+  font-size: 12px; font-weight: 700; color: var(--text); text-align: center;
+}
+
+/* ---- profile-11: Skills Track Mastery ---- */
+.skill-track-list { display: flex; flex-direction: column; gap: 12px; }
+.skill-track-row { display: flex; flex-direction: column; gap: 4px; }
+.skill-track-header {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.skill-track-name {
+  font-size: 13px; font-weight: 800; color: var(--text);
+}
+.skill-track-pct {
+  font-size: 12px; font-weight: 700; color: var(--gray4);
+}
+.skill-track-bar-bg {
+  height: 8px; background: var(--gray1); border-radius: 4px; overflow: hidden;
+}
+.skill-track-bar-fill {
+  height: 100%; border-radius: 4px;
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+  min-width: 2px;
+}
+.skill-track-sub {
+  font-size: 11px; font-weight: 600; color: var(--gray3);
+}
+
+/* ---- profile-10: Streak Statistics Card ---- */
+.streak-stats-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 10px; margin-bottom: 14px;
+}
+.streak-stat-box {
+  background: var(--gray1); border-radius: 12px;
+  padding: 10px 8px; text-align: center;
+}
+.streak-stat-box-val {
+  font-size: 20px; font-weight: 900; color: var(--text); line-height: 1.1;
+}
+.streak-stat-box-label {
+  font-size: 10px; font-weight: 700; color: var(--gray4);
+  text-transform: uppercase; letter-spacing: 0.4px; margin-top: 2px;
+}
+.streak-mini-cal {
+  display: flex; justify-content: space-between; gap: 4px; margin-top: 4px;
+}
+.streak-mini-day {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 4px;
+}
+.streak-mini-dot {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--gray1); border: 2px solid var(--gray2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+}
+.streak-mini-dot.active {
+  background: rgba(249,115,22,0.15);
+  border-color: #f97316;
+}
+.streak-mini-dot.today {
+  border-color: var(--green); background: rgba(88,204,2,0.12);
+}
+.streak-mini-day-label {
+  font-size: 9px; font-weight: 700; color: var(--gray3);
+  text-transform: uppercase;
+}
+.streak-freeze-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(91,192,248,0.15); border: 1.5px solid rgba(91,192,248,0.4);
+  border-radius: 20px; padding: 4px 10px;
+  font-size: 11px; font-weight: 800; color: var(--blue); margin-top: 10px;
+}
+
+/* ---- profile-09: Recent Activity Timeline ---- */
+.profile-activity-list {
+  display: flex; flex-direction: column; gap: 0;
+}
+.profile-activity-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--gray1);
+  position: relative;
+}
+.profile-activity-item:last-child { border-bottom: none; }
+.profile-activity-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--green); flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(88,204,2,0.18);
+}
+.profile-activity-info { flex: 1; min-width: 0; }
+.profile-activity-title {
+  font-size: 13px; font-weight: 700; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.profile-activity-meta {
+  font-size: 11px; font-weight: 600; color: var(--gray4); margin-top: 1px;
+}
+.profile-activity-xp {
+  font-size: 12px; font-weight: 800; color: var(--yellow);
+  white-space: nowrap; flex-shrink: 0;
+}
+.profile-activity-empty {
+  text-align: center; color: var(--gray3); font-size: 13px;
+  font-weight: 600; padding: 20px 0;
+}
+
 /* ---- profile-07: Accent color picker ---- */
 .accent-picker-row {
   display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
@@ -4380,7 +4738,7 @@ body.text-xl     { --text-scale: 1.3; }
     margin: 0 auto;
     box-shadow: 0 0 60px rgba(0,0,0,0.12);
     border-radius: 0;
-    min-height: 100vh;
+    min-height: calc(var(--real-vh, 1vh) * 100);
     background: var(--bg);
   }
 
@@ -4402,10 +4760,10 @@ body.text-xl     { --text-scale: 1.3; }
     #app {
       margin: 20px auto;
       border-radius: 28px;
-      min-height: calc(100vh - 40px);
+      min-height: calc(calc(var(--real-vh, 1vh) * 100) - 40px);
       overflow: hidden;
     }
-    body { display: flex; align-items: flex-start; justify-content: center; min-height: 100vh; }
+    body { display: flex; align-items: flex-start; justify-content: center; min-height: calc(var(--real-vh, 1vh) * 100); }
   }
 }
 
@@ -4769,6 +5127,21 @@ body.text-xl     { --text-scale: 1.3; }
 }
 
 </style>
+
+<script>
+/* iOS Safari 100vh fix: track actual visible viewport height */
+(function() {
+  function setRealVh() {
+    var vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--real-vh', vh + 'px');
+  }
+  setRealVh();
+  window.addEventListener('resize', setRealVh);
+  window.addEventListener('orientationchange', function() {
+    setTimeout(setRealVh, 100); // small delay after orientation change settles
+  });
+})();
+</script>
 </head>
 <body>
 <div id="offline-banner">You're offline — progress will save when reconnected</div>
@@ -5138,6 +5511,10 @@ body.text-xl     { --text-scale: 1.3; }
       <div class="section-title">90-Day Activity</div>
       <div id="profile-heatmap"></div>
     </div>
+    <div class="section-card" id="profile-activity-card"></div>
+    <div class="section-card" id="profile-streak-stats-card"></div>
+    <div class="section-card" id="profile-skills-card"></div>
+    <div class="section-card" id="profile-weekly-card"></div>
     <div class="section-card">
       <div class="section-title">My Notes</div>
       <div id="profile-notes-list"></div>
@@ -5158,6 +5535,11 @@ body.text-xl     { --text-scale: 1.3; }
       <path d="M4 6h16M4 12h16M4 18h16"/>
     </svg>
   </div>
+
+  <!-- learn-23: Next lesson FAB -->
+  <button id="learn-next-fab" style="display:none;" aria-label="Start next lesson">
+    Next →
+  </button>
   <div class="modal-overlay" id="unit-jump-sheet" onclick="closeUnitJump(event)">
     <div class="unit-jump-sheet-card" id="unit-jump-sheet-card">
       <div class="unit-jump-title">Jump to Unit</div>
@@ -15958,6 +16340,10 @@ function switchTab(tab) {
   const fab = document.getElementById('unit-jump-fab');
   if (fab) fab.style.display = tab === 'learn' ? 'flex' : 'none';
 
+  // learn-23: hide Next FAB when not on learn tab
+  var _nfab2 = document.getElementById('learn-next-fab');
+  if (_nfab2 && tab !== 'learn') _nfab2.style.display = 'none';
+
   if (tab === 'learn')    renderLearnTab();
   if (tab === 'practice') renderPracticeTab();
   if (tab === 'plan')     renderPlanTab();
@@ -17336,6 +17722,21 @@ function renderLearnTab() {
           }
         }
 
+        // learn-21: "This week" badge — lesson completed within the last 7 days
+        var _recentBadge = '';
+        (function() {
+          var _lldTs21 = (S.lesson_log_dates || {})[lesson.id];
+          if (_lldTs21 && (Date.now() - Number(_lldTs21)) < 7 * 24 * 60 * 60 * 1000) {
+            _recentBadge = '<span class="lc-recent-badge">This week</span>';
+          }
+        })();
+
+        // learn-22: XP boost active badge — show on incomplete lessons when boost is active
+        var _xpBoostBadge = '';
+        if (!done && S.xp_boost_active) {
+          _xpBoostBadge = '<span class="lc-xp-boost-badge">⚡ 2x XP</span>';
+        }
+
         const _reviewEntry = (S.lesson_reviews || {})[lesson.id];
         const _reviewDue = _reviewEntry && _reviewEntry.nextDue <= todayStr();
 
@@ -17363,7 +17764,7 @@ function renderLearnTab() {
           ${_newBadge}
           <div class="lesson-icon" style="background:${iconBg}">${iconContent}</div>
           <div class="lesson-info">
-            <div class="lesson-title">${lesson.title}</div>
+            <div class="lesson-title">${lesson.title}${_recentBadge}${_xpBoostBadge}</div>
             <div class="lesson-meta">~${estimateLessonMinutes(lesson)} min &bull; +${lesson.xp} XP${diffBadge}${_ratingStarsHtml}<span class="lesson-slides-count"> &bull; ${(lesson.slides||[]).length} slide${(lesson.slides||[]).length !== 1 ? 's' : ''}</span></div>
             ${starsHtml}${_tagsHtml}
             ${_completedDateHtml}
@@ -17464,9 +17865,52 @@ ${_playHint}<button class="lesson-bookmark-btn ${(S.bookmarks||[]).includes(less
     });
   })();
 
+  // learn-24: attach tap/click ripple to each .lesson-row
+  (function() {
+    var _rippleRows = document.querySelectorAll('.lesson-row');
+    _rippleRows.forEach(function(row) {
+      // Use addEventListener to layer on top of existing onclick
+      row.addEventListener('click', function() {
+        row.classList.remove('lesson-tap');
+        // Force reflow so re-adding the class re-triggers animation
+        void row.offsetWidth;
+        row.classList.add('lesson-tap');
+        setTimeout(function() { row.classList.remove('lesson-tap'); }, 400);
+      });
+    });
+  })();
+
   // Show unit jump FAB
   const fab = document.getElementById('unit-jump-fab');
   if (fab) fab.style.display = 'flex';
+
+  // learn-23: show/hide "Next →" FAB with first incomplete lesson
+  (function() {
+    var _nfab = document.getElementById('learn-next-fab');
+    if (!_nfab) return;
+    var _firstIncomplete = null;
+    if (typeof COURSE !== 'undefined') {
+      outer23:
+      for (var _ui23 = 0; _ui23 < COURSE.length; _ui23++) {
+        var _unit23 = COURSE[_ui23];
+        var _lessons23 = _unit23.lessons || [];
+        for (var _li23 = 0; _li23 < _lessons23.length; _li23++) {
+          var _l23 = _lessons23[_li23];
+          if (!(S.completed || []).includes(_l23.id)) {
+            _firstIncomplete = _l23;
+            break outer23;
+          }
+        }
+      }
+    }
+    if (_firstIncomplete) {
+      _nfab.style.display = 'flex';
+      _nfab.onclick = function() { startLesson(_firstIncomplete.id); };
+      _nfab.setAttribute('title', 'Next: ' + _firstIncomplete.title);
+    } else {
+      _nfab.style.display = 'none';
+    }
+  })();
 }
 
 // ============================================================
@@ -21650,6 +22094,10 @@ function startLesson(id) {
   // Hide unit jump FAB during lesson
   const fab = document.getElementById('unit-jump-fab');
   if (fab) fab.style.display = 'none';
+
+  // learn-23: also hide Next FAB during lesson
+  var _nfab3 = document.getElementById('learn-next-fab');
+  if (_nfab3) _nfab3.style.display = 'none';
 
   renderLessonSlide();
 
@@ -25903,72 +26351,197 @@ function renderPlanTab() {
       '</div>';
   })();
 
-
-  // --- Weekly Activity Heatmap (plan-01) ---
+  // --- Smart Nudge Banner (plan-08) ---
   (function() {
-    var _log7 = S.lesson_log || {};
-    var _today7 = todayStr();
-    var _todayDate = new Date(_today7 + 'T12:00:00');
-    var _todayDow  = _todayDate.getDay(); // 0=Sun … 6=Sat
-    // Build last 7 days Mon–Sun relative to this week
-    // Show Mon(1)…Sun(0) — start of week = last Monday
-    var _DAY_LABELS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-    var _cells = [];
-    // Start from the most recent Monday (may be today or earlier)
-    var _weekStart = new Date(_todayDate);
-    var _dow = _weekStart.getDay(); // 0=Sun…6=Sat
-    var _daysFromMon = (_dow + 6) % 7; // Mon=0
-    _weekStart.setDate(_weekStart.getDate() - _daysFromMon);
-    for (var _di = 0; _di < 7; _di++) {
-      var _d = new Date(_weekStart);
-      _d.setDate(_weekStart.getDate() + _di);
-      var _ds = _d.toISOString().split('T')[0];
-      var _cnt = _log7[_ds] || 0;
-      var _cls = _cnt === 0 ? 'wk-none' : _cnt === 1 ? 'wk-one' : 'wk-multi';
-      if (_ds === _today7) _cls += ' wk-today';
-      var _title = _DAY_LABELS[_di] + ': ' + (_cnt === 0 ? 'No lessons' : _cnt + ' lesson' + (_cnt > 1 ? 's' : ''));
-      _cells.push('<div class="plan-week-cell ' + _cls + '" title="' + _title + '"></div>');
+    var _today8   = todayStr();
+    var _streak8  = S.streak || 0;
+    var _streakAt = S.streak_date || '';
+    var _goalDone = S.goal_today || 0;
+    var _goalTgt  = S.daily_goal || 1;
+    var _freeze8  = S.streak_freeze || false;
+    var _doneLen8 = (S.completed || []).length;
+    var _totalL8  = 0;
+    for (var _ni8 = 0; _ni8 < COURSE.length; _ni8++) {
+      _totalL8 += (COURSE[_ni8].lessons || []).length;
     }
-    var _labels = _DAY_LABELS.map(function(l) {
-      return '<div class="plan-week-day-lbl">' + l + '</div>';
-    });
-    html += '<div class="plan-week-heatmap">' +
-      '<div class="plan-section-title">This Week</div>' +
-      '<div class="plan-week-grid">' + _cells.join('') + '</div>' +
-      '<div class="plan-week-labels">' + _labels.join('') + '</div>' +
+    var _log8 = S.lesson_log || {};
+    var _lastActive8 = '';
+    for (var _dk8 in _log8) {
+      if (_log8.hasOwnProperty(_dk8) && _log8[_dk8] > 0 &&
+          (!_lastActive8 || _dk8 > _lastActive8)) {
+        _lastActive8 = _dk8;
+      }
+    }
+    var _daysSince8 = 0;
+    if (_lastActive8 && _lastActive8 !== _today8) {
+      var _ms8 = new Date(_today8).getTime() - new Date(_lastActive8).getTime();
+      _daysSince8 = Math.round(_ms8 / 86400000);
+    }
+    var _nType = '', _nIcon = '', _nMsg = '', _nAction = '';
+    if (_doneLen8 > 0 && _doneLen8 === _totalL8) {
+      _nType = 'nudge-success';
+      _nIcon = '✅';
+      _nMsg  = 'You have completed the entire course! Review a lesson or try the Practice tab to keep your skills sharp.';
+    } else if (_streak8 > 0 && _streakAt !== _today8 && !_freeze8) {
+      _nType   = 'nudge-warning';
+      _nIcon   = '⚠️';
+      _nMsg    = 'Your ' + _streak8 + '-day streak is at risk! Do at least one lesson today to keep it alive.';
+      _nAction = '<button class="plan-nudge-action" onclick="switchTab(\x27learn\x27)">Go to lessons →</button>';
+    } else if (_goalDone >= _goalTgt && _goalTgt > 0 && _goalDone > 0) {
+      _nType   = 'nudge-success';
+      _nIcon   = '✨';
+      _nMsg    = 'Daily goal complete! You have done ' + _goalDone + ' of ' + _goalTgt + ' lessons today. Keep the momentum going!';
+      _nAction = '<button class="plan-nudge-action" onclick="switchTab(\x27learn\x27)">Keep going →</button>';
+    } else if (_daysSince8 >= 3) {
+      _nType   = 'nudge-purple';
+      _nIcon   = '🚀';
+      _nMsg    = 'Welcome back! It has been ' + _daysSince8 + ' day' + (_daysSince8 !== 1 ? 's' : '') + ' since your last lesson. Ready to pick up where you left off?';
+      _nAction = '<button class="plan-nudge-action" onclick="switchTab(\x27learn\x27)">Pick up where I left off →</button>';
+    } else if (_doneLen8 === 0) {
+      _nType   = 'nudge-info';
+      _nIcon   = '🎓';
+      _nMsg    = 'Your plan is ready! Start with the first lesson to unlock your personalized path.';
+      _nAction = '<button class="plan-nudge-action" onclick="switchTab(\x27learn\x27)">Start learning →</button>';
+    } else if (_goalDone === 0) {
+      _nType   = 'nudge-info';
+      _nIcon   = '☀️';
+      _nMsg    = 'No lessons yet today — even one lesson keeps your momentum going and earns you XP!';
+      _nAction = '<button class="plan-nudge-action" onclick="switchTab(\x27learn\x27)">Do a lesson now →</button>';
+    }
+    if (_nType) {
+      html =
+        '<div class="plan-nudge ' + _nType + '">' +
+          '<div class="plan-nudge-icon">' + _nIcon + '</div>' +
+          '<div class="plan-nudge-text">' + _nMsg +
+            (_nAction ? '<br>' + _nAction : '') +
+          '</div>' +
+        '</div>' + html;
+    }
+  })();
+
+  // --- Difficulty Curve Chart (plan-07) ---
+  (function() {
+    var _rows7 = '';
+    for (var _ui7 = 0; _ui7 < COURSE.length; _ui7++) {
+      var _u7   = COURSE[_ui7];
+      var _tot7 = (_u7.lessons || []).length;
+      if (_tot7 === 0) continue;
+      var _done7 = (_u7.lessons || []).filter(function(l7) {
+        return (S.completed || []).indexOf(l7.id) > -1;
+      }).length;
+      var _pct7  = Math.round((_done7 / _tot7) * 100);
+      var _col7  = _u7.color || '#5BC0F8';
+      var _fillStyle7 = _pct7 === 0
+        ? 'background:var(--gray2,#e5e7eb);'
+        : 'background:' + _col7 + ';';
+      var _pctColor7 = _pct7 === 0 ? 'var(--gray4)' : (_pct7 === 100 ? '#58CC02' : _col7);
+      var _rawTitle7 = _u7.title || '';
+      var _shortTitle7 = _rawTitle7.length > 14
+        ? _rawTitle7.substring(0, 13) + '…'
+        : _rawTitle7;
+      _rows7 +=
+        '<div class="plan-diff-row">' +
+          '<div class="plan-diff-label" title="' + _rawTitle7 + '">' + _shortTitle7 + '</div>' +
+          '<div class="plan-diff-bar-bg">' +
+            '<div class="plan-diff-bar-fill" style="width:' + _pct7 + '%;' + _fillStyle7 + '"></div>' +
+          '</div>' +
+          '<div class="plan-diff-pct" style="color:' + _pctColor7 + ';">' + _pct7 + '%</div>' +
+        '</div>';
+    }
+    html +=
+      '<div class="plan-diff-wrap">' +
+        '<div class="plan-diff-title">Course Progress by Unit</div>' +
+        _rows7 +
       '</div>';
   })();
-  // --- 30-Day Streak Calendar (plan-03) ---
+
+  // --- Estimated Time to Complete (plan-06) ---
   (function() {
-    var _log30  = S.lesson_log || {};
-    var _actDays = S.active_days || [];
-    var _today30 = todayStr();
-    var _cells30 = [];
-    for (var _ci = 29; _ci >= 0; _ci--) {
-      var _d30 = new Date();
-      _d30.setDate(_d30.getDate() - _ci);
-      var _ds30 = _d30.toISOString().split('T')[0];
-      var _cnt30 = _log30[_ds30] || (_actDays.indexOf(_ds30) > -1 ? 1 : 0);
-      var _active = _cnt30 > 0;
-      var _isToday = _ds30 === _today30;
-      var _cls30 = 'plan-cal30-cell' + (_active ? ' cal-active' : '') + (_isToday ? ' cal-today' : '');
-      var _lbl30 = _ds30 + (_cnt30 > 0 ? ': ' + _cnt30 + ' lesson' + (_cnt30 > 1 ? 's' : '') : ': No activity');
-      _cells30.push('<div class="' + _cls30 + '" title="' + _lbl30 + '"></div>');
+    var _totalL6 = 0;
+    for (var _ni6 = 0; _ni6 < COURSE.length; _ni6++) {
+      _totalL6 += (COURSE[_ni6].lessons || []).length;
     }
-    // Count active days
-    var _activeCnt = _cells30.filter(function(c) { return c.indexOf('cal-active') > -1; }).length;
+    var _doneL6   = (S.completed || []).length;
+    var _remL6    = Math.max(0, _totalL6 - _doneL6);
+    var _pctDone6 = _totalL6 > 0 ? Math.round((_doneL6 / _totalL6) * 100) : 0;
+    var _remMin6  = _remL6 * 5;
+    var _timeStr6;
+    if (_remL6 === 0) {
+      _timeStr6 = 'All done!';
+    } else if (_remMin6 < 60) {
+      _timeStr6 = _remMin6 + ' min';
+    } else {
+      var _hrs6 = Math.floor(_remMin6 / 60);
+      var _mins6 = _remMin6 % 60;
+      _timeStr6 = _hrs6 + 'h' + (_mins6 > 0 ? ' ' + _mins6 + 'm' : '');
+    }
+    var _subStr6 = _remL6 === 0
+      ? 'You have completed every lesson — amazing work!'
+      : _remL6 + ' lesson' + (_remL6 !== 1 ? 's' : '') + ' remaining · ~5 min each';
+    var _clockSVG6 =
+      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"'
+      + ' stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'
+      + '<circle cx="12" cy="12" r="10"/>'
+      + '<polyline points="12 6 12 12 16 14"/>'
+      + '</svg>';
     html +=
-      '<div class="plan-section plan-cal30-section">' +
-        '<div class="plan-section-title">Last 30 Days</div>' +
-        '<div class="plan-cal30-grid">' + _cells30.join('') + '</div>' +
-        '<div class="plan-cal30-legend">' +
-          '<div class="plan-cal30-legend-dot" style="background:rgba(88,204,2,0.75)"></div>' +
-          'Active day' +
-          '<div class="plan-cal30-legend-dot" style="background:var(--gray1,#eee);margin-left:8px;"></div>' +
-          'No activity' +
-          '<span style="margin-left:auto;font-size:11px;font-weight:700;color:var(--text);">' + _activeCnt + ' / 30 days</span>' +
+      '<div class="plan-etc-wrap">' +
+        '<div class="plan-etc-icon">' + _clockSVG6 + '</div>' +
+        '<div class="plan-etc-body">' +
+          '<div class="plan-etc-title">Time to Finish Course</div>' +
+          '<div class="plan-etc-time">' + _timeStr6 + '</div>' +
+          '<div class="plan-etc-sub">' + _subStr6 + '</div>' +
+        '</div>' +
+        '<div class="plan-etc-pct-wrap">' +
+          '<div class="plan-etc-pct-num">' + _pctDone6 + '%</div>' +
+          '<div class="plan-etc-pct-lbl">complete</div>' +
         '</div>' +
       '</div>';
+  })();
+
+  // --- Weekly XP Goal Progress (plan-05) ---
+  (function() {
+    var _wxp     = S.weekly_xp || 0;
+    var _dxpGoal = S.daily_xp_goal || 20;
+    var _wxpGoal = _dxpGoal * 7;
+    var _wxpPct  = Math.min(1, _wxp / _wxpGoal);
+    var _wxpMet  = _wxp >= _wxpGoal;
+    var _barW    = Math.max(2, Math.round(_wxpPct * 100));
+    var _metCls  = _wxpMet ? ' wxp-met' : '';
+    var _onclickToggle = "(function(){"
+      + "var r=document.getElementById('plan-wxp-goal-row');"
+      + "r.classList.toggle('visible');"
+      + "if(r.classList.contains('visible')){"
+      + "var inp=document.getElementById('plan-wxp-goal-inp');"
+      + "if(inp){inp.value=Math.round((S.daily_xp_goal||20)*7);inp.focus();}"
+      + "}})()";
+    var _onclickSave = "(function(){"
+      + "var v=parseInt(document.getElementById('plan-wxp-goal-inp').value,10);"
+      + "if(!v||v<10)return;"
+      + "save('daily_xp_goal',Math.round(v/7)||20);"
+      + "document.getElementById('plan-wxp-goal-row').classList.remove('visible');"
+      + "renderPlanTab();"
+      + "})()";
+    html =
+      '<div class="plan-wxp-wrap">' +
+        '<div class="plan-wxp-header">' +
+          '<div class="plan-wxp-title">Weekly XP Goal</div>' +
+          '<button class="plan-wxp-edit-btn" onclick="' + _onclickToggle + '">Set Goal</button>' +
+        '</div>' +
+        '<div class="plan-wxp-bar-bg">' +
+          '<div class="plan-wxp-bar-fill' + _metCls + '" style="width:' + _barW + '%"></div>' +
+        '</div>' +
+        '<div class="plan-wxp-meta">' +
+          '<span class="wxp-earned' + _metCls + '">' + _wxp + ' XP earned this week</span>' +
+          '<span>Goal: ' + _wxpGoal + ' XP</span>' +
+        '</div>' +
+        '<div class="plan-wxp-goal-row" id="plan-wxp-goal-row">' +
+          '<span style="font-size:12px;font-weight:700;color:var(--gray4);">Weekly goal:</span>' +
+          '<input id="plan-wxp-goal-inp" class="plan-wxp-goal-input" type="number" min="10" max="9999" value="' + _wxpGoal + '">' +
+          '<span style="font-size:12px;font-weight:600;color:var(--gray4);">XP</span>' +
+          '<button class="plan-wxp-goal-save" onclick="' + _onclickSave + '">Save</button>' +
+        '</div>' +
+      '</div>' + html;
   })();
 
   document.getElementById('plan-content').innerHTML = html;
@@ -26660,6 +27233,221 @@ function renderProfileTab() {
       </div>
       <button class="btn btn-ghost-red btn-xs" onclick="confirmReset()">Reset</button>
     </div>`;
+
+  // profile-12: Weekly XP Challenge Card
+  (function() {
+    var _wCard = document.getElementById('profile-weekly-card');
+    if (!_wCard) return;
+    var _weekXP   = S.weekly_xp  || 0;
+    var _bestXP   = Math.max(S.weekly_best || 0, _weekXP);
+    var _target   = 200; // weekly XP target
+    var _pct      = Math.min(1, _weekXP / _target);
+    var _circumf  = 239; // 2 * pi * 38 (r=38)
+    var _offset   = _circumf - (_pct * _circumf);
+
+    // Days remaining in week (Mon-Sun)
+    var _now  = new Date();
+    var _dow  = _now.getDay(); // 0=Sun, 1=Mon...6=Sat
+    var _daysLeft = _dow === 0 ? 0 : (7 - _dow);
+
+    // Motivational message
+    var _msg;
+    if (_weekXP === 0) {
+      _msg = 'Start earning XP this week! Goal: ' + _target + ' XP';
+    } else if (_weekXP >= _target) {
+      _msg = 'Weekly goal smashed! \u2B50 Keep going for a new best!';
+    } else {
+      var _needed = _target - _weekXP;
+      _msg = _needed + ' XP to go \u2014 you can do it!';
+    }
+
+    // Ring fill color: green if goal met, yellow otherwise
+    var _ringColor = _weekXP >= _target ? 'var(--green)' : 'var(--yellow)';
+
+    _wCard.innerHTML =
+      '<div class="section-title">This Week</div>' +
+      '<div class="weekly-xp-wrap">' +
+        '<div class="weekly-ring-wrap">' +
+          '<svg class="weekly-ring-svg" viewBox="0 0 88 88">' +
+            '<circle class="weekly-ring-track" cx="44" cy="44" r="38"/>' +
+            '<circle class="weekly-ring-fill" cx="44" cy="44" r="38" ' +
+              'style="stroke:' + _ringColor + ';stroke-dashoffset:' + _offset.toFixed(1) + ';"/>' +
+          '</svg>' +
+          '<div class="weekly-ring-label">' +
+            '<div class="weekly-ring-val">' + _weekXP + '</div>' +
+            '<div class="weekly-ring-unit">XP</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="weekly-xp-details">' +
+          '<div class="weekly-xp-headline">Weekly XP Goal</div>' +
+          '<div class="weekly-xp-sub">' +
+            'Target: <strong>' + _target + ' XP</strong><br>' +
+            (_daysLeft > 0 ? _daysLeft + ' day' + (_daysLeft !== 1 ? 's' : '') + ' left this week' : 'Last day \u2014 push hard!') +
+          '</div>' +
+          (_bestXP > 0 ? '<div class="weekly-xp-best">\u2B50 Best week: ' + _bestXP + ' XP</div>' : '') +
+        '</div>' +
+      '</div>' +
+      '<div class="weekly-xp-msg">' + _msg + '</div>';
+  })();
+
+  // profile-11: Skills / Track Mastery Breakdown
+  (function() {
+    var _skCard = document.getElementById('profile-skills-card');
+    if (!_skCard) return;
+    if (typeof TRACKS === 'undefined' || typeof COURSE === 'undefined') return;
+
+    var _completed = S.completed || [];
+
+    var _rows = TRACKS.map(function(track) {
+      // Find all lesson IDs belonging to this track
+      var _totalLessons = 0;
+      var _doneLessons  = 0;
+      COURSE.forEach(function(unit) {
+        if (track.units.indexOf(unit.num) === -1) return;
+        unit.lessons.forEach(function(lesson) {
+          _totalLessons++;
+          if (_completed.indexOf(lesson.id) !== -1) _doneLessons++;
+        });
+      });
+      if (_totalLessons === 0) return '';
+      var _pct = Math.round((_doneLessons / _totalLessons) * 100);
+      var _label = _doneLessons === _totalLessons
+        ? 'Complete!'
+        : _doneLessons + ' / ' + _totalLessons + ' lessons';
+      return '<div class="skill-track-row">' +
+        '<div class="skill-track-header">' +
+          '<span class="skill-track-name">' + track.label + '</span>' +
+          '<span class="skill-track-pct">' + _pct + '%</span>' +
+        '</div>' +
+        '<div class="skill-track-bar-bg">' +
+          '<div class="skill-track-bar-fill" style="width:' + _pct + '%;background:' + track.color + ';"></div>' +
+        '</div>' +
+        '<div class="skill-track-sub">' + _label + '</div>' +
+        '</div>';
+    }).filter(Boolean).join('');
+
+    _skCard.innerHTML =
+      '<div class="section-title">Skills Mastery</div>' +
+      '<div class="skill-track-list">' + _rows + '</div>';
+  })();
+
+  // profile-10: Streak Statistics Card
+  (function() {
+    var _ssCard = document.getElementById('profile-streak-stats-card');
+    if (!_ssCard) return;
+    var _curStreak  = S.streak || 0;
+    var _bestStreak = Math.max(S.best_streak || 0, _curStreak);
+    var _activeDays = S.active_days || [];
+    var _totalDays  = _activeDays.length;
+    var _frozen     = !!S.streak_freeze;
+
+    // Build last-7-days mini calendar
+    var _dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    var _today = new Date();
+    var _miniDays = [];
+    for (var _di = 6; _di >= 0; _di--) {
+      var _d = new Date(_today); _d.setDate(_d.getDate() - _di);
+      var _ds = _d.toISOString().split('T')[0];
+      var _dow = _d.getDay();
+      _miniDays.push({
+        label: _dayNames[_dow].substring(0, 1),
+        date: _ds,
+        active: _activeDays.indexOf(_ds) !== -1,
+        isToday: _di === 0
+      });
+    }
+
+    var _calHTML = _miniDays.map(function(day) {
+      var _dotClass = 'streak-mini-dot' +
+        (day.isToday ? ' today' : (day.active ? ' active' : ''));
+      var _emoji = day.active ? '🔥' : (day.isToday ? '⭐' : '');
+      return '<div class="streak-mini-day">' +
+        '<div class="' + _dotClass + '">' + _emoji + '</div>' +
+        '<div class="streak-mini-day-label">' + day.label + '</div>' +
+        '</div>';
+    }).join('');
+
+    var _freezeHTML = _frozen
+      ? '<div style="text-align:center;">' +
+          '<span class="streak-freeze-badge">❄️ Streak Freeze Active</span>' +
+        '</div>'
+      : '';
+
+    _ssCard.innerHTML =
+      '<div class="section-title">Streak Stats</div>' +
+      '<div class="streak-stats-grid">' +
+        '<div class="streak-stat-box">' +
+          '<div class="streak-stat-box-val" style="color:#f97316;">' + _curStreak + '</div>' +
+          '<div class="streak-stat-box-label">Current</div>' +
+        '</div>' +
+        '<div class="streak-stat-box">' +
+          '<div class="streak-stat-box-val" style="color:#fbbf24;">' + _bestStreak + '</div>' +
+          '<div class="streak-stat-box-label">Best Ever</div>' +
+        '</div>' +
+        '<div class="streak-stat-box">' +
+          '<div class="streak-stat-box-val" style="color:var(--green);">' + _totalDays + '</div>' +
+          '<div class="streak-stat-box-label">Active Days</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="streak-mini-cal">' + _calHTML + '</div>' +
+      _freezeHTML;
+  })();
+
+  // profile-09: Recent Activity Timeline
+  (function() {
+    var _actCard = document.getElementById('profile-activity-card');
+    if (!_actCard) return;
+    var _lld = S.lesson_log_dates || {};
+    var _completed = S.completed || [];
+    // Build list of {id, ts} sorted newest first, last 10
+    var _entries = Object.keys(_lld)
+      .filter(function(id) { return _completed.indexOf(id) !== -1; })
+      .map(function(id) { return { id: id, ts: _lld[id] }; })
+      .sort(function(a, b) { return b.ts - a.ts; })
+      .slice(0, 10);
+    // Helper: find lesson title + xp from COURSE
+    function _findLesson(id) {
+      for (var ui = 0; ui < COURSE.length; ui++) {
+        var unit = COURSE[ui];
+        for (var li = 0; li < unit.lessons.length; li++) {
+          if (unit.lessons[li].id === id) return unit.lessons[li];
+        }
+      }
+      return null;
+    }
+    // Helper: relative date
+    function _relDate(ts) {
+      var diffMs = Date.now() - ts;
+      var diffDays = Math.floor(diffMs / 86400000);
+      if (diffDays === 0) return 'Today';
+      if (diffDays === 1) return 'Yesterday';
+      if (diffDays < 7) return diffDays + ' days ago';
+      if (diffDays < 30) return Math.floor(diffDays / 7) + ' wk ago';
+      return Math.floor(diffDays / 30) + ' mo ago';
+    }
+    if (_entries.length === 0) {
+      _actCard.innerHTML =
+        '<div class="section-title">Recent Activity</div>' +
+        '<div class="profile-activity-empty">No lessons completed yet — start learning!</div>';
+      return;
+    }
+    var _rows = _entries.map(function(e) {
+      var lesson = _findLesson(e.id);
+      var title = lesson ? lesson.title : e.id;
+      var xpVal = lesson ? (lesson.xp || 0) : 0;
+      var dateStr = _relDate(e.ts);
+      return '<div class="profile-activity-item">' +
+        '<div class="profile-activity-dot"></div>' +
+        '<div class="profile-activity-info">' +
+          '<div class="profile-activity-title">' + title + '</div>' +
+          '<div class="profile-activity-meta">' + dateStr + '</div>' +
+        '</div>' +
+        (xpVal ? '<div class="profile-activity-xp">+' + xpVal + ' XP</div>' : '') +
+        '</div>';
+    }).join('');
+    _actCard.innerHTML = '<div class="section-title">Recent Activity</div>' +
+      '<div class="profile-activity-list">' + _rows + '</div>';
+  })();
 
   // Clari profile greeting
   const _pgEl = document.getElementById('profile-clari-greeting');
