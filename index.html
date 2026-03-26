@@ -3994,6 +3994,198 @@ mark.search-hl {
 .pmb-trend-down { color: #fca5a5; }
 .pmb-trend-flat { color: rgba(255,255,255,0.7); }
 
+/* practice-45: streak shield in practice banner */
+.pmb-streak-shield {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px 3px 7px; border-radius: 20px;
+  font-size: 12px; font-weight: 900;
+  border: 1.5px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.15);
+  color: #fff; cursor: default; flex-shrink: 0;
+  transition: background 0.2s;
+}
+.pmb-streak-shield.shield-none  { background: rgba(255,255,255,0.08); opacity: 0.7; }
+.pmb-streak-shield.shield-warm  { background: rgba(255,150,0,0.35);  border-color: rgba(255,180,80,0.5); }
+.pmb-streak-shield.shield-hot   { background: rgba(239,68,68,0.35);  border-color: rgba(255,100,100,0.5); }
+.pmb-streak-shield.shield-epic  { background: rgba(168,85,247,0.35); border-color: rgba(200,130,255,0.5); }
+.pmb-streak-shield.shield-legend{ background: rgba(234,179,8,0.40);  border-color: rgba(255,220,60,0.6); }
+.pmb-streak-shield-flame { font-size: 16px; line-height: 1; }
+.pmb-streak-shield-num   { font-size: 14px; font-weight: 900; line-height: 1; }
+.pmb-streak-shield-label { font-size: 10px; font-weight: 700; opacity: 0.88; letter-spacing: 0.3px; }
+
+/* practice-46: XP float from answer area */
+@keyframes practiceXpRise {
+  0%   { opacity: 0; transform: translate(-50%, 0) scale(0.7); }
+  18%  { opacity: 1; transform: translate(-50%, -12px) scale(1.15); }
+  70%  { opacity: 1; transform: translate(-50%, -34px) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -54px) scale(0.9); }
+}
+.practice-xp-rise {
+  position: absolute; left: 50%; bottom: 100%;
+  transform: translateX(-50%);
+  font-size: 15px; font-weight: 900;
+  color: #15803d;
+  pointer-events: none; z-index: 200;
+  white-space: nowrap;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.12);
+  animation: practiceXpRise 1.1s ease forwards;
+}
+
+/* practice-47: difficulty escalator suggestion card */
+.practice-escalator-card {
+  display: none; align-items: center; gap: 12px;
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 2px solid #86efac; border-radius: 14px;
+  padding: 13px 16px; margin-bottom: 12px;
+  cursor: pointer; transition: box-shadow 0.15s, transform 0.15s;
+}
+.practice-escalator-card.show { display: flex; }
+.practice-escalator-card:hover { box-shadow: 0 4px 16px rgba(22,163,74,0.18); transform: translateY(-1px); }
+.practice-escalator-icon {
+  font-size: 28px; flex-shrink: 0;
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  background: #dcfce7; border-radius: 12px;
+}
+.practice-escalator-info { flex: 1; }
+.practice-escalator-title { font-size: 14px; font-weight: 900; color: #15803d; }
+.practice-escalator-sub   { font-size: 12px; font-weight: 700; color: #166534; opacity: 0.85; margin-top: 2px; }
+.practice-escalator-btn   {
+  flex-shrink: 0; padding: 6px 14px; border-radius: 20px;
+  background: #16a34a; color: #fff; border: none;
+  font-size: 12px; font-weight: 900; cursor: pointer;
+  transition: background 0.15s;
+}
+.practice-escalator-btn:hover { background: #15803d; }
+:root[data-theme="dark"] .practice-escalator-card {
+  background: linear-gradient(135deg, #052e16 0%, #14532d 100%);
+  border-color: #166534;
+}
+:root[data-theme="dark"] .practice-escalator-title { color: #86efac; }
+:root[data-theme="dark"] .practice-escalator-sub   { color: #4ade80; }
+
+/* practice-48: Quick 5 shortcut button */
+.practice-quick5-btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 14px 18px; margin-bottom: 12px;
+  background: linear-gradient(135deg, #1a56db 0%, #6c47ff 100%);
+  color: #fff; border: none; border-radius: 16px;
+  font-size: 16px; font-weight: 900; cursor: pointer;
+  box-shadow: 0 4px 16px rgba(108,71,255,0.28);
+  transition: transform 0.12s, box-shadow 0.12s, filter 0.12s;
+  letter-spacing: 0.01em;
+}
+.practice-quick5-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(108,71,255,0.38);
+  filter: brightness(1.08);
+}
+.practice-quick5-btn:active { transform: translateY(0); box-shadow: 0 2px 8px rgba(108,71,255,0.2); }
+.practice-quick5-icon  { font-size: 22px; }
+.practice-quick5-text  { display: flex; flex-direction: column; align-items: flex-start; }
+.practice-quick5-label { font-size: 16px; font-weight: 900; line-height: 1.1; }
+.practice-quick5-sub   { font-size: 11px; font-weight: 700; opacity: 0.85; }
+.practice-quick5-arrow { font-size: 20px; margin-left: auto; }
+
+/* practice-49: practice milestone badges */
+.practice-milestone-row {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--white); border: 2px solid var(--gray2);
+  border-radius: var(--radius); padding: 13px 16px;
+  margin-top: 14px; flex-wrap: wrap;
+}
+.practice-milestone-title {
+  font-size: 12px; font-weight: 900; color: var(--text);
+  text-transform: uppercase; letter-spacing: 0.8px;
+  width: 100%; margin-bottom: 4px;
+}
+.practice-milestone-badge {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  flex: 1; min-width: 56px; max-width: 80px;
+  padding: 8px 4px; border-radius: 12px; border: 2px solid transparent;
+  transition: border-color 0.2s, background 0.2s;
+  cursor: default;
+}
+.practice-milestone-badge.earned {
+  background: #fef9c3; border-color: #fde047;
+}
+.practice-milestone-badge.earned .pmb-icon { filter: none; opacity: 1; }
+.practice-milestone-badge.locked .pmb-icon { filter: grayscale(1); opacity: 0.35; }
+.pmb-icon  { font-size: 26px; line-height: 1; }
+.pmb-count { font-size: 11px; font-weight: 900; color: var(--text); }
+.pmb-name  { font-size: 10px; font-weight: 700; color: var(--gray4); text-align: center; line-height: 1.2; }
+.practice-milestone-badge.earned .pmb-count { color: #92400e; }
+:root[data-theme="dark"] .practice-milestone-badge.earned {
+  background: #422006; border-color: #ca8a04;
+}
+:root[data-theme="dark"] .practice-milestone-badge.earned .pmb-count { color: #fde047; }
+
+/* practice-50: session pace indicator */
+#practice-pace-pill {
+  display: none; align-items: center; gap: 4px;
+  position: absolute; top: 8px; right: 8px;
+  background: rgba(255,255,255,0.9); border: 1.5px solid var(--gray2);
+  border-radius: 20px; padding: 3px 9px;
+  font-size: 11px; font-weight: 800; color: var(--gray4);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  pointer-events: none; z-index: 10;
+  white-space: nowrap;
+}
+#practice-pace-pill.active { display: inline-flex; }
+:root[data-theme="dark"] #practice-pace-pill {
+  background: rgba(30,30,30,0.92); border-color: var(--gray3); color: var(--gray3);
+}
+
+/* practice-51: wrong answer explanation toggle */
+.practice-why-wrong {
+  margin-top: 8px; border-top: 1.5px solid #ffc5c5;
+  padding-top: 8px;
+}
+.practice-why-wrong-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: none; border: 1.5px solid #fca5a5;
+  border-radius: 20px; padding: 4px 12px;
+  font-size: 12px; font-weight: 800; color: #b91c1c;
+  cursor: pointer; transition: background 0.15s;
+}
+.practice-why-wrong-btn:hover { background: #fff2f2; }
+.practice-why-wrong-body {
+  display: none; margin-top: 8px; padding: 10px 12px;
+  background: #fff7f7; border: 1.5px solid #fca5a5;
+  border-radius: 10px; font-size: 13px; font-weight: 600;
+  color: #7f1d1d; line-height: 1.55;
+}
+.practice-why-wrong-body.open { display: block; }
+:root[data-theme="dark"] .practice-why-wrong-btn { color: #fca5a5; border-color: #7f1d1d; }
+:root[data-theme="dark"] .practice-why-wrong-body { background: #2d0a0a; border-color: #7f1d1d; color: #fca5a5; }
+
+/* practice-52: practice summary share card */
+.practice-summary-card {
+  margin: 12px 0 0; border: 2px solid var(--gray2);
+  border-radius: var(--radius); background: var(--white); overflow: hidden;
+}
+.practice-summary-card-header {
+  display: flex; align-items: center; padding: 10px 14px 0;
+}
+.practice-summary-card-title {
+  font-size: 12px; font-weight: 900; color: var(--text);
+  text-transform: uppercase; letter-spacing: 0.8px;
+}
+.practice-summary-card-body {
+  padding: 8px 14px 12px; font-family: monospace;
+  font-size: 12px; font-weight: 700; color: var(--text);
+  white-space: pre-wrap; line-height: 1.6;
+}
+.practice-summary-btns {
+  display: flex; gap: 8px; padding: 0 14px 12px;
+}
+.practice-summary-copy-btn, .practice-summary-share-btn {
+  flex: 1; padding: 8px; border: 2px solid var(--gray2);
+  border-radius: 10px; background: none; font-size: 12px;
+  font-weight: 800; color: var(--text); cursor: pointer;
+}
+.practice-summary-copy-btn:hover { background: var(--gray1); }
+.practice-summary-share-btn { border-color: var(--blue); color: var(--blue); }
 /* practice-44: beat-your-score best chips */
 .pbs-chip {
   display: inline-flex; align-items: center; gap: 4px;
@@ -4014,6 +4206,40 @@ mark.search-hl {
   border-color: #86efac;
 }
 .pbs-trophy { font-size: 11px; }
+
+/* practice-54: XP multiplier pill */
+.pmb-xp-mult-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(255,215,0,0.22); border: 1.5px solid rgba(255,215,0,0.5);
+  border-radius: 20px; padding: 3px 10px;
+  font-size: 12px; font-weight: 900; color: #fde68a;
+  letter-spacing: 0.02em; animation: pmb-xp-pulse 2s ease-in-out infinite;
+}
+@keyframes pmb-xp-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.75; }
+}
+
+/* practice-53: quick stats bar */
+.practice-quick-stats-bar {
+  display: flex; align-items: stretch; gap: 8px;
+  margin-bottom: 12px;
+}
+.pqsb-tile {
+  flex: 1; background: var(--white); border: 2px solid var(--gray2);
+  border-radius: 12px; padding: 10px 8px 8px;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  transition: border-color 0.15s;
+}
+.pqsb-tile:hover { border-color: var(--blue); }
+.pqsb-val {
+  font-size: 18px; font-weight: 900; color: var(--text); line-height: 1;
+}
+.pqsb-lbl {
+  font-size: 10px; font-weight: 800; color: var(--gray4);
+  text-transform: uppercase; letter-spacing: 0.5px; text-align: center;
+}
+.pqsb-tile.highlight .pqsb-val { color: var(--blue); }
 
 /* ============================================================
    MY PLAN TAB
@@ -7736,7 +7962,8 @@ mark.search-hl {
         </div>
         <div class="lesson-hearts" id="lesson-hearts"></div>
         <span id="lesson-timer" title="Elapsed time">0:00</span>
-        <button id="focus-mode-btn" class="focus-mode-btn" onclick="toggleFocusMode()" title="Focus mode" aria-label="Toggle focus mode">
+        <span id="practice-pace-pill" aria-live="polite" aria-atomic="true"></span>
+          <button id="focus-mode-btn" class="focus-mode-btn" onclick="toggleFocusMode()" title="Focus mode" aria-label="Toggle focus mode">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
         </button>
       </div>
@@ -7746,6 +7973,7 @@ mark.search-hl {
 
     <!-- ======== PRACTICE TAB ======== -->
     <div class="view" id="view-practice" role="main">
+      <div id="practice-quick-stats-bar" class="practice-quick-stats-bar" style="display:none;"></div>
       <div id="practice-mode-banner" class="practice-mode-banner">
         <div class="pmb-top">
           <div>
@@ -7754,9 +7982,11 @@ mark.search-hl {
           </div>
           <button id="practice-sound-toggle-btn" class="pmb-sound-btn" onclick="togglePracticeSounds()" title="Toggle practice sounds" aria-label="Toggle practice sounds">&#x1F514;</button>
         </div>
+        <div id="pmb-streak-shield-wrap" style="margin-top:8px;"></div>
         <div class="pmb-stats" id="pmb-stats-strip">
           <div class="pmb-stat" id="pmb-today-stat">&#x1F4C5; 0 today</div>
           <div class="pmb-stat" id="pmb-streak-stat">&#x1F525; 0 day streak</div>
+          <div id="pmb-xp-mult-pill" style="display:none;"></div>
           <div class="pmb-sparkline-pill" id="pmb-accuracy-sparkline" title="Accuracy over last 7 sessions" style="display:none;"></div>
         </div>
       </div>
@@ -7765,6 +7995,15 @@ mark.search-hl {
       <div id="practice-daily-goal-bar" style="margin-bottom:12px;"></div>
       <div id="practice-unit-filter-row" style="margin-bottom:10px;"></div>
       <div id="practice-daily-challenge-wrap" style="margin-bottom:0;"></div>
+      <div id="practice-escalator-wrap" style="margin-bottom:0;"></div>
+      <button class="practice-quick5-btn" onclick="startQuick5()" aria-label="Quick 5 practice session">
+        <span class="practice-quick5-icon">⚡</span>
+        <span class="practice-quick5-text">
+          <span class="practice-quick5-label">Quick 5</span>
+          <span class="practice-quick5-sub">5 questions, no setup needed</span>
+        </span>
+        <span class="practice-quick5-arrow">&rsaquo;</span>
+      </button>
       <div class="practice-modes">
         <div class="practice-card">
           <div class="practice-card-icon" style="background:#e0f9ff;">
@@ -7776,7 +8015,7 @@ mark.search-hl {
             <div id="practice-pool-size-quick" style="font-size:11px;font-weight:700;color:var(--gray4);margin-top:3px;"></div>
             <div id="pbs-chip-quick"></div>
           </div>
-          <button class="btn btn-blue btn-sm" onclick="showDifficultySelector('quick')">Start</button>
+          <button class="btn btn-blue btn-sm" onclick="showDifficultySelector(&apos;quick&apos;)">Start</button>
         </div>
         <div class="practice-card" id="weak-areas-card">
           <div class="practice-card-icon-wrap">
@@ -7853,6 +8092,7 @@ mark.search-hl {
         <div class="practice-history-title">Recent Sessions</div>
         <div id="practice-history-list"></div>
       </div>
+      <div id="practice-milestone-badges-wrap"></div>
       <div id="practice-leaderboard-wrap" style="margin-top:14px;"></div>
       <div class="practice-notes-section" style="margin-top:14px;">
         <button class="practice-notes-toggle" onclick="(function(btn){btn.classList.toggle('open');var b=btn.nextElementSibling;b.classList.toggle('open');if(b.classList.contains('open'))renderPracticeSessionNotes();})(this)" aria-expanded="false">
@@ -27382,6 +27622,34 @@ function updatePracticeSoundBtn() {
 
 function renderPracticeTab() {
   updatePracticeSoundBtn();
+  // practice-53: quick stats bar
+  (function() {
+    var _bar53 = document.getElementById('practice-quick-stats-bar');
+    if (!_bar53) return;
+    var _hist53 = S.practice_history || [];
+    if (_hist53.length === 0) { _bar53.style.display = 'none'; return; }
+    var _sessions53 = _hist53.length;
+    var _totalQ53 = _hist53.reduce(function(a, h) { return a + (h.total || 0); }, 0);
+    var _sumPct53 = 0;
+    _hist53.forEach(function(h) { if (h.total > 0) _sumPct53 += Math.round((h.score / h.total) * 100); });
+    var _avg53 = _hist53.length > 0 ? Math.round(_sumPct53 / _hist53.length) : 0;
+    var _bestMap53 = S.practice_best || {};
+    var _bestAll53 = 0;
+    Object.keys(_bestMap53).forEach(function(k) { if (_bestMap53[k] > _bestAll53) _bestAll53 = _bestMap53[k]; });
+    var _tiles53 = [
+      { val: _sessions53, lbl: 'Sessions', hi: _sessions53 >= 10 },
+      { val: _totalQ53, lbl: 'Questions', hi: false },
+      { val: _avg53 + '%', lbl: 'Avg Score', hi: _avg53 >= 80 },
+      { val: (_bestAll53 > 0 ? _bestAll53 + '%' : '--'), lbl: 'Best Ever', hi: _bestAll53 >= 100 }
+    ];
+    _bar53.innerHTML = _tiles53.map(function(t) {
+      return '<div class="pqsb-tile' + (t.hi ? ' highlight' : '') + '">'
+        + '<div class="pqsb-val">' + t.val + '</div>'
+        + '<div class="pqsb-lbl">' + t.lbl + '</div>'
+        + '</div>';
+    }).join('');
+    _bar53.style.display = 'flex';
+  })();
   // Practice Mode banner: motivational subtitle + stat strip
   (function() {
     // Time-of-day subtitle
@@ -27414,6 +27682,19 @@ function renderPracticeTab() {
     }
     var _streakStatEl = document.getElementById('pmb-streak-stat');
     if (_streakStatEl) _streakStatEl.innerHTML = '&#x1F525; ' + _streak + ' day streak';
+    // practice-54: XP multiplier pill based on streak
+    (function() {
+      var _multPill54 = document.getElementById('pmb-xp-mult-pill');
+      if (!_multPill54) return;
+      var _mult54 = _streak >= 30 ? 3.0 : _streak >= 14 ? 2.5 : _streak >= 7 ? 2.0 : _streak >= 3 ? 1.5 : _streak >= 1 ? 1.25 : 1.0;
+      if (_mult54 > 1.0) {
+        var _multStr = _mult54 === Math.floor(_mult54) ? String(_mult54) : _mult54.toFixed(2).replace(/(\.\d)0$/, '$1');
+        _multPill54.innerHTML = '<span class="pmb-xp-mult-pill">&#x26A1; ' + _multStr + 'x XP</span>';
+        _multPill54.style.display = 'inline-flex';
+      } else {
+        _multPill54.style.display = 'none';
+      }
+    })();
   })();
   // Weekly sessions pill
   const _pillEl = document.getElementById('practice-week-pill');
@@ -27451,7 +27732,44 @@ function renderPracticeTab() {
   renderSessionTimeline();
   renderAccuracySparkline();
   renderBestScoreChips();
+  // practice-45: streak shield
+  (function() {
+    var _sw = document.getElementById('pmb-streak-shield-wrap');
+    if (!_sw) return;
+    var _log = S.lesson_log || {};
+    var _today = (typeof todayStr === 'function') ? todayStr() : new Date().toISOString().split('T')[0];
+    var _todayData = S.practice_today || { date: '', count: 0 };
+    var _todayCount = (_todayData.date === _today) ? (_todayData.count || 0) : 0;
+    var _streak = 0;
+    var _sd = new Date();
+    for (var _si = 0; _si < 365; _si++) {
+      var _ds = _sd.toISOString().split('T')[0];
+      if (_log[_ds] || (_ds === _today && _todayCount > 0)) {
+        _streak++;
+        _sd.setDate(_sd.getDate() - 1);
+      } else { break; }
+    }
+    var _cls, _flame, _label;
+    if (_streak === 0) {
+      _cls = 'shield-none'; _flame = '🧊'; _label = 'No streak yet';
+    } else if (_streak < 7) {
+      _cls = 'shield-warm'; _flame = '🔥'; _label = _streak + '-day streak';
+    } else if (_streak < 14) {
+      _cls = 'shield-hot'; _flame = '🔥'; _label = _streak + '-day streak 💪';
+    } else if (_streak < 30) {
+      _cls = 'shield-epic'; _flame = '🔥'; _label = _streak + '-day streak ⚡';
+    } else {
+      _cls = 'shield-legend'; _flame = '🔥'; _label = _streak + '-day streak 🏆';
+    }
+    _sw.innerHTML = '<span class="pmb-streak-shield ' + _cls + '">'
+      + '<span class="pmb-streak-shield-flame">' + _flame + '</span>'
+      + '<span class="pmb-streak-shield-num">' + _streak + '</span>'
+      + '<span class="pmb-streak-shield-label">' + _label + '</span>'
+      + '</span>';
+  })();
   renderWrongCountBadge();
+  renderDiffEscalator();
+  renderPracticeMilestoneBadges();
   renderPracticeRecords();
   renderPracticeWeakHeatmap();
   renderPracticeRecentSessions();
@@ -28270,6 +28588,19 @@ function renderPracticeQuestion() {
 
   var _kbHintHtml = 'ontouchstart' in window ? '' :
     '<div class="practice-kb-hint"><kbd>1</kbd><span class="kb-sep">&ndash;</span><kbd>4</kbd> to answer &nbsp;&bull;&nbsp; <kbd>Enter</kbd> to confirm</div>';
+  // practice-50: update pace pill
+  (function() {
+    var _pp = document.getElementById('practice-pace-pill');
+    if (!_pp) return;
+    var _elapsed50 = lessonState.practiceStartTime ? (Date.now() - lessonState.practiceStartTime) / 60000 : 0;
+    if (_elapsed50 > 0.05 && idx > 0) {
+      var _qpm = (idx / _elapsed50).toFixed(1);
+      _pp.textContent = '⚡ ' + _qpm + ' q/min';
+      _pp.classList.add('active');
+    } else {
+      _pp.classList.remove('active');
+    }
+  })();
   document.getElementById('lesson-content').innerHTML = `
     <div style="font-size:12px;font-weight:800;color:var(--gray4);margin-bottom:12px;">Question ${idx+1} of ${total}${lessonState.practiceType === 'quick' && lessonState.adaptiveLevel ? ' &nbsp;<span style="font-size:11px;padding:2px 7px;border-radius:10px;background:' + (lessonState.adaptiveLevel === 3 ? '#fce7f3' : lessonState.adaptiveLevel === 2 ? '#e0f9ff' : '#f0fdf4') + ';color:' + (lessonState.adaptiveLevel === 3 ? '#be185d' : lessonState.adaptiveLevel === 2 ? '#0369a1' : '#15803d') + ';">' + (lessonState.adaptiveLevel === 3 ? 'Hard' : lessonState.adaptiveLevel === 2 ? 'Medium' : 'Easy') + '</span>' : ''}</div>
     <div class="slide-mascot-wrap" style="margin-bottom:8px;">${clariSVG('think', 60)}</div>
@@ -28385,6 +28716,17 @@ function selectPracticeOption(el, idx, correct) {
       lessonState.practiceMaxStreak = lessonState.correctStreak;
     }
     addXP(5);
+    // practice-46: XP float from feedback area
+    (function() {
+      var _fb = document.getElementById('quiz-feedback');
+      if (!_fb) return;
+      var _xpEl = document.createElement('span');
+      _xpEl.className = 'practice-xp-rise';
+      _xpEl.textContent = '+5 XP';
+      _fb.style.position = 'relative';
+      _fb.appendChild(_xpEl);
+      setTimeout(function() { if (_xpEl.parentNode) _xpEl.parentNode.removeChild(_xpEl); }, 1200);
+    })();
     SoundManager.playCorrect();
     // Practice-specific ascending sweep (200hz -> 400hz, 100ms)
     if (S.practice_sounds !== false) {
@@ -28488,6 +28830,29 @@ function selectPracticeOption(el, idx, correct) {
       })();
     }
     showFeedback(false, getWrongMsg(), allOpts[correct].textContent.trim());
+    // practice-51: append "Why was I wrong?" expandable explanation
+    (function() {
+      var _fb51 = document.getElementById('quiz-feedback');
+      if (!_fb51) return;
+      var _q51 = lessonState.practiceQuestions && lessonState.practiceQuestions[lessonState.practiceIdx];
+      var _expText = (_q51 && _q51.explanation) ? _q51.explanation : '';
+      if (!_expText && _q51 && _q51.options && _q51.correct != null) {
+        _expText = 'The correct answer was: ' + (_q51.options[_q51.correct] || '');
+      }
+      if (!_expText) return;
+      var _whyDiv = document.createElement('div');
+      _whyDiv.className = 'practice-why-wrong';
+      var _btnId = 'pww-btn-' + Date.now();
+      var _bodyId = 'pww-body-' + Date.now();
+      _whyDiv.innerHTML = '<button class="practice-why-wrong-btn" id="' + _btnId + '"'
+        + ' data-bodyid="' + _bodyId + '" onclick="toggleWhyWrong(this)">'
+        + 'Why was I wrong?'
+        + '</button>'
+        + '<div class="practice-why-wrong-body" id="' + _bodyId + '">'
+        + _expText.replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        + '</div>';
+      _fb51.appendChild(_whyDiv);
+    })();
     // Track attempted questions for post-session review
     if (!lessonState.practiceAttempted) lessonState.practiceAttempted = [];
     (function() {
@@ -28678,6 +29043,59 @@ function renderPracticeSessionNotes() {
   }).join('');
 }
 
+function copySummaryCard() {
+  var t = window._practiceShareCardText || "";
+  if (navigator.clipboard) { navigator.clipboard.writeText(t).then(function() { showToast("Copied!", "success", 1500); }); }
+  else { var ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove(); showToast("Copied!", "success", 1500); }
+}
+
+function shareSummaryCard() {
+  var t = window._practiceShareCardText || "";
+  if (navigator.share) { navigator.share({ title: "My Practice Results", text: t }).catch(function(){}); }
+  else { copySummaryCard(); }
+}
+
+function renderPracticeSummaryCard(score, total, accuracy, elapsed, practiceType) {
+  var panel = document.getElementById("practice-xp-breakdown-panel");
+  if (!panel) return;
+  var typeMap = { quick: "Quick Practice", timed: "Timed Challenge", weak: "Weak Areas",
+    weak_drill: "Weak Spots Drill", review: "Spaced Review", daily: "Daily Challenge" };
+  var typeName = typeMap[practiceType] || "Practice";
+  var timeStr = elapsed >= 60 ? Math.floor(elapsed/60)+"m "+(elapsed%60)+"s" : elapsed+"s";
+  var streak = 0;
+  (function() {
+    var log = S.lesson_log || {}; var d = new Date();
+    for (var i = 0; i < 365; i++) {
+      var ds = d.toISOString().split("T")[0];
+      if (log[ds]) { streak++; d.setDate(d.getDate()-1); } else { break; }
+    }
+  })();
+  var xp = 20 + (accuracy === 100 && total > 0 ? 10 : 0)
+    + (practiceType === "timed" ? 20 : practiceType === "review" ? 15 : 0);
+  var dateStr = (typeof todayStr === "function") ? todayStr() : new Date().toISOString().split("T")[0];
+  var card = "📊 Practice Summary\n"
+    + "\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n"
+    + "Mode:     " + typeName + "\n"
+    + "Score:    " + score + " / " + total + " (" + accuracy + "%)\n"
+    + "Time:     " + timeStr + "\n"
+    + "XP:       +" + xp + " XP earned\n"
+    + "Streak:   " + (streak > 0 ? "🔥 " + streak + " days" : "None yet") + "\n"
+    + "Date:     " + dateStr + "\n"
+    + "\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n"
+    + "AI Mentor \u2014 clari.ai";
+  window._practiceShareCardText = card;
+  var safeCard = card.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  panel.innerHTML += '<div class="practice-summary-card">'
+    + '<div class="practice-summary-card-header">'
+    + '<span class="practice-summary-card-title">📋 Session Summary</span>'
+    + '</div>'
+    + '<div class="practice-summary-card-body">' + safeCard + '</div>'
+    + '<div class="practice-summary-btns">'
+    + '<button class="practice-summary-copy-btn" onclick="copySummaryCard()">Copy</button>'
+    + '<button class="practice-summary-share-btn" onclick="shareSummaryCard()">📤 Share</button>'
+    + '</div></div>';
+}
+
 function getGradeLetter(pct) {
   if (pct >= 90) return 'A';
   if (pct >= 80) return 'B';
@@ -28721,6 +29139,11 @@ function launchPracticeConfetti() {
 }
 
 function finishPractice() {
+  // practice-50: hide pace pill
+  (function() {
+    var _pp = document.getElementById('practice-pace-pill');
+    if (_pp) { _pp.classList.remove('active'); _pp.textContent = ''; }
+  })();
   const total = lessonState.practiceQuestions.length;
   const score = lessonState.practiceScore;
   const isReview = lessonState.practiceType === 'review';
@@ -28944,6 +29367,8 @@ function finishPractice() {
       setTimeout(function() { el.classList.add('visible'); }, 200 + i * 150);
     });
   })();
+  // practice-52: render summary share card
+  setTimeout(function() { renderPracticeSummaryCard(score, total, _accuracy, _elapsed, lessonState.practiceType); }, 300);
   if (_accuracy === 100 && total > 0) {
     setTimeout(function() { showClariPopup('celebrating', 'clari-tada', 'Perfect practice!', 2000); }, 600);
   }
@@ -29065,6 +29490,121 @@ function renderPracticeLeaderboard() {
 }
 
 // ============================================================
+// ============================================================
+// practice-45: STREAK SHIELD (see renderPracticeTab injection above)
+// ============================================================
+
+// ============================================================
+// practice-47: DIFFICULTY AUTO-ESCALATOR
+// ============================================================
+function renderDiffEscalator() {
+  var _wrap = document.getElementById('practice-escalator-wrap');
+  if (!_wrap) return;
+  var _hist = (S.practice_history || []).slice(-5);
+  if (_hist.length < 3) { _wrap.innerHTML = ''; return; }
+  var _last3 = _hist.slice(-3);
+  var _allHigh = _last3.every(function(h) {
+    return h.total > 0 && (h.score / h.total) >= 0.85;
+  });
+  if (!_allHigh) { _wrap.innerHTML = ''; return; }
+  var _avgPct = Math.round(_last3.reduce(function(a, h) {
+    return a + (h.total > 0 ? (h.score / h.total) * 100 : 0);
+  }, 0) / _last3.length);
+  _wrap.innerHTML = '<div class="practice-escalator-card show" onclick="showDifficultySelector(&apos;quick&apos;)">'
+    + '<div class="practice-escalator-icon">💪</div>'
+    + '<div class="practice-escalator-info">'
+    + '<div class="practice-escalator-title">Ready for a bigger challenge?</div>'
+    + '<div class="practice-escalator-sub">You scored ' + _avgPct + '% avg across your last 3 sessions. Try Hard mode!</div>'
+    + '</div>'
+    + '<button class="practice-escalator-btn" onclick="event.stopPropagation();showDifficultySelector(&apos;quick&apos;)">Try Hard</button>'
+    + '</div>';
+}
+
+// ============================================================
+// practice-48: QUICK 5 SHORTCUT
+// ============================================================
+function startQuick5() {
+  if (typeof showToast === 'function') showToast('⚡ Quick 5 starting!', 'info', 1800);
+  startPractice('quick', 'mixed');
+}
+
+// ============================================================
+// practice-49: PRACTICE MILESTONE BADGES
+// ============================================================
+function renderPracticeMilestoneBadges() {
+  var _wrap = document.getElementById('practice-milestone-badges-wrap');
+  if (!_wrap) return;
+  var _total = (S.practice_history || []).length;
+  var _earned = S.achievements || [];
+  var _milestones = [
+    { count: 10,  icon: '🥇', name: 'Starter',   id: 'practice_milestone_10'  },
+    { count: 25,  icon: '🏅', name: 'Dedicated', id: 'practice_milestone_25'  },
+    { count: 50,  icon: '🔥', name: 'On Fire',   id: 'practice_milestone_50'  },
+    { count: 100, icon: '👑', name: 'Legend',    id: 'practice_milestone_100' }
+  ];
+  var _badgesHtml = _milestones.map(function(m) {
+    var _isEarned = _earned.includes(m.id) || _total >= m.count;
+    return '<div class="practice-milestone-badge ' + (_isEarned ? 'earned' : 'locked') + '"'
+      + ' title="' + m.count + ' sessions ' + (_isEarned ? 'completed!' : '-- keep going!') + '">'
+      + '<span class="pmb-icon">' + m.icon + '</span>'
+      + '<span class="pmb-count">' + m.count + '</span>'
+      + '<span class="pmb-name">' + m.name + '</span>'
+      + '</div>';
+  }).join('');
+  _wrap.innerHTML = '<div class="practice-milestone-row">'
+    + '<div class="practice-milestone-title">🏆 Session Milestones (' + _total + ' completed)</div>'
+    + _badgesHtml
+    + '</div>';
+}
+
+// practice-49: Hook into finishPractice to award milestone achievements
+(function() {
+  var _origFP = window.finishPractice;
+  if (typeof _origFP !== 'function') return;
+  window.finishPractice = function() {
+    _origFP.apply(this, arguments);
+    setTimeout(function() {
+      var _total49 = (S.practice_history || []).length;
+      var _earned49 = (S.achievements || []).slice();
+      var _milestones49 = [
+        { count: 10,  id: 'practice_milestone_10',  label: '10 Sessions!' },
+        { count: 25,  id: 'practice_milestone_25',  label: '25 Sessions!' },
+        { count: 50,  id: 'practice_milestone_50',  label: '50 Sessions!' },
+        { count: 100, id: 'practice_milestone_100', label: '100 Sessions!' }
+      ];
+      var _newEarned = false;
+      _milestones49.forEach(function(m) {
+        if (!_earned49.includes(m.id) && _total49 >= m.count) {
+          _earned49.push(m.id);
+          _newEarned = true;
+          setTimeout(function() {
+            if (typeof showToast === 'function')
+              showToast('🏆 Milestone: ' + m.label + ' Practice complete!', 'success', 3500);
+          }, 1600);
+        }
+      });
+      if (_newEarned) save('achievements', _earned49);
+      renderPracticeMilestoneBadges();
+    }, 300);
+  };
+})();
+
+// ============================================================
+// practice-50: SESSION PACE INDICATOR (pill in lesson header, updated per question)
+// ============================================================
+
+// ============================================================
+function toggleWhyWrong(btn) {
+  var bodyId = btn.getAttribute("data-bodyid");
+  var body = document.getElementById(bodyId);
+  if (!body) return;
+  body.classList.toggle("open");
+  btn.textContent = body.classList.contains("open") ? "Hide explanation" : "Why was I wrong?";
+}
+
+// practice-51: WRONG ANSWER EXPLANATION TOGGLE (inline in selectPracticeOption)
+// ============================================================
+
 // practice-44: BEAT YOUR SCORE CHIPS
 // ============================================================
 function renderBestScoreChips() {
@@ -29443,6 +29983,10 @@ function startWeakDrill() {
 }
 
 // ============================================================
+// ============================================================
+// practice-46: XP RISE FLOAT (CSS + inline hook in selectPracticeOption)
+// ============================================================
+
 // practice-38: SHARE PRACTICE QUOTE
 // ============================================================
 function sharePracticeQuote(quote, accuracy) {
