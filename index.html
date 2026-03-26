@@ -4207,6 +4207,52 @@ mark.search-hl {
 }
 .pbs-trophy { font-size: 11px; }
 
+/* practice-55: comeback badge */
+.practice-comeback-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+  color: #fff; border-radius: 20px; padding: 6px 16px;
+  font-size: 13px; font-weight: 900; margin: 8px auto 0;
+  box-shadow: 0 2px 12px rgba(245,158,11,0.4);
+  animation: comeback-pop 0.4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes comeback-pop {
+  from { transform: scale(0.6); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+.practice-comeback-badge.improve {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+/* practice-56: lesson stats panel */
+.practice-lesson-stats-panel {
+  margin-top: 14px; border: 2px solid var(--gray2);
+  border-radius: var(--radius); background: var(--white); overflow: hidden;
+}
+.practice-ls-toggle {
+  width: 100%; background: none; border: none; cursor: pointer;
+  padding: 11px 16px; display: flex; align-items: center;
+  justify-content: space-between;
+  font-size: 13px; font-weight: 800; color: var(--text);
+}
+.practice-ls-toggle:hover { background: var(--gray1); }
+.practice-ls-arrow { font-size: 11px; color: var(--gray4); transition: transform 0.2s; }
+.practice-ls-toggle.open .practice-ls-arrow { transform: rotate(180deg); }
+.practice-ls-body { display: none; padding: 0 16px 12px; }
+.practice-ls-body.open { display: block; }
+.practice-ls-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 0; border-bottom: 1px solid var(--gray1);
+  font-size: 12px;
+}
+.practice-ls-row:last-child { border-bottom: none; }
+.practice-ls-name { flex: 1; font-weight: 700; color: var(--text); }
+.practice-ls-bar-wrap { width: 60px; height: 6px; background: var(--gray2); border-radius: 99px; overflow: hidden; flex-shrink: 0; }
+.practice-ls-bar-fill { height: 100%; border-radius: 99px; background: var(--green); }
+.practice-ls-bar-fill.ok { background: #f59e0b; }
+.practice-ls-bar-fill.poor { background: #ef4444; }
+.practice-ls-pct { font-size: 11px; font-weight: 900; color: var(--gray4); min-width: 30px; text-align: right; }
+
 /* practice-54: XP multiplier pill */
 .pmb-xp-mult-pill {
   display: inline-flex; align-items: center; gap: 5px;
@@ -5777,6 +5823,322 @@ mark.search-hl {
 :root[data-theme="dark"] .reminder-time-input {
   background: var(--gray1); border-color: var(--gray2); color: var(--text);
 }
+/* ---- profile-36: Export Data Button ---- */
+.export-data-wrap {
+  display: flex; flex-direction: column; gap: 14px;
+}
+.export-data-summary {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;
+}
+.export-data-stat {
+  background: var(--bg-hover, rgba(0,0,0,0.04));
+  border: 1.5px solid var(--gray2); border-radius: 12px;
+  padding: 10px 6px; text-align: center;
+}
+.export-data-stat-val {
+  font-size: 20px; font-weight: 900; color: var(--text);
+}
+.export-data-stat-lbl {
+  font-size: 10px; font-weight: 700; color: var(--gray3);
+  text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px;
+}
+.export-data-btn {
+  width: 100%; padding: 14px 18px; border-radius: 14px;
+  border: 2px solid var(--green, #58cc02);
+  background: var(--green, #58cc02); color: #fff;
+  font-size: 15px; font-weight: 900; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: opacity 0.15s, transform 0.12s;
+  -webkit-tap-highlight-color: transparent;
+  font-family: inherit;
+}
+.export-data-btn:active { opacity: 0.75; transform: scale(0.97); }
+.export-data-btn.exported {
+  background: #8b5cf6; border-color: #8b5cf6;
+}
+.export-data-note {
+  font-size: 10px; font-weight: 600; color: var(--gray3); text-align: center;
+}
+:root[data-theme="dark"] .export-data-stat {
+  background: var(--gray1); border-color: var(--gray2);
+}
+
+/* ---- profile-35: Commitment Score ---- */
+.commit-score-wrap {
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  padding: 8px 0;
+}
+.commit-score-ring-wrap {
+  position: relative; width: 120px; height: 120px;
+}
+.commit-score-ring-svg {
+  width: 120px; height: 120px; transform: rotate(-90deg);
+}
+.commit-score-ring-track {
+  fill: none; stroke: var(--gray2); stroke-width: 10;
+}
+.commit-score-ring-fill {
+  fill: none; stroke-width: 10; stroke-linecap: round;
+  stroke-dasharray: 314;
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+.commit-score-center {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.commit-score-num {
+  font-size: 32px; font-weight: 900; line-height: 1; color: var(--text);
+}
+.commit-score-label {
+  font-size: 9px; font-weight: 700; color: var(--gray3);
+  text-transform: uppercase; letter-spacing: 0.09em;
+}
+.commit-score-grade {
+  font-size: 18px; font-weight: 900; padding: 5px 18px;
+  border-radius: 20px; letter-spacing: 0.04em;
+}
+.commit-score-factors {
+  width: 100%; display: flex; flex-direction: column; gap: 7px;
+}
+.commit-score-factor-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px;
+}
+.commit-score-factor-name {
+  font-size: 11px; font-weight: 700; color: var(--gray4); flex: 1;
+}
+.commit-score-factor-bar {
+  flex: 2; height: 6px; background: var(--gray2); border-radius: 4px; overflow: hidden;
+}
+.commit-score-factor-fill {
+  height: 100%; border-radius: 4px;
+}
+.commit-score-factor-pts {
+  font-size: 11px; font-weight: 800; color: var(--text); min-width: 30px; text-align: right;
+}
+
+/* ---- profile-34: Learning DNA Card ---- */
+.dna-card-wrap {
+  display: flex; flex-direction: column; gap: 14px;
+}
+.dna-type-hero {
+  display: flex; align-items: center; gap: 14px;
+  padding: 10px 0 4px;
+}
+.dna-type-icon {
+  font-size: 42px; flex-shrink: 0;
+}
+.dna-type-text { flex: 1; }
+.dna-type-label {
+  font-size: 10px; font-weight: 700; color: var(--gray3);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.dna-type-name {
+  font-size: 22px; font-weight: 900; color: var(--text); line-height: 1.2;
+}
+.dna-type-desc {
+  font-size: 11px; font-weight: 600; color: var(--gray4); margin-top: 2px; line-height: 1.4;
+}
+.dna-traits-grid {
+  display: flex; flex-direction: column; gap: 7px;
+}
+.dna-trait-row {
+  display: flex; align-items: center; gap: 10px;
+}
+.dna-trait-label {
+  font-size: 11px; font-weight: 700; color: var(--gray4);
+  min-width: 88px; flex-shrink: 0;
+}
+.dna-trait-bar-track {
+  flex: 1; height: 8px; background: var(--gray2); border-radius: 6px; overflow: hidden;
+}
+.dna-trait-bar-fill {
+  height: 100%; border-radius: 6px;
+  transition: width 0.5s ease;
+}
+.dna-trait-val {
+  font-size: 11px; font-weight: 800; color: var(--text);
+  min-width: 30px; text-align: right; flex-shrink: 0;
+}
+
+/* ---- profile-33: Weakness Spotlight ---- */
+.weakness-list {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.weakness-item {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--bg-hover, rgba(0,0,0,0.04));
+  border: 1.5px solid var(--gray2); border-radius: 14px;
+  padding: 12px 14px;
+}
+.weakness-rank {
+  font-size: 20px; font-weight: 900; color: var(--gray3);
+  min-width: 28px; text-align: center; flex-shrink: 0;
+}
+.weakness-rank.rank-1 { color: #ff4b4b; }
+.weakness-rank.rank-2 { color: #ff9600; }
+.weakness-rank.rank-3 { color: #ffd900; }
+.weakness-info { flex: 1; min-width: 0; }
+.weakness-topic {
+  font-size: 13px; font-weight: 800; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.weakness-unit {
+  font-size: 10px; font-weight: 600; color: var(--gray4); margin-top: 1px;
+}
+.weakness-count {
+  font-size: 11px; font-weight: 700;
+  background: rgba(255,75,75,0.12); color: #ff4b4b;
+  padding: 3px 8px; border-radius: 8px; flex-shrink: 0;
+}
+.weakness-empty {
+  text-align: center; padding: 20px 0;
+  font-size: 13px; font-weight: 600; color: var(--gray3);
+}
+.weakness-empty-icon { font-size: 28px; margin-bottom: 6px; }
+:root[data-theme="dark"] .weakness-item {
+  background: var(--gray1); border-color: var(--gray2);
+}
+
+/* ---- profile-32: Unit Mastery Progress Bars ---- */
+.unit-mastery-list {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.unit-mastery-row {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.unit-mastery-label-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px;
+}
+.unit-mastery-name {
+  font-size: 13px; font-weight: 700; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 70%;
+}
+.unit-mastery-pct {
+  font-size: 12px; font-weight: 900; flex-shrink: 0;
+}
+.unit-mastery-bar-track {
+  height: 8px; background: var(--gray2); border-radius: 6px; overflow: hidden;
+}
+.unit-mastery-bar-fill {
+  height: 100%; border-radius: 6px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.unit-mastery-empty {
+  text-align: center; padding: 16px 0;
+  font-size: 13px; font-weight: 600; color: var(--gray3);
+}
+
+/* ---- profile-31: Accuracy Over Time Chart ---- */
+.accuracy-chart-wrap {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.accuracy-chart-svg-wrap {
+  width: 100%; overflow: hidden;
+}
+.accuracy-chart-svg {
+  width: 100%; height: 120px; display: block;
+}
+.accuracy-chart-legend {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 10px; font-weight: 700; color: var(--gray3);
+}
+.accuracy-chart-sessions-row {
+  display: flex; justify-content: space-between;
+  padding: 0 2px;
+}
+.accuracy-chart-session-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green, #58cc02);
+  flex-shrink: 0;
+}
+.accuracy-chart-avg-line {
+  font-size: 11px; font-weight: 700; color: var(--gray4);
+  text-align: center;
+}
+.accuracy-chart-empty {
+  text-align: center; padding: 24px 0;
+  font-size: 13px; font-weight: 600; color: var(--gray3);
+}
+
+/* ---- profile-30: Personal Records Board ---- */
+.pr-board-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+.pr-board-cell {
+  background: var(--bg-hover, rgba(0,0,0,0.04));
+  border: 1.5px solid var(--gray2); border-radius: 14px;
+  padding: 14px 12px; text-align: center;
+  position: relative; overflow: hidden;
+}
+.pr-board-cell.gold-record {
+  border-color: #f9a825;
+  background: linear-gradient(135deg, rgba(249,168,37,0.08) 0%, transparent 70%);
+}
+.pr-board-medal {
+  font-size: 22px; margin-bottom: 4px;
+}
+.pr-board-val {
+  font-size: 26px; font-weight: 900; color: var(--text); line-height: 1.1;
+}
+.pr-board-lbl {
+  font-size: 10px; font-weight: 700; color: var(--gray3);
+  text-transform: uppercase; letter-spacing: 0.07em; margin-top: 3px;
+}
+.pr-board-sub {
+  font-size: 10px; font-weight: 600; color: var(--gray4); margin-top: 2px;
+}
+:root[data-theme="dark"] .pr-board-cell {
+  background: var(--gray1); border-color: var(--gray2);
+}
+:root[data-theme="dark"] .pr-board-cell.gold-record {
+  background: linear-gradient(135deg, rgba(249,168,37,0.12) 0%, var(--gray1) 70%);
+}
+
+/* ---- profile-29: Total Study Hours Card ---- */
+.study-hours-wrap {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.study-hours-hero {
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; padding: 14px 0 6px;
+}
+.study-hours-clock-icon {
+  font-size: 40px; line-height: 1;
+}
+.study-hours-num {
+  font-size: 52px; font-weight: 900; line-height: 1;
+  color: var(--green, #58cc02);
+}
+.study-hours-unit {
+  font-size: 13px; font-weight: 700; color: var(--gray4);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.study-hours-breakdown {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;
+}
+.study-hours-breakdown-cell {
+  background: var(--bg-hover, rgba(0,0,0,0.04));
+  border: 1.5px solid var(--gray2); border-radius: 12px;
+  padding: 10px 6px; text-align: center;
+}
+.study-hours-breakdown-val {
+  font-size: 20px; font-weight: 900; color: var(--text);
+}
+.study-hours-breakdown-lbl {
+  font-size: 10px; font-weight: 700; color: var(--gray3);
+  text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px;
+}
+.study-hours-note {
+  font-size: 10px; font-weight: 600; color: var(--gray3);
+  text-align: center;
+}
+:root[data-theme="dark"] .study-hours-breakdown-cell {
+  background: var(--gray1); border-color: var(--gray2);
+}
+
 /* ---- profile-28: Share Your Progress Button ---- */
 .share-progress-wrap {
   display: flex; flex-direction: column; gap: 14px;
@@ -7753,13 +8115,13 @@ mark.search-hl {
 <div id="app">
   <!-- TOP BAR -->
   <div id="top-bar">
-    <div class="tb-streak" aria-label="Streak">
+    <div class="tb-streak" aria-label="Day Streak — how many days in a row you have done a lesson" title="Your day streak! This counts how many days in a row you've done at least one lesson. Miss a day and it resets to zero — try to keep it going!">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="#ff9600"><path d="M13.5 0.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5 0.67z"/></svg>
-      <span id="tb-streak-num">0</span>
+      <span id="tb-streak-num">0</span><span class="tb-streak-label" style="font-size:9px;font-weight:700;color:var(--gray4);letter-spacing:0.3px;margin-left:2px;line-height:1;">day streak</span>
     </div>
-    <div class="tb-hearts" id="tb-hearts" aria-label="Hearts"></div>
-    <div class="tb-gems" id="tb-gems" onclick="openGemShop()" aria-label="Gems - open shop"></div>
-    <div class="tb-xp" id="tb-xp-ring" aria-label="XP and Level"></div>
+    <div class="tb-hearts" id="tb-hearts" aria-label="Your lives — answer correctly to keep them" title="These are your lives. If you get too many answers wrong, you lose one. They refill automatically after a short wait, or you can refill them with Gems from the shop."></div>
+    <div class="tb-gems" id="tb-gems" onclick="openGemShop()" aria-label="Gems - open shop" title="Gems are rewards you earn by completing lessons. Spend them in the Gem Shop for bonuses like extra lives or a Day Off Pass!"></div>
+    <div class="tb-xp" id="tb-xp-ring" aria-label="Your level — goes up as you earn Learning Points" title="This is your level. Every lesson earns you Learning Points (XP). Collect enough to level up!"></div>
     <span id="tb-course-pct" class="tb-course-pct" aria-label="Course completion percentage"></span>
     <div id="tb-xp-bar-wrap" aria-hidden="true"><div id="tb-xp-bar-fill"></div></div>
     <span id="tb-lesson-streak" aria-label="Lessons completed this session"></span>
@@ -8093,6 +8455,7 @@ mark.search-hl {
         <div id="practice-history-list"></div>
       </div>
       <div id="practice-milestone-badges-wrap"></div>
+      <div id="practice-lesson-stats-wrap"></div>
       <div id="practice-leaderboard-wrap" style="margin-top:14px;"></div>
       <div class="practice-notes-section" style="margin-top:14px;">
         <button class="practice-notes-toggle" onclick="(function(btn){btn.classList.toggle('open');var b=btn.nextElementSibling;b.classList.toggle('open');if(b.classList.contains('open'))renderPracticeSessionNotes();})(this)" aria-expanded="false">
@@ -8166,6 +8529,14 @@ mark.search-hl {
     <div class="section-card" id="profile-fav-topic-card"></div>
     <div class="section-card" id="profile-days-goal-card"></div>
     <div class="section-card" id="profile-share-progress-card"></div>
+    <div class="section-card" id="profile-study-hours-card"></div>
+    <div class="section-card" id="profile-pr-board-card"></div>
+    <div class="section-card" id="profile-accuracy-chart-card"></div>
+    <div class="section-card" id="profile-unit-mastery-card"></div>
+    <div class="section-card" id="profile-weakness-card"></div>
+    <div class="section-card" id="profile-dna-card"></div>
+    <div class="section-card" id="profile-commitment-card"></div>
+    <div class="section-card" id="profile-export-card"></div>
     <div class="section-card">
       <div class="section-title">My Notes</div>
       <div id="profile-notes-list"></div>
@@ -29258,6 +29629,28 @@ function finishPractice() {
   const _bestMap2 = S.practice_best || {};
   const _prevBest = _bestMap2[lessonState.practiceType];
   const _isNewBest = _prevBest !== undefined && _accuracy >= _prevBest && total > 0;
+  // practice-55: comeback badge (accuracy up vs last session of same type)
+  var _comebackHtml55 = '';
+  (function() {
+    var _h55 = S.practice_history || [];
+    var _prev55 = null;
+    for (var _i55 = _h55.length - 1; _i55 >= 0; _i55--) {
+      if (_h55[_i55].type === lessonState.practiceType) { _prev55 = _h55[_i55]; break; }
+    }
+    if (_prev55 && _prev55.total > 0) {
+      var _prevPct55 = Math.round((_prev55.score / _prev55.total) * 100);
+      var _improvement55 = _accuracy - _prevPct55;
+      if (_improvement55 >= 10) {
+        _comebackHtml55 = '<div class="practice-comeback-badge">'
+          + '\uD83D\uDD25 Comeback! +' + _improvement55 + '% better than last time'
+          + '</div>';
+      } else if (_improvement55 > 0 && _accuracy >= 70) {
+        _comebackHtml55 = '<div class="practice-comeback-badge improve">'
+          + '\uD83D\uDCC8 Improving! +' + _improvement55 + '% vs last session'
+          + '</div>';
+      }
+    }
+  })();
   const _bestLine = _prevBest !== undefined
     ? (_isNewBest && _accuracy > (_prevBest - (_isNewBest ? 0 : 1))
         ? '<div style="font-size:12px;font-weight:800;color:#15803d;margin-top:-4px;">&#x2B50; New best! ' + _accuracy + '%</div>'
@@ -29280,6 +29673,7 @@ function finishPractice() {
         + '<div style="font-size:15px;font-weight:800;color:var(--gray4);">' + score + ' / ' + total + ' correct</div>'
         + _bestLine
         + '<div class="practice-celeb-msg">' + _celebMsg + '</div>'
+        + _comebackHtml55
         + '<div style="font-size:13px;font-weight:600;color:var(--gray4);">Time: ' + _elapsedStr + '</div>'
         + ((lessonState.practiceType !== 'timed' && lessonState.avgAnswerTime) ? '<div style="font-size:12px;font-weight:700;color:#0369a1;">Avg: ' + lessonState.avgAnswerTime.toFixed(1) + 's per question</div>' : '')
         + '<div class="xp-earned-pill"><svg width="18" height="18" viewBox="0 0 24 24" fill="#5c4200"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>+' + (20 + bonusXP) + ' XP earned</div>'
@@ -33971,6 +34365,520 @@ function renderProfileTab() {
       '</div>';
   })();
 
+
+  // profile-36: Export Data Button
+  (function() {
+    var _exEl = document.getElementById('profile-export-card');
+    if (!_exEl) return;
+
+    var _lessons36  = (S.completed || []).length;
+    var _sessions36 = (S.practice_history || []).length;
+    var _xp36       = S.xp || 0;
+
+    _exEl.innerHTML =
+      '<div class="section-title">Export My Data</div>' +
+      '<div class="export-data-wrap">' +
+        '<div class="export-data-summary">' +
+          '<div class="export-data-stat">' +
+            '<div class="export-data-stat-val">' + _lessons36 + '</div>' +
+            '<div class="export-data-stat-lbl">Lessons</div>' +
+          '</div>' +
+          '<div class="export-data-stat">' +
+            '<div class="export-data-stat-val">' + _xp36 + '</div>' +
+            '<div class="export-data-stat-lbl">Total XP</div>' +
+          '</div>' +
+          '<div class="export-data-stat">' +
+            '<div class="export-data-stat-val">' + _sessions36 + '</div>' +
+            '<div class="export-data-stat-lbl">Sessions</div>' +
+          '</div>' +
+        '</div>' +
+        '<button class="export-data-btn" id="export-data-btn" onclick="profileExportData()">' +
+          '📥 Download Progress JSON' +
+        '</button>' +
+        '<div class="export-data-note">All your progress, notes, XP, and session history in one file.</div>' +
+      '</div>';
+  })();
+
+  // profile-35: Commitment Score
+  (function() {
+    var _csEl = document.getElementById('profile-commitment-card');
+    if (!_csEl) return;
+
+    var _streak35   = Math.max(S.streak || 0, S.best_streak || 0);
+    var _activeDays35 = (S.active_days || []).length;
+    var _hist35     = S.practice_history || [];
+    var _completed35 = (S.completed || []).length;
+
+    // Factor 1: Streak score (max 30 pts) — 7+ day streak = full
+    var _streakPts = Math.min(30, Math.round((_streak35 / 7) * 30));
+
+    // Factor 2: Active days (max 30 pts) — 20+ days = full
+    var _daysPts = Math.min(30, Math.round((_activeDays35 / 20) * 30));
+
+    // Factor 3: Lessons completed (max 25 pts) — 20+ lessons = full
+    var _lessonPts = Math.min(25, Math.round((_completed35 / 20) * 25));
+
+    // Factor 4: Practice sessions (max 15 pts) — 10+ = full
+    var _sessionPts = Math.min(15, Math.round((_hist35.length / 10) * 15));
+
+    var _total35 = _streakPts + _daysPts + _lessonPts + _sessionPts;
+
+    // Grade
+    var _grade, _gradeColor, _gradeMsg;
+    if (_total35 >= 90) {
+      _grade = 'S'; _gradeColor = '#ffd900';
+      _gradeMsg = 'Elite commitment. You are unstoppable.';
+    } else if (_total35 >= 75) {
+      _grade = 'A'; _gradeColor = '#58cc02';
+      _gradeMsg = 'Excellent dedication. Keep pushing!';
+    } else if (_total35 >= 55) {
+      _grade = 'B'; _gradeColor = '#1cb0f6';
+      _gradeMsg = 'Good momentum. Build that streak!';
+    } else if (_total35 >= 35) {
+      _grade = 'C'; _gradeColor = '#ff9600';
+      _gradeMsg = 'Getting started. Aim for 7 days in a row.';
+    } else {
+      _grade = 'D'; _gradeColor = '#ff4b4b';
+      _gradeMsg = 'Just beginning. One lesson a day changes everything.';
+    }
+
+    // Ring: 314 = circumference of r=50
+    var _offset = Math.round(314 - (_total35 / 100) * 314);
+
+    var _factors = [
+      { name: 'Daily Streak',   pts: _streakPts,  max: 30, color: '#ff9600' },
+      { name: 'Active Days',    pts: _daysPts,    max: 30, color: '#1cb0f6' },
+      { name: 'Lessons Done',   pts: _lessonPts,  max: 25, color: '#58cc02' },
+      { name: 'Practice Sessions', pts: _sessionPts, max: 15, color: '#ce82ff' }
+    ];
+
+    var _factorRows = _factors.map(function(f) {
+      var _barPct = Math.round((f.pts / f.max) * 100);
+      return (
+        '<div class="commit-score-factor-row">' +
+          '<div class="commit-score-factor-name">' + f.name + '</div>' +
+          '<div class="commit-score-factor-bar">' +
+            '<div class="commit-score-factor-fill" style="width:' + _barPct + '%;background:' + f.color + ';"></div>' +
+          '</div>' +
+          '<div class="commit-score-factor-pts">' + f.pts + '/' + f.max + '</div>' +
+        '</div>'
+      );
+    }).join('');
+
+    _csEl.innerHTML =
+      '<div class="section-title">Commitment Score</div>' +
+      '<div class="commit-score-wrap">' +
+        '<div class="commit-score-ring-wrap">' +
+          '<svg class="commit-score-ring-svg" viewBox="0 0 120 120">' +
+            '<circle class="commit-score-ring-track" cx="60" cy="60" r="50"/>' +
+            '<circle class="commit-score-ring-fill" cx="60" cy="60" r="50" ' +
+              'stroke="' + _gradeColor + '" ' +
+              'style="stroke-dashoffset:' + _offset + '"/>' +
+          '</svg>' +
+          '<div class="commit-score-center">' +
+            '<div class="commit-score-num">' + _total35 + '</div>' +
+            '<div class="commit-score-label">/ 100</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="commit-score-grade" style="background:' + _gradeColor + '22;color:' + _gradeColor + '">' +
+          'Grade ' + _grade +
+        '</div>' +
+        '<div style="font-size:12px;font-weight:600;color:var(--gray4);text-align:center;padding:0 8px;">' + _gradeMsg + '</div>' +
+        '<div class="commit-score-factors">' + _factorRows + '</div>' +
+      '</div>';
+  })();
+
+  // profile-34: Learning DNA Card
+  (function() {
+    var _dnaEl = document.getElementById('profile-dna-card');
+    if (!_dnaEl) return;
+
+    var _hist34    = S.practice_history || [];
+    var _completed34 = (S.completed || []).length;
+    var _streak34  = S.streak || 0;
+    var _bestStrk  = Math.max(S.best_streak || 0, _streak34);
+    var _activeDays = (S.active_days || []).length;
+
+    // --- Trait: Speed (sessions per active day) ---
+    var _speedRaw = _activeDays > 0 ? (_hist34.length / _activeDays) : 0;
+    var _speedScore = Math.min(100, Math.round(_speedRaw * 50)); // 2 sessions/day = 100
+
+    // --- Trait: Accuracy (avg across all sessions) ---
+    var _accScore = 0;
+    if (_hist34.length > 0) {
+      var _sum = 0;
+      _hist34.forEach(function(h) { _sum += (h.total > 0 ? (h.score / h.total) : 0); });
+      _accScore = Math.round((_sum / _hist34.length) * 100);
+    }
+
+    // --- Trait: Consistency (streak vs max possible) ---
+    var _consScore = Math.min(100, Math.round((_bestStrk / 30) * 100));
+
+    // --- Trait: Explorer (unique units touched) ---
+    var _unitSet = {};
+    (S.completed || []).forEach(function(lid) {
+      var _m = lid.match(/^(u\d+)/);
+      if (_m) _unitSet[_m[1]] = true;
+    });
+    var _totalUnits = typeof COURSE !== 'undefined' ? COURSE.length : 1;
+    var _exploreScore = _totalUnits > 0
+      ? Math.min(100, Math.round((Object.keys(_unitSet).length / _totalUnits) * 100))
+      : 0;
+
+    // Dominant trait
+    var _traits = [
+      { name: 'Speed',       score: _speedScore,   color: '#ff9600', label: 'Pace' },
+      { name: 'Accuracy',    score: _accScore,     color: '#58cc02', label: 'Precision' },
+      { name: 'Consistency', score: _consScore,    color: '#1cb0f6', label: 'Consistency' },
+      { name: 'Explorer',    score: _exploreScore, color: '#ce82ff', label: 'Breadth' }
+    ];
+
+    var _dominant = _traits.reduce(function(best, t) { return t.score > best.score ? t : best; }, _traits[0]);
+
+    var _typeMap = {
+      Speed:       { icon: '🚀', name: 'Speed Runner',    desc: 'You learn fast and push through sessions quickly. Momentum is your superpower.' },
+      Accuracy:    { icon: '🎯', name: 'Precision Learner', desc: 'You focus on getting answers right. Quality over quantity drives you forward.' },
+      Consistency: { icon: '🔥', name: 'Streak Master',   desc: 'Daily habits define you. Your consistency compounds into serious progress.' },
+      Explorer:    { icon: '🌍', name: 'Knowledge Explorer', desc: 'You love range. Covering new ground across many units keeps you engaged.' }
+    };
+    var _type = _typeMap[_dominant.name] || _typeMap['Accuracy'];
+
+    var _traitRows = _traits.map(function(t) {
+      return (
+        '<div class="dna-trait-row">' +
+          '<div class="dna-trait-label">' + t.label + '</div>' +
+          '<div class="dna-trait-bar-track">' +
+            '<div class="dna-trait-bar-fill" style="width:' + t.score + '%;background:' + t.color + ';"></div>' +
+          '</div>' +
+          '<div class="dna-trait-val">' + t.score + '</div>' +
+        '</div>'
+      );
+    }).join('');
+
+    _dnaEl.innerHTML =
+      '<div class="section-title">Learning DNA</div>' +
+      '<div class="dna-card-wrap">' +
+        '<div class="dna-type-hero">' +
+          '<div class="dna-type-icon">' + _type.icon + '</div>' +
+          '<div class="dna-type-text">' +
+            '<div class="dna-type-label">Your Learner Type</div>' +
+            '<div class="dna-type-name">' + _type.name + '</div>' +
+            '<div class="dna-type-desc">' + _type.desc + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="dna-traits-grid">' + _traitRows + '</div>' +
+      '</div>';
+  })();
+
+  // profile-33: Weakness Spotlight
+  (function() {
+    var _wsEl = document.getElementById('profile-weakness-card');
+    if (!_wsEl) return;
+
+    var _wrong33 = S.wrong_answers || [];
+
+    if (_wrong33.length === 0) {
+      _wsEl.innerHTML =
+        '<div class="section-title">Weakness Spotlight</div>' +
+        '<div class="weakness-empty">' +
+          '<div class="weakness-empty-icon">🏆</div>' +
+          '<div>No weak spots yet! Keep practicing to see which topics need more work.</div>' +
+        '</div>';
+      return;
+    }
+
+    // Count wrong answers per lessonId
+    var _counts = {};
+    _wrong33.forEach(function(w) {
+      var _lid = w.lessonId || w.lesson_id || (typeof w === 'string' ? w : null);
+      if (!_lid) return;
+      _counts[_lid] = (_counts[_lid] || 0) + 1;
+    });
+
+    // Sort by count desc, take top 3
+    var _sorted = Object.keys(_counts).sort(function(a, b) { return _counts[b] - _counts[a]; }).slice(0, 3);
+
+    // Build display names
+    var _rankClasses = ['rank-1', 'rank-2', 'rank-3'];
+    var _rankEmojis  = ['🔴', '🟠', '🟡'];
+
+    var _items = _sorted.map(function(lid, i) {
+      var _cnt = _counts[lid];
+      var _lessonTitle = lid;
+      var _unitTitle = '';
+
+      if (typeof COURSE !== 'undefined') {
+        COURSE.forEach(function(unit) {
+          var _found = (unit.lessons || []).find(function(l) { return l.id === lid; });
+          if (_found) {
+            _lessonTitle = _found.title || lid;
+            _unitTitle   = unit.title || '';
+          }
+        });
+      }
+      if (_lessonTitle.length > 32) _lessonTitle = _lessonTitle.substring(0, 30) + '…';
+
+      return (
+        '<div class="weakness-item">' +
+          '<div class="weakness-rank ' + _rankClasses[i] + '">' + _rankEmojis[i] + '</div>' +
+          '<div class="weakness-info">' +
+            '<div class="weakness-topic">' + _lessonTitle + '</div>' +
+            (_unitTitle ? '<div class="weakness-unit">' + _unitTitle + '</div>' : '') +
+          '</div>' +
+          '<div class="weakness-count">' + _cnt + ' miss' + (_cnt !== 1 ? 'es' : '') + '</div>' +
+        '</div>'
+      );
+    }).join('');
+
+    _wsEl.innerHTML =
+      '<div class="section-title">Weakness Spotlight</div>' +
+      '<div class="weakness-list">' + _items + '</div>';
+  })();
+
+  // profile-32: Unit Mastery Progress Bars
+  (function() {
+    var _umEl = document.getElementById('profile-unit-mastery-card');
+    if (!_umEl) return;
+
+    if (typeof COURSE === 'undefined' || !COURSE || COURSE.length === 0) {
+      _umEl.innerHTML =
+        '<div class="section-title">Unit Mastery</div>' +
+        '<div class="unit-mastery-empty">Course data not available.</div>';
+      return;
+    }
+
+    var _done32 = S.completed || [];
+    var _COLORS = ['#58cc02','#1cb0f6','#ff9600','#ff4b4b','#ce82ff','#ffd900'];
+
+    var _rows = COURSE.map(function(unit, idx) {
+      var _total = unit.lessons ? unit.lessons.length : 0;
+      if (_total === 0) return '';
+      var _comp = unit.lessons.filter(function(l) { return _done32.indexOf(l.id) !== -1; }).length;
+      var _pct = Math.round((_comp / _total) * 100);
+      var _color = _COLORS[idx % _COLORS.length];
+      var _pctLabel = _pct + '%';
+      var _pctStyle = _pct >= 100
+        ? 'color:#58cc02'
+        : (_pct >= 50 ? 'color:var(--text)' : 'color:var(--gray3)');
+      var _unitName = unit.title || ('Unit ' + (idx + 1));
+      if (_unitName.length > 28) _unitName = _unitName.substring(0, 26) + '…';
+      return (
+        '<div class="unit-mastery-row">' +
+          '<div class="unit-mastery-label-row">' +
+            '<span class="unit-mastery-name">' + _unitName + '</span>' +
+            '<span class="unit-mastery-pct" style="' + _pctStyle + '">' + _pctLabel + '</span>' +
+          '</div>' +
+          '<div class="unit-mastery-bar-track">' +
+            '<div class="unit-mastery-bar-fill" style="width:' + _pct + '%;background:' + _color + ';"></div>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join('');
+
+    _umEl.innerHTML =
+      '<div class="section-title">Unit Mastery</div>' +
+      '<div class="unit-mastery-list">' + (_rows || '<div class="unit-mastery-empty">No lessons started yet.</div>') + '</div>';
+  })();
+
+  // profile-31: Accuracy Over Time Chart
+  (function() {
+    var _acEl = document.getElementById('profile-accuracy-chart-card');
+    if (!_acEl) return;
+
+    var _hist31 = (S.practice_history || []).slice(-10);
+
+    if (_hist31.length < 2) {
+      _acEl.innerHTML =
+        '<div class="section-title">Accuracy Over Time</div>' +
+        '<div class="accuracy-chart-empty">Complete at least 2 practice sessions to see your accuracy trend.</div>';
+      return;
+    }
+
+    var _pts = _hist31.map(function(h) {
+      return h.total > 0 ? Math.round((h.score / h.total) * 100) : 0;
+    });
+    var _avg31 = Math.round(_pts.reduce(function(a, b) { return a + b; }, 0) / _pts.length);
+
+    // Build SVG polyline
+    var _W = 280; var _H = 100; var _pad = 10;
+    var _n = _pts.length;
+    var _xStep = (_W - _pad * 2) / (_n - 1);
+    var _yMin = Math.max(0, Math.min.apply(null, _pts) - 10);
+    var _yMax = Math.min(100, Math.max.apply(null, _pts) + 10);
+    var _yRange = _yMax - _yMin || 1;
+
+    function _px(i) { return (_pad + i * _xStep).toFixed(1); }
+    function _py(v) { return (_H - _pad - ((v - _yMin) / _yRange) * (_H - _pad * 2)).toFixed(1); }
+
+    var _polyPts = _pts.map(function(v, i) { return _px(i) + ',' + _py(v); }).join(' ');
+
+    // Area fill points
+    var _areaPts = _polyPts +
+      ' ' + _px(_n - 1) + ',' + (_H - _pad) +
+      ' ' + _px(0) + ',' + (_H - _pad);
+
+    // Avg line y
+    var _avgY = _py(_avg31);
+
+    // Dot + label for first and last
+    var _firstVal = _pts[0]; var _lastVal = _pts[_n - 1];
+    var _trend = _lastVal > _firstVal ? '↗ Improving' : _lastVal < _firstVal ? '↘ Declining' : '→ Steady';
+    var _trendColor = _lastVal > _firstVal ? '#58cc02' : _lastVal < _firstVal ? '#ff4b4b' : '#ababab';
+
+    var _svgDots = _pts.map(function(v, i) {
+      var _isLast = i === _n - 1;
+      var _r = _isLast ? '5' : '3';
+      var _fill = _isLast ? 'var(--green, #58cc02)' : 'rgba(88,204,2,0.5)';
+      var _labelX = parseFloat(_px(i));
+      var _labelAnchor = i === 0 ? 'start' : i === _n - 1 ? 'end' : 'middle';
+      var _showLabel = i === 0 || i === _n - 1;
+      return (
+        '<circle cx="' + _px(i) + '" cy="' + _py(v) + '" r="' + _r + '" fill="' + _fill + '"/>' +
+        (_showLabel ? '<text x="' + _labelX + '" y="' + (parseFloat(_py(v)) - 7) + '" text-anchor="' + _labelAnchor + '" font-size="9" font-weight="700" fill="var(--text)" font-family="inherit">' + v + '%</text>' : '')
+      );
+    }).join('');
+
+    var _svgHTML =
+      '<svg class="accuracy-chart-svg" viewBox="0 0 ' + _W + ' ' + _H + '" preserveAspectRatio="none">' +
+        '<defs>' +
+          '<linearGradient id="acc-area-grad" x1="0" y1="0" x2="0" y2="1">' +
+            '<stop offset="0%" stop-color="var(--green,#58cc02)" stop-opacity="0.25"/>' +
+            '<stop offset="100%" stop-color="var(--green,#58cc02)" stop-opacity="0.02"/>' +
+          '</linearGradient>' +
+        '</defs>' +
+        '<polygon points="' + _areaPts + '" fill="url(#acc-area-grad)"/>' +
+        '<line x1="' + _pad + '" y1="' + _avgY + '" x2="' + (_W - _pad) + '" y2="' + _avgY + '" ' +
+          'stroke="#ababab" stroke-width="1" stroke-dasharray="4,3"/>' +
+        '<polyline points="' + _polyPts + '" fill="none" stroke="var(--green,#58cc02)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>' +
+        _svgDots +
+      '</svg>';
+
+    _acEl.innerHTML =
+      '<div class="section-title">Accuracy Over Time</div>' +
+      '<div class="accuracy-chart-wrap">' +
+        '<div class="accuracy-chart-svg-wrap">' + _svgHTML + '</div>' +
+        '<div class="accuracy-chart-legend">' +
+          '<span>Last ' + _n + ' sessions</span>' +
+          '<span style="color:' + _trendColor + '">' + _trend + '</span>' +
+        '</div>' +
+        '<div class="accuracy-chart-avg-line">Average accuracy: <strong>' + _avg31 + '%</strong></div>' +
+      '</div>';
+  })();
+
+  // profile-30: Personal Records Board
+  (function() {
+    var _prEl = document.getElementById('profile-pr-board-card');
+    if (!_prEl) return;
+
+    // Best accuracy across all practice sessions
+    var _hist30 = S.practice_history || [];
+    var _bestAcc = 0;
+    _hist30.forEach(function(h) {
+      if (h.total > 0) {
+        var _a = Math.round((h.score / h.total) * 100);
+        if (_a > _bestAcc) _bestAcc = _a;
+      }
+    });
+
+    // Longest streak
+    var _bestStreak30 = Math.max(S.best_streak || 0, S.streak || 0);
+
+    // Best practice answer streak in a single session
+    var _bestAnsStreak = S.practice_best_streak || 0;
+
+    // Most lessons completed in one week — infer from lesson_log_dates
+    var _lld30 = S.lesson_log_dates || {};
+    var _weekCounts = {};
+    Object.keys(_lld30).forEach(function(lid) {
+      var _ts = _lld30[lid];
+      if (!_ts) return;
+      var _d = new Date(_ts);
+      var _jan1 = new Date(_d.getFullYear(), 0, 1);
+      var _wk = Math.ceil(((_d - _jan1) / 86400000 + _jan1.getDay() + 1) / 7);
+      var _key = _d.getFullYear() + '-W' + _wk;
+      _weekCounts[_key] = (_weekCounts[_key] || 0) + 1;
+    });
+    var _bestWeek = 0;
+    Object.keys(_weekCounts).forEach(function(k) {
+      if (_weekCounts[k] > _bestWeek) _bestWeek = _weekCounts[k];
+    });
+
+    var _hasGold = _bestAcc >= 100 || _bestStreak30 >= 7;
+
+    _prEl.innerHTML =
+      '<div class="section-title">Personal Records</div>' +
+      '<div class="pr-board-grid">' +
+        '<div class="pr-board-cell' + (_bestStreak30 >= 7 ? ' gold-record' : '') + '">' +
+          '<div class="pr-board-medal">🔥</div>' +
+          '<div class="pr-board-val">' + _bestStreak30 + '</div>' +
+          '<div class="pr-board-lbl">Best Streak</div>' +
+          '<div class="pr-board-sub">days in a row</div>' +
+        '</div>' +
+        '<div class="pr-board-cell' + (_bestAcc >= 100 ? ' gold-record' : '') + '">' +
+          '<div class="pr-board-medal">🎯</div>' +
+          '<div class="pr-board-val">' + (_hist30.length > 0 ? _bestAcc + '%' : '--') + '</div>' +
+          '<div class="pr-board-lbl">Best Accuracy</div>' +
+          '<div class="pr-board-sub">in one session</div>' +
+        '</div>' +
+        '<div class="pr-board-cell' + (_bestAnsStreak >= 10 ? ' gold-record' : '') + '">' +
+          '<div class="pr-board-medal">⚡</div>' +
+          '<div class="pr-board-val">' + (_bestAnsStreak > 0 ? _bestAnsStreak : '--') + '</div>' +
+          '<div class="pr-board-lbl">Answer Streak</div>' +
+          '<div class="pr-board-sub">correct in a row</div>' +
+        '</div>' +
+        '<div class="pr-board-cell' + (_bestWeek >= 5 ? ' gold-record' : '') + '">' +
+          '<div class="pr-board-medal">📅</div>' +
+          '<div class="pr-board-val">' + (_bestWeek > 0 ? _bestWeek : '--') + '</div>' +
+          '<div class="pr-board-lbl">Best Week</div>' +
+          '<div class="pr-board-sub">lessons in 7 days</div>' +
+        '</div>' +
+      '</div>';
+  })();
+
+  // profile-29: Total Study Hours Card
+  (function() {
+    var _shEl = document.getElementById('profile-study-hours-card');
+    if (!_shEl) return;
+
+    // Estimate minutes: each lesson ~5 min, each practice session ~8 min
+    var _lessons29   = (S.completed || []).length;
+    var _sessions29  = (S.practice_history || []).length;
+    var _totalMins   = (_lessons29 * 5) + (_sessions29 * 8);
+    var _totalHrs    = Math.floor(_totalMins / 60);
+    var _remMins     = _totalMins % 60;
+
+    // Breakdown
+    var _days29      = (S.active_days || []).length;
+    var _avgMin      = _days29 > 0 ? Math.round(_totalMins / _days29) : 0;
+
+    _shEl.innerHTML =
+      '<div class="section-title">Total Study Time</div>' +
+      '<div class="study-hours-wrap">' +
+        '<div class="study-hours-hero">' +
+          '<div class="study-hours-clock-icon">⏱️</div>' +
+          '<div>' +
+            '<div class="study-hours-num">' + (_totalHrs > 0 ? _totalHrs + 'h ' + _remMins + 'm' : _totalMins + 'm') + '</div>' +
+            '<div class="study-hours-unit">estimated total</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="study-hours-breakdown">' +
+          '<div class="study-hours-breakdown-cell">' +
+            '<div class="study-hours-breakdown-val">' + _lessons29 + '</div>' +
+            '<div class="study-hours-breakdown-lbl">Lessons</div>' +
+          '</div>' +
+          '<div class="study-hours-breakdown-cell">' +
+            '<div class="study-hours-breakdown-val">' + _sessions29 + '</div>' +
+            '<div class="study-hours-breakdown-lbl">Sessions</div>' +
+          '</div>' +
+          '<div class="study-hours-breakdown-cell">' +
+            '<div class="study-hours-breakdown-val">' + _avgMin + 'm</div>' +
+            '<div class="study-hours-breakdown-lbl">Avg/Day</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="study-hours-note">Estimates: ~5 min/lesson, ~8 min/practice session</div>' +
+      '</div>';
+  })();
+
   // Render lesson notes
   renderProfileNotes();
   renderUnit1CertBtn();
@@ -34746,6 +35654,41 @@ function copyProfileCard() {
     });
   } else {
     showToast('📋 ' + _text.split('\n')[0], 'success', 2500);
+  }
+}
+
+function profileExportData() {
+  // profile-36: export all localStorage clariai_ keys as JSON
+  var _btn = document.getElementById('export-data-btn');
+  var _data = {};
+  for (var i = 0; i < localStorage.length; i++) {
+    var _k = localStorage.key(i);
+    if (_k && _k.indexOf('clariai_') === 0) {
+      try { _data[_k.replace('clariai_', '')] = JSON.parse(localStorage.getItem(_k)); }
+      catch(e) { _data[_k.replace('clariai_', '')] = localStorage.getItem(_k); }
+    }
+  }
+  _data._exported_at = new Date().toISOString();
+  _data._app = 'Clari AI Mentor';
+
+  var _json = JSON.stringify(_data, null, 2);
+  var _blob = new Blob([_json], { type: 'application/json' });
+  var _url  = URL.createObjectURL(_blob);
+  var _a    = document.createElement('a');
+  _a.href   = _url;
+  _a.download = 'clari-progress-' + new Date().toISOString().slice(0,10) + '.json';
+  document.body.appendChild(_a);
+  _a.click();
+  document.body.removeChild(_a);
+  URL.revokeObjectURL(_url);
+
+  if (_btn) {
+    _btn.classList.add('exported');
+    _btn.textContent = '✓ Downloaded!';
+    setTimeout(function() {
+      _btn.classList.remove('exported');
+      _btn.innerHTML = '📥 Download Progress JSON';
+    }, 2500);
   }
 }
 
