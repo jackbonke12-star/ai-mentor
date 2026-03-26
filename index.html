@@ -2682,6 +2682,18 @@ body.text-xl     { --text-scale: 1.3; }
 #view-practice { background: var(--bg); padding: 16px 12px 20px; }
 .practice-header { font-size: 22px; font-weight: 900; color: var(--text); margin-bottom: 4px; }
 .practice-sub    { font-size: 14px; font-weight: 600; color: var(--gray4); margin-bottom: 8px; }
+.practice-header-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 4px;
+}
+.practice-sound-btn {
+  width: 32px; height: 32px; border-radius: 8px; border: 1.5px solid var(--gray2);
+  background: var(--white); cursor: pointer; display: flex; align-items: center;
+  justify-content: center; font-size: 16px; flex-shrink: 0;
+  transition: background 0.15s, border-color 0.15s;
+}
+.practice-sound-btn:hover { background: var(--gray1); }
+.practice-sound-btn.active { border-color: var(--blue); background: #eff6ff; }
 .practice-week-pill {
   display: inline-flex; align-items: center; gap: 6px;
   background: #e0f9ff; color: #0369a1; border: 1.5px solid #bae6fd;
@@ -2861,34 +2873,57 @@ body.text-xl     { --text-scale: 1.3; }
   justify-content: center;
 }
 
-/* Practice score card */
-.practice-records-row {
-  display: flex; flex-wrap: wrap; gap: 8px;
-  margin: 0 0 14px; padding: 10px 12px;
+/* Practice Personal Bests card */
+.practice-pb-card {
+  margin: 0 0 14px; padding: 12px 14px;
   background: var(--white); border-radius: var(--radius);
   border: 2px solid var(--gray2);
 }
-.practice-records-row .pr-stat {
-  flex: 1; min-width: 80px; text-align: center;
+.practice-pb-card-title {
+  font-size: 12px; font-weight: 900; color: var(--gray4);
+  text-transform: uppercase; letter-spacing: 0.8px;
+  margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
 }
-.practice-records-row .pr-stat-val {
-  font-size: 18px; font-weight: 900; color: var(--green2);
-  line-height: 1.1;
+.practice-pb-card-title svg { flex-shrink: 0; }
+.practice-pb-table {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px;
 }
-.practice-records-row .pr-stat-lbl {
-  font-size: 11px; font-weight: 700; color: var(--gray4);
-  text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px;
+.practice-pb-row {
+  display: flex; flex-direction: column;
+  background: var(--bg,#f9fafb); border-radius: 8px;
+  padding: 7px 10px; min-width: 0;
 }
-.practice-records-row .pr-stat-divider {
-  width: 1px; background: var(--gray2); align-self: stretch; margin: 2px 0;
+.practice-pb-val {
+  font-size: 17px; font-weight: 900; color: var(--green2);
+  line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.practice-records-row .pr-stat-sparkline {
-  flex: 1; min-width: 80px; text-align: center;
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
+.practice-pb-lbl {
+  font-size: 10px; font-weight: 700; color: var(--gray4);
+  text-transform: uppercase; letter-spacing: 0.4px; margin-top: 2px;
 }
-.practice-records-row .pr-stat-sparkline svg {
-  display: block; overflow: visible;
+/* Keep legacy sparkline class referenced by _buildSparklineSVG caller — hidden */
+.practice-records-row { display: none; }
+
+/* Focus Mode */
+.practice-focus #top-bar { display: none !important; }
+.practice-focus #bottom-nav { display: none !important; }
+.practice-focus-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 700; color: var(--gray4);
+  background: var(--white); border: 1.5px solid var(--gray2);
+  border-radius: 20px; padding: 5px 12px; cursor: pointer;
+  transition: all 0.15s; white-space: nowrap;
 }
+.practice-focus-btn:hover { border-color: var(--blue); color: var(--blue); background: #eff6ff; }
+.practice-focus-btn.active { border-color: var(--blue); color: var(--blue); background: #eff6ff; }
+.practice-focus-exit-btn {
+  position: fixed; bottom: 16px; right: 16px; z-index: 999;
+  font-size: 12px; font-weight: 800; color: white;
+  background: rgba(0,0,0,0.55); border: none; border-radius: 20px;
+  padding: 7px 14px; cursor: pointer; display: none;
+  backdrop-filter: blur(4px);
+}
+.practice-focus .practice-focus-exit-btn { display: block; }
 
 .score-card {
   display: flex; flex-direction: column;
@@ -4593,7 +4628,10 @@ body.text-xl     { --text-scale: 1.3; }
 
     <!-- ======== PRACTICE TAB ======== -->
     <div class="view" id="view-practice" role="main">
-      <div class="practice-header">Practice</div>
+      <div class="practice-header-row">
+        <div class="practice-header">Practice</div>
+        <button id="practice-sound-toggle-btn" class="practice-sound-btn" onclick="togglePracticeSounds()" title="Toggle practice sounds" aria-label="Toggle practice sounds">&#x1F514;</button>
+      </div>
       <div class="practice-sub">Sharpen your skills with quick exercises</div>
       <div id="practice-week-pill" style="margin-bottom:16px;"></div>
       <div id="reviews-due-banner" aria-live="polite"></div>
@@ -4637,6 +4675,12 @@ body.text-xl     { --text-scale: 1.3; }
           </div>
           <button class="btn btn-purple btn-sm" onclick="showDifficultySelector('timed')">Challenge</button>
         </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin:4px 0 10px;">
+        <button id="practice-focus-toggle-btn" class="practice-focus-btn" onclick="setPracticeFocusMode(!practiceFocusMode)" aria-label="Toggle Focus Mode">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          Focus Mode
+        </button>
       </div>
       <div id="practice-records-row"></div>
       <div id="practice-recent-sessions-wrap"></div>
@@ -4781,6 +4825,7 @@ body.text-xl     { --text-scale: 1.3; }
     Profile
   </button>
 </nav>
+  <button class="practice-focus-exit-btn" onclick="setPracticeFocusMode(false)" id="practice-focus-exit-btn">Exit Focus Mode</button>
 
   <!-- CLARI TIP POPUP -->
   <div id="clari-tip-popup" aria-live="polite">
@@ -13926,7 +13971,7 @@ function loadState() {
     user_name: '', experience: '', tech_comfort: '',
     gems: 0, level: 1, achievements: [],
     daily_goal: 1, goal_date: '', goal_today: 0,
-    avatar: 0, active_days: [], wrong_answers: [],
+    avatar: 0, active_days: [], wrong_answers: [], mastered_questions: {},
     survey_answers: {}, onboarded: false, text_size: 'normal',
     practice_history: [],
     practice_best: {},
@@ -21282,6 +21327,9 @@ function closeLesson() {
 }
 
 function doCloseLesson() {
+  if (typeof practiceFocusMode !== 'undefined' && practiceFocusMode) {
+    setPracticeFocusMode(false);
+  }
   TTSManager.stop();
   if (_certOverlayTimeout) { clearTimeout(_certOverlayTimeout); _certOverlayTimeout = null; }
   if (lessonState.timedInterval) clearInterval(lessonState.timedInterval);
@@ -23626,7 +23674,40 @@ function activatePremium() {
 // ============================================================
 // PRACTICE TAB
 // ============================================================
+var practiceFocusMode = false;
+
+function setPracticeFocusMode(val) {
+  practiceFocusMode = !!val;
+  if (practiceFocusMode) {
+    document.body.classList.add('practice-focus');
+  } else {
+    document.body.classList.remove('practice-focus');
+  }
+  // Update toggle button label/state
+  var _fbtn = document.getElementById('practice-focus-toggle-btn');
+  if (_fbtn) {
+    if (practiceFocusMode) _fbtn.classList.add('active');
+    else _fbtn.classList.remove('active');
+  }
+}
+
+function togglePracticeSounds() {
+  save('practice_sounds', S.practice_sounds === false ? true : false);
+  updatePracticeSoundBtn();
+}
+
+function updatePracticeSoundBtn() {
+  var _btn = document.getElementById('practice-sound-toggle-btn');
+  if (!_btn) return;
+  var _on = S.practice_sounds !== false;
+  _btn.innerHTML = _on ? '&#x1F514;' : '&#x1F515;';
+  if (_on) _btn.classList.add('active');
+  else _btn.classList.remove('active');
+  _btn.title = _on ? 'Practice sounds ON' : 'Practice sounds OFF';
+}
+
 function renderPracticeTab() {
+  updatePracticeSoundBtn();
   // Weekly sessions pill
   const _pillEl = document.getElementById('practice-week-pill');
   if (_pillEl) {
@@ -23800,51 +23881,58 @@ function renderPracticeRecords() {
   if (!el) return;
   var best = S.practice_best || {};
   var hist = S.practice_history || [];
-  // Total questions answered all-time
   var totalQ = hist.reduce(function(acc, h) { return acc + (h.total || 0); }, 0);
-  // Best accuracy per mode
-  var bestQuick  = best['quick']  != null ? best['quick']  + '%' : '--';
-  var bestTimed  = best['timed']  != null ? best['timed']  + '%' : '--';
-  var sessions   = hist.length;
+  var sessions = hist.length;
   if (totalQ === 0 && sessions === 0) { el.innerHTML = ''; return; }
-  el.innerHTML =
-    '<div class="practice-records-row">' +
-      '<div class="pr-stat">' +
-        '<div class="pr-stat-val">' + bestQuick + '</div>' +
-        '<div class="pr-stat-lbl">Best Quick</div>' +
-      '</div>' +
-      '<div class="pr-stat-divider"></div>' +
-      '<div class="pr-stat">' +
-        '<div class="pr-stat-val">' + bestTimed + '</div>' +
-        '<div class="pr-stat-lbl">Best Timed</div>' +
-      '</div>' +
-      '<div class="pr-stat-divider"></div>' +
-      '<div class="pr-stat">' +
-        '<div class="pr-stat-val">' + totalQ + '</div>' +
-        '<div class="pr-stat-lbl">All-time Qs</div>' +
-      '</div>' +
-      '<div class="pr-stat-divider"></div>' +
-      '<div class="pr-stat">' +
-        '<div class="pr-stat-val">' + sessions + '</div>' +
-        '<div class="pr-stat-lbl">Sessions</div>' +
-      '</div>' +
-    '</div>';
-  // Append sparkline stat if we have >= 2 sessions
-  var _sparkEl = el.querySelector('.practice-records-row');
-  if (_sparkEl && hist.length >= 2) {
-    var _last7 = hist.slice(-7);
-    var _pcts = _last7.map(function(h) {
-      return h.total > 0 ? Math.round((h.score / h.total) * 100) : 0;
-    });
-    var _svgHtml = _buildSparklineSVG(_pcts, 60, 24);
-    var _divider = document.createElement('div');
-    _divider.className = 'pr-stat-divider';
-    _sparkEl.appendChild(_divider);
-    var _statDiv = document.createElement('div');
-    _statDiv.className = 'pr-stat-sparkline';
-    _statDiv.innerHTML = _svgHtml + '<div class="pr-stat-lbl">Trend</div>';
-    _sparkEl.appendChild(_statDiv);
+
+  // Compute average score %
+  var _sumPct = 0;
+  hist.forEach(function(h) {
+    if (h.total > 0) _sumPct += Math.round((h.score / h.total) * 100);
+  });
+  var avgPct = hist.length > 0 ? Math.round(_sumPct / hist.length) : 0;
+
+  // Best streak from lesson_log
+  var _log = S.lesson_log || {};
+  var _streak = 0;
+  var _bestStreakVal = S.best_streak || 0;
+  var _d = new Date();
+  for (var _si = 0; _si < 365; _si++) {
+    var _ds = _d.toISOString().split('T')[0];
+    if (_log[_ds]) { _streak++; _d.setDate(_d.getDate() - 1); }
+    else break;
   }
+  var displayStreak = Math.max(_streak, _bestStreakVal);
+
+  var bestQuick = best['quick']  != null ? best['quick']  + '%' : '--';
+  var bestTimed = best['timed']  != null ? best['timed']  + '%' : '--';
+
+  var rows = [
+    { val: bestQuick,       lbl: 'Best Quick Score' },
+    { val: bestTimed,       lbl: 'Best Timed Score' },
+    { val: String(sessions),lbl: 'Total Sessions'   },
+    { val: String(totalQ),  lbl: 'Total Qs Answered'},
+    { val: displayStreak + 'd', lbl: 'Best Streak'  },
+    { val: avgPct + '%',    lbl: 'Average Score'    }
+  ];
+
+  var tableHtml = rows.map(function(r) {
+    return '<div class="practice-pb-row">' +
+      '<div class="practice-pb-val">' + r.val + '</div>' +
+      '<div class="practice-pb-lbl">' + r.lbl + '</div>' +
+      '</div>';
+  }).join('');
+
+  el.innerHTML =
+    '<div class="practice-pb-card">' +
+      '<div class="practice-pb-card-title">' +
+        '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
+          '<circle cx="12" cy="8" r="6"/><path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12"/>' +
+        '</svg>' +
+        'Personal Bests' +
+      '</div>' +
+      '<div class="practice-pb-table">' + tableHtml + '</div>' +
+    '</div>';
 }
 
 function renderPracticeRecentSessions() {
@@ -24308,7 +24396,53 @@ function selectPracticeOption(el, idx, correct) {
     lessonState.correctStreak = (lessonState.correctStreak || 0) + 1;
     addXP(5);
     SoundManager.playCorrect();
+    // Practice-specific ascending sweep (200hz -> 400hz, 100ms)
+    if (S.practice_sounds !== false) {
+      (function() {
+        try {
+          var _pctx = new (window.AudioContext || window.webkitAudioContext)();
+          if (_pctx.state === 'suspended') _pctx.resume();
+          var _osc = _pctx.createOscillator();
+          var _gn = _pctx.createGain();
+          _osc.connect(_gn); _gn.connect(_pctx.destination);
+          _osc.type = 'sine';
+          var _t = _pctx.currentTime;
+          _osc.frequency.setValueAtTime(200, _t);
+          _osc.frequency.linearRampToValueAtTime(400, _t + 0.1);
+          _gn.gain.setValueAtTime(0.14, _t);
+          _gn.gain.exponentialRampToValueAtTime(0.001, _t + 0.1);
+          _osc.start(_t); _osc.stop(_t + 0.1);
+        } catch(e) {}
+      })();
+    }
     showFeedback(true, getCorrectMsg());
+    // Mastered-question tracking (weak/wrong practice type)
+    if (lessonState.practiceType === 'weak' || lessonState.practiceType === 'wrong') {
+      (function() {
+        var _mq = lessonState.practiceQuestions[lessonState.practiceIdx];
+        if (!_mq) return;
+        var _qKey = _mq.question || '';
+        if (!_qKey) return;
+        // Check if this question is in the wrong_answers bank
+        var _wrongArr = S.wrong_answers || [];
+        var _inWrong = _wrongArr.some(function(wa) { return wa.question === _qKey; });
+        if (!_inWrong) return;
+        // Increment consecutive correct count
+        var _master = Object.assign({}, S.mastered_questions || {});
+        _master[_qKey] = (_master[_qKey] || 0) + 1;
+        save('mastered_questions', _master);
+        // If answered correctly 3 times in a row, remove from wrong_answers
+        if (_master[_qKey] >= 3) {
+          var _newWrong = _wrongArr.filter(function(wa) { return wa.question !== _qKey; });
+          save('wrong_answers', _newWrong);
+          // Also remove from mastered_questions to keep it clean
+          delete _master[_qKey];
+          save('mastered_questions', _master);
+          showToast('Question mastered! Removed from review 🎯', 'success', 3000);
+          renderWrongCountBadge();
+        }
+      })();
+    }
     if (lessonState.correctStreak === 3) {
       setTimeout(function() { showClariPopup('star', 'clari-tada', 'On a roll!', 1200); }, 400);
     }
@@ -24318,6 +24452,25 @@ function selectPracticeOption(el, idx, correct) {
     allOpts[correct].classList.add('show-correct');
     loseHeart();
     SoundManager.playIncorrect();
+    // Practice-specific descending sweep (200hz -> 100hz, 100ms)
+    if (S.practice_sounds !== false) {
+      (function() {
+        try {
+          var _pctx2 = new (window.AudioContext || window.webkitAudioContext)();
+          if (_pctx2.state === 'suspended') _pctx2.resume();
+          var _osc2 = _pctx2.createOscillator();
+          var _gn2 = _pctx2.createGain();
+          _osc2.connect(_gn2); _gn2.connect(_pctx2.destination);
+          _osc2.type = 'sine';
+          var _t2 = _pctx2.currentTime;
+          _osc2.frequency.setValueAtTime(200, _t2);
+          _osc2.frequency.linearRampToValueAtTime(100, _t2 + 0.1);
+          _gn2.gain.setValueAtTime(0.14, _t2);
+          _gn2.gain.exponentialRampToValueAtTime(0.001, _t2 + 0.1);
+          _osc2.start(_t2); _osc2.stop(_t2 + 0.1);
+        } catch(e) {}
+      })();
+    }
     showFeedback(false, getWrongMsg(), allOpts[correct].textContent.trim());
     // Track attempted questions for post-session review
     if (!lessonState.practiceAttempted) lessonState.practiceAttempted = [];
@@ -24343,6 +24496,20 @@ function selectPracticeOption(el, idx, correct) {
     if (!lessonState.practiceWrong) lessonState.practiceWrong = [];
     const _curQ = lessonState.practiceQuestions[lessonState.practiceIdx];
     if (_curQ) lessonState.practiceWrong.push({ ..._curQ, correctIdx: correct });
+    // Reset mastery streak for this question on wrong answer
+    if (lessonState.practiceType === 'weak' || lessonState.practiceType === 'wrong') {
+      (function() {
+        var _mq2 = lessonState.practiceQuestions[lessonState.practiceIdx];
+        if (!_mq2) return;
+        var _qKey2 = _mq2.question || '';
+        if (!_qKey2) return;
+        var _master2 = Object.assign({}, S.mastered_questions || {});
+        if (_master2[_qKey2]) {
+          _master2[_qKey2] = 0;
+          save('mastered_questions', _master2);
+        }
+      })();
+    }
     lessonState.correctStreak = 0;
   }
   const btn = document.getElementById('lesson-next-btn');
@@ -25824,7 +25991,7 @@ function confirmReset() {
   if (confirm('Reset all progress? This cannot be undone.')) {
     const keys = ['xp','streak','streak_date','hearts','completed','premium',
       'user_name','experience','tech_comfort','gems','level','achievements',
-      'daily_goal','goal_date','goal_today','avatar','active_days','wrong_answers',
+      'daily_goal','goal_date','goal_today','avatar','active_days','wrong_answers','mastered_questions',
       'survey_answers','onboarded','text_size','practice_history','practice_best','practice_sessions_week',
       'dark_mode','sound_enabled','resume_lesson','clari_theme','xp_boost_active',
       'streak_freeze','premium_pending','lesson_reviews',
