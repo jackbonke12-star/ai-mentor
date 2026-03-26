@@ -5228,7 +5228,7 @@ body.text-xl     { --text-scale: 1.3; }
             <div class="ob-card-icon blue">
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1cb0f6" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
             </div>
-            <div><div class="ob-card-text-main">Brand new to this</div><div class="ob-card-text-sub">Haven’t touched ChatGPT or anything like it</div></div>
+            <div><div class="ob-card-text-main">Brand new to this</div><div class="ob-card-text-sub">Haven't touched ChatGPT or anything like it</div></div>
           </button>
           <button class="ob-card" onclick="obSelectCard(this,'experience','heard')">
             <div class="ob-card-icon green">
@@ -5697,7 +5697,7 @@ const MOTIVATIONAL_QUOTES = [
   '"Live as if you were to die tomorrow. Learn as if you were to live forever." — Gandhi',
   '"The beautiful thing about learning is that no one can take it away from you." — B.B. King',
   '"The secret of getting ahead is getting started." — Mark Twain',
-  '"It always seems impossible until it’s done." — Nelson Mandela'
+  '"It always seems impossible until it\'s done." \u2014 Nelson Mandela'
 ];
 
 const DID_YOU_KNOW = [
@@ -5804,7 +5804,7 @@ const COURSE = [
               'Chatbots are actually smarter than AI',
               'The only difference is AI costs more money'
             ], correct: 1,
-            hint: 'Think about what “generative” means — AI creates new responses, while scripted chatbots just follow fixed rules.',
+            hint: 'Think about what "generative" means — AI creates new responses, while scripted chatbots just follow fixed rules.',
             explanation: 'Old chatbots followed decision trees: "if you say X, reply Y." Modern AI generates original responses by understanding meaning and context — it can handle almost any question, not just scripted ones.' },
           { type: 'order_steps', question: 'Put these steps in order: how AI generates a reply.',
             items: [
@@ -6113,7 +6113,7 @@ const COURSE = [
           { term: 'Prompt', def: 'The message you type to an AI — the starting point of every AI interaction.' },
           { term: 'Context', def: 'Background information you give AI to help it understand your situation and produce a more relevant answer.' },
           { term: 'Specificity', def: 'The level of detail in your prompt; more specific prompts consistently produce better AI responses.' },
-          { term: 'Follow-up', def: 'A second message refining or extending your original request, such as “Make it shorter” or “Add more detail.”' },
+          { term: 'Follow-up', def: 'A second message refining or extending your original request, such as "Make it shorter" or "Add more detail."' },
           { term: 'Tone', def: 'The style of language requested — e.g. formal, friendly, simple — that shapes how AI writes its response.' }
         ]
       },
@@ -7870,7 +7870,7 @@ const COURSE = [
           { type: 'sim_chat', title: 'A Scam Email That Looks Real',
             messages: [
               { role: 'user', text: '[Received email] — From: noreply@commbank-secure.net\n\n"Dear Margaret Wilson,\nWe have detected unusual activity on your CommBank account ending in 4421. To protect your account, please verify your identity within 3 hours.\n[Verify Now]\nCommBank Security Team"' },
-              { role: 'ai', text: "Let's analyse this together. Red flags:\n\n<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='6' y1='3' x2='6' y2='21'/><path d='M6 4L18 8L6 13Z'/></svg></span> Domain is \"commbank-secure.net\" — CommBank uses \"commbank.com.au\"\n<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='6' y1='3' x2='6' y2='21'/><path d='M6 4L18 8L6 13Z'/></svg></span> Urgency pressure: \"3 hours\"\n<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='6' y1='3' x2='6' y2='21'/><path d='M6 4L18 8L6 13Z'/></svg></span> The link could redirect anywhere\n<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='6' y1='3' x2='6' y2='21'/><path d='M6 4L18 8L6 13Z'/></svg></span> Real banks never ask you to verify via email link\n\nSafe action: Go directly to commbank.com.au or call 13 2221 (from the back of your card) to check your actual account." }
+              { role: 'ai', text: "Let's analyse this together. Red flags:\n\n<span class=\"ico\" aria-hidden=\"true\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><line x1=\"6\" y1=\"3\" x2=\"6\" y2=\"21\"/><path d=\"M6 4L18 8L6 13Z\"/></svg></span> Domain is \"commbank-secure.net\" — CommBank uses \"commbank.com.au\"\n<span class=\"ico\" aria-hidden=\"true\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><line x1=\"6\" y1=\"3\" x2=\"6\" y2=\"21\"/><path d=\"M6 4L18 8L6 13Z\"/></svg></span> Urgency pressure: \"3 hours\"\n<span class=\"ico\" aria-hidden=\"true\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><line x1=\"6\" y1=\"3\" x2=\"6\" y2=\"21\"/><path d=\"M6 4L18 8L6 13Z\"/></svg></span> The link could redirect anywhere\n<span class=\"ico\" aria-hidden=\"true\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><line x1=\"6\" y1=\"3\" x2=\"6\" y2=\"21\"/><path d=\"M6 4L18 8L6 13Z\"/></svg></span> Real banks never ask you to verify via email link\n\nSafe action: Go directly to commbank.com.au or call 13 2221 (from the back of your card) to check your actual account." }
             ],
             note: 'The email looks real — perfect grammar, your name, partial account number. The domain is the giveaway.' },
 
@@ -9028,7 +9028,7 @@ const COURSE = [
           { type: 'sim_chat', title: 'AI Explains Negative Gearing',
             messages: [
               { role: 'user', text: 'Can you explain negative gearing in plain English? I keep hearing the term but I\'m not sure what it means.' },
-              { role: 'ai', text: "Negative gearing is when the costs of owning an investment property exceed the income it brings in — and you get to claim that loss against your other income (like your salary) to reduce your overall tax bill.\n\nSimple example: You buy a rental property. Your mortgage, maintenance, and rates cost you $28,000 per year. Your rent income is $24,000 per year. You're losing $4,000 per year — that's \"negatively geared.\"\n\nIn Australia, you can deduct that $4,000 loss from your taxable income. If you earn $80,000 salary, you're taxed on $76,000 instead. The theory is that the property will increase in value over time, making the overall investment profitable.\n\n<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3L22 20H2Z'/><line x1='12' y1='9' x2='12' y2='14'/><circle cx='12' cy='17.5' r='0.75' fill='currentColor'/></svg></span>️ Important: The specific rules, rates, and eligibility for your situation need verification with your accountant and the current ATO guidelines." }
+              { role: 'ai', text: "Negative gearing is when the costs of owning an investment property exceed the income it brings in — and you get to claim that loss against your other income (like your salary) to reduce your overall tax bill.\n\nSimple example: You buy a rental property. Your mortgage, maintenance, and rates cost you $28,000 per year. Your rent income is $24,000 per year. You're losing $4,000 per year — that's \"negatively geared.\"\n\nIn Australia, you can deduct that $4,000 loss from your taxable income. If you earn $80,000 salary, you're taxed on $76,000 instead. The theory is that the property will increase in value over time, making the overall investment profitable.\n\n<span class=\"ico\" aria-hidden=\"true\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3L22 20H2Z\"/><line x1=\"12\" y1=\"9\" x2=\"12\" y2=\"14\"/><circle cx=\"12\" cy=\"17.5\" r=\"0.75\" fill=\"currentColor\"/></svg></span>️ Important: The specific rules, rates, and eligibility for your situation need verification with your accountant and the current ATO guidelines." }
             ],
             note: 'AI gave a clear, accurate conceptual explanation with an appropriate disclaimer about verification.' },
 
@@ -11743,7 +11743,7 @@ const COURSE = [
               },
               {
                 role: 'ai',
-                text: "Spring is just around the corner — is your garden ready? <span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><path d='M2 20l6-6'/><path d='M8 14C8 7 14 2 21 3c1 7-4 13-11 13H8z'/></svg></span>\n\nImagine going from a winter-worn yard full of dead leaves and overgrown edges... to a clean, refreshed garden that's ready to enjoy all season long.\n\nAt Steve's Landscaping, our spring clean-up service does exactly that — and this October only, we're offering 10% off all garden clean-up bookings.\n\nWe handle everything: leaf removal, edge trimming, mulching, and pruning.\n\n<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><rect x='3' y='5' width='18' height='16' rx='2'/><line x1='16' y1='3' x2='16' y2='7'/><line x1='8' y1='3' x2='8' y2='7'/><line x1='3' y1='11' x2='21' y2='11'/><rect x='7' y='14' width='3' height='3' rx='0.5'/></svg></span> Book before October 31 to lock in your discount.\n<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><path d='M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7 12.8 12.8 0 0 0 .7 2.8 2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4 12.8 12.8 0 0 0 2.8.7A2 2 0 0 1 22 16.9z'/></svg></span> Call Steve on [phone] or DM us to get started.\n\nSpots are filling up fast — don\'t miss out!\n\n#Calgary #Landscaping #SpringGarden #GardenCleanup"
+                text: "Spring is just around the corner — is your garden ready? <span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><path d='M2 20l6-6'/><path d='M8 14C8 7 14 2 21 3c1 7-4 13-11 13H8z'/></svg></span>\n\nImagine going from a winter-worn yard full of dead leaves and overgrown edges... to a clean, refreshed garden that's ready to enjoy all season long.\n\nAt Steve's Landscaping, our spring clean-up service does exactly that — and this October only, we're offering 10% off all garden clean-up bookings.\n\nWe handle everything: leaf removal, edge trimming, mulching, and pruning.\n\n<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><rect x='3' y='5' width='18' height='16' rx='2'/><line x1='16' y1='3' x2='16' y2='7'/><line x1='8' y1='3' x2='8' y2='7'/><line x1='3' y1='11' x2='21' y2='11'/><rect x='7' y='14' width='3' height='3' rx='0.5'/></svg></span> Book before October 31 to lock in your discount.\n<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><path d='M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7 12.8 12.8 0 0 0 .7 2.8 2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4 12.8 12.8 0 0 0 2.8.7A2 2 0 0 1 22 16.9z'/></svg></span> Call Steve on [phone] or DM us to get started.\n\nSpots are filling up fast — don't miss out!\n\n#Calgary #Landscaping #SpringGarden #GardenCleanup"
               }
             ],
             prompt: 'What element of Steve\'s prompt made the before/after scenario possible?',
@@ -15686,7 +15686,7 @@ function getClariDailyMessage() {
     return `Hey${name} — you have ${dueCount} review${dueCount > 1 ? 's' : ''} due today. Spaced repetition is how memories stick. Worth 2 minutes!`;
   }
   if (lessonsTotal === 0) {
-    return `Welcome${name}! I'm Clari. I'll be your guide through all things AI. Ready? Let's start small.`;
+    return `Welcome${name}! I"m Clari. I'll be your guide through all things AI. Ready? Let"s start small.`;
   }
 
   const tips = [
@@ -15727,7 +15727,7 @@ const CLARI_TIPS = [
   { id: 'reviews_nudge',        clariState: 'think',       label: 'Memory science',  msg: "Spaced repetition (the review system here) is one of the most research-backed ways to remember things long-term." },
   { id: 'hearts_low',           clariState: 'sad',         label: 'Low hearts',      msg: "Running low on hearts. No worries — take your time on the next one. Read carefully before answering." },
   { id: 'dark_mode_first',      clariState: 'happy',       label: 'Nice choice!',    msg: "Dark mode activated. Easier on the eyes, especially in the evening. Good call." },
-  { id: 'xp_milestone_100',     clariState: 'celebrating', label: '100 XP!',         msg: "You just crossed 100 XP! You're officially past the 'just trying it out' phase. You're a learner now." },
+  { id: 'xp_milestone_100',     clariState: 'celebrating', label: '100 XP!',         msg: "You just crossed 100 XP! You're officially past the \u201cjust trying it out\u201d phase. You're a learner now." },
   { id: 'xp_milestone_500',     clariState: 'celebrating', label: '500 XP!',         msg: "500 XP! That's a serious amount of learning. Whatever you came here for, you're getting it." },
   { id: 'practice_complete',    clariState: 'happy',       label: 'Practice done!',  msg: "Practice session complete! Every review session is invisible armor for your memory." },
   { id: 'perfect_lesson',       clariState: 'celebrating', label: 'Perfect run!',    msg: "Zero mistakes! That's not luck — that's actual understanding. Remember this feeling." },
@@ -16535,15 +16535,15 @@ const SURVEY_QUESTIONS = [
     options: ['Save time on emails and writing', 'Get through my paperwork faster', 'Have AI do my research for me', 'Use AI for my specific job', 'Start from the very beginning', 'Do creative projects']
   },
   {
-    key: 'q_tried', label: 'AI Tools You’ve Tried', multi: true,
+    key: 'q_tried', label: "AI Tools You've Tried", multi: true,
     text: '🧪 Which of these have you tried?',
     hint: 'Fun fact: ChatGPT reached 100 million users in just 2 months — the fastest app ever!',
     options: ['ChatGPT', 'Siri / Alexa', 'Google Search', 'None yet']
   },
   {
     key: 'q_worry', label: 'Your Worries', multi: false,
-    text: '🤔 What’s your biggest worry about AI?',
-    hint: 'Heads up: every one of these is a real concern — and we’ll cover them all in this course!',
+    text: "🤔 What's your biggest worry about AI?",
+    hint: "Heads up: every one of these is a real concern — and we'll cover them all in this course!",
     options: ['Privacy / data safety', 'Getting wrong answers', 'It being too complicated', 'Losing my job to AI']
   },
   {
@@ -16655,7 +16655,7 @@ function renderSurveyQuestion() {
     <div class="survey-options">${optionsHtml}</div>
     ${hintHtml}
     <button class="btn btn-green btn-full mt16" id="survey-next-btn" onclick="surveyNext()" ${currentAnswers && (!q.multi || currentAnswers.length > 0) ? '' : 'disabled'}>
-      That’s my answer →
+      That's my answer →
     </button>
   `;
 }
@@ -16720,15 +16720,15 @@ function surveySelect(el, key, val, multi) {
     const _msg = _goalReactions[val] || 'Great choice!';
     setTimeout(function() { showClariPopup('excited', 'clari-pop', _msg, 600); }, 80);
   } else if (key === 'q_tried') {
-    const _triedMsg = val === 'None yet' ? 'No worries — you’re in exactly the right place!' :
+    const _triedMsg = val === 'None yet' ? "No worries — you're in exactly the right place!" :
                       val === 'ChatGPT' ? 'Nice! ChatGPT is one of the best tools out there!' :
                       'Great — you already have a head start!';
     setTimeout(function() { showClariPopup('excited', 'clari-pop', _triedMsg, 600); }, 80);
   } else if (key === 'q_worry') {
     const _worryMsg = val === 'Privacy / data safety' ? 'A very smart concern — we cover this properly!' :
-                      val === 'Getting wrong answers' ? 'Smart thinking! We’ll teach you how to check!' :
-                      val === 'It being too complicated' ? 'I promise it’s simpler than you think!' :
-                      'Totally valid worry — let’s talk about it!';
+                      val === 'Getting wrong answers' ? "Smart thinking! We'll teach you how to check!" :
+                      val === 'It being too complicated' ? "I promise it's simpler than you think!" :
+                      "Totally valid worry — let's talk about it!";
     setTimeout(function() { showClariPopup('happy', 'clari-pop', _worryMsg, 600); }, 80);
   } else if (key === 'q4') {
     setTimeout(function() { showClariPopup('happy', 'clari-pop', 'Consistency is the key to success!', 600); }, 80);
@@ -17439,7 +17439,7 @@ function renderLearnTab() {
       html += '<div class="comeback-card">' +
         '<div class="comeback-emoji">👋</div>' +
         '<div class="comeback-body"><div class="comeback-title">Welcome back' + _cbName + '!</div>' +
-        '<div class="comeback-sub">It’s been ' + _daysSince + ' day' + (_daysSince !== 1 ? 's' : '') + ' — no worries, let’s pick up where you left off!</div>' +
+        "<div class=\"comeback-sub\">It's been " + _daysSince + ' day' + (_daysSince !== 1 ? 's' : '') + " — no worries, let's pick up where you left off!</div>" +
         '</div></div>';
     }
   }
@@ -23635,7 +23635,7 @@ function renderLessonComplete() {
   if (S.completed.length === 1) setTimeout(() => showClariTip('first_lesson_done'), 1200);
   // First-lesson achievement toast + Clari popup
   if (_wasFirstLesson) {
-    setTimeout(function() { showToast('🏆 First lesson complete! You’re on your way!', 'success', 4000); }, 500);
+    setTimeout(function() { showToast("🏆 First lesson complete! You're on your way!", 'success', 4000); }, 500);
     setTimeout(function() { showClariPopup('star', 'clari-tada', 'First lesson done!', 2500); }, 1400);
   }
   if (S.completed.length === 5) setTimeout(() => showClariTip('five_lessons_done'), 1200);
@@ -23733,7 +23733,7 @@ function renderLessonComplete() {
 
   // Motivational quote
   var _quote = MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)];
-  var quoteHtml = '<div class="lesson-quote">“' + _quote.replace(/^[“"]/, '').replace(/[”"]$/, '') + '”</div>';
+  var quoteHtml = '<div class="lesson-quote">"' + _quote.replace(/^[""]/, '').replace(/[""]$/, '') + '"</div>';
 
   // Notes textarea
   var _existingNote = ((S.lesson_notes || {})[lessonState.lessonId]) || '';
@@ -24047,7 +24047,7 @@ function showQuickRef() {
         '<div class="qref-row"><span class="qref-term">Token</span><span class="qref-def">A word chunk the AI reads (roughly ¾ of a word)</span></div>' +
         '<div class="qref-row"><span class="qref-term">LLM</span><span class="qref-def">Large Language Model — the tech behind AI chatbots</span></div>' +
         '<div class="qref-row"><span class="qref-term">Hallucination</span><span class="qref-def">When AI confidently states something false</span></div>' +
-        '<div class="qref-row"><span class="qref-term">Context window</span><span class="qref-def">How much text the AI can “remember” in one chat</span></div>' +
+        '<div class="qref-row"><span class="qref-term">Context window</span><span class="qref-def">How much text the AI can "remember" in one chat</span></div>' +
         '<div class="qref-row"><span class="qref-term">Temperature</span><span class="qref-def">Controls creativity — higher = more surprising answers</span></div>' +
         '<div class="qref-row"><span class="qref-term">Fine-tuning</span><span class="qref-def">Training AI further on specific data to specialise it</span></div>' +
         '<div class="qref-row"><span class="qref-term">RAG</span><span class="qref-def">Retrieval-Augmented Generation — AI + your own documents</span></div>' +
@@ -24055,8 +24055,8 @@ function showQuickRef() {
       '<div class="qref-section">' +
         '<div class="qref-section-title">Prompting Tips</div>' +
         '<div class="qref-tip">🎯 Be specific — add context, audience, and desired length</div>' +
-        '<div class="qref-tip">📝 Use role prompts: “Act as a nurse explaining...”</div>' +
-        '<div class="qref-tip">🔄 Refine — follow up with “make it shorter” or “simplify”</div>' +
+        '<div class="qref-tip">📝 Use role prompts: "Act as a nurse explaining..."</div>' +
+        '<div class="qref-tip">🔄 Refine — follow up with "make it shorter" or "simplify"</div>' +
         '<div class="qref-tip">✅ Always verify facts — AI can be confidently wrong</div>' +
         '<div class="qref-tip">🔒 Never share passwords, bank details, or private data</div>' +
       '</div>' +
@@ -24141,11 +24141,11 @@ function addXP(amount) {
   if (newLevel > oldLevel) {
     showLevelUp(newLevel);
     if (newLevel === 5) {
-      setTimeout(function() { showClariPopup('celebrating', 'clari-tada', 'Level 5! You’re on your way!', 2000); }, 800);
+      setTimeout(function() { showClariPopup('celebrating', 'clari-tada', "Level 5! You're on your way!", 2000); }, 800);
     } else if (newLevel === 10) {
-      setTimeout(function() { showClariPopup('excited', 'clari-tada', 'Level 10! You’re a rising star!', 2000); }, 800);
+      setTimeout(function() { showClariPopup('excited', 'clari-tada', "Level 10! You're a rising star!", 2000); }, 800);
     } else if (newLevel === 20) {
-      setTimeout(function() { showClariPopup('love', 'clari-tada', 'Level 20! You’re an AI expert!', 2000); }, 800);
+      setTimeout(function() { showClariPopup('love', 'clari-tada', "Level 20! You're an AI expert!", 2000); }, 800);
     }
   }
   updateTopBar();
@@ -24707,7 +24707,7 @@ function renderPracticeTab() {
   if (!history.length) {
     el.innerHTML = `<div class="clari-practice-empty">
   ${clariSVG('waving', 60)}
-  <div class="clari-practice-empty-msg">No sessions yet — and that's fine! When you complete your first lesson, I'll have practice questions ready here. It's how we make things stick.</div>
+  <div class="clari-practice-empty-msg">No sessions yet — and that"s fine! When you complete your first lesson, I'll have practice questions ready here. It"s how we make things stick.</div>
 </div>`;
     return;
   }
@@ -25107,7 +25107,7 @@ function startPractice(type, difficulty) {
     }
     questions = questions.slice(0, 5);
     if (!questions.length) {
-      showPracticeMsg('happy', "No reviews due right now — you're all caught up! <span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><path d='M3 21l7-7'/><path d='M3 16l5 5'/><path d='M5 12L2 21l9-3-4-6z'/><path d='M15 3l4 4'/><path d='M13 5l2-2'/><path d='M18 10l2-2'/><circle cx='17' cy='6' r='0.5' fill='currentColor'/><circle cx='13' cy='10' r='0.5' fill='currentColor'/></svg></span> Come back tomorrow.");
+      showPracticeMsg('happy', "No reviews due right now \u2014 you\u2019re all caught up! Come back tomorrow.");
       return;
     }
 
