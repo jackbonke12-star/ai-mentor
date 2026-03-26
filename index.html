@@ -5408,6 +5408,484 @@ mark.search-hl {
   font-size: 10px; font-weight: 700; color: #7c3aed;
 }
 /* end plan-24 css */
+/* --- Daily XP Progress Bar (plan-25) --- */
+.plan-dxp-wrap {
+  background: #fff;
+  border: 1.5px solid var(--gray2, #e5e5e5);
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+:root[data-theme="dark"] .plan-dxp-wrap {
+  background: var(--white, #252525);
+  border-color: var(--gray2, #3a3a3a);
+}
+.plan-dxp-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 8px;
+}
+.plan-dxp-title {
+  font-size: 13px; font-weight: 900; color: var(--text);
+  display: flex; align-items: center; gap: 6px;
+}
+.plan-dxp-title-icon {
+  width: 26px; height: 26px; border-radius: 8px;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; flex-shrink: 0;
+}
+.plan-dxp-nums {
+  font-size: 12px; font-weight: 800; color: var(--gray4);
+}
+.plan-dxp-bar-bg {
+  height: 12px; border-radius: 20px;
+  background: var(--gray1, #f0f0f0);
+  overflow: hidden; position: relative; margin-bottom: 6px;
+}
+.plan-dxp-bar-fill {
+  height: 100%; border-radius: 20px;
+  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+  transition: width 0.5s ease;
+  position: relative;
+}
+.plan-dxp-bar-fill.dxp-met {
+  background: linear-gradient(90deg, #58CC02, #46a302);
+}
+.plan-dxp-bar-fill::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%);
+  border-radius: 20px;
+}
+.plan-dxp-footer {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.plan-dxp-msg {
+  font-size: 11px; font-weight: 700; color: var(--gray4);
+}
+.plan-dxp-msg.dxp-met {
+  color: #58CC02;
+}
+.plan-dxp-pct {
+  font-size: 11px; font-weight: 800; color: var(--gray3);
+}
+/* end plan-25 css */
+/* --- Overdue Review Alert Banner (plan-26) --- */
+.plan-overdue-banner {
+  display: flex; align-items: center; gap: 10px;
+  background: linear-gradient(135deg, #fff7ed, #fff1dc);
+  border: 1.5px solid #fdba74;
+  border-radius: 14px; padding: 12px 14px;
+  margin-bottom: 16px;
+}
+.plan-overdue-banner.pob-critical {
+  background: linear-gradient(135deg, #fff1f2, #ffe4e6);
+  border-color: #fca5a5;
+}
+:root[data-theme="dark"] .plan-overdue-banner {
+  background: #2a2010; border-color: #b45309;
+}
+:root[data-theme="dark"] .plan-overdue-banner.pob-critical {
+  background: #2a1010; border-color: #b91c1c;
+}
+.plan-overdue-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: #fed7aa; display: flex;
+  align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.plan-overdue-banner.pob-critical .plan-overdue-icon {
+  background: #fecdd3;
+}
+.plan-overdue-body { flex: 1; }
+.plan-overdue-title {
+  font-size: 13px; font-weight: 900; color: #92400e; margin-bottom: 2px;
+}
+.plan-overdue-banner.pob-critical .plan-overdue-title { color: #9f1239; }
+.plan-overdue-sub {
+  font-size: 11px; font-weight: 700; color: #b45309; line-height: 1.4;
+}
+.plan-overdue-banner.pob-critical .plan-overdue-sub { color: #be123c; }
+.plan-overdue-btn {
+  flex-shrink: 0; padding: 7px 12px;
+  background: #f97316; color: #fff;
+  border: none; border-radius: 10px;
+  font-size: 11px; font-weight: 800; cursor: pointer;
+  white-space: nowrap;
+}
+.plan-overdue-banner.pob-critical .plan-overdue-btn { background: #e11d48; }
+.plan-overdue-btn:hover { opacity: 0.88; }
+/* end plan-26 css */
+/* --- Unit Progress Timeline (plan-27) --- */
+.plan-timeline-wrap {
+  background: var(--white, #fff);
+  border: 1.5px solid var(--gray2, #e5e5e5);
+  border-radius: 16px; padding: 14px 16px;
+  margin-bottom: 16px; overflow: hidden;
+}
+:root[data-theme="dark"] .plan-timeline-wrap {
+  background: var(--white, #252525);
+  border-color: var(--gray2, #3a3a3a);
+}
+.plan-timeline-title {
+  font-size: 13px; font-weight: 900; color: var(--text);
+  margin-bottom: 14px;
+}
+.plan-timeline-track {
+  position: relative;
+  display: flex; align-items: center;
+  overflow-x: auto; padding-bottom: 28px;
+  gap: 0;
+  scrollbar-width: none;
+}
+.plan-timeline-track::-webkit-scrollbar { display: none; }
+.plan-timeline-connector {
+  height: 3px; flex: 1; min-width: 12px;
+  background: var(--gray2, #e5e5e5);
+  flex-shrink: 0;
+}
+.plan-timeline-connector.ptc-done {
+  background: linear-gradient(90deg, #58CC02, #46a302);
+}
+.plan-timeline-connector.ptc-active {
+  background: linear-gradient(90deg, #58CC02, #5BC0F8);
+}
+.plan-timeline-node {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 4px; flex-shrink: 0; position: relative;
+}
+.plan-timeline-dot {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 900;
+  border: 2.5px solid var(--gray2, #e5e5e5);
+  background: var(--gray1, #f0f0f0);
+  color: var(--gray3, #aaa);
+  flex-shrink: 0; transition: transform 0.2s;
+  position: relative; z-index: 1;
+}
+.plan-timeline-dot.ptd-done {
+  background: #58CC02; border-color: #46a302;
+  color: #fff;
+}
+.plan-timeline-dot.ptd-active {
+  background: #5BC0F8; border-color: #3daee0;
+  color: #fff;
+  box-shadow: 0 0 0 4px rgba(91,192,248,0.18);
+}
+.plan-timeline-dot.ptd-locked {
+  opacity: 0.45;
+}
+.plan-timeline-lbl {
+  position: absolute; top: 36px;
+  font-size: 9px; font-weight: 800;
+  color: var(--gray4, #777);
+  white-space: nowrap; text-align: center;
+  max-width: 48px; overflow: hidden; text-overflow: ellipsis;
+}
+.plan-timeline-lbl.ptl-done  { color: #58CC02; }
+.plan-timeline-lbl.ptl-active { color: #3daee0; }
+.plan-timeline-legend {
+  display: flex; gap: 14px; align-items: center; margin-top: 4px;
+  flex-wrap: wrap;
+}
+.plan-timeline-legend-item {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 10px; font-weight: 700; color: var(--gray4);
+}
+.ptli-dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+}
+/* end plan-27 css */
+/* --- Weekly Goal Progress Ring (plan-28) --- */
+.plan-wring-wrap {
+  background: linear-gradient(135deg, #f0fdf4, #ecfdf5);
+  border: 1.5px solid #bbf7d0;
+  border-radius: 16px; padding: 14px 16px;
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 14px;
+}
+:root[data-theme="dark"] .plan-wring-wrap {
+  background: #0f2a1a; border-color: #166534;
+}
+.plan-wring-ring-area {
+  position: relative; flex-shrink: 0;
+  width: 72px; height: 72px;
+}
+.plan-wring-svg {
+  transform: rotate(-90deg);
+}
+.plan-wring-center-text {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center; line-height: 1;
+}
+.plan-wring-pct-label {
+  font-size: 13px; font-weight: 900; color: var(--text);
+}
+.plan-wring-info { flex: 1; }
+.plan-wring-title {
+  font-size: 13px; font-weight: 900; color: var(--text); margin-bottom: 3px;
+}
+.plan-wring-subtitle {
+  font-size: 11px; font-weight: 700; color: #15803d; margin-bottom: 6px;
+}
+:root[data-theme="dark"] .plan-wring-subtitle { color: #4ade80; }
+.plan-wring-msg {
+  font-size: 11px; font-weight: 700; color: var(--gray4);
+  line-height: 1.45; font-style: italic;
+}
+.plan-wring-days-row {
+  display: flex; gap: 4px; margin-top: 8px;
+}
+.plan-wring-day-pip {
+  width: 10px; height: 10px; border-radius: 3px;
+  background: var(--gray2, #e5e5e5); flex-shrink: 0;
+}
+.plan-wring-day-pip.pwdp-done {
+  background: #58CC02;
+}
+.plan-wring-day-pip.pwdp-today {
+  background: #5BC0F8;
+  box-shadow: 0 0 0 2px rgba(91,192,248,0.3);
+}
+/* end plan-28 css */
+/* --- ETA Calculator (plan-29) --- */
+.plan-eta-wrap {
+  background: var(--white, #fff);
+  border: 1.5px solid var(--gray2, #e5e5e5);
+  border-radius: 16px; padding: 14px 16px;
+  margin-bottom: 16px;
+}
+:root[data-theme="dark"] .plan-eta-wrap {
+  background: var(--white, #252525);
+  border-color: var(--gray2, #3a3a3a);
+}
+.plan-eta-title {
+  font-size: 13px; font-weight: 900; color: var(--text);
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 7px;
+}
+.plan-eta-icon {
+  width: 26px; height: 26px; border-radius: 8px;
+  background: linear-gradient(135deg, #7c3aed, #a78bfa);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; flex-shrink: 0;
+}
+.plan-eta-slider-row {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+}
+.plan-eta-slider {
+  flex: 1; accent-color: #7c3aed;
+  height: 6px; border-radius: 3px;
+  cursor: pointer;
+}
+.plan-eta-slider-val {
+  font-size: 13px; font-weight: 900;
+  color: #7c3aed; min-width: 48px; text-align: right;
+}
+.plan-eta-result-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+}
+.plan-eta-result-card {
+  background: var(--gray1, #f0f0f0);
+  border-radius: 10px; padding: 10px 12px;
+  text-align: center;
+}
+:root[data-theme="dark"] .plan-eta-result-card {
+  background: var(--gray1, #2e2e2e);
+}
+.plan-eta-result-num {
+  font-size: 16px; font-weight: 900; color: var(--text); margin-bottom: 2px;
+}
+.plan-eta-result-lbl {
+  font-size: 10px; font-weight: 700; color: var(--gray4);
+}
+.plan-eta-hint {
+  font-size: 10px; font-weight: 600; color: var(--gray3);
+  margin-top: 8px; text-align: center;
+}
+/* end plan-29 css */
+/* --- Streak Freeze Indicator (plan-30) --- */
+.plan-freeze-wrap {
+  border-radius: 16px; padding: 14px 16px;
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px;
+  border: 1.5px solid;
+}
+.plan-freeze-wrap.pfw-safe {
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+  border-color: #7dd3fc;
+}
+.plan-freeze-wrap.pfw-frozen {
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  border-color: #93c5fd;
+}
+.plan-freeze-wrap.pfw-risk {
+  background: linear-gradient(135deg, #fff7ed, #ffedd5);
+  border-color: #fed7aa;
+}
+.plan-freeze-wrap.pfw-zero {
+  background: var(--gray1, #f0f0f0);
+  border-color: var(--gray2, #e5e5e5);
+}
+:root[data-theme="dark"] .plan-freeze-wrap.pfw-safe   { background: #0c1f2e; border-color: #0369a1; }
+:root[data-theme="dark"] .plan-freeze-wrap.pfw-frozen { background: #0d1a3a; border-color: #1d4ed8; }
+:root[data-theme="dark"] .plan-freeze-wrap.pfw-risk   { background: #2a1800; border-color: #b45309; }
+:root[data-theme="dark"] .plan-freeze-wrap.pfw-zero   { background: var(--gray1,#2e2e2e); border-color: var(--gray2,#3a3a3a); }
+.plan-freeze-icon-wrap {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+}
+.pfw-safe   .plan-freeze-icon-wrap { background: rgba(125,211,252,0.25); }
+.pfw-frozen .plan-freeze-icon-wrap { background: rgba(147,197,253,0.25); }
+.pfw-risk   .plan-freeze-icon-wrap { background: rgba(254,215,170,0.35); }
+.pfw-zero   .plan-freeze-icon-wrap { background: var(--gray2, #e5e5e5); }
+.plan-freeze-body { flex: 1; }
+.plan-freeze-title {
+  font-size: 13px; font-weight: 900; color: var(--text); margin-bottom: 2px;
+}
+.plan-freeze-sub {
+  font-size: 11px; font-weight: 700; line-height: 1.45;
+}
+.pfw-safe   .plan-freeze-sub { color: #0369a1; }
+.pfw-frozen .plan-freeze-sub { color: #1d4ed8; }
+.pfw-risk   .plan-freeze-sub { color: #c2410c; }
+.pfw-zero   .plan-freeze-sub { color: var(--gray4, #777); }
+.plan-freeze-badge {
+  font-size: 11px; font-weight: 800; padding: 4px 10px;
+  border-radius: 20px; flex-shrink: 0; white-space: nowrap;
+}
+.pfw-safe   .plan-freeze-badge { background: #e0f2fe; color: #0369a1; }
+.pfw-frozen .plan-freeze-badge { background: #dbeafe; color: #1d4ed8; }
+.pfw-risk   .plan-freeze-badge { background: #ffedd5; color: #c2410c; }
+.pfw-zero   .plan-freeze-badge { background: var(--gray2,#e5e5e5); color: var(--gray4,#777); }
+/* end plan-30 css */
+/* --- Adaptive Daily Goal Suggestion (plan-31) --- */
+.plan-adapt-wrap {
+  background: linear-gradient(135deg, #fdf4ff, #faf5ff);
+  border: 1.5px solid #e9d5ff;
+  border-radius: 16px; padding: 14px 16px;
+  margin-bottom: 16px;
+}
+:root[data-theme="dark"] .plan-adapt-wrap {
+  background: #1a0f2e; border-color: #7c3aed;
+}
+.plan-adapt-header {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+}
+.plan-adapt-icon {
+  width: 30px; height: 30px; border-radius: 9px;
+  background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
+}
+.plan-adapt-title {
+  font-size: 13px; font-weight: 900; color: var(--text); flex: 1;
+}
+.plan-adapt-body {
+  font-size: 12px; font-weight: 700; color: var(--gray4);
+  line-height: 1.5; margin-bottom: 12px;
+}
+.plan-adapt-body strong { color: var(--text); }
+.plan-adapt-actions {
+  display: flex; gap: 8px; align-items: center;
+}
+.plan-adapt-accept-btn {
+  padding: 8px 14px; border-radius: 10px;
+  background: #8b5cf6; color: #fff;
+  border: none; font-size: 12px; font-weight: 800;
+  cursor: pointer;
+}
+.plan-adapt-accept-btn:hover { opacity: 0.88; }
+.plan-adapt-dismiss-btn {
+  padding: 8px 12px; border-radius: 10px;
+  background: transparent; color: var(--gray4);
+  border: 1.5px solid var(--gray2, #e5e5e5);
+  font-size: 12px; font-weight: 700; cursor: pointer;
+}
+.plan-adapt-dismiss-btn:hover { background: var(--gray1, #f0f0f0); }
+.plan-adapt-stats-row {
+  display: flex; gap: 10px; margin-bottom: 10px;
+}
+.plan-adapt-stat {
+  flex: 1; background: rgba(139,92,246,0.08);
+  border-radius: 8px; padding: 7px 8px; text-align: center;
+}
+.plan-adapt-stat-num {
+  font-size: 16px; font-weight: 900; color: #7c3aed;
+}
+.plan-adapt-stat-lbl {
+  font-size: 9px; font-weight: 700; color: var(--gray4);
+  margin-top: 1px;
+}
+/* end plan-31 css */
+/* --- Smart Study Time Insights (plan-32) --- */
+.plan-stime-wrap {
+  background: var(--white, #fff);
+  border: 1.5px solid var(--gray2, #e5e5e5);
+  border-radius: 16px; padding: 14px 16px;
+  margin-bottom: 16px;
+}
+:root[data-theme="dark"] .plan-stime-wrap {
+  background: var(--white, #252525);
+  border-color: var(--gray2, #3a3a3a);
+}
+.plan-stime-title {
+  font-size: 13px; font-weight: 900; color: var(--text);
+  display: flex; align-items: center; gap: 7px;
+  margin-bottom: 12px;
+}
+.plan-stime-title-icon {
+  width: 26px; height: 26px; border-radius: 8px;
+  background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; flex-shrink: 0;
+}
+.plan-stime-bars {
+  display: flex; gap: 6px; align-items: flex-end;
+  height: 56px; margin-bottom: 8px;
+}
+.plan-stime-bar-col {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 3px;
+}
+.plan-stime-bar-bg {
+  width: 100%; border-radius: 6px 6px 0 0;
+  background: var(--gray1, #f0f0f0);
+  flex: 1; position: relative; display: flex; align-items: flex-end;
+}
+.plan-stime-bar-fill {
+  width: 100%; border-radius: 6px 6px 0 0;
+  background: linear-gradient(180deg, #38bdf8, #0ea5e9);
+  transition: height 0.4s ease;
+}
+.plan-stime-bar-fill.stb-best {
+  background: linear-gradient(180deg, #fbbf24, #f59e0b);
+}
+.plan-stime-bar-lbl {
+  font-size: 9px; font-weight: 700; color: var(--gray4);
+  white-space: nowrap;
+}
+.plan-stime-best-row {
+  background: #fef9c3; border: 1.5px solid #fde047;
+  border-radius: 10px; padding: 8px 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+:root[data-theme="dark"] .plan-stime-best-row {
+  background: #2a2000; border-color: #ca8a04;
+}
+.plan-stime-best-icon { font-size: 16px; flex-shrink: 0; }
+.plan-stime-best-text {
+  font-size: 12px; font-weight: 800; color: #92400e; flex: 1;
+}
+:root[data-theme="dark"] .plan-stime-best-text { color: #fde68a; }
+.plan-stime-empty {
+  font-size: 12px; font-weight: 700; color: var(--gray4);
+  text-align: center; padding: 10px 0;
+}
+/* end plan-32 css */
 /* end plan-23 css */
 /* end plan-22 css */
 /* end plan-21 css */
@@ -28144,6 +28622,8 @@ function renderPracticeTab() {
   renderPracticeRecords();
   renderPracticeWeakHeatmap();
   renderPracticeRecentSessions();
+  // practice-56: lesson-specific stats
+  if (typeof renderPracticeLessonStats === 'function') renderPracticeLessonStats();
   // Only re-render notes list if panel is open
   (function() {
     var _nb = document.getElementById('practice-notes-list-body');
@@ -32073,6 +32553,568 @@ function renderPlanTab() {
           '</div>' +
         '</div>' +
         _achHtml23 +
+      '</div>';
+  })();
+
+  // --- Smart Study Time Insights (plan-32) ---
+  (function() {
+    // lesson_log_dates: { lessonId: timestamp_ms }
+    var _lld32 = S.lesson_log_dates || {};
+    var _keys32 = Object.keys(_lld32);
+    if (_keys32.length < 3) return; // need some data
+
+    // Bucket into 4 x 6-hour blocks: 0-6, 6-12, 12-18, 18-24
+    var _SLOTS32 = [
+      { label: 'Night',  range: '12am-6am',  start: 0,  end: 6  },
+      { label: 'Morn',   range: '6am-12pm',  start: 6,  end: 12 },
+      { label: 'Aftn',   range: '12pm-6pm',  start: 12, end: 18 },
+      { label: 'Eve',    range: '6pm-12am',  start: 18, end: 24 }
+    ];
+    var _counts32 = [0, 0, 0, 0];
+    for (var _ki32 = 0; _ki32 < _keys32.length; _ki32++) {
+      var _ts32 = _lld32[_keys32[_ki32]];
+      var _hr32 = new Date(_ts32).getHours();
+      var _slot32 = Math.min(3, Math.floor(_hr32 / 6));
+      _counts32[_slot32]++;
+    }
+
+    var _maxCount32 = Math.max(1, Math.max.apply(null, _counts32));
+    var _bestSlot32 = 0;
+    for (var _si32 = 0; _si32 < 4; _si32++) {
+      if (_counts32[_si32] > _counts32[_bestSlot32]) _bestSlot32 = _si32;
+    }
+
+    // Build bar chart
+    var _barsHtml32 = '';
+    for (var _bi32 = 0; _bi32 < 4; _bi32++) {
+      var _slot32b = _SLOTS32[_bi32];
+      var _cnt32b  = _counts32[_bi32];
+      var _hPct32  = Math.max(8, Math.round((_cnt32b / _maxCount32) * 100));
+      var _isBest32 = _bi32 === _bestSlot32 && _cnt32b > 0;
+      var _fillCls32 = 'plan-stime-bar-fill' + (_isBest32 ? ' stb-best' : '');
+      _barsHtml32 +=
+        '<div class="plan-stime-bar-col">' +
+          '<div class="plan-stime-bar-bg">' +
+            '<div class="' + _fillCls32 + '" style="height:' + _hPct32 + '%;"></div>' +
+          '</div>' +
+          '<div class="plan-stime-bar-lbl">' + _slot32b.label + '</div>' +
+        '</div>';
+    }
+
+    // Best window message
+    var _bestSlotData32 = _SLOTS32[_bestSlot32];
+    var _bestCnt32 = _counts32[_bestSlot32];
+    var _bestPct32 = Math.round((_bestCnt32 / _keys32.length) * 100);
+    var _bestMsg32 = _bestPct32 + '% of your lessons happen in the '
+      + _bestSlotData32.label.toLowerCase() + ' (' + _bestSlotData32.range + ').'
+      + ' Schedule a daily reminder then for maximum momentum.';
+
+    html +=
+      '<div class="plan-stime-wrap">' +
+        '<div class="plan-stime-title">' +
+          '<div class="plan-stime-title-icon">⏰</div>' +
+          'Your Best Study Times' +
+        '</div>' +
+        '<div class="plan-stime-bars">' + _barsHtml32 + '</div>' +
+        '<div class="plan-stime-best-row">' +
+          '<div class="plan-stime-best-icon">&#11088;</div>' +
+          '<div class="plan-stime-best-text">' + _bestMsg32 + '</div>' +
+        '</div>' +
+      '</div>';
+  })();
+
+  // --- Adaptive Daily Goal Suggestion (plan-31) ---
+  (function() {
+    var _today31   = todayStr();
+    var _log31     = S.lesson_log || {};
+    var _curGoal31 = S.daily_goal || 1;
+
+    // Analyse last 7 days (not including today to be fair)
+    var _activeDays31 = 0;
+    var _totalLsns31  = 0;
+    for (var _di31 = 1; _di31 <= 7; _di31++) {
+      var _d31 = new Date(_today31 + 'T12:00:00');
+      _d31.setDate(_d31.getDate() - _di31);
+      var _ds31 = _d31.toISOString().split('T')[0];
+      var _cnt31 = _log31[_ds31] || 0;
+      if (_cnt31 > 0) { _activeDays31++; _totalLsns31 += _cnt31; }
+    }
+
+    // Average on active days
+    var _avgLpd31 = _activeDays31 > 0
+      ? Math.round(_totalLsns31 / _activeDays31)
+      : 0;
+
+    // Suggest a new goal only when there is meaningful data and a real difference
+    if (_activeDays31 < 3) return; // not enough data
+    var _suggested31 = Math.max(1, _avgLpd31);
+    if (_suggested31 === _curGoal31) return; // no change needed
+
+    var _isUp31   = _suggested31 > _curGoal31;
+    var _diffStr31 = _isUp31
+      ? ('+' + (_suggested31 - _curGoal31) + ' from current')
+      : ('-' + (_curGoal31 - _suggested31) + ' from current');
+
+    var _reasonStr31 = _isUp31
+      ? 'You have been averaging ' + _avgLpd31 + ' lessons/day over the last week. Raising your goal matches your real pace!'
+      : 'Your actual average is ' + _avgLpd31 + ' lessons/day. A realistic goal keeps you motivated and prevents burnout.';
+
+    var _saveOnclick31 = "(function(){"
+      + "save('daily_goal'," + String(_suggested31) + ");"
+      + "renderPlanTab();"
+      + "})()";
+    var _dismissOnclick31 = "(function(){"
+      + "var w=document.querySelector('.plan-adapt-wrap');"
+      + "if(w)w.style.display='none';"
+      + "})()";
+
+    html =
+      '<div class="plan-adapt-wrap">' +
+        '<div class="plan-adapt-header">' +
+          '<div class="plan-adapt-icon">✨</div>' +
+          '<div class="plan-adapt-title">Adaptive Goal Suggestion</div>' +
+        '</div>' +
+        '<div class="plan-adapt-stats-row">' +
+          '<div class="plan-adapt-stat">' +
+            '<div class="plan-adapt-stat-num">' + _avgLpd31 + '</div>' +
+            '<div class="plan-adapt-stat-lbl">avg lessons/day</div>' +
+          '</div>' +
+          '<div class="plan-adapt-stat">' +
+            '<div class="plan-adapt-stat-num">' + _activeDays31 + '/7</div>' +
+            '<div class="plan-adapt-stat-lbl">active days</div>' +
+          '</div>' +
+          '<div class="plan-adapt-stat">' +
+            '<div class="plan-adapt-stat-num">' + _curGoal31 + '→' + _suggested31 + '</div>' +
+            '<div class="plan-adapt-stat-lbl">goal change</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="plan-adapt-body">' + _reasonStr31 + '</div>' +
+        '<div class="plan-adapt-actions">' +
+          '<button class="plan-adapt-accept-btn" onclick="' + _saveOnclick31 + '">'
+            + 'Set goal to ' + _suggested31 + ' lesson' + (_suggested31 !== 1 ? 's' : '') + '/day'
+          + '</button>' +
+          '<button class="plan-adapt-dismiss-btn" onclick="' + _dismissOnclick31 + '">Not now</button>' +
+        '</div>' +
+      '</div>' + html;
+  })();
+
+  // --- Streak Freeze Indicator (plan-30) ---
+  (function() {
+    var _streak30   = S.streak || 0;
+    if (_streak30 === 0) return; // no streak to protect, skip
+
+    var _today30    = todayStr();
+    var _streakAt30 = S.streak_date || '';
+    var _freeze30   = S.streak_freeze || false;
+    var _doneToday30 = (S.goal_today || 0) > 0 || _streakAt30 === _today30;
+
+    var _wrapCls30, _icon30, _title30, _sub30, _badge30;
+
+    if (_doneToday30) {
+      // Streak safe: user already studied today
+      _wrapCls30 = 'plan-freeze-wrap pfw-safe';
+      _icon30    = '🔥'.replace(/./g, function(c) { return c; });
+      _icon30    = '🔥'.replace ? '🔥' : '🔥';
+      // Use safe literal
+      _icon30    = '&#128293;';
+      _title30   = _streak30 + '-day streak is safe!';
+      _sub30     = 'You have already studied today. Your streak is protected. Keep the chain going tomorrow!';
+      _badge30   = '✓ Safe today';
+    } else if (_freeze30) {
+      // Freeze is active
+      _wrapCls30 = 'plan-freeze-wrap pfw-frozen';
+      _icon30    = '&#10052;';
+      _title30   = 'Streak Freeze Active';
+      _sub30     = 'Your ' + _streak30 + '-day streak is protected by a freeze for today. Study tomorrow to keep building!';
+      _badge30   = '❄ Frozen';
+    } else {
+      // At risk
+      _wrapCls30 = 'plan-freeze-wrap pfw-risk';
+      _icon30    = '&#9888;&#xFE0F;';
+      _title30   = _streak30 + '-day streak at risk!';
+      _sub30     = 'You have not studied today. Do at least one lesson before midnight to keep your ' + _streak30 + '-day streak alive.';
+      _badge30   = '⚠ At risk';
+    }
+
+    html =
+      '<div class="' + _wrapCls30 + '">' +
+        '<div class="plan-freeze-icon-wrap">' + _icon30 + '</div>' +
+        '<div class="plan-freeze-body">' +
+          '<div class="plan-freeze-title">' + _title30 + '</div>' +
+          '<div class="plan-freeze-sub">' + _sub30 + '</div>' +
+        '</div>' +
+        '<div class="plan-freeze-badge">' + _badge30 + '</div>' +
+      '</div>' + html;
+  })();
+
+  // --- ETA Calculator (plan-29) ---
+  (function() {
+    var _totalL29 = 0;
+    for (var _ni29 = 0; _ni29 < COURSE.length; _ni29++) {
+      _totalL29 += (COURSE[_ni29].lessons || []).length;
+    }
+    var _doneL29 = (S.completed || []).length;
+    var _remL29  = Math.max(0, _totalL29 - _doneL29);
+
+    if (_remL29 === 0) return; // course complete, skip
+
+    var _MPL29 = 5; // minutes per lesson estimate
+    // Default slider = daily_goal * 5 min, clamped to [5,60]
+    var _defaultMin29 = Math.min(60, Math.max(5, (S.daily_goal || 1) * _MPL29));
+
+    // Unique element IDs using timestamp-like suffix
+    var _sliderId29 = 'eta-slider-29';
+    var _valId29    = 'eta-val-29';
+    var _daysId29   = 'eta-days-29';
+    var _dateId29   = 'eta-date-29';
+
+    // Inline onchange handler builds string carefully
+    var _onchange29 = "(function(v){"
+      + "var rem=" + String(_remL29) + ";"
+      + "var mpl=" + String(_MPL29) + ";"
+      + "var lpdF=v/mpl;"
+      + "var daysN=lpdF>0?Math.ceil(rem/lpdF):9999;"
+      + "document.getElementById('" + _valId29 + "').textContent=v+' min/day';"
+      + "document.getElementById('" + _daysId29 + "').textContent=daysN>999?'999+ days':(daysN+' day'+(daysN!==1?'s':''));"
+      + "var dt=new Date();dt.setDate(dt.getDate()+daysN);"
+      + "var mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];"
+      + "document.getElementById('" + _dateId29 + "').textContent=daysN>999?'Far future':(mo[dt.getMonth()]+' '+dt.getDate()+', '+dt.getFullYear());"
+      + "})(this.value)";
+
+    // Compute initial display values
+    var _initLpd29   = _defaultMin29 / _MPL29;
+    var _initDays29  = _initLpd29 > 0 ? Math.ceil(_remL29 / _initLpd29) : 9999;
+    var _initDate29;
+    if (_initDays29 > 999) {
+      _initDate29 = 'Far future';
+      _initDays29Str = '999+ days';
+    } else {
+      var _etaDt29 = new Date();
+      _etaDt29.setDate(_etaDt29.getDate() + _initDays29);
+      var _mos29 = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      _initDate29 = _mos29[_etaDt29.getMonth()] + ' ' + _etaDt29.getDate() + ', ' + _etaDt29.getFullYear();
+      _initDays29Str = _initDays29 + ' day' + (_initDays29 !== 1 ? 's' : '');
+    }
+
+    html +=
+      '<div class="plan-eta-wrap">' +
+        '<div class="plan-eta-title">' +
+          '<div class="plan-eta-icon">⏳</div>' +
+          'Finish-by Calculator' +
+        '</div>' +
+        '<div class="plan-eta-slider-row">' +
+          '<input id="' + _sliderId29 + '" class="plan-eta-slider"'
+            + ' type="range" min="5" max="60" step="5" value="' + _defaultMin29 + '"'
+            + ' oninput="' + _onchange29 + '">' +
+          '<div id="' + _valId29 + '" class="plan-eta-slider-val">' + _defaultMin29 + ' min/day</div>' +
+        '</div>' +
+        '<div class="plan-eta-result-row">' +
+          '<div class="plan-eta-result-card">' +
+            '<div id="' + _daysId29 + '" class="plan-eta-result-num">' + _initDays29Str + '</div>' +
+            '<div class="plan-eta-result-lbl">days to finish</div>' +
+          '</div>' +
+          '<div class="plan-eta-result-card">' +
+            '<div id="' + _dateId29 + '" class="plan-eta-result-num">' + _initDate29 + '</div>' +
+            '<div class="plan-eta-result-lbl">finish date</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="plan-eta-hint">' + _remL29 + ' lessons remaining · ~' + _MPL29 + ' min each</div>' +
+      '</div>';
+  })();
+
+  // --- Weekly Goal Progress Ring (plan-28) ---
+  (function() {
+    var _today28   = todayStr();
+    var _log28     = S.lesson_log || {};
+    var _dGoal28   = S.daily_goal || 1;
+
+    // Figure out this week Mon-Sun
+    var _todayDate28 = new Date(_today28 + 'T12:00:00');
+    var _dow28 = _todayDate28.getDay();
+    var _daysFromMon28 = (_dow28 + 6) % 7;
+    var _monDate28 = new Date(_todayDate28);
+    _monDate28.setDate(_todayDate28.getDate() - _daysFromMon28);
+    var _DAY_NAMES28 = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+    var _weekDays28 = [];
+    var _metDays28  = 0;
+    for (var _di28 = 0; _di28 < 7; _di28++) {
+      var _d28 = new Date(_monDate28);
+      _d28.setDate(_monDate28.getDate() + _di28);
+      var _ds28    = _d28.toISOString().split('T')[0];
+      var _cnt28   = _log28[_ds28] || 0;
+      var _met28   = _cnt28 >= _dGoal28;
+      var _past28  = _ds28 < _today28;
+      var _isTod28 = _ds28 === _today28;
+      if (_met28) _metDays28++;
+      _weekDays28.push({ ds: _ds28, cnt: _cnt28, met: _met28, past: _past28, isToday: _isTod28 });
+    }
+
+    // Ring: goal = 7 met days; current = _metDays28
+    var _R28    = 30;
+    var _CX28   = 36; var _CY28 = 36;
+    var _circ28 = 2 * 3.14159 * _R28;
+    var _pct28  = Math.min(1, _metDays28 / 7);
+    var _dash28 = (_circ28 * _pct28).toFixed(2);
+    var _gap28  = (_circ28 * (1 - _pct28)).toFixed(2);
+    var _ringColor28 = _metDays28 >= 7 ? '#58CC02'
+                     : (_metDays28 >= 4 ? '#5BC0F8' : '#FFC800');
+
+    var _ringSVG28 =
+      '<svg class="plan-wring-svg" width="72" height="72" viewBox="0 0 72 72">' +
+        '<circle cx="' + _CX28 + '" cy="' + _CY28 + '" r="' + _R28 + '"'
+          + ' fill="none" stroke="var(--gray1,#f0f0f0)" stroke-width="7"/>' +
+        '<circle cx="' + _CX28 + '" cy="' + _CY28 + '" r="' + _R28 + '"'
+          + ' fill="none" stroke="' + _ringColor28 + '" stroke-width="7"'
+          + ' stroke-dasharray="' + _dash28 + ' ' + _gap28 + '"'
+          + ' stroke-linecap="round"/>' +
+      '</svg>';
+
+    var _pctLabel28 = Math.round(_pct28 * 100) + '%';
+
+    // Day pips
+    var _pipsHtml28 = '';
+    for (var _pi28 = 0; _pi28 < _weekDays28.length; _pi28++) {
+      var _wd28 = _weekDays28[_pi28];
+      var _pipCls28 = 'plan-wring-day-pip';
+      if (_wd28.isToday && _wd28.met) { _pipCls28 += ' pwdp-done'; }
+      else if (_wd28.isToday) { _pipCls28 += ' pwdp-today'; }
+      else if (_wd28.met)     { _pipCls28 += ' pwdp-done'; }
+      _pipsHtml28 += '<div class="' + _pipCls28 + '" title="' + _DAY_NAMES28[_pi28] + '"></div>';
+    }
+
+    // Encouragement message
+    var _msgs28 = [
+      'Every day you show up is a day your future self is grateful for.',
+      'You are building a habit that will pay dividends for years.',
+      'Consistency is the compound interest of learning.',
+      'Each lesson is a tiny win. Tiny wins become big skills.',
+      'Your future self is cheering you on right now.',
+      'Progress, not perfection. You are doing great!',
+      'Small daily actions create extraordinary results over time.'
+    ];
+    var _msgIdx28 = (_metDays28 + (S.streak || 0)) % _msgs28.length;
+    var _msg28 = _msgs28[_msgIdx28];
+    var _subtitle28 = _metDays28 + ' of 7 goal days met this week';
+
+    html +=
+      '<div class="plan-wring-wrap">' +
+        '<div class="plan-wring-ring-area">' +
+          _ringSVG28 +
+          '<div class="plan-wring-center-text">' +
+            '<div class="plan-wring-pct-label">' + _pctLabel28 + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="plan-wring-info">' +
+          '<div class="plan-wring-title">Weekly Goal Ring</div>' +
+          '<div class="plan-wring-subtitle">' + _subtitle28 + '</div>' +
+          '<div class="plan-wring-msg">' + _msg28 + '</div>' +
+          '<div class="plan-wring-days-row">' + _pipsHtml28 + '</div>' +
+        '</div>' +
+      '</div>';
+  })();
+
+  // --- Unit Progress Timeline (plan-27) ---
+  (function() {
+    if (COURSE.length === 0) return;
+
+    var _nodesHtml27  = '';
+    var _connHtml27   = '';
+    var _trackHtml27  = '';
+    var _doneCnt27    = 0;
+    var _activeSeen27 = false;
+
+    // Build data: for each unit compute done/total
+    var _units27 = [];
+    for (var _ui27 = 0; _ui27 < COURSE.length; _ui27++) {
+      var _u27    = COURSE[_ui27];
+      var _lsns27 = _u27.lessons || [];
+      var _tot27  = _lsns27.length;
+      var _done27 = 0;
+      for (var _li27 = 0; _li27 < _lsns27.length; _li27++) {
+        if ((S.completed || []).indexOf(_lsns27[_li27].id) > -1) _done27++;
+      }
+      var _isDone27    = _tot27 > 0 && _done27 === _tot27;
+      var _isActive27  = !_isDone27 && _done27 > 0 && !_activeSeen27;
+      var _isNext27    = !_isDone27 && !_isActive27 && !_activeSeen27 && _done27 === 0;
+      if (_isDone27) _doneCnt27++;
+      if (_isActive27) _activeSeen27 = true;
+      _units27.push({
+        u: _u27,
+        tot: _tot27,
+        done: _done27,
+        isDone: _isDone27,
+        isActive: _isActive27,
+        isNext: _isNext27
+      });
+    }
+    // If no active unit found yet (user just started), mark first incomplete as next
+    var _hasActive27 = _units27.some(function(x) { return x.isActive; });
+
+    for (var _ti27 = 0; _ti27 < _units27.length; _ti27++) {
+      var _item27 = _units27[_ti27];
+      var _u27b   = _item27.u;
+
+      // Connector before each node (except first)
+      if (_ti27 > 0) {
+        var _prevDone = _units27[_ti27 - 1].isDone;
+        var _prevActive = _units27[_ti27 - 1].isActive;
+        var _connCls27 = _prevDone ? 'plan-timeline-connector ptc-done'
+                       : (_prevActive ? 'plan-timeline-connector ptc-active'
+                                      : 'plan-timeline-connector');
+        _trackHtml27 += '<div class="' + _connCls27 + '"></div>';
+      }
+
+      var _dotCls27 = 'plan-timeline-dot';
+      var _lblCls27 = 'plan-timeline-lbl';
+      var _dotContent27 = String(_u27b.num || (_ti27 + 1));
+      if (_item27.isDone) {
+        _dotCls27 += ' ptd-done'; _lblCls27 += ' ptl-done';
+        _dotContent27 = '✓';
+      } else if (_item27.isActive) {
+        _dotCls27 += ' ptd-active'; _lblCls27 += ' ptl-active';
+        _dotContent27 = String(_item27.done) + '/' + String(_item27.tot);
+      } else {
+        _dotCls27 += ' ptd-locked';
+      }
+
+      var _shortTitle27 = (_u27b.title || '').length > 8
+        ? (_u27b.title || '').slice(0, 7) + '…'
+        : (_u27b.title || '');
+
+      _trackHtml27 +=
+        '<div class="plan-timeline-node">' +
+          '<div class="' + _dotCls27 + '" title="' + (_u27b.title || '') + '">' + _dotContent27 + '</div>' +
+          '<div class="' + _lblCls27 + '">' + _shortTitle27 + '</div>' +
+        '</div>';
+    }
+
+    var _pctDone27 = COURSE.length > 0 ? Math.round((_doneCnt27 / COURSE.length) * 100) : 0;
+
+    html +=
+      '<div class="plan-timeline-wrap">' +
+        '<div class="plan-timeline-title">Unit Progress Timeline</div>' +
+        '<div class="plan-timeline-track">' + _trackHtml27 + '</div>' +
+        '<div class="plan-timeline-legend">' +
+          '<div class="plan-timeline-legend-item">' +
+            '<div class="ptli-dot" style="background:#58CC02;"></div>' +
+            'Complete' +
+          '</div>' +
+          '<div class="plan-timeline-legend-item">' +
+            '<div class="ptli-dot" style="background:#5BC0F8;"></div>' +
+            'In progress' +
+          '</div>' +
+          '<div class="plan-timeline-legend-item">' +
+            '<div class="ptli-dot" style="background:var(--gray2,#e5e5e5);"></div>' +
+            'Not started' +
+          '</div>' +
+          '<span style="margin-left:auto;font-size:11px;font-weight:800;color:var(--text);">' + _doneCnt27 + '/' + COURSE.length + ' units (' + _pctDone27 + '%)</span>' +
+        '</div>' +
+      '</div>';
+  })();
+
+  // --- Overdue Review Alert Banner (plan-26) ---
+  (function() {
+    var _reviews26 = S.lesson_reviews || {};
+    var _today26   = todayStr();
+    var _overdue26 = [];
+    var _due26     = [];
+    for (var _rid26 in _reviews26) {
+      if (!_reviews26.hasOwnProperty(_rid26)) continue;
+      var _nr26 = _reviews26[_rid26].nextDue || '';
+      if (_nr26 < _today26) {
+        _overdue26.push(_rid26);
+      } else if (_nr26 === _today26) {
+        _due26.push(_rid26);
+      }
+    }
+    var _totalOverdue26 = _overdue26.length;
+    var _totalDue26     = _due26.length;
+    if (_totalOverdue26 === 0 && _totalDue26 === 0) return;
+
+    var _isCritical26 = _totalOverdue26 >= 3;
+    var _bannerCls26  = 'plan-overdue-banner' + (_isCritical26 ? ' pob-critical' : '');
+    var _icon26, _title26, _sub26, _btnTxt26, _btnId26;
+
+    if (_totalOverdue26 > 0) {
+      var _oldest26 = _overdue26[0];
+      var _msDiff26 = new Date(_today26).getTime() - new Date(_reviews26[_oldest26].nextDue + 'T12:00:00').getTime();
+      var _daysDiff26 = Math.round(_msDiff26 / 86400000);
+      _icon26   = '⏰';
+      _title26  = _totalOverdue26 + ' review' + (_totalOverdue26 !== 1 ? 's' : '') + ' overdue!';
+      _sub26    = 'Oldest overdue by ' + _daysDiff26 + ' day' + (_daysDiff26 !== 1 ? 's' : '')
+                + '. Reviewing now locks in your memory before it fades.';
+      _btnTxt26 = 'Review Now';
+      _btnId26  = _overdue26[0];
+    } else {
+      _icon26   = '✅';
+      _title26  = _totalDue26 + ' review' + (_totalDue26 !== 1 ? 's' : '') + ' due today';
+      _sub26    = 'Great timing — your spaced-repetition schedule has lessons ready for review.';
+      _btnTxt26 = 'Start Reviews';
+      _btnId26  = _due26[0];
+    }
+
+    var _locked26 = _btnId26 ? (!findLesson(_btnId26) || (!findLesson(_btnId26).free && !S.premium)) : false;
+    var _oc26 = _locked26 ? 'openPremiumModal()' : ("startLesson('" + _btnId26 + "')");
+
+    html =
+      '<div class="' + _bannerCls26 + '">' +
+        '<div class="plan-overdue-icon">' + _icon26 + '</div>' +
+        '<div class="plan-overdue-body">' +
+          '<div class="plan-overdue-title">' + _title26 + '</div>' +
+          '<div class="plan-overdue-sub">' + _sub26 + '</div>' +
+        '</div>' +
+        '<button class="plan-overdue-btn" onclick="' + _oc26 + '">' + _btnTxt26 + '</button>' +
+      '</div>' + html;
+  })();
+
+  // --- Daily XP Progress Bar (plan-25) ---
+  (function() {
+    // Compute XP earned today from xp_log (entries with today's date)
+    var _today25  = todayStr();
+    var _xpLog25  = S.xp_log || [];
+    var _todayXp25 = 0;
+    for (var _i25 = 0; _i25 < _xpLog25.length; _i25++) {
+      var _e25 = _xpLog25[_i25];
+      if ((_e25.date || '').slice(0, 10) === _today25) {
+        _todayXp25 += (_e25.xp || 0);
+      }
+    }
+    // Fallback: use daily_xp field if xp_log is empty
+    if (_todayXp25 === 0) _todayXp25 = S.daily_xp || 0;
+
+    var _dxpGoal25 = (S.daily_xp_goal || 20);
+    var _pct25     = Math.min(100, _dxpGoal25 > 0 ? Math.round((_todayXp25 / _dxpGoal25) * 100) : 100);
+    var _met25     = _todayXp25 >= _dxpGoal25;
+    var _barW25    = Math.max(2, _pct25);
+    var _metCls25  = _met25 ? ' dxp-met' : '';
+
+    var _msg25;
+    if (_met25) {
+      _msg25 = '✅ Daily XP goal crushed!';
+    } else if (_todayXp25 === 0) {
+      _msg25 = 'Earn your first XP today!';
+    } else {
+      var _rem25 = _dxpGoal25 - _todayXp25;
+      _msg25 = _rem25 + ' XP to go — keep pushing!';
+    }
+
+    html +=
+      '<div class="plan-dxp-wrap">' +
+        '<div class="plan-dxp-header">' +
+          '<div class="plan-dxp-title">' +
+            '<div class="plan-dxp-title-icon">⚡</div>' +
+            'Daily XP Goal' +
+          '</div>' +
+          '<div class="plan-dxp-nums">' + _todayXp25 + ' / ' + _dxpGoal25 + ' XP</div>' +
+        '</div>' +
+        '<div class="plan-dxp-bar-bg">' +
+          '<div class="plan-dxp-bar-fill' + _metCls25 + '" style="width:' + _barW25 + '%;"></div>' +
+        '</div>' +
+        '<div class="plan-dxp-footer">' +
+          '<div class="plan-dxp-msg' + _metCls25 + '">' + _msg25 + '</div>' +
+          '<div class="plan-dxp-pct">' + _pct25 + '%</div>' +
+        '</div>' +
       '</div>';
   })();
 
