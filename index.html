@@ -15,6 +15,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
+   learn-17: swipe-to-bookmark yellow flash
+   ============================================================ */
+@keyframes swipeBookmarkFlash {
+  0%   { background: rgba(255, 200, 0, 0.0); }
+  20%  { background: rgba(255, 200, 0, 0.38); }
+  80%  { background: rgba(255, 200, 0, 0.28); }
+  100% { background: rgba(255, 200, 0, 0.0); }
+}
+.lesson-row.swipe-bookmark-flash {
+  animation: swipeBookmarkFlash 0.3s ease forwards;
+}
+/* ============================================================
    CLARI AI — DESIGN SYSTEM
    ============================================================ */
 :root {
@@ -2699,8 +2711,34 @@ body.text-xl     { --text-scale: 1.3; }
   flex-shrink: 0;
 }
 .practice-card-info { flex: 1; }
+.practice-daily-goal { background: var(--white); border: 2px solid var(--gray2); border-radius: var(--radius); padding: 12px 16px; }
+.practice-unit-filter { display: flex; flex-wrap: wrap; gap: 6px; }
+.practice-unit-chip { flex-shrink: 0; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer; border: 2px solid transparent; transition: background 0.15s, color 0.15s, border-color 0.15s; white-space: nowrap; background: var(--gray1); color: var(--gray4); user-select: none; }
+.practice-unit-chip:hover:not(.active) { background: var(--gray2); }
+.practice-unit-chip.active { background: var(--blue); color: #fff; border-color: var(--blue2); }
+
+.practice-daily-goal-label { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
+.practice-daily-goal-label span { font-size: 12px; font-weight: 700; color: var(--gray4); }
+.practice-daily-goal-track { height: 8px; background: var(--gray2); border-radius: 99px; overflow: hidden; }
+.practice-daily-goal-fill { height: 100%; border-radius: 99px; background: var(--green); transition: width 0.4s cubic-bezier(.4,0,.2,1); }
+.practice-daily-goal-fill.done { background: #f59e0b; }
+
 .practice-card-title { font-size: 16px; font-weight: 900; color: var(--text); }
 .practice-card-sub   { font-size: 13px; font-weight: 600; color: var(--gray4); margin-top: 2px; }
+.practice-review-panel { margin-top: 16px; border: 2px solid var(--gray2); border-radius: var(--radius); background: var(--white); overflow: hidden; }
+.practice-review-toggle { width: 100%; background: none; border: none; cursor: pointer; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 800; color: var(--text); }
+.practice-review-toggle:hover { background: var(--gray1); }
+.practice-review-toggle .prv-arrow { display: inline-block; transition: transform 0.2s; font-size: 11px; color: var(--gray4); }
+.practice-review-toggle.open .prv-arrow { transform: rotate(180deg); }
+.practice-review-list { display: none; padding: 0 16px 12px; }
+.practice-review-list.open { display: block; }
+.practice-review-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--gray1); font-size: 13px; }
+.practice-review-item:last-child { border-bottom: none; }
+.prv-icon { flex-shrink: 0; font-size: 16px; margin-top: 1px; }
+.prv-qtext { flex: 1; color: var(--text); font-weight: 600; }
+.prv-answer { font-size: 12px; font-weight: 700; color: var(--gray4); margin-top: 2px; }
+.prv-answer.correct-ans { color: #15803d; }
+
 .wrong-count-badge {
   display: inline-flex; align-items: center; justify-content: center;
   background: #ef4444; color: #fff;
@@ -4560,10 +4598,12 @@ body.text-xl     { --text-scale: 1.3; }
       <div id="practice-week-pill" style="margin-bottom:16px;"></div>
       <div id="reviews-due-banner" aria-live="polite"></div>
       <div id="practice-streak-pill-wrap" style="margin-bottom:8px;"></div>
+      <div id="practice-daily-goal-bar" style="margin-bottom:12px;"></div>
+      <div id="practice-unit-filter-row" style="margin-bottom:10px;"></div>
       <div class="practice-modes">
         <div class="practice-card">
           <div class="practice-card-icon" style="background:#e0f9ff;">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1cb0f6" stroke-width="2.5" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1cb0f6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
           </div>
           <div class="practice-card-info">
             <div class="practice-card-title">Quick Practice</div>
@@ -4575,7 +4615,7 @@ body.text-xl     { --text-scale: 1.3; }
         <div class="practice-card" id="weak-areas-card">
           <div class="practice-card-icon-wrap">
             <div class="practice-card-icon" style="background:#fff3e0;">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffa000" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffa000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
             </div>
             <span id="wrong-count-badge" style="display:none;" class="wrong-count-badge"></span>
           </div>
@@ -4588,7 +4628,7 @@ body.text-xl     { --text-scale: 1.3; }
         </div>
         <div class="practice-card">
           <div class="practice-card-icon" style="background:#f2e8ff;">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a560f8" stroke-width="2.5" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/><circle cx="19" cy="5" r="3" fill="#a560f8"/></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#a560f8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 3"/><path d="M9 2h6"/><path d="M12 2v3"/><path d="M19.07 4.93l-1.41 1.41"/></svg>
           </div>
           <div class="practice-card-info">
             <div class="practice-card-title">Timed Challenge</div>
@@ -16920,6 +16960,18 @@ ${_playHint}<button class="lesson-bookmark-btn ${(S.bookmarks||[]).includes(less
       // Unit complete banner — shown only if every lesson in the unit is done
       var _unitAllDone = unitLessons.length > 0 && unitLessons.every(function(l) { return S.completed.includes(l.id); });
       if (_unitAllDone && !activeSearch) {
+        // learn-18: fire one-time Clari celebration popup when unit is JUST completed
+        var _unitCompleted = S.unit_completed || {};
+        if (!_unitCompleted[unit.num]) {
+          _unitCompleted[unit.num] = true;
+          save('unit_completed', _unitCompleted);
+          (function(_uNum, _uTitle) {
+            setTimeout(function() {
+              showClariPopup('star', 'clari-tada',
+                'You finished Unit ' + _uNum + '! Amazing work!', 3000);
+            }, 300);
+          })(unit.num, unit.title);
+        }
         var _unitTotalXP = unitLessons.reduce(function(sum, l) { return sum + (l.xp || 0); }, 0);
         html += '<div class="unit-complete-banner">' +
           '<div class="unit-complete-star">⭐</div>' +
@@ -16950,6 +17002,40 @@ ${_playHint}<button class="lesson-bookmark-btn ${(S.bookmarks||[]).includes(less
   document.getElementById('units-container').innerHTML = html;
   renderDailyTip();
   renderWeeklyChallengeBanner();
+
+  // learn-17: attach swipe-to-bookmark touch listeners to each .lesson-row
+  (function() {
+    var _rows = document.querySelectorAll('.lesson-row');
+    _rows.forEach(function(row) {
+      var _tx = 0, _ty = 0;
+      row.addEventListener('touchstart', function(e) {
+        var t = e.changedTouches[0];
+        _tx = t.clientX;
+        _ty = t.clientY;
+      }, { passive: true });
+      row.addEventListener('touchend', function(e) {
+        var t = e.changedTouches[0];
+        var dx = t.clientX - _tx;
+        var dy = Math.abs(t.clientY - _ty);
+        if (dx >= 60 && dy < 40) {
+          // Find the lesson id from the bookmark button inside this row
+          var _bBtn = row.parentElement && row.parentElement.querySelector
+            ? row.parentElement.querySelector('.lesson-bookmark-btn')
+            : null;
+          if (!_bBtn) _bBtn = row.nextElementSibling;
+          // Fallback: extract id from onclick on the row itself
+          var _rowOnclick = row.getAttribute('onclick') || '';
+          var _idMatch = _rowOnclick.match(/startLesson\('([^']+)'\)/);
+          if (_idMatch && _idMatch[1]) {
+            var _lid = _idMatch[1];
+            toggleBookmark(_lid);
+            row.classList.add('swipe-bookmark-flash');
+            setTimeout(function() { row.classList.remove('swipe-bookmark-flash'); }, 300);
+          }
+        }
+      }, { passive: true });
+    });
+  })();
 
   // Show unit jump FAB
   const fab = document.getElementById('unit-jump-fab');
@@ -23577,6 +23663,46 @@ function renderPracticeTab() {
   renderWrongCountBadge();
   renderPracticeRecords();
   renderPracticeRecentSessions();
+  // Daily goal bar
+  (function() {
+    var _goalEl = document.getElementById('practice-daily-goal-bar');
+    if (!_goalEl) return;
+    var _today = (typeof todayStr === 'function') ? todayStr() : new Date().toISOString().split('T')[0];
+    var _todayData = S.practice_today || { date: '', count: 0 };
+    var _todayCount = (_todayData.date === _today) ? (_todayData.count || 0) : 0;
+    var _goal = 10;
+    var _pct = Math.min(100, Math.round((_todayCount / _goal) * 100));
+    var _done = _todayCount >= _goal;
+    _goalEl.innerHTML = '<div class="practice-daily-goal">'
+      + '<div class="practice-daily-goal-label">'
+      + ('Daily Goal' + (_done ? ' &#x2713;' : ''))
+      + '<span>' + _todayCount + ' / ' + _goal + ' questions today</span>'
+      + '</div>'
+      + '<div class="practice-daily-goal-track">'
+      + '<div class="practice-daily-goal-fill' + (_done ? ' done' : '') + '"'
+      + ' style="width:' + _pct + '%"></div>'
+      + '</div>'
+      + '</div>';
+  })();
+  // Unit filter pills
+  (function() {
+    var _filterRow = document.getElementById('practice-unit-filter-row');
+    if (!_filterRow) return;
+    if (typeof COURSE === 'undefined' || !COURSE.length) return;
+    var _isAll = practiceUnitFilter === 'all';
+    var _pills = '<div class="practice-unit-filter">'
+      + '<div class="practice-unit-chip' + (_isAll ? ' active' : '')
+      + '" data-unit="all" onclick="setPracticeUnitFilter(&apos;all&apos;)">All</div>';
+    COURSE.forEach(function(unit) {
+      var _active = practiceUnitFilter === unit.id ? ' active' : '';
+      _pills += '<div class="practice-unit-chip' + _active
+        + '" data-unit="' + unit.id + '"'
+        + ' onclick="setPracticeUnitFilter(&apos;' + unit.id + '&apos;)">'
+        + 'Unit ' + unit.num + '</div>';
+    });
+    _pills += '</div>';
+    _filterRow.innerHTML = _pills;
+  })();
   // Pool-size subtitles
   (function() {
     // Count total quiz questions from completed lessons
@@ -23865,6 +23991,20 @@ function showPracticeMsg(clariState, text) {
   setTimeout(() => { el.style.display = 'none'; }, 4000);
 }
 
+var practiceUnitFilter = 'all';
+function setPracticeUnitFilter(val) {
+  practiceUnitFilter = val || 'all';
+  // Re-render filter pills to reflect active state
+  (function() {
+    var _row = document.getElementById('practice-unit-filter-row');
+    if (!_row) return;
+    var _chips = _row.querySelectorAll('.practice-unit-chip');
+    _chips.forEach(function(c) {
+      c.classList.toggle('active', c.dataset.unit === practiceUnitFilter);
+    });
+  })();
+}
+
 let _diffSelectorPracticeType = null;
 function showDifficultySelector(type) {
   _diffSelectorPracticeType = type;
@@ -23887,10 +24027,21 @@ function startPractice(type, difficulty) {
   const _practiceDiff = difficulty || 'mixed';
   if (typeof lessonState !== 'undefined') lessonState.practiceDifficulty = _practiceDiff;
 
+  // Apply unit filter: restrict completed lessons to selected unit
+  var _completedFiltered = S.completed || [];
+  if (typeof practiceUnitFilter !== 'undefined' && practiceUnitFilter !== 'all' && typeof COURSE !== 'undefined') {
+    var _filterUnit = COURSE.find(function(u) { return u.id === practiceUnitFilter; });
+    if (_filterUnit) {
+      var _filterIds = new Set(_filterUnit.lessons.map(function(l) { return l.id; }));
+      var _filtered = _completedFiltered.filter(function(id) { return _filterIds.has(id); });
+      if (_filtered.length > 0) _completedFiltered = _filtered;
+    }
+  }
+
   if (type === 'timed' || type === 'quick') {
     // Gather quiz + tap_correct questions from completed lessons
     const pool = [];
-    S.completed.forEach(id => {
+    _completedFiltered.forEach(id => {
       const lesson = findLesson(id);
       if (!lesson) return;
       const allSlides = [...(lesson.slides || []), ...(lesson.pool || [])];
@@ -24168,6 +24319,26 @@ function selectPracticeOption(el, idx, correct) {
     loseHeart();
     SoundManager.playIncorrect();
     showFeedback(false, getWrongMsg(), allOpts[correct].textContent.trim());
+    // Track attempted questions for post-session review
+    if (!lessonState.practiceAttempted) lessonState.practiceAttempted = [];
+    (function() {
+      var _aq = lessonState.practiceQuestions[lessonState.practiceIdx];
+      if (_aq) {
+        lessonState.practiceAttempted.push({
+          question: _aq.question || '',
+          options: _aq.options || [],
+          correct: correct,
+          userCorrect: (idx === correct)
+        });
+      }
+    })();
+    // Increment daily goal counter
+    (function() {
+      var _today = (typeof todayStr === 'function') ? todayStr() : new Date().toISOString().split('T')[0];
+      var _td = S.practice_today || { date: '', count: 0 };
+      var _newCount = (_td.date === _today) ? ((_td.count || 0) + 1) : 1;
+      save('practice_today', { date: _today, count: _newCount });
+    })();
     // Track for wrong-answer review
     if (!lessonState.practiceWrong) lessonState.practiceWrong = [];
     const _curQ = lessonState.practiceQuestions[lessonState.practiceIdx];
@@ -24312,6 +24483,38 @@ function finishPractice() {
       ${lessonState.practiceType === 'timed' ? '<div style="font-size:13px;font-weight:700;color:var(--purple);">Timed bonus XP included!</div>' : lessonState.practiceType === 'review' ? "<div style='font-size:13px;font-weight:700;color:#9a7000;'><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><path d='M9 4a5 5 0 0 0-5 5c0 2 1 3.5 2.5 4.5C5.5 15 5 16.5 5 18a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4c0-1.5-.5-3-1.5-4.5C19 12.5 20 11 20 9a5 5 0 0 0-5-5'/><path d='M12 4v16'/><path d='M9 9c0 0 1.5 1 3 0s3 0 3 0'/></svg></span> Review bonus XP — memory locked in!</div>" : ''}
       <div id="practice-xp-breakdown-panel"></div>
     </div>`;
+  // Render answer-review collapsible panel
+  (function() {
+    var _attempted = lessonState.practiceAttempted || [];
+    if (_attempted.length === 0) return;
+    var _scoreCardEl = document.querySelector('#lesson-content .score-card');
+    if (!_scoreCardEl) return;
+    var _panelDiv = document.createElement('div');
+    _panelDiv.className = 'practice-review-panel';
+    var _correctCount = _attempted.filter(function(a) { return a.userCorrect; }).length;
+    _panelDiv.innerHTML =
+      '<button class="practice-review-toggle" onclick="'
+      + '(function(btn){btn.classList.toggle(\'open\');var list=btn.nextElementSibling;list.classList.toggle(\'open\');})(this)'
+      + '" aria-expanded="false">'
+      + '<span>&#x1F4CB; Review Answers (' + _correctCount + '/' + _attempted.length + ' correct)</span>'
+      + '<span class="prv-arrow">&#9660;</span>'
+      + '</button>'
+      + '<div class="practice-review-list">'
+      + _attempted.map(function(a) {
+          var _q = a.question.length > 60 ? a.question.slice(0, 57) + '...' : a.question;
+          var _correctText = (a.options && a.options[a.correct]) ? a.options[a.correct] : '';
+          var _icon = a.userCorrect
+            ? '<span class="prv-icon" style="color:#22c55e;">&#x2713;</span>'
+            : '<span class="prv-icon" style="color:#ef4444;">&#x2717;</span>';
+          return '<div class="practice-review-item">'
+               + _icon
+               + '<div><div class="prv-qtext">' + _q + '</div>'
+               + (a.userCorrect ? '' : '<div class="prv-answer correct-ans">&#x2714; ' + _correctText + '</div>')
+               + '</div></div>';
+        }).join('')
+      + '</div>';
+    _scoreCardEl.appendChild(_panelDiv);
+  })();
   // Render animated XP breakdown
   (function() {
     var _panel = document.getElementById('practice-xp-breakdown-panel');
