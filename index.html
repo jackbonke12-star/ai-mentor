@@ -1582,6 +1582,7 @@ body.text-xl     { --text-scale: 1.3; }
 .unit-prog-bar-fill.complete { background: var(--green); }
 .unit-prog-bar-fill.partial  { background: var(--clari-blue); }
 .unit-progress-ring { margin-left: auto; }
+/* learn-31: unit color left border via CSS custom property */
 .lesson-row {
   display: flex; align-items: center; gap: 12px;
   padding: 13px 14px;
@@ -1596,6 +1597,9 @@ body.text-xl     { --text-scale: 1.3; }
   position: relative;
 }
 .lesson-row:last-child { border-radius: 0 0 16px 16px; margin-bottom: 12px; }
+/* learn-31: incomplete/unlocked rows show unit brand color tint */
+.lesson-row.unit-tint { border-left-color: var(--unit-color-tint, transparent); }
+.lesson-row.unit-tint:hover { border-left-color: var(--unit-color-bright, var(--gray3)); }
 .lesson-row:hover { background: var(--gray1); border-left-color: var(--gray3); }
 .lesson-row.completed { border-left-color: var(--green); }
 .lesson-row.locked { opacity: 0.6; }
@@ -1696,6 +1700,98 @@ mark.search-hl {
 }
 .lesson-share-btn:active { color: var(--clari-blue); transform: scale(0.88); }
 :root[data-theme="dark"] .lesson-share-btn { color: var(--gray4); }
+/* ============================================================
+   learn-30: Lesson of the Day banner
+   ============================================================ */
+.lotd-banner {
+  margin: 0 12px 10px;
+  border-radius: 16px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #1cb0f6 0%, #0e8ecf 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(28,176,246,0.30);
+  transition: transform 0.15s, box-shadow 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+.lotd-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.10) 0%, transparent 60%);
+  pointer-events: none;
+}
+.lotd-banner:active { transform: scale(0.98); box-shadow: 0 2px 8px rgba(28,176,246,0.20); }
+.lotd-icon {
+  width: 42px; height: 42px; border-radius: 12px;
+  background: rgba(255,255,255,0.22);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 22px;
+}
+.lotd-body { flex: 1; min-width: 0; }
+.lotd-label {
+  font-size: 9px; font-weight: 900; letter-spacing: 0.08em;
+  text-transform: uppercase; opacity: 0.80; margin-bottom: 2px;
+}
+.lotd-title {
+  font-size: 14px; font-weight: 900; line-height: 1.25;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.lotd-meta {
+  font-size: 11px; font-weight: 700; opacity: 0.80; margin-top: 3px;
+}
+.lotd-btn {
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.22);
+  border: 2px solid rgba(255,255,255,0.45);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 12px; font-weight: 900;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+  pointer-events: none;
+}
+.lotd-done-banner {
+  margin: 0 12px 10px;
+  border-radius: 16px;
+  padding: 10px 16px;
+  background: #e6f9ec;
+  color: #1a7a4a;
+  font-size: 13px; font-weight: 800;
+  text-align: center;
+  border: 1.5px solid #b3eecf;
+}
+:root[data-theme="dark"] .lotd-banner { box-shadow: 0 4px 16px rgba(28,176,246,0.20); }
+:root[data-theme="dark"] .lotd-done-banner { background: #1a3a2a; color: #4ade80; border-color: #166534; }
+/* ============================================================
+   learn-32: Reading time estimate chip on lesson cards
+   ============================================================ */
+.lesson-rt-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 7px 1px 5px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  vertical-align: middle;
+  pointer-events: none;
+  white-space: nowrap;
+  line-height: 1.6;
+}
+.lesson-rt-chip.rt-short  { background: #e6faf0; color: #1a7a4a; border: 1px solid #b3eecf; }
+.lesson-rt-chip.rt-medium { background: #e8f3ff; color: #1565c0; border: 1px solid #90caf9; }
+.lesson-rt-chip.rt-long   { background: #fff4e5; color: #b45309; border: 1px solid #fcd99a; }
+:root[data-theme="dark"] .lesson-rt-chip.rt-short  { background: #0d2b1c; color: #4ade80; border-color: #166534; }
+:root[data-theme="dark"] .lesson-rt-chip.rt-medium { background: #0d1f38; color: #93c5fd; border-color: #1e40af; }
+:root[data-theme="dark"] .lesson-rt-chip.rt-long   { background: #2a1a07; color: #fbbf24; border-color: #92400e; }
 /* learn-22: XP boost active badge on incomplete lesson cards */
 .lc-xp-boost-badge {
   display: inline-flex; align-items: center; gap: 3px;
@@ -3523,6 +3619,169 @@ mark.search-hl {
   text-align: center; padding: 10px 0;
 }
 
+/* practice-41: daily challenge */
+.practice-daily-challenge-card {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  border: 2px solid #f59e0b;
+  border-radius: var(--radius, 12px);
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 12px;
+  cursor: pointer;
+  transition: box-shadow 0.15s, transform 0.12s;
+  position: relative; overflow: hidden;
+}
+.practice-daily-challenge-card:hover {
+  box-shadow: 0 4px 16px rgba(245,158,11,0.22);
+  transform: translateY(-1px);
+}
+.practice-daily-challenge-card.done {
+  opacity: 0.6; cursor: default;
+}
+.practice-daily-challenge-card.done:hover {
+  box-shadow: none; transform: none;
+}
+.pdc-crown {
+  font-size: 28px; flex-shrink: 0; line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(245,158,11,0.4));
+}
+.pdc-info { flex: 1; min-width: 0; }
+.pdc-label {
+  font-size: 11px; font-weight: 800; color: #b45309;
+  text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 2px;
+}
+.pdc-title {
+  font-size: 14px; font-weight: 800; color: #78350f;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pdc-sub { font-size: 12px; color: #92400e; margin-top: 2px; font-weight: 600; }
+.pdc-xp-badge {
+  background: #f59e0b; color: #fff; font-size: 11px; font-weight: 900;
+  border-radius: 8px; padding: 3px 9px; flex-shrink: 0;
+}
+.pdc-done-badge {
+  background: #15803d; color: #fff; font-size: 11px; font-weight: 800;
+  border-radius: 8px; padding: 3px 9px; flex-shrink: 0;
+}
+.pdc-shimmer {
+  position: absolute; top: 0; left: -60%; width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
+  animation: pdc-shimmer-anim 2.4s infinite;
+  pointer-events: none;
+}
+@keyframes pdc-shimmer-anim {
+  0%   { left: -60%; }
+  60%  { left: 110%; }
+  100% { left: 110%; }
+}
+
+/* practice-42: session history timeline */
+.psh-timeline-wrap {
+  margin: 0 0 4px;
+}
+.psh-timeline-header {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 13px; font-weight: 800; color: var(--text);
+  margin-bottom: 10px; gap: 8px;
+}
+.psh-timeline-header-left {
+  display: flex; align-items: center; gap: 6px;
+}
+.psh-show-all-btn {
+  font-size: 11px; font-weight: 700; color: var(--blue);
+  background: none; border: none; cursor: pointer; padding: 2px 6px;
+  border-radius: 6px;
+}
+.psh-show-all-btn:hover { background: var(--gray1); }
+.psh-entry {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 9px 0; border-bottom: 1px solid var(--gray1); position: relative;
+}
+.psh-entry:last-child { border-bottom: none; }
+.psh-timeline-line {
+  position: absolute; left: 14px; top: 32px; bottom: -9px;
+  width: 2px; background: var(--gray2); z-index: 0;
+}
+.psh-entry:last-child .psh-timeline-line { display: none; }
+.psh-dot-col { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; z-index: 1; }
+.psh-dot {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; flex-shrink: 0;
+  border: 2px solid var(--white);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+}
+.psh-dot.quick      { background: #e0f9ff; }
+.psh-dot.timed      { background: #f3e8ff; }
+.psh-dot.weak       { background: #fff3e0; }
+.psh-dot.review     { background: #dcfce7; }
+.psh-dot.weak-drill { background: #fee2e2; }
+.psh-dot.daily      { background: #fffbeb; }
+.psh-body { flex: 1; min-width: 0; }
+.psh-body-top {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px; flex-wrap: wrap;
+}
+.psh-mode { font-size: 13px; font-weight: 700; color: var(--text); }
+.psh-score {
+  font-size: 13px; font-weight: 900; min-width: 38px; text-align: right;
+  border-radius: 6px; padding: 1px 7px;
+}
+.psh-score.great { background: #dcfce7; color: #15803d; }
+.psh-score.ok    { background: #fff3e0; color: #b45309; }
+.psh-score.poor  { background: #fee2e2; color: #dc2626; }
+.psh-meta { font-size: 11px; color: var(--gray4); margin-top: 2px; font-weight: 600; }
+.psh-expand-btn {
+  font-size: 11px; font-weight: 700; color: var(--blue);
+  background: none; border: none; cursor: pointer;
+  padding: 3px 0; display: inline-block; margin-top: 2px;
+}
+.psh-detail {
+  margin-top: 6px; padding: 8px 10px; background: var(--gray1);
+  border-radius: 8px; font-size: 12px; color: var(--gray5); font-weight: 600;
+  display: none;
+}
+.psh-detail.open { display: block; }
+.psh-empty {
+  font-size: 13px; font-weight: 600; color: var(--gray4);
+  text-align: center; padding: 12px 0;
+}
+
+/* practice-43: accuracy trend sparkline in banner */
+.pmb-sparkline-pill {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.15); border-radius: 20px;
+  padding: 4px 10px; font-size: 12px; font-weight: 800;
+  border: 1px solid rgba(255,255,255,0.2);
+  cursor: default;
+}
+.pmb-sparkline-label { color: rgba(255,255,255,0.9); }
+.pmb-sparkline-svg { display: block; }
+.pmb-trend-up   { color: #6ee7b7; }
+.pmb-trend-down { color: #fca5a5; }
+.pmb-trend-flat { color: rgba(255,255,255,0.7); }
+
+/* practice-44: beat-your-score best chips */
+.pbs-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 10px; font-weight: 800; border-radius: 8px;
+  padding: 2px 7px; margin-top: 3px;
+  border: 1.5px solid transparent;
+}
+.pbs-chip.no-best {
+  background: var(--gray1); color: var(--gray4);
+  border-color: var(--gray2);
+}
+.pbs-chip.has-best {
+  background: #fef3c7; color: #b45309;
+  border-color: #fcd34d;
+}
+.pbs-chip.perfect {
+  background: #dcfce7; color: #15803d;
+  border-color: #86efac;
+}
+.pbs-trophy { font-size: 11px; }
+
 /* ============================================================
    MY PLAN TAB
    ============================================================ */
@@ -4107,6 +4366,186 @@ mark.search-hl {
   font-size: 12px; font-weight: 700;
   line-height: 1.45; color: var(--text);
 }
+/* --- Quick Actions Row (plan-13) --- */
+.plan-qa-row {
+  display: flex; gap: 8px; margin-bottom: 16px;
+}
+.plan-qa-btn {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 5px; padding: 10px 6px;
+  background: #fff; border: 1.5px solid #e5e7eb;
+  border-radius: 14px; cursor: pointer;
+  font-size: 11px; font-weight: 800; color: var(--text);
+  text-align: center; line-height: 1.3;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.plan-qa-btn:active { transform: scale(0.96); }
+.plan-qa-btn.qa-green  { border-color: #86efac; background: #f0fdf4; }
+.plan-qa-btn.qa-blue   { border-color: #93c5fd; background: #eff6ff; }
+.plan-qa-btn.qa-purple { border-color: #c4b5fd; background: #faf5ff; }
+.plan-qa-btn .qa-icon  { font-size: 20px; line-height: 1; }
+.plan-qa-btn.qa-green  .qa-label { color: #15803d; }
+.plan-qa-btn.qa-blue   .qa-label { color: #1d4ed8; }
+.plan-qa-btn.qa-purple .qa-label { color: #6d28d9; }
+.qa-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3px; }
+/* end plan-13 css */
+/* --- Recommended Lesson Card (plan-14) --- */
+.plan-rec-card {
+  background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%);
+  border: 2px solid #86efac;
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.plan-rec-card::before {
+  content: "";
+  position: absolute; top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: linear-gradient(180deg, #58CC02 0%, #4ade80 100%);
+  border-radius: 4px 0 0 4px;
+}
+.plan-rec-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 9px; font-weight: 900; text-transform: uppercase;
+  letter-spacing: 0.5px; color: #15803d;
+  background: #dcfce7; border: 1px solid #86efac;
+  border-radius: 20px; padding: 2px 8px;
+  margin-bottom: 8px;
+}
+.plan-rec-unit {
+  font-size: 11px; font-weight: 700; color: #6b7280;
+  margin-bottom: 4px;
+}
+.plan-rec-title {
+  font-size: 15px; font-weight: 900; color: var(--text);
+  margin-bottom: 6px; line-height: 1.3;
+}
+.plan-rec-desc {
+  font-size: 12px; font-weight: 600; color: #4b5563;
+  line-height: 1.5; margin-bottom: 12px;
+}
+.plan-rec-footer {
+  display: flex; align-items: center; gap: 10px;
+}
+.plan-rec-xp {
+  font-size: 12px; font-weight: 800; color: #15803d;
+  background: #dcfce7; border-radius: 20px;
+  padding: 3px 10px;
+}
+.plan-rec-start-btn {
+  margin-left: auto;
+  background: #58CC02; color: #fff;
+  border: none; border-radius: 20px;
+  padding: 7px 18px;
+  font-size: 13px; font-weight: 900;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
+}
+.plan-rec-start-btn:active { transform: scale(0.96); background: #46a500; }
+/* end plan-14 css */
+/* --- Monthly Completion Calendar (plan-15) --- */
+.plan-month-cal {
+  margin-bottom: 16px;
+  background: #fff; border: 1.5px solid #e5e7eb;
+  border-radius: 16px; padding: 12px 14px;
+}
+.plan-month-cal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 8px;
+}
+.plan-month-cal-title {
+  font-size: 13px; font-weight: 900; color: var(--text);
+}
+.plan-month-cal-count {
+  font-size: 11px; font-weight: 700; color: #6b7280;
+}
+.plan-month-dow-row {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 2px; margin-bottom: 3px;
+}
+.plan-month-dow-lbl {
+  font-size: 9px; font-weight: 800; text-align: center;
+  color: #9ca3af; text-transform: uppercase; letter-spacing: 0.3px;
+}
+.plan-month-grid {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+.plan-month-cell {
+  aspect-ratio: 1;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 700; color: #9ca3af;
+  background: #f9fafb;
+  cursor: default;
+}
+.plan-month-cell.mc-active {
+  background: #58CC02; color: #fff;
+}
+.plan-month-cell.mc-today {
+  outline: 2px solid #3b82f6; outline-offset: 1px;
+}
+.plan-month-cell.mc-future {
+  background: transparent; color: #d1d5db;
+}
+.plan-month-cell.mc-empty {
+  background: transparent; color: transparent;
+}
+/* end plan-15 css */
+/* --- Study Pace Indicator (plan-16) --- */
+.plan-pace-wrap {
+  background: #fff; border: 1.5px solid #e5e7eb;
+  border-radius: 16px; padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.plan-pace-top {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 10px;
+}
+.plan-pace-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.plan-pace-icon.pi-ahead  { background: #dcfce7; }
+.plan-pace-icon.pi-track  { background: #dbeafe; }
+.plan-pace-icon.pi-behind { background: #fff7ed; }
+.plan-pace-label {
+  font-size: 14px; font-weight: 900; color: var(--text);
+}
+.plan-pace-sub {
+  font-size: 11px; font-weight: 600; color: #6b7280;
+  margin-top: 1px;
+}
+.plan-pace-status {
+  margin-left: auto; font-size: 12px; font-weight: 900;
+  padding: 3px 10px; border-radius: 20px;
+}
+.plan-pace-status.ps-ahead  { background: #dcfce7; color: #15803d; }
+.plan-pace-status.ps-track  { background: #dbeafe; color: #1d4ed8; }
+.plan-pace-status.ps-behind { background: #fff7ed; color: #c2410c; }
+.plan-pace-bar-bg {
+  height: 8px; border-radius: 20px;
+  background: #f3f4f6; overflow: hidden; margin-bottom: 6px;
+}
+.plan-pace-bar-fill {
+  height: 100%; border-radius: 20px;
+  transition: width 0.4s ease;
+}
+.plan-pace-bar-fill.pf-ahead  { background: linear-gradient(90deg, #58CC02, #4ade80); }
+.plan-pace-bar-fill.pf-track  { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+.plan-pace-bar-fill.pf-behind { background: linear-gradient(90deg, #fb923c, #fbbf24); }
+.plan-pace-meta-row {
+  display: flex; justify-content: space-between;
+  font-size: 10px; font-weight: 700; color: #9ca3af;
+}
+/* end plan-16 css */
 /* end plan-12 css */
 
 
@@ -4514,6 +4953,315 @@ mark.search-hl {
 :root[data-theme="dark"] .reminder-time-input {
   background: var(--gray1); border-color: var(--gray2); color: var(--text);
 }
+/* ---- profile-20: Goal Setting Card ---- */
+.goal-card-inner {
+  display: flex; flex-direction: column; gap: 14px;
+}
+.goal-section-label {
+  font-size: 10px; font-weight: 800; color: var(--gray3);
+  text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;
+}
+.goal-weekly-row {
+  display: flex; align-items: center; gap: 10px;
+}
+.goal-weekly-desc {
+  flex: 1; font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.4;
+}
+.goal-weekly-count {
+  font-size: 26px; font-weight: 900; color: var(--green,#58cc02); line-height: 1;
+  min-width: 36px; text-align: center;
+}
+.goal-weekly-label {
+  font-size: 10px; font-weight: 700; color: var(--gray4); text-align: center;
+}
+.goal-btn-row {
+  display: flex; gap: 8px;
+}
+.goal-step-btn {
+  width: 36px; height: 36px; border-radius: 10px;
+  border: 2px solid var(--gray2); background: var(--bg-card);
+  font-size: 18px; font-weight: 900; color: var(--text);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.15s, background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.goal-step-btn:hover { border-color: var(--green,#58cc02); background: var(--bg-hover); }
+.goal-step-btn:active { transform: scale(0.93); }
+.goal-progress-wrap {
+  background: var(--bg-hover,rgba(0,0,0,0.04));
+  border-radius: 12px; padding: 12px 14px;
+  border: 1.5px solid var(--gray2);
+}
+.goal-progress-row {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; font-weight: 700; color: var(--gray4); margin-bottom: 6px;
+}
+.goal-progress-pct {
+  font-size: 12px; font-weight: 800; color: var(--text);
+}
+.goal-bar-track {
+  height: 9px; border-radius: 9px; background: var(--gray1); overflow: hidden; margin-bottom: 6px;
+}
+.goal-bar-fill {
+  height: 100%; border-radius: 9px;
+  background: linear-gradient(90deg, var(--green,#58cc02), #9efc57);
+  transition: width 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+.goal-bar-fill.over { background: linear-gradient(90deg, #f97316, #fbbf24); }
+.goal-progress-sub {
+  font-size: 10px; font-weight: 700; color: var(--gray3);
+}
+.goal-date-row {
+  display: flex; align-items: center; gap: 10px;
+}
+.goal-date-input {
+  flex: 1; padding: 8px 12px; border-radius: 10px;
+  border: 1.5px solid var(--gray2); background: var(--bg-card);
+  font-size: 13px; font-weight: 700; color: var(--text);
+  font-family: inherit; outline: none;
+  transition: border-color 0.15s;
+}
+.goal-date-input:focus { border-color: var(--green,#58cc02); }
+.goal-date-save-btn {
+  padding: 8px 16px; border-radius: 10px;
+  border: 2px solid var(--green,#58cc02);
+  background: var(--green,#58cc02); color: #fff;
+  font-size: 12px; font-weight: 800; cursor: pointer;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+.goal-date-save-btn:active { opacity: 0.75; }
+.goal-countdown-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(88,204,2,0.12); color: var(--green,#58cc02);
+  border: 1.5px solid rgba(88,204,2,0.35);
+  border-radius: 20px; padding: 4px 12px;
+  font-size: 11px; font-weight: 800; margin-top: 4px;
+}
+.goal-countdown-pill.urgent {
+  background: rgba(249,115,22,0.12); color: #f97316;
+  border-color: rgba(249,115,22,0.35);
+}
+.goal-countdown-pill.done {
+  background: rgba(139,92,246,0.12); color: #8b5cf6;
+  border-color: rgba(139,92,246,0.35);
+}
+:root[data-theme="dark"] .goal-date-input {
+  background: var(--gray1); border-color: var(--gray2); color: var(--text);
+}
+:root[data-theme="dark"] .goal-progress-wrap {
+  background: var(--gray1); border-color: var(--gray2);
+}
+:root[data-theme="dark"] .goal-step-btn {
+  background: var(--gray1);
+}
+:root[data-theme="dark"] .goal-bar-track {
+  background: var(--gray2);
+}
+
+/* ---- profile-19: Study Habits Summary ---- */
+.habits-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+.habits-stat-card {
+  border-radius: 14px; padding: 12px 14px;
+  border: 1.5px solid var(--gray2); background: var(--bg-card);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.habits-stat-icon {
+  font-size: 20px; line-height: 1; margin-bottom: 2px;
+}
+.habits-stat-value {
+  font-size: 18px; font-weight: 900; color: var(--text); line-height: 1;
+}
+.habits-stat-label {
+  font-size: 10px; font-weight: 700; color: var(--gray4);
+  text-transform: uppercase; letter-spacing: 0.4px; line-height: 1.3;
+}
+.habits-stat-sub {
+  font-size: 11px; font-weight: 600; color: var(--gray3); margin-top: 1px;
+}
+.habits-day-bar-wrap {
+  margin-top: 10px;
+}
+.habits-day-bar-title {
+  font-size: 11px; font-weight: 700; color: var(--gray4);
+  text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 8px;
+}
+.habits-day-bars {
+  display: flex; align-items: flex-end; gap: 6px; height: 48px;
+}
+.habits-day-col {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;
+}
+.habits-day-bar-outer {
+  width: 100%; flex: 1; border-radius: 4px 4px 0 0;
+  background: var(--gray1); position: relative; min-height: 6px;
+  display: flex; align-items: flex-end;
+}
+.habits-day-bar-inner {
+  width: 100%; border-radius: 4px 4px 0 0;
+  transition: height 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  min-height: 3px;
+}
+.habits-day-bar-inner.peak {
+  box-shadow: 0 0 6px rgba(88,204,2,0.4);
+}
+.habits-day-label {
+  font-size: 9px; font-weight: 800; color: var(--gray3);
+  text-transform: uppercase; margin-top: 3px;
+}
+.habits-day-label.peak { color: var(--green,#58cc02); }
+:root[data-theme="dark"] .habits-stat-card {
+  background: var(--gray1);
+}
+:root[data-theme="dark"] .habits-day-bar-outer {
+  background: var(--gray2);
+}
+
+/* ---- profile-18: Certificates Earned Display ---- */
+.cert-showcase-empty {
+  text-align: center; padding: 20px 10px;
+  color: var(--gray4); font-size: 13px; font-weight: 600; line-height: 1.5;
+}
+.cert-showcase-empty-icon {
+  font-size: 32px; margin-bottom: 8px;
+}
+.cert-showcase-grid {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.cert-showcase-card {
+  display: flex; align-items: center; gap: 12px;
+  border-radius: 14px; padding: 14px 14px 14px 16px;
+  border: 2px solid; cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  position: relative; overflow: hidden;
+}
+.cert-showcase-card:hover {
+  transform: translateY(-1px); box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+}
+.cert-showcase-card:active { transform: scale(0.98); }
+.cert-showcase-card::before {
+  content: '';
+  position: absolute; top: 0; right: 0; width: 80px; height: 80px;
+  border-radius: 50%; opacity: 0.08;
+  transform: translate(30%, -30%);
+}
+.cert-showcase-seal {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 20px; font-weight: 900;
+  color: #fff; border: 2px solid rgba(255,255,255,0.35);
+}
+.cert-showcase-info {
+  flex: 1; min-width: 0;
+}
+.cert-showcase-title {
+  font-size: 13px; font-weight: 900; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.cert-showcase-meta {
+  font-size: 11px; font-weight: 600; color: var(--gray4);
+  margin-top: 2px;
+}
+.cert-showcase-level-badge {
+  font-size: 10px; font-weight: 800;
+  padding: 3px 9px; border-radius: 20px;
+  white-space: nowrap; flex-shrink: 0;
+}
+.cert-showcase-view-btn {
+  font-size: 11px; font-weight: 800;
+  flex-shrink: 0; padding: 5px 10px;
+  border-radius: 8px; border: 1.5px solid;
+  background: transparent; cursor: pointer;
+  transition: background 0.15s;
+}
+.cert-showcase-count-pill {
+  display: inline-block; background: var(--green,#58cc02);
+  color: #fff; border-radius: 20px; padding: 2px 9px;
+  font-size: 11px; font-weight: 800; margin-left: 8px;
+  vertical-align: middle;
+}
+
+/* ---- profile-17: XP Level System ---- */
+.xp-level-card-inner {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.xp-level-hero {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--bg-hover,rgba(0,0,0,0.04));
+  border-radius: 14px; padding: 14px 16px;
+  border: 1.5px solid var(--gray2);
+}
+.xp-level-badge-circle {
+  width: 56px; height: 56px; border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  flex-shrink: 0; border: 3px solid;
+  font-weight: 900; line-height: 1;
+}
+.xp-level-badge-num {
+  font-size: 18px; font-weight: 900; line-height: 1;
+}
+.xp-level-badge-lbl {
+  font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.4px; opacity: 0.8;
+}
+.xp-level-hero-info {
+  flex: 1; min-width: 0;
+}
+.xp-level-tier-name {
+  font-size: 17px; font-weight: 900; color: var(--text); line-height: 1.2;
+}
+.xp-level-tier-sub {
+  font-size: 11px; font-weight: 600; color: var(--gray4); margin-top: 2px;
+}
+.xp-level-progress-wrap {
+  margin-top: 8px;
+}
+.xp-level-progress-row {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 10px; font-weight: 700; color: var(--gray4); margin-bottom: 4px;
+}
+.xp-level-bar-track {
+  height: 8px; border-radius: 8px;
+  background: var(--gray1,#f0f0f0); overflow: hidden;
+}
+.xp-level-bar-fill {
+  height: 100%; border-radius: 8px;
+  transition: width 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+.xp-level-tiers-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px;
+}
+.xp-level-tier-cell {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 8px 4px; border-radius: 10px;
+  border: 1.5px solid var(--gray2); background: var(--bg-card);
+  transition: border-color 0.2s, background 0.2s;
+  cursor: default;
+}
+.xp-level-tier-cell.active {
+  border-color: currentColor;
+}
+.xp-level-tier-cell.unlocked {
+  opacity: 0.55;
+}
+.xp-level-tier-icon {
+  font-size: 18px; line-height: 1;
+}
+.xp-level-tier-label {
+  font-size: 9px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.3px; text-align: center; line-height: 1.2;
+}
+.xp-level-tier-range {
+  font-size: 8px; font-weight: 700; color: var(--gray3); text-align: center;
+}
+:root[data-theme="dark"] .xp-level-bar-track {
+  background: var(--gray1);
+}
+:root[data-theme="dark"] .xp-level-tier-cell {
+  background: var(--gray1);
+}
+
 /* ---- profile-16: Dark/Light Mode Toggle ---- */
 .profile-theme-toggle-row {
   display: flex; align-items: center; justify-content: center;
@@ -5152,6 +5900,26 @@ mark.search-hl {
 .badge-medium { background: #fff7e0; color: #7a5c00; border: 1px solid #ffe066; border-radius: 4px; font-size: 10px; font-weight: 700; padding: 2px 6px; }
 .badge-hard   { background: #fff0f0; color: #c0392b; border: 1px solid #f5b7b1; border-radius: 4px; font-size: 10px; font-weight: 700; padding: 2px 6px; }
 /* ── Difficulty filter chips (learn tab) ── */
+/* learn-29: count badge inside each diff chip */
+.diff-chip-count {
+  display: inline-block;
+  margin-left: 5px;
+  min-width: 16px;
+  padding: 0 4px;
+  height: 16px;
+  line-height: 16px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 900;
+  text-align: center;
+  background: rgba(0,0,0,0.10);
+  color: inherit;
+  opacity: 0.85;
+  vertical-align: middle;
+  pointer-events: none;
+}
+.diff-chip.active .diff-chip-count { background: rgba(255,255,255,0.25); opacity: 1; }
+:root[data-theme="dark"] .diff-chip-count { background: rgba(255,255,255,0.12); }
 .diff-filter-row { display:flex; gap:6px; padding:8px 12px 4px; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; flex-wrap:wrap; }
 .learn-sort-select { flex-shrink:0; padding:5px 10px; border-radius:20px; font-size:12px; font-weight:700; cursor:pointer; border:2px solid var(--gray2); background:var(--gray1); color:var(--text); outline:none; font-family:inherit; margin-left:auto; }
 .learn-sort-select:focus { border-color:var(--blue); }
@@ -5910,6 +6678,7 @@ mark.search-hl {
         <div class="pmb-stats" id="pmb-stats-strip">
           <div class="pmb-stat" id="pmb-today-stat">&#x1F4C5; 0 today</div>
           <div class="pmb-stat" id="pmb-streak-stat">&#x1F525; 0 day streak</div>
+          <div class="pmb-sparkline-pill" id="pmb-accuracy-sparkline" title="Accuracy over last 7 sessions" style="display:none;"></div>
         </div>
       </div>
       <div id="practice-week-pill" style="margin-bottom:16px;"></div>
@@ -5917,6 +6686,7 @@ mark.search-hl {
       <div id="practice-streak-pill-wrap" style="margin-bottom:8px;"></div>
       <div id="practice-daily-goal-bar" style="margin-bottom:12px;"></div>
       <div id="practice-unit-filter-row" style="margin-bottom:10px;"></div>
+      <div id="practice-daily-challenge-wrap" style="margin-bottom:0;"></div>
       <div class="practice-modes">
         <div class="practice-card">
           <div class="practice-card-icon" style="background:#e0f9ff;">
@@ -5926,6 +6696,7 @@ mark.search-hl {
             <div class="practice-card-title">Quick Practice</div>
             <div class="practice-card-sub">5 random questions from completed lessons</div>
             <div id="practice-pool-size-quick" style="font-size:11px;font-weight:700;color:var(--gray4);margin-top:3px;"></div>
+            <div id="pbs-chip-quick"></div>
           </div>
           <button class="btn btn-blue btn-sm" onclick="showDifficultySelector('quick')">Start</button>
         </div>
@@ -5940,6 +6711,7 @@ mark.search-hl {
             <div class="practice-card-title">Weak Areas</div>
             <div class="practice-card-sub">Review questions you got wrong before</div>
             <div id="practice-pool-size-weak" style="font-size:11px;font-weight:700;color:var(--gray4);margin-top:3px;"></div>
+            <div id="pbs-chip-weak"></div>
           </div>
           <button class="btn btn-yellow btn-sm" onclick="startPractice('weak')">Review</button>
         </div>
@@ -5951,6 +6723,7 @@ mark.search-hl {
             <div class="practice-card-title">Timed Challenge</div>
             <div class="practice-card-sub">10 questions in 60 seconds — bonus XP!</div>
             <div id="practice-pool-size-timed" style="font-size:11px;font-weight:700;color:var(--gray4);margin-top:3px;"></div>
+            <div id="pbs-chip-timed"></div>
           </div>
           <button class="btn btn-purple btn-sm" onclick="showDifficultySelector('timed')">Challenge</button>
         </div>
@@ -5997,7 +6770,8 @@ mark.search-hl {
         </div>
       </div>
       <div id="practice-clari-msg" style="display:none;margin-top:16px;"></div>
-      <div class="practice-history">
+      <div id="practice-session-timeline-wrap" style="margin-top:14px;margin-bottom:0;"></div>
+      <div class="practice-history" style="display:none;">
         <div class="practice-history-title">Recent Sessions</div>
         <div id="practice-history-list"></div>
       </div>
@@ -6063,6 +6837,10 @@ mark.search-hl {
     <div class="section-card" id="profile-share-card"></div>
     <div class="section-card" id="profile-personality-card"></div>
     <div class="section-card" id="profile-milestone-card"></div>
+    <div class="section-card" id="profile-xp-level-card"></div>
+    <div class="section-card" id="profile-cert-showcase-card"></div>
+    <div class="section-card" id="profile-habits-card"></div>
+    <div class="section-card" id="profile-goal-card"></div>
     <div class="section-card">
       <div class="section-title">My Notes</div>
       <div id="profile-notes-list"></div>
@@ -16054,6 +16832,21 @@ function getLessonDifficulty(lesson) {
   return 'moderate';
 }
 
+// learn-29: count lessons in each difficulty tier across all units
+function countLessonsByDifficulty() {
+  var _counts = { all: 0, easy: 0, moderate: 0, challenging: 0 };
+  for (var _ci = 0; _ci < COURSE.length; _ci++) {
+    var _cu = COURSE[_ci];
+    for (var _li = 0; _li < _cu.lessons.length; _li++) {
+      var _l = _cu.lessons[_li];
+      _counts.all++;
+      var _d = getLessonDifficulty(_l);
+      if (_counts[_d] !== undefined) _counts[_d]++;
+    }
+  }
+  return _counts;
+}
+
 /**
  * Set the active difficulty filter chip and re-render.
  */
@@ -17800,6 +18593,24 @@ function finishOnboarding() {
 // ============================================================
 // LEARN TAB
 // ============================================================
+// learn-30: deterministic daily lesson pick using a date-based hash
+function getLessonOfDay() {
+  var _allLotd = [];
+  for (var _lui = 0; _lui < COURSE.length; _lui++) {
+    var _lu = COURSE[_lui];
+    for (var _lli = 0; _lli < _lu.lessons.length; _lli++) {
+      var _ll = _lu.lessons[_lli];
+      if (_ll.free || S.premium) { _allLotd.push({ lesson: _ll, unit: _lu }); }
+    }
+  }
+  if (_allLotd.length === 0) return null;
+  var _td = (typeof todayStr === "function") ? todayStr() : new Date().toISOString().split("T")[0];
+  // Simple numeric hash: sum char codes of date string
+  var _hash = 0;
+  for (var _hi = 0; _hi < _td.length; _hi++) { _hash = (_hash * 31 + _td.charCodeAt(_hi)) & 0x7fffffff; }
+  return _allLotd[_hash % _allLotd.length];
+}
+
 function renderLearnTab() {
   // learn-08: confetti burst if user just completed a lesson (within 5 min, once per session)
   if (!_learnTabConfettiFired) {
@@ -18086,6 +18897,31 @@ function renderLearnTab() {
     html += buildRecommendedStrip(3);
   }
 
+  // learn-30: Lesson of the Day banner
+  (function() {
+    var _lotd = getLessonOfDay();
+    if (!_lotd) return;
+    var _lotdDone = S.completed.includes(_lotd.lesson.id);
+    var _lotdLocked = !_lotd.lesson.free && !S.premium;
+    if (_lotdDone) {
+      html += "<div class=\"lotd-done-banner\">"
+        + "&#x2713; You completed today's featured lesson: <strong>" + escHtml(_lotd.lesson.title) + "</strong>"
+        + "</div>";
+      return;
+    }
+    if (_lotdLocked) return;
+    var _lotdMins = (typeof estimateLessonMinutes === "function") ? estimateLessonMinutes(_lotd.lesson) : "?";
+    html += "<div class=\"lotd-banner\" onclick=\"startLesson('" + _lotd.lesson.id + "')\">"
+      + "<div class=\"lotd-icon\">&#x2B50;</div>"
+      + "<div class=\"lotd-body\">"
+      + "<div class=\"lotd-label\">Lesson of the Day</div>"
+      + "<div class=\"lotd-title\">" + escHtml(_lotd.lesson.title) + "</div>"
+      + "<div class=\"lotd-meta\">Unit " + _lotd.unit.num + " &bull; ~" + _lotdMins + " min &bull; +" + _lotd.lesson.xp + " XP</div>"
+      + "</div>"
+      + "<button class=\"lotd-btn\" tabindex=\"-1\">Start</button>"
+      + "</div>";
+  })();
+
   // Search bar + filter tags (difficulty chips + text search + topic tags)
   var _dcAll   = learnDiffFilter === '' ? 'active' : '';
   var _dcEasy  = learnDiffFilter === 'easy' ? 'active' : '';
@@ -18093,10 +18929,10 @@ function renderLearnTab() {
   var _dcHard  = learnDiffFilter === 'challenging' ? 'active' : '';
   html += `<div class="learn-search-wrap">
   <div class="diff-filter-row">
-    <div class="diff-chip dc-all ${_dcAll}" onclick="filterDifficulty('')">All</div>
-    <div class="diff-chip dc-easy ${_dcEasy}" onclick="filterDifficulty('easy')">Easy</div>
-    <div class="diff-chip dc-moderate ${_dcMod}" onclick="filterDifficulty('moderate')">Moderate</div>
-    <div class="diff-chip dc-hard ${_dcHard}" onclick="filterDifficulty('challenging')">Challenging</div>
+    <div class="diff-chip dc-all ${_dcAll}" onclick="filterDifficulty('')">All<span class="diff-chip-count">${(function(){ var _c=countLessonsByDifficulty(); return _c.all; })()}</span></div>
+    <div class="diff-chip dc-easy ${_dcEasy}" onclick="filterDifficulty('easy')">Easy<span class="diff-chip-count">${(function(){ var _c=countLessonsByDifficulty(); return _c.easy; })()}</span></div>
+    <div class="diff-chip dc-moderate ${_dcMod}" onclick="filterDifficulty('moderate')">Moderate<span class="diff-chip-count">${(function(){ var _c=countLessonsByDifficulty(); return _c.moderate; })()}</span></div>
+    <div class="diff-chip dc-hard ${_dcHard}" onclick="filterDifficulty('challenging')">Challenging<span class="diff-chip-count">${(function(){ var _c=countLessonsByDifficulty(); return _c.challenging; })()}</span></div>
     <div class="diff-chip dc-bookmarks ${learnBookmarkFilter ? 'active' : ''}" onclick="filterBookmarks()" title="Show bookmarked lessons only">&#9733; Bookmarks</div>
     <div class="diff-chip dc-quick ${learnQuickFilter ? 'active' : ''}" onclick="filterQuick()" title="Show lessons under 5 minutes (fewer than 6 slides)">&#x23F1; Quick</div>
     <select class="learn-sort-select" onchange="setLearnSort(this.value)" title="Sort lessons" aria-label="Sort lessons">
@@ -18248,6 +19084,13 @@ function renderLearnTab() {
         let iconBg = unit.color + '22';
         let iconContent = lessonIconSVG(unit.color);
 
+        // learn-31: unit-color tint vars for left border; only for incomplete/unlocked rows
+        var _unitTintClass = (!done && !locked) ? 'unit-tint' : '';
+        var _unitTintStyle = (!done && !locked)
+          ? ('--unit-color-tint:' + unit.color + '99;'
+             + '--unit-color-bright:' + unit.color + ';')
+          : '';
+
         var _lessonTags = lesson.tags || [];
         var _tagsHtml = '';
         if (_lessonTags.length > 0 && !done) {
@@ -18339,13 +19182,26 @@ function renderLearnTab() {
           + '<line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>'
           + '</svg></button>';
 
-        html += `<div class="lesson-row ${done ? 'completed' : ''} ${locked ? 'locked' : ''}"
+        // learn-32: reading time chip
+        var _rtMins = estimateLessonMinutes(lesson);
+        var _rtClass = _rtMins <= 3 ? 'rt-short' : (_rtMins <= 6 ? 'rt-medium' : 'rt-long');
+        var _rtChip = '<span class="lesson-rt-chip ' + _rtClass + '">'
+          + '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+          + ' stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"'
+          + ' style="flex-shrink:0">'
+          + '<circle cx="12" cy="12" r="9"/>'
+          + '<polyline points="12,7 12,12 15,14"/>'
+          + '</svg>'
+          + '~' + _rtMins + ' min read</span>';
+
+        html += `<div class="lesson-row ${done ? 'completed' : ''} ${locked ? 'locked' : ''} ${_unitTintClass}"
+          style="${_unitTintStyle}"
           onclick="${locked ? 'openPremiumModal()' : `startLesson('${lesson.id}')`}">
           ${_newBadge}
           <div class="lesson-icon" style="background:${iconBg}">${iconContent}</div>
           <div class="lesson-info">
             <div class="lesson-title">${learnSearchQuery.trim() ? highlightSearch(lesson.title, learnSearchQuery) : escHtml(lesson.title)}${_recentBadge}${_xpBoostBadge}</div>
-            <div class="lesson-meta">~${estimateLessonMinutes(lesson)} min &bull; +${lesson.xp} XP${diffBadge}${_ratingStarsHtml}<span class="lesson-slides-count"> &bull; ${(lesson.slides||[]).length} slide${(lesson.slides||[]).length !== 1 ? 's' : ''}</span></div>
+            <div class="lesson-meta">${_rtChip} +${lesson.xp} XP${diffBadge}${_ratingStarsHtml}<span class="lesson-slides-count"> &bull; ${(lesson.slides||[]).length} slide${(lesson.slides||[]).length !== 1 ? 's' : ''}</span></div>
             ${starsHtml}${_tagsHtml}
             ${_completedDateHtml}
           </div>
@@ -25256,6 +26112,10 @@ function renderPracticeTab() {
     }
   }
 
+  renderDailyChallenge();
+  renderSessionTimeline();
+  renderAccuracySparkline();
+  renderBestScoreChips();
   renderPracticeStreakPill();
   renderWrongCountBadge();
   renderPracticeRecords();
@@ -25711,6 +26571,17 @@ function confirmDifficulty(diff) {
 }
 
 function startPractice(type, difficulty) {
+  // practice-44: show "beat your score" motivational toast
+  (function() {
+    var _bm = S.practice_best || {};
+    var _b = _bm[type];
+    if (_b != null && _b > 0) {
+      var _msg = _b >= 100
+        ? "You got a perfect score last time — can you do it again?"
+        : "Your best for this mode is " + _b + "% — beat it!";
+      if (typeof showToast === 'function') showToast("🎯 " + _msg, 'info', 3000);
+    }
+  })();
   let questions = [];
   const _practiceDiff = difficulty || 'mixed';
   if (typeof lessonState !== 'undefined') lessonState.practiceDifficulty = _practiceDiff;
@@ -26842,6 +27713,298 @@ function renderPracticeLeaderboard() {
 }
 
 // ============================================================
+// practice-44: BEAT YOUR SCORE CHIPS
+// ============================================================
+function renderBestScoreChips() {
+  var _best = S.practice_best || {};
+
+  function _renderChip(elId, typeKey) {
+    var _el = document.getElementById(elId);
+    if (!_el) return;
+    var _b = _best[typeKey];
+    if (_b == null) {
+      _el.innerHTML = '<span class="pbs-chip no-best">'
+        + '<span class="pbs-trophy">🏆</span>No best yet'
+        + '</span>';
+    } else if (_b >= 100) {
+      _el.innerHTML = '<span class="pbs-chip perfect">'
+        + '<span class="pbs-trophy">⭐</span>Perfect: 100%'
+        + '</span>';
+    } else {
+      _el.innerHTML = '<span class="pbs-chip has-best">'
+        + '<span class="pbs-trophy">🏆</span>Best: ' + _b + '%'
+        + '</span>';
+    }
+  }
+
+  _renderChip('pbs-chip-quick', 'quick');
+  _renderChip('pbs-chip-timed', 'timed');
+  _renderChip('pbs-chip-weak',  'weak');
+}
+
+// ============================================================
+// practice-43: ACCURACY TREND SPARKLINE
+// ============================================================
+function renderAccuracySparkline() {
+  var _el = document.getElementById('pmb-accuracy-sparkline');
+  if (!_el) return;
+  var _hist = S.practice_history || [];
+  // Take last 7 sessions
+  var _last7 = _hist.slice(-7);
+  if (_last7.length < 2) { _el.style.display = 'none'; return; }
+
+  var _values = _last7.map(function(h) {
+    return h.total > 0 ? Math.round((h.score / h.total) * 100) : 0;
+  });
+
+  // Build SVG sparkline (60x22)
+  var _W = 60; var _H = 22; var _pad = 3;
+  var _min = Math.min.apply(null, _values);
+  var _max = Math.max.apply(null, _values);
+  var _range = _max - _min;
+  function _normY(v) {
+    if (_range === 0) return _H / 2;
+    return _pad + (_H - 2 * _pad) * (1 - (v - _min) / _range);
+  }
+  var _step = (_W - 2 * _pad) / Math.max(_values.length - 1, 1);
+  var _pts = _values.map(function(v, i) {
+    return (_pad + i * _step).toFixed(1) + ',' + _normY(v).toFixed(1);
+  });
+  var _lastVal = _values[_values.length - 1];
+  var _firstVal = _values[0];
+  var _strokeColor = _lastVal >= _firstVal ? '#6ee7b7' : '#fca5a5';
+  var _svgHtml = '<svg class="pmb-sparkline-svg" width="' + _W + '" height="' + _H + '" viewBox="0 0 ' + _W + ' ' + _H + '">'
+    + '<polyline points="' + _pts.join(' ') + '" fill="none" stroke="' + _strokeColor + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
+    + '<circle cx="' + (_pad + (_values.length - 1) * _step).toFixed(1) + '" cy="' + _normY(_lastVal).toFixed(1) + '" r="2.5" fill="' + _strokeColor + '"/>'
+    + '</svg>';
+
+  // Trend arrow
+  var _diff = _lastVal - _firstVal;
+  var _trendSymbol = _diff > 0 ? '↗' : _diff < 0 ? '↘' : '→';
+  var _trendClass = _diff > 0 ? 'pmb-trend-up' : _diff < 0 ? 'pmb-trend-down' : 'pmb-trend-flat';
+  var _avgVal = Math.round(_values.reduce(function(a, b) { return a + b; }, 0) / _values.length);
+
+  _el.style.display = 'flex';
+  _el.innerHTML = '<span class="pmb-sparkline-label">Accuracy</span>'
+    + _svgHtml
+    + '<span class="' + _trendClass + '" style="font-size:13px;">' + _trendSymbol + '</span>'
+    + '<span class="pmb-sparkline-label" style="font-size:11px;">' + _avgVal + '% avg</span>';
+  _el.title = "Accuracy over last " + _last7.length + " sessions (avg " + _avgVal + "%)";
+}
+
+// ============================================================
+// practice-42: SESSION HISTORY TIMELINE
+// ============================================================
+function togglePshShowAll() {
+  var w = document.getElementById('practice-session-timeline-wrap');
+  if (w) { w.dataset.showAll = w.dataset.showAll === 'true' ? 'false' : 'true'; }
+  if (typeof renderSessionTimeline === 'function') renderSessionTimeline();
+}
+
+function togglePshDetail(btn, id) {
+  var d = document.getElementById(id);
+  if (!d) return;
+  d.classList.toggle('open');
+  btn.textContent = d.classList.contains('open') ? 'Hide details' : 'Details';
+}
+
+function renderSessionTimeline() {
+  var _wrap = document.getElementById('practice-session-timeline-wrap');
+  if (!_wrap) return;
+  var _hist = (S.practice_history || []).slice().reverse();
+
+  function _modeIcon(t) {
+    if (t === 'timed')      return '⏱️';
+    if (t === 'weak')       return '🎯';
+    if (t === 'weak_drill') return '⚠️';
+    if (t === 'review')     return '📖';
+    if (t === 'daily')      return '👑';
+    return '🔄';
+  }
+  function _modeLabel(t) {
+    if (t === 'timed')      return 'Timed Challenge';
+    if (t === 'weak')       return 'Weak Areas';
+    if (t === 'weak_drill') return 'Weak Spots Drill';
+    if (t === 'review')     return 'Review';
+    if (t === 'daily')      return 'Daily Challenge';
+    return 'Quick Practice';
+  }
+  function _dotClass(t) {
+    if (t === 'timed')      return 'timed';
+    if (t === 'weak')       return 'weak';
+    if (t === 'weak_drill') return 'weak-drill';
+    if (t === 'review')     return 'review';
+    if (t === 'daily')      return 'daily';
+    return 'quick';
+  }
+  function _scoreClass(pct) {
+    if (pct >= 80) return 'great';
+    if (pct >= 50) return 'ok';
+    return 'poor';
+  }
+
+  if (_hist.length === 0) {
+    _wrap.innerHTML = '<div class="psh-timeline-wrap"><div class="psh-empty">'
+      + 'No sessions yet — complete a practice to see your history here!'
+      + '</div></div>';
+    return;
+  }
+
+  // Preserve show-all state
+  var _existingShowAll = _wrap.dataset.showAll === 'true';
+  var _visible = _existingShowAll ? _hist : _hist.slice(0, 8);
+
+  var _entriesHtml = _visible.map(function(h, i) {
+    var _pct = h.total > 0 ? Math.round((h.score / h.total) * 100) : 0;
+    var _isLast = (i === _visible.length - 1);
+    var _detailId = 'psh-detail-' + i;
+    var _qRatio = h.score + '/' + h.total;
+    var _xpEst = h.type === 'timed' ? 40 : h.type === 'review' ? 35 : h.type === 'daily' ? 30 : 20;
+    return '<div class="psh-entry">'
+      + '<div class="psh-dot-col">'
+      + '<div class="psh-dot ' + _dotClass(h.type) + '">' + _modeIcon(h.type) + '</div>'
+      + (_isLast ? '' : '<div class="psh-timeline-line"></div>')
+      + '</div>'
+      + '<div class="psh-body">'
+      + '<div class="psh-body-top">'
+      + '<span class="psh-mode">' + _modeLabel(h.type) + '</span>'
+      + '<span class="psh-score ' + _scoreClass(_pct) + '">' + _pct + '%</span>'
+      + '</div>'
+      + '<div class="psh-meta">' + (h.date || '') + ' &bull; ' + _qRatio + ' correct &bull; ~+' + _xpEst + ' XP</div>'
+      + '<button class="psh-expand-btn" onclick="togglePshDetail(this,\'' + _detailId + '\')">Details</button>'
+      + '<div class="psh-detail" id="' + _detailId + '">'
+      + 'Mode: ' + _modeLabel(h.type) + '<br>'
+      + 'Score: ' + _qRatio + ' (' + _pct + '%)<br>'
+      + 'Date: ' + (h.date || 'Unknown')
+      + (_pct >= 80 ? '<br><span style="color:#15803d;font-weight:800;">✅ Great result!</span>' : _pct < 50 ? '<br><span style="color:#dc2626;font-weight:700;">💪 Keep practising!</span>' : '')
+      + '</div>'
+      + '</div>'
+      + '</div>';
+  }).join('');
+
+  var _showAllBtn = _hist.length > 8
+    ? '<button class="psh-show-all-btn" onclick="togglePshShowAll()">'
+      + (_existingShowAll ? 'Show less' : 'All ' + _hist.length)
+      + '</button>'
+    : '';
+
+  _wrap.dataset.showAll = _existingShowAll ? 'true' : 'false';
+  _wrap.innerHTML = '<div class="psh-timeline-wrap">'
+    + '<div class="psh-timeline-header">'
+    + '<div class="psh-timeline-header-left">'
+    + '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>'
+    + 'Session Timeline'
+    + '</div>'
+    + _showAllBtn
+    + '</div>'
+    + _entriesHtml
+    + '</div>';
+}
+
+// ============================================================
+// practice-41: DAILY CHALLENGE
+// ============================================================
+(function() {
+  // Seed a deterministic question for today from the full pool
+  function _getDailyChallengeQuestion() {
+    var _pool = [];
+    var _seen = new Set();
+    var _completed = S.completed || [];
+    // Include completed + unit-1 fallback
+    var _ids = _completed.length >= 3 ? _completed : (typeof COURSE !== 'undefined' && COURSE[0] ? COURSE[0].lessons.map(function(l) { return l.id; }) : []);
+    _ids.forEach(function(id) {
+      var _lesson = (typeof findLesson === 'function') ? findLesson(id) : null;
+      if (!_lesson) return;
+      var _slides = (_lesson.slides || []).concat(_lesson.pool || []);
+      _slides.forEach(function(s) {
+        if (s.type === 'quiz' && !_seen.has(s.question)) {
+          _seen.add(s.question);
+          _pool.push(Object.assign({}, s, { lessonId: id, practiceType: 'daily' }));
+        }
+      });
+    });
+    if (_pool.length === 0) return null;
+    // Deterministic daily seed: sum of char codes in today's date string
+    var _today = (typeof todayStr === 'function') ? todayStr() : new Date().toISOString().split('T')[0];
+    var _seed = _today.split('').reduce(function(acc, c) { return acc + c.charCodeAt(0); }, 0);
+    return _pool[_seed % _pool.length];
+  }
+
+  window.renderDailyChallenge = function() {
+    var _wrap = document.getElementById('practice-daily-challenge-wrap');
+    if (!_wrap) return;
+    var _today = (typeof todayStr === 'function') ? todayStr() : new Date().toISOString().split('T')[0];
+    var _dcState = S.daily_challenge || {};
+    var _done = _dcState.date === _today && _dcState.completed;
+    var _q = _getDailyChallengeQuestion();
+    if (!_q) { _wrap.innerHTML = ''; return; }
+    // Truncate long question text for display
+    var _qText = (_q.question || 'Daily Question').substring(0, 60) + ((_q.question || '').length > 60 ? '...' : '');
+    _wrap.innerHTML = '<div class="practice-daily-challenge-card' + (_done ? ' done' : '') + '" onclick="startDailyChallenge()" id="pdc-card">'
+      + '<div class="pdc-crown">👑</div>'
+      + '<div class="pdc-info">'
+      + '<div class="pdc-label">Daily Challenge</div>'
+      + '<div class="pdc-title">' + _qText + '</div>'
+      + '<div class="pdc-sub">' + (_done ? 'Completed today!' : 'Bonus +30 XP for completing') + '</div>'
+      + '</div>'
+      + (_done
+        ? '<div class="pdc-done-badge">✓ Done</div>'
+        : '<div class="pdc-xp-badge">+30 XP</div><div class="pdc-shimmer"></div>')
+      + '</div>';
+  };
+
+  window.startDailyChallenge = function() {
+    var _today = (typeof todayStr === 'function') ? todayStr() : new Date().toISOString().split('T')[0];
+    var _dcState = S.daily_challenge || {};
+    if (_dcState.date === _today && _dcState.completed) {
+      if (typeof showToast === 'function') showToast("You already completed today's challenge! Come back tomorrow.", 'info', 3000);
+      return;
+    }
+    var _q = _getDailyChallengeQuestion();
+    if (!_q) {
+      if (typeof showToast === 'function') showToast('Complete some lessons first to unlock Daily Challenges!', 'info', 3000);
+      return;
+    }
+    // Mark as attempted today so we can award XP on completion
+    save('daily_challenge', { date: _today, completed: false, questionHash: (_q.question || '').substring(0, 30) });
+    if (typeof matchPendingLeft !== 'undefined') matchPendingLeft = null;
+    lessonState = {
+      lessonId: '__practice__',
+      practiceMode: true,
+      practiceType: 'daily',
+      practiceIdx: 0,
+      practiceScore: 0,
+      practiceTotal: 1,
+      practiceQuestions: [_q],
+      practiceStartTime: Date.now(),
+      practiceMaxStreak: 0,
+      correctStreak: 0
+    };
+    if (typeof showView === 'function') showView('lesson');
+    if (typeof showPracticeQ === 'function') showPracticeQ();
+    if (typeof showToast === 'function') showToast("👑 Daily Challenge started! Earn bonus XP.", 'info', 2200);
+  };
+})();
+
+// Hook into finishPractice to award daily challenge bonus XP
+(function() {
+  var _origFinish = window.finishPractice;
+  if (typeof _origFinish !== 'function') return;
+  window.finishPractice = function() {
+    var _today = (typeof todayStr === 'function') ? todayStr() : new Date().toISOString().split('T')[0];
+    var _dcState = S.daily_challenge || {};
+    var _isDailyType = (typeof lessonState !== 'undefined' && lessonState && lessonState.practiceType === 'daily');
+    _origFinish.apply(this, arguments);
+    if (_isDailyType && _dcState.date === _today && !_dcState.completed) {
+      save('daily_challenge', Object.assign({}, _dcState, { completed: true }));
+      if (typeof addXP === 'function') addXP(30);
+      if (typeof showToast === 'function') showToast("👑 Daily Challenge complete! +30 bonus XP", 'success', 3200);
+      if (typeof renderDailyChallenge === 'function') renderDailyChallenge();
+    }
+  };
+})();
+
+// ============================================================
 // practice-39: WEAK SPOTS DRILL
 // ============================================================
 function startWeakDrill() {
@@ -27073,6 +28236,131 @@ function renderPlanTab() {
   var hasWrongInfluence = recLessons.some(function(id) { return wrongIds.has(id); });
 
   var html = '';
+
+  // --- Quick Actions Row (plan-13) ---
+  (function() {
+    // Button 1: Start Today's Lesson — jumps straight into the next incomplete lesson
+    var _nextId13 = null;
+    for (var _ui13 = 0; _ui13 < COURSE.length && !_nextId13; _ui13++) {
+      var _u13 = COURSE[_ui13];
+      for (var _li13 = 0; _li13 < _u13.lessons.length; _li13++) {
+        var _l13 = _u13.lessons[_li13];
+        if (!S.completed.includes(_l13.id) && (_l13.free || S.premium)) {
+          _nextId13 = _l13.id; break;
+        }
+      }
+    }
+    var _oc13a = _nextId13 ? ("startLesson('" + _nextId13 + "')") : "switchTab('learn')";
+
+    // Button 2: Review Due — count spaced-repetition reviews due today
+    var _reviews13 = S.lesson_reviews || {};
+    var _today13   = todayStr();
+    var _dueCnt13  = 0;
+    var _firstDue13 = null;
+    for (var _rid13 in _reviews13) {
+      if (_reviews13.hasOwnProperty(_rid13) && _reviews13[_rid13].nextDue <= _today13) {
+        _dueCnt13++;
+        if (!_firstDue13) _firstDue13 = _rid13;
+      }
+    }
+    var _dueLabel13 = _dueCnt13 > 0 ? ("Review Due (" + _dueCnt13 + ")") : "Review Due";
+    var _oc13b = _firstDue13 ? ("startLesson('" + _firstDue13 + "')") : "switchTab('practice')";
+
+    // Button 3: Practice Weak Spots — goes to practice tab (targets wrong_answers)
+    var _weakCnt13 = (S.wrong_answers || []).length;
+    var _weakLabel13 = _weakCnt13 > 0 ? ("Weak Spots (" + _weakCnt13 + ")") : "Weak Spots";
+
+    html +=
+      '<div class="plan-qa-row">' +
+        '<button class="plan-qa-btn qa-green" onclick="' + _oc13a + '">' +
+          '<span class="qa-icon">&#9654;&#xFE0F;</span>' +
+          '<span class="qa-label">Start Lesson</span>' +
+        '</button>' +
+        '<button class="plan-qa-btn qa-blue" onclick="' + _oc13b + '">' +
+          '<span class="qa-icon">&#128260;</span>' +
+          '<span class="qa-label">' + _dueLabel13 + '</span>' +
+        '</button>' +
+        '<button class="plan-qa-btn qa-purple" onclick="switchTab(&apos;practice&apos;)">' +
+          '<span class="qa-icon">&#129504;</span>' +
+          '<span class="qa-label">' + _weakLabel13 + '</span>' +
+        '</button>' +
+      '</div>';
+  })();
+
+  // --- Recommended Lesson Card (plan-14) ---
+  (function() {
+    // Find the single best "do this next" lesson:
+    // Priority: (1) spaced-rep review due today, (2) next incomplete new lesson
+    var _today14   = todayStr();
+    var _reviews14 = S.lesson_reviews || {};
+    var _pick14    = null;   // { id, tag }
+    var _unit14    = null;
+
+    // Check reviews due
+    for (var _rid14 in _reviews14) {
+      if (_reviews14.hasOwnProperty(_rid14) && _reviews14[_rid14].nextDue <= _today14) {
+        _pick14 = { id: _rid14, tag: 'review' }; break;
+      }
+    }
+
+    // Fallback: next incomplete lesson from highest-progress unit
+    if (!_pick14) {
+      for (var _ui14 = 0; _ui14 < COURSE.length && !_pick14; _ui14++) {
+        var _u14 = COURSE[_ui14];
+        for (var _li14 = 0; _li14 < _u14.lessons.length; _li14++) {
+          var _l14 = _u14.lessons[_li14];
+          if (!S.completed.includes(_l14.id) && (_l14.free || S.premium)) {
+            _pick14 = { id: _l14.id, tag: 'new' }; break;
+          }
+        }
+      }
+    }
+
+    if (!_pick14) return; // all lessons done — nothing to recommend
+
+    var _lsn14 = findLesson(_pick14.id);
+    if (!_lsn14) return;
+
+    // Find owning unit
+    for (var _uu14 = 0; _uu14 < COURSE.length; _uu14++) {
+      for (var _mm14 = 0; _mm14 < COURSE[_uu14].lessons.length; _mm14++) {
+        if (COURSE[_uu14].lessons[_mm14].id === _pick14.id) {
+          _unit14 = COURSE[_uu14]; break;
+        }
+      }
+      if (_unit14) break;
+    }
+    if (!_unit14) return;
+
+    // Extract a short description from first slide text if available
+    var _desc14 = '';
+    if (_lsn14.slides && _lsn14.slides[0]) {
+      var _s0 = _lsn14.slides[0];
+      var _raw14 = _s0.text || _s0.title || '';
+      if (_raw14.length > 120) _raw14 = _raw14.slice(0, 117) + '...';
+      _desc14 = _raw14;
+    }
+    if (!_desc14) {
+      _desc14 = "Build your skills in " + _unit14.title + " with this focused lesson.";
+    }
+
+    var _badgeTxt14  = _pick14.tag === 'review' ? "Review Due" : "Up Next";
+    var _badgeIcon14 = _pick14.tag === 'review' ? "&#128260;" : "&#127919;";
+    var _locked14    = !_lsn14.free && !S.premium;
+    var _oc14        = _locked14 ? "openPremiumModal()" : ("startLesson('" + _pick14.id + "')");
+
+    html +=
+      '<div class="plan-rec-card">' +
+        '<div class="plan-rec-badge">' + _badgeIcon14 + ' ' + _badgeTxt14 + '</div>' +
+        '<div class="plan-rec-unit">Unit ' + _unit14.num + ' · ' + _unit14.title + '</div>' +
+        '<div class="plan-rec-title">' + _lsn14.title + '</div>' +
+        '<div class="plan-rec-desc">' + _desc14 + '</div>' +
+        '<div class="plan-rec-footer">' +
+          '<span class="plan-rec-xp">+' + _lsn14.xp + ' XP</span>' +
+          '<button class="plan-rec-start-btn" onclick="' + _oc14 + '">Start &rarr;</button>' +
+        '</div>' +
+      '</div>';
+  })();
 
   // --- Goal Progress Ring (plan-02) ---
   (function() {
@@ -27834,6 +29122,159 @@ function renderPlanTab() {
       '<div class="plan-tips-wrap">' +
         '<div class="plan-tips-title">Personalized Tips</div>' +
         '<div class="plan-tips-row">' + _cardsHtml12 + '</div>' +
+      '</div>';
+  })();
+
+  // --- Monthly Completion Calendar (plan-15) ---
+  (function() {
+    var _log15   = S.lesson_log || {};
+    var _now15   = new Date();
+    var _yr15    = _now15.getFullYear();
+    var _mo15    = _now15.getMonth();   // 0-based
+    var _moNames = [
+      'January','February','March','April','May','June',
+      'July','August','September','October','November','December'
+    ];
+    var _moLabel15 = _moNames[_mo15] + ' ' + _yr15;
+    var _today15   = todayStr();
+
+    // Days in month and which weekday the 1st falls on (0=Sun)
+    var _daysInMo15   = new Date(_yr15, _mo15 + 1, 0).getDate();
+    var _firstDow15   = new Date(_yr15, _mo15, 1).getDay(); // 0=Sun
+    // Shift to Mon-first grid: Mon=0 … Sun=6
+    var _startOffset15 = (_firstDow15 + 6) % 7;
+
+    // Count active days this month
+    var _activeCnt15 = 0;
+
+    // Build grid cells
+    var _cellsHtml15 = '';
+    var _DOW_LABELS = ['M','T','W','T','F','S','S'];
+    var _dowRow15 = '';
+    for (var _d = 0; _d < 7; _d++) {
+      _dowRow15 += '<div class="plan-month-dow-lbl">' + _DOW_LABELS[_d] + '</div>';
+    }
+
+    // Leading empty cells
+    for (var _e15 = 0; _e15 < _startOffset15; _e15++) {
+      _cellsHtml15 += '<div class="plan-month-cell mc-empty"></div>';
+    }
+
+    // Day cells
+    for (var _day15 = 1; _day15 <= _daysInMo15; _day15++) {
+      var _mm15   = _mo15 + 1 < 10 ? ('0' + (_mo15 + 1)) : String(_mo15 + 1);
+      var _dd15   = _day15 < 10 ? ('0' + _day15) : String(_day15);
+      var _ds15   = _yr15 + '-' + _mm15 + '-' + _dd15;
+      var _cnt15  = _log15[_ds15] || 0;
+      var _active = _cnt15 > 0;
+      var _isToday15 = _ds15 === _today15;
+      var _isFuture  = _ds15 > _today15;
+      if (_active) _activeCnt15++;
+      var _cls15 = 'plan-month-cell';
+      if (_isFuture) {
+        _cls15 += ' mc-future';
+      } else if (_active) {
+        _cls15 += ' mc-active';
+      }
+      if (_isToday15) _cls15 += ' mc-today';
+      var _tip15 = _active
+        ? (_ds15 + ': ' + _cnt15 + ' lesson' + (_cnt15 > 1 ? 's' : ''))
+        : (_isFuture ? '' : _ds15 + ': No activity');
+      _cellsHtml15 +=
+        '<div class="' + _cls15 + '" title="' + _tip15 + '">' + _day15 + '</div>';
+    }
+
+    html +=
+      '<div class="plan-month-cal">' +
+        '<div class="plan-month-cal-header">' +
+          '<div class="plan-month-cal-title">' + _moLabel15 + '</div>' +
+          '<div class="plan-month-cal-count">' + _activeCnt15 + ' active day' + (_activeCnt15 !== 1 ? 's' : '') + '</div>' +
+        '</div>' +
+        '<div class="plan-month-dow-row">' + _dowRow15 + '</div>' +
+        '<div class="plan-month-grid">' + _cellsHtml15 + '</div>' +
+      '</div>';
+  })();
+
+  // --- Study Pace Indicator (plan-16) ---
+  (function() {
+    // ---- Compute expected pace ----
+    // "Expected" = how many lessons should be done by now given daily_goal and
+    // days elapsed since the first active lesson_log entry (or account creation).
+
+    var _log16     = S.lesson_log || {};
+    var _done16    = (S.completed || []).length;
+    var _today16   = todayStr();
+
+    // Find earliest active day
+    var _firstDay16 = _today16;
+    var _keys16 = Object.keys(_log16);
+    for (var _k16 = 0; _k16 < _keys16.length; _k16++) {
+      var _dk16 = _keys16[_k16];
+      if (_log16[_dk16] > 0 && _dk16 < _firstDay16) {
+        _firstDay16 = _dk16;
+      }
+    }
+
+    // Days elapsed (inclusive)
+    var _msDay16      = 86400000;
+    var _elapsed16    = Math.max(1, Math.round(
+      (new Date(_today16 + 'T12:00:00') - new Date(_firstDay16 + 'T12:00:00')) / _msDay16
+    ) + 1);
+
+    var _dailyGoal16  = S.daily_goal || 1;
+    var _expected16   = _elapsed16 * _dailyGoal16;
+
+    // Total lessons in course
+    var _totalLessons16 = 0;
+    for (var _ui16 = 0; _ui16 < COURSE.length; _ui16++) {
+      _totalLessons16 += (COURSE[_ui16].lessons || []).length;
+    }
+    _expected16 = Math.min(_expected16, _totalLessons16);
+
+    // Pace ratio: >1.1 = ahead, 0.85-1.1 = on track, <0.85 = behind
+    // Avoid div-by-zero when expected == 0
+    var _ratio16 = _expected16 > 0 ? (_done16 / _expected16) : (_done16 > 0 ? 2 : 1);
+
+    var _statusKey16, _statusLbl16, _iconTxt16, _paceDesc16;
+    if (_ratio16 >= 1.1) {
+      _statusKey16 = 'ahead';
+      _statusLbl16 = 'Ahead';
+      _iconTxt16   = '&#128640;';
+      _paceDesc16  = "You are ahead of schedule — great momentum!";
+    } else if (_ratio16 >= 0.85) {
+      _statusKey16 = 'track';
+      _statusLbl16 = 'On Track';
+      _iconTxt16   = '&#127919;';
+      _paceDesc16  = "You are right on pace. Keep up the daily habit!";
+    } else {
+      _statusKey16 = 'behind';
+      _statusLbl16 = 'Behind';
+      _iconTxt16   = '&#128336;';
+      _paceDesc16  = "A little behind — even one extra lesson today closes the gap fast.";
+    }
+
+    // Bar: shows actual vs expected as % of expected (capped at 100%)
+    var _barPct16 = _expected16 > 0
+      ? Math.min(100, Math.round((_done16 / _expected16) * 100))
+      : 100;
+
+    html +=
+      '<div class="plan-pace-wrap">' +
+        '<div class="plan-pace-top">' +
+          '<div class="plan-pace-icon pi-' + _statusKey16 + '">' + _iconTxt16 + '</div>' +
+          '<div>' +
+            '<div class="plan-pace-label">Study Pace</div>' +
+            '<div class="plan-pace-sub">' + _paceDesc16 + '</div>' +
+          '</div>' +
+          '<div class="plan-pace-status ps-' + _statusKey16 + '">' + _statusLbl16 + '</div>' +
+        '</div>' +
+        '<div class="plan-pace-bar-bg">' +
+          '<div class="plan-pace-bar-fill pf-' + _statusKey16 + '" style="width:' + _barPct16 + '%;"></div>' +
+        '</div>' +
+        '<div class="plan-pace-meta-row">' +
+          '<span>Completed: ' + _done16 + ' lessons</span>' +
+          '<span>Expected by now: ' + _expected16 + '</span>' +
+        '</div>' +
       '</div>';
   })();
 
@@ -29072,6 +30513,365 @@ function renderProfileTab() {
       '</div>';
   })();
 
+  // profile-20: Goal Setting Card
+  (function() {
+    var _gcEl = document.getElementById('profile-goal-card');
+    if (!_gcEl) return;
+
+    var _weeklyGoal    = S.goal_weekly_lessons   || 3;
+    var _targetDate    = S.goal_target_date       || '';
+    var _completedLessons = (S.completed || []).length;
+
+    // Count lessons done this week (Mon-Sun)
+    var _todayDate = new Date();
+    var _todayDow  = _todayDate.getDay(); // 0=Sun
+    var _mondayOffset = (_todayDow === 0 ? -6 : 1 - _todayDow);
+    var _monday = new Date(_todayDate);
+    _monday.setDate(_todayDate.getDate() + _mondayOffset);
+    _monday.setHours(0,0,0,0);
+    var _lld = S.lesson_log_dates || {};
+    var _doneThisWeek = 0;
+    Object.values(_lld).forEach(function(ts) {
+      if (typeof ts === 'number' && ts >= _monday.getTime()) _doneThisWeek++;
+    });
+
+    // Weekly goal progress
+    var _weekPct   = _weeklyGoal > 0 ? Math.min(100, Math.round((_doneThisWeek / _weeklyGoal) * 100)) : 0;
+    var _weekOver  = _doneThisWeek >= _weeklyGoal;
+    var _weekLabel = _weekOver
+      ? ("Goal hit! " + _doneThisWeek + " / " + _weeklyGoal + " this week")
+      : (_doneThisWeek + " / " + _weeklyGoal + " lessons this week");
+
+    // Total course lessons
+    var _totalLessons = 0;
+    if (typeof COURSE !== 'undefined') {
+      COURSE.forEach(function(u) { _totalLessons += u.lessons.length; });
+    }
+    var _coursePct = _totalLessons > 0 ? Math.min(100, Math.round((_completedLessons / _totalLessons) * 100)) : 0;
+
+    // Countdown to target date
+    var _countdownHTML = '';
+    if (_targetDate) {
+      var _target = new Date(_targetDate + 'T00:00:00');
+      var _nowMs   = Date.now();
+      var _diffMs  = _target.getTime() - _nowMs;
+      var _diffDays = Math.ceil(_diffMs / 86400000);
+      if (_coursePct >= 100) {
+        _countdownHTML = '<div class="goal-countdown-pill done">Course complete!</div>';
+      } else if (_diffDays < 0) {
+        _countdownHTML = '<div class="goal-countdown-pill urgent">Target date passed ' + Math.abs(_diffDays) + ' day' + (Math.abs(_diffDays) !== 1 ? 's' : '') + ' ago</div>';
+      } else if (_diffDays === 0) {
+        _countdownHTML = '<div class="goal-countdown-pill urgent">Target is today!</div>';
+      } else if (_diffDays <= 7) {
+        _countdownHTML = '<div class="goal-countdown-pill urgent">' + _diffDays + ' day' + (_diffDays !== 1 ? 's' : '') + ' to go</div>';
+      } else {
+        _countdownHTML = '<div class="goal-countdown-pill">' + _diffDays + ' days to target</div>';
+      }
+    }
+
+    _gcEl.innerHTML =
+      '<div class="section-title">My Goals</div>' +
+      '<div class="goal-card-inner">' +
+
+        // Weekly goal setter
+        '<div>' +
+          '<div class="goal-section-label">Weekly Lesson Goal</div>' +
+          '<div class="goal-weekly-row">' +
+            '<div style="flex:1;">' +
+              '<div class="goal-weekly-count" id="goal-weekly-num">' + _weeklyGoal + '</div>' +
+              '<div class="goal-weekly-label">lessons / week</div>' +
+            '</div>' +
+            '<div class="goal-btn-row">' +
+              '<button class="goal-step-btn" onclick="profileGoalStep(-1)" aria-label="Decrease goal">-</button>' +
+              '<button class="goal-step-btn" onclick="profileGoalStep(1)" aria-label="Increase goal">+</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+
+        // Weekly progress bar
+        '<div class="goal-progress-wrap">' +
+          '<div class="goal-progress-row">' +
+            '<span>This week</span>' +
+            '<span class="goal-progress-pct">' + _weekPct + '%</span>' +
+          '</div>' +
+          '<div class="goal-bar-track">' +
+            '<div class="goal-bar-fill' + (_weekOver ? ' over' : '') + '" style="width:' + _weekPct + '%;"></div>' +
+          '</div>' +
+          '<div class="goal-progress-sub">' + _weekLabel + '</div>' +
+        '</div>' +
+
+        // Course completion target date
+        '<div>' +
+          '<div class="goal-section-label">Target Completion Date</div>' +
+          '<div class="goal-date-row">' +
+            '<input class="goal-date-input" id="goal-target-date-input" type="date" ' +
+              'value="' + _targetDate + '" ' +
+              'aria-label="Target completion date">' +
+            '<button class="goal-date-save-btn" onclick="profileGoalSaveDate()">Save</button>' +
+          '</div>' +
+          (_targetDate
+            ? '<div class="goal-progress-wrap" style="margin-top:8px;">' +
+                '<div class="goal-progress-row">' +
+                  '<span>Course progress</span>' +
+                  '<span class="goal-progress-pct">' + _coursePct + '%</span>' +
+                '</div>' +
+                '<div class="goal-bar-track">' +
+                  '<div class="goal-bar-fill" style="width:' + _coursePct + '%;"></div>' +
+                '</div>' +
+                '<div class="goal-progress-sub">' + _completedLessons + ' / ' + (_totalLessons || '?') + ' lessons completed</div>' +
+              '</div>'
+            : '<div style="font-size:12px;font-weight:600;color:var(--gray3);margin-top:6px;">Set a target date to track your course completion pace.</div>') +
+          _countdownHTML +
+        '</div>' +
+
+      '</div>';
+  })();
+
+  // profile-19: Study Habits Summary
+  (function() {
+    var _shEl = document.getElementById('profile-habits-card');
+    if (!_shEl) return;
+
+    var _xpLog    = S.xp_log || [];          // [{d: "YYYY-MM-DD", xp: N}, ...]
+    var _lld      = S.lesson_log_dates || {}; // {lessonId: timestamp_ms}
+    var _activeDays = S.active_days || [];
+    var _completed  = S.completed || [];
+
+    // ── Best day of week ──
+    var _dayNames  = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    var _dayCounts = [0,0,0,0,0,0,0];
+    _xpLog.forEach(function(entry) {
+      if (!entry.d) return;
+      var _parts = entry.d.split('-');
+      if (_parts.length < 3) return;
+      var _dow = new Date(_parts[0], parseInt(_parts[1],10)-1, parseInt(_parts[2],10)).getDay();
+      _dayCounts[_dow] += entry.xp || 0;
+    });
+    var _maxXpDay = 0;
+    var _bestDow  = 0;
+    for (var _di = 0; _di < 7; _di++) {
+      if (_dayCounts[_di] > _maxXpDay) { _maxXpDay = _dayCounts[_di]; _bestDow = _di; }
+    }
+    var _bestDay = _maxXpDay > 0 ? _dayNames[_bestDow] : "—";
+
+    // ── Average XP per active day ──
+    var _totalXpDays = _xpLog.length;
+    var _totalXpSum  = _xpLog.reduce(function(acc, e) { return acc + (e.xp || 0); }, 0);
+    var _avgXp = _totalXpDays > 0 ? Math.round(_totalXpSum / _totalXpDays) : 0;
+
+    // ── Most completed unit ──
+    var _unitCounts = {};
+    _completed.forEach(function(lessonId) {
+      // lesson IDs are like "u1l1", "u2l3" — extract unit prefix
+      var _m = lessonId.match(/^(u\d+)/);
+      if (_m) {
+        var _uid = _m[1];
+        _unitCounts[_uid] = (_unitCounts[_uid] || 0) + 1;
+      }
+    });
+    var _topUnit = null;
+    var _topCount = 0;
+    Object.keys(_unitCounts).forEach(function(k) {
+      if (_unitCounts[k] > _topCount) { _topCount = _unitCounts[k]; _topUnit = k; }
+    });
+    var _topUnitName = "—";
+    if (_topUnit && typeof COURSE !== 'undefined') {
+      var _cu = COURSE.find(function(c) { return c.id === _topUnit; });
+      if (_cu) _topUnitName = "Unit " + _cu.num;
+    }
+
+    // ── Active days total ──
+    var _totalDays = _activeDays.length;
+
+    // ── Stats grid ──
+    var _statsHTML =
+      '<div class="habits-grid">' +
+        '<div class="habits-stat-card">' +
+          '<div class="habits-stat-icon">📅</div>' +
+          '<div class="habits-stat-value">' + _bestDay + '</div>' +
+          '<div class="habits-stat-label">Best Study Day</div>' +
+          '<div class="habits-stat-sub">Highest XP day of week</div>' +
+        '</div>' +
+        '<div class="habits-stat-card">' +
+          '<div class="habits-stat-icon">⚡</div>' +
+          '<div class="habits-stat-value">' + _avgXp + '</div>' +
+          '<div class="habits-stat-label">Avg XP / Day</div>' +
+          '<div class="habits-stat-sub">Across active days</div>' +
+        '</div>' +
+        '<div class="habits-stat-card">' +
+          '<div class="habits-stat-icon">📚</div>' +
+          '<div class="habits-stat-value">' + _topUnitName + '</div>' +
+          '<div class="habits-stat-label">Top Unit</div>' +
+          '<div class="habits-stat-sub">' + (_topCount > 0 ? _topCount + ' lessons done' : 'No lessons yet') + '</div>' +
+        '</div>' +
+        '<div class="habits-stat-card">' +
+          '<div class="habits-stat-icon">🗓</div>' +
+          '<div class="habits-stat-value">' + _totalDays + '</div>' +
+          '<div class="habits-stat-label">Total Days Active</div>' +
+          '<div class="habits-stat-sub">Days you learned something</div>' +
+        '</div>' +
+      '</div>';
+
+    // ── Day-of-week XP bar chart ──
+    var _maxBar = Math.max.apply(null, _dayCounts) || 1;
+    var _barHTML =
+      '<div class="habits-day-bar-wrap">' +
+        '<div class="habits-day-bar-title">XP by day of week</div>' +
+        '<div class="habits-day-bars">' +
+          _dayCounts.map(function(xp, i) {
+            var _isPeak = xp === _maxBar && xp > 0;
+            var _pct    = Math.round((xp / _maxBar) * 100);
+            var _barColor = _isPeak ? 'var(--green,#58cc02)' : 'var(--gray3)';
+            return '<div class="habits-day-col">' +
+              '<div class="habits-day-bar-outer">' +
+                '<div class="habits-day-bar-inner' + (_isPeak ? ' peak' : '') + '" ' +
+                  'style="height:' + _pct + '%;background:' + _barColor + ';"></div>' +
+              '</div>' +
+              '<div class="habits-day-label' + (_isPeak ? ' peak' : '') + '">' + _dayNames[i] + '</div>' +
+            '</div>';
+          }).join('') +
+        '</div>' +
+      '</div>';
+
+    _shEl.innerHTML =
+      '<div class="section-title">Study Habits</div>' +
+      _statsHTML +
+      _barHTML;
+  })();
+
+  // profile-18: Certificates Earned Display
+  (function() {
+    var _csEl = document.getElementById('profile-cert-showcase-card');
+    if (!_csEl) return;
+
+    var _earned = S.earned_certs || [];
+
+    var _countPill = _earned.length > 0
+      ? '<span class="cert-showcase-count-pill">' + _earned.length + '</span>'
+      : '';
+
+    var _inner;
+    if (_earned.length === 0) {
+      _inner =
+        '<div class="cert-showcase-empty">' +
+          '<div class="cert-showcase-empty-icon">🎓</div>' +
+          '<div>No certificates yet. Complete all lessons in a unit to earn your first one!</div>' +
+        '</div>';
+    } else {
+      _inner = '<div class="cert-showcase-grid">' +
+        _earned.map(function(uid) {
+          var _cu  = (typeof COURSE !== 'undefined') ? COURSE.find(function(c) { return c.id === uid; }) : null;
+          var _cd  = (typeof UNIT_CERTS !== 'undefined') ? UNIT_CERTS[uid] : null;
+          if (!_cu || !_cd) return '';
+          var _col = _cu.color || '#5BC0F8';
+          var _levelColors = {
+            'Beginner':     '#22c55e',
+            'Intermediate': '#f97316',
+            'Advanced':     '#8b5cf6'
+          };
+          var _lvlColor = _levelColors[_cd.level] || _col;
+          return '<div class="cert-showcase-card" ' +
+            'style="border-color:' + _col + ';background:' + _col + '0d;" ' +
+            'onclick="viewUnitCertificate(' + uid + ')">' +
+            '<div style="position:absolute;top:0;right:0;width:80px;height:80px;border-radius:50%;background:' + _col + ';opacity:0.08;transform:translate(30%,-30%);pointer-events:none;"></div>' +
+            '<div class="cert-showcase-seal" style="background:' + _col + ';">' +
+              '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,13 9,18 20,6"/></svg>' +
+            '</div>' +
+            '<div class="cert-showcase-info">' +
+              '<div class="cert-showcase-title">' + _cd.title + '</div>' +
+              '<div class="cert-showcase-meta">Unit ' + _cu.num + ' · ' + (_cu.title || '') + '</div>' +
+            '</div>' +
+            '<div class="cert-showcase-level-badge" style="background:' + _lvlColor + '22;color:' + _lvlColor + ';border:1.5px solid ' + _lvlColor + ';">' + _cd.level + '</div>' +
+          '</div>';
+        }).join('') +
+      '</div>';
+    }
+
+    _csEl.innerHTML =
+      '<div class="section-title">My Certificates' + _countPill + '</div>' +
+      _inner;
+  })();
+
+  // profile-17: XP Level System
+  (function() {
+    var _xlEl = document.getElementById('profile-xp-level-card');
+    if (!_xlEl) return;
+
+    var _xp = S.xp || 0;
+
+    // Named tier definitions
+    var _tiers = [
+      { name: 'Beginner',     icon: '🌱', color: '#22c55e', bg: 'rgba(34,197,94,0.12)',    minXp: 0,    maxXp: 199  },
+      { name: 'Explorer',     icon: '🧭', color: '#3b82f6', bg: 'rgba(59,130,246,0.12)',   minXp: 200,  maxXp: 499  },
+      { name: 'Practitioner', icon: '⚡', color: '#f97316', bg: 'rgba(249,115,22,0.12)',   minXp: 500,  maxXp: 999  },
+      { name: 'Expert',       icon: '🏆', color: '#8b5cf6', bg: 'rgba(139,92,246,0.12)',   minXp: 1000, maxXp: 1999 },
+      { name: 'Master',       icon: '🔮', color: '#ec4899', bg: 'rgba(236,72,153,0.12)',   minXp: 2000, maxXp: null }
+    ];
+
+    // Find current tier
+    var _tierIdx = 0;
+    for (var _ti = _tiers.length - 1; _ti >= 0; _ti--) {
+      if (_xp >= _tiers[_ti].minXp) { _tierIdx = _ti; break; }
+    }
+    var _tier = _tiers[_tierIdx];
+    var _level = Math.floor(_xp / 100) + 1;
+
+    // Progress within tier
+    var _tierXp    = _xp - _tier.minXp;
+    var _tierRange = _tier.maxXp !== null ? (_tier.maxXp - _tier.minXp + 1) : 1000;
+    var _tierPct   = _tier.maxXp !== null ? Math.min(100, Math.round((_tierXp / _tierRange) * 100)) : 100;
+    var _xpToNext  = _tier.maxXp !== null ? (_tier.maxXp + 1 - _xp) : 0;
+    var _nextTier  = _tierIdx < _tiers.length - 1 ? _tiers[_tierIdx + 1] : null;
+
+    var _progressLabel = _nextTier
+      ? (_xpToNext + ' XP to ' + _nextTier.name)
+      : 'Max tier reached!';
+
+    // Hero block
+    var _heroHTML =
+      '<div class="xp-level-hero">' +
+        '<div class="xp-level-badge-circle" style="background:' + _tier.bg + ';border-color:' + _tier.color + ';color:' + _tier.color + ';">' +
+          '<div class="xp-level-badge-num">' + _level + '</div>' +
+          '<div class="xp-level-badge-lbl">LVL</div>' +
+        '</div>' +
+        '<div class="xp-level-hero-info">' +
+          '<div class="xp-level-tier-name" style="color:' + _tier.color + ';">' + _tier.icon + ' ' + _tier.name + '</div>' +
+          '<div class="xp-level-tier-sub">' + _xp + ' total XP · Level ' + _level + '</div>' +
+          '<div class="xp-level-progress-wrap">' +
+            '<div class="xp-level-progress-row">' +
+              '<span>Tier progress</span>' +
+              '<span>' + _progressLabel + '</span>' +
+            '</div>' +
+            '<div class="xp-level-bar-track">' +
+              '<div class="xp-level-bar-fill" style="width:' + _tierPct + '%;background:' + _tier.color + ';"></div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    // Tier grid
+    var _gridHTML = '<div class="xp-level-tiers-grid">' +
+      _tiers.map(function(t, i) {
+        var _isActive  = i === _tierIdx;
+        var _isUnlocked = _xp >= t.minXp && !_isActive;
+        var _cellClass = 'xp-level-tier-cell' + (_isActive ? ' active' : '') + (_isUnlocked ? ' unlocked' : '');
+        var _rangeStr  = t.maxXp !== null ? (t.minXp + '-' + t.maxXp) : (t.minXp + '+');
+        return '<div class="' + _cellClass + '" style="color:' + t.color + (_isActive ? (';background:' + t.bg) : '') + ';">' +
+          '<div class="xp-level-tier-icon">' + t.icon + '</div>' +
+          '<div class="xp-level-tier-label" style="color:' + (_isActive ? t.color : 'var(--gray3)') + ';">' + t.name + '</div>' +
+          '<div class="xp-level-tier-range">' + _rangeStr + ' XP</div>' +
+        '</div>';
+      }).join('') +
+    '</div>';
+
+    _xlEl.innerHTML =
+      '<div class="section-title">XP Level System</div>' +
+      '<div class="xp-level-card-inner">' +
+        _heroHTML +
+        _gridHTML +
+      '</div>';
+  })();
+
   // Render lesson notes
   renderProfileNotes();
   renderUnit1CertBtn();
@@ -29168,6 +30968,23 @@ function updateAvatarCustom(prop, val) {
 
 function clearAvatarCustom() {
   save('avatar_custom', null);
+  renderProfileTab();
+}
+
+function profileGoalStep(delta) {
+  var _cur = S.goal_weekly_lessons || 3;
+  var _next = Math.max(1, Math.min(30, _cur + delta));
+  save('goal_weekly_lessons', _next);
+  var _numEl = document.getElementById('goal-weekly-num');
+  if (_numEl) _numEl.textContent = _next;
+  renderProfileTab();
+}
+
+function profileGoalSaveDate() {
+  var _inp = document.getElementById('goal-target-date-input');
+  if (!_inp) return;
+  var _val = _inp.value || '';
+  save('goal_target_date', _val);
   renderProfileTab();
 }
 
