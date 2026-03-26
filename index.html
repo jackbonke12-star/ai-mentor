@@ -23939,9 +23939,9 @@ function selectQuizOption(el, idx, correct) {
     // Clari reacts to wrong answers — cap at 5 reactions per lesson to avoid spam
     if ((lessonState.wrongThisLesson || 0) <= 5) {
       if (lessonState.wrongThisLesson === 1) {
-        setTimeout(function() { showClariPopup('nervous_sweat', 'clari-nervous', 'Almost! Try again.', 1500); }, 600);
+        setTimeout(function() { showClariPopupImportant('nervous_sweat', 'clari-nervous', 'Almost! Try again.', 1500); }, 600);
       } else {
-        setTimeout(function() { showClariPopup('encouraging', 'clari-bounce', 'You can do it!', 1500); }, 600);
+        setTimeout(function() { showClariPopupImportant('encouraging', 'clari-bounce', 'You can do it!', 1500); }, 600);
       }
     }
     showFeedback(false, getWrongMsg(), allOpts[correct].textContent.trim());
@@ -25681,7 +25681,14 @@ function animateClari(state, durationMs) {
 }
 
 function showClariPopup(state, animClass, message, durationMs) {
-  durationMs = durationMs || 2500;
+  // ── Rate limiter: skip if shown < 15 s ago ─────────────────────────────
+  var _now = Date.now();
+  if (window._lastClariTime && (_now - window._lastClariTime) < 15000) return;
+  window._lastClariTime = _now;
+
+  // ── Cap duration at 2500 ms ────────────────────────────────────────────
+  durationMs = Math.min(durationMs || 2500, 2500);
+
   // Remove any existing popup
   const existing = document.getElementById('clari-float-popup');
   if (existing) existing.remove();
@@ -25690,29 +25697,28 @@ function showClariPopup(state, animClass, message, durationMs) {
   popup.id = 'clari-float-popup';
   popup.style.cssText = [
     'position:fixed',
-    'top:80px',
+    'top:70px',
     'right:12px',
     'z-index:9999',
     'display:flex',
     'flex-direction:column',
     'align-items:center',
-    'gap:6px',
+    'gap:4px',
     'background:var(--card,#fff)',
-    'border:2px solid var(--green,#58cc02)',
-    'border-radius:16px',
-    'padding:12px 14px',
-    'box-shadow:0 4px 24px rgba(0,0,0,0.15)',
-    'transform:translateY(40px)',
+    'border:1.5px solid var(--green,#58cc02)',
+    'border-radius:12px',
+    'padding:8px 10px',
+    'box-shadow:0 2px 12px rgba(0,0,0,0.12)',
     'opacity:0',
-    'transition:transform 0.35s cubic-bezier(.34,1.56,.64,1),opacity 0.3s ease',
+    'transition:opacity 0.25s ease',
     'pointer-events:none',
-    'max-width:160px',
+    'max-width:130px',
     'text-align:center'
   ].join(';');
 
   const svgWrap = document.createElement('div');
   svgWrap.className = 'slide-mascot-wrap';
-  svgWrap.innerHTML = clariSVG(state || 'happy', 64);
+  svgWrap.innerHTML = clariSVG(state || 'happy', 44);
   popup.appendChild(svgWrap);
 
   if (animClass) {
@@ -25722,25 +25728,35 @@ function showClariPopup(state, animClass, message, durationMs) {
 
   if (message) {
     const msgEl = document.createElement('div');
-    msgEl.style.cssText = 'font-size:12px;font-weight:700;color:var(--text,#3c3c3c);line-height:1.3;margin-top:2px;';
+    msgEl.style.cssText = 'font-size:11px;font-weight:600;color:var(--text,#3c3c3c);line-height:1.3;margin-top:2px;';
     msgEl.textContent = message;
     popup.appendChild(msgEl);
   }
 
   document.body.appendChild(popup);
-  // Trigger slide-up animation on next frame
+  // Soft fade-in (no movement)
   requestAnimationFrame(function() {
     requestAnimationFrame(function() {
-      popup.style.transform = 'translateY(0)';
       popup.style.opacity = '1';
     });
   });
 
+  // After 1 s dim to 85% so it stops demanding attention
   setTimeout(function() {
-    popup.style.transform = 'translateY(40px)';
+    if (popup.parentNode) popup.style.opacity = '0.85';
+  }, 1000);
+
+  // Fade out and remove
+  setTimeout(function() {
     popup.style.opacity = '0';
-    setTimeout(function() { if (popup.parentNode) popup.remove(); }, 350);
+    setTimeout(function() { if (popup.parentNode) popup.remove(); }, 280);
   }, durationMs);
+}
+
+function showClariPopupImportant(state, animClass, message, durationMs) {
+  // Bypasses the 15-s rate limiter for lesson-answer feedback
+  window._lastClariTime = null;
+  showClariPopup(state, animClass, message, durationMs);
 }
 
 function recordWrongAnswer(lessonId, question, idx) {
@@ -27126,7 +27142,7 @@ function selectPracticeOption(el, idx, correct) {
       })();
     }
     if (lessonState.correctStreak === 3) {
-      setTimeout(function() { showClariPopup('star', 'clari-tada', 'On a roll!', 1200); }, 400);
+      setTimeout(function() { showClariPopupImportant('star', 'clari-tada', 'On a roll!', 1200); }, 400);
     }
     showPracticeMotivate();
   } else {
@@ -31681,7 +31697,7 @@ function init() {
       _idleTimer = setTimeout(function() {
         const _msg = _idleMessages[Math.floor(Math.random() * _idleMessages.length)];
         showClariPopup('waving', 'clari-waving', _msg, 3000);
-      }, 45000);
+      }, 90000);
     }
     document.addEventListener('click', _resetIdleTimer, { passive: true });
     document.addEventListener('touchstart', _resetIdleTimer, { passive: true });
