@@ -2217,6 +2217,33 @@ body.text-xl     { --text-scale: 1.3; }
   transform: translateY(0);
 }
 
+/* Practice combo badge */
+#practice-combo-badge {
+  display: none;
+  position: fixed;
+  top: 72px;
+  right: 18px;
+  z-index: 999;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7c948 100%);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 900;
+  padding: 8px 16px;
+  border-radius: 24px;
+  box-shadow: 0 4px 18px rgba(255,107,53,0.45);
+  pointer-events: none;
+  letter-spacing: 0.03em;
+  animation: comboPulse 0.35s ease;
+}
+#practice-combo-badge.show {
+  display: block;
+}
+@keyframes comboPulse {
+  0%   { transform: scale(0.7); opacity: 0.5; }
+  60%  { transform: scale(1.18); opacity: 1; }
+  100% { transform: scale(1);    opacity: 1; }
+}
+
 
 /* ============================================================
    ORDER STEPS slide type
@@ -2775,6 +2802,15 @@ body.text-xl     { --text-scale: 1.3; }
 
 .practice-card-title { font-size: 16px; font-weight: 900; color: var(--text); }
 .practice-card-sub   { font-size: 13px; font-weight: 600; color: var(--gray4); margin-top: 2px; }
+.practice-difficulty-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: 12px;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.03em;
+  margin-bottom: 8px; vertical-align: middle;
+}
+.practice-difficulty-chip.easy   { background: #dcfce7; color: #15803d; border: 1.5px solid #bbf7d0; }
+.practice-difficulty-chip.medium { background: #fefce8; color: #a16207; border: 1.5px solid #fde68a; }
+.practice-difficulty-chip.hard   { background: #f3e8ff; color: #7e22ce; border: 1.5px solid #e9d5ff; }
 .practice-review-panel { margin-top: 16px; border: 2px solid var(--gray2); border-radius: var(--radius); background: var(--white); overflow: hidden; }
 .practice-review-toggle { width: 100%; background: none; border: none; cursor: pointer; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 800; color: var(--text); }
 .practice-review-toggle:hover { background: var(--gray1); }
@@ -5155,6 +5191,7 @@ body.text-xl     { --text-scale: 1.3; }
 </div>
 
 <!-- LESSON COMPLETION CONFETTI -->
+<div id="practice-combo-badge" aria-live="polite" aria-atomic="true"></div>
 <div id="lesson-confetti-wrap"></div>
 
 <!-- ACHIEVEMENT TOAST -->
@@ -23073,6 +23110,11 @@ function renderLessonComplete() {
   const shareBar = checkMilestoneShare();
 
   // Progress bar to 100
+  // Hide combo badge at end of session
+  (function() {
+    var _cb = document.getElementById('practice-combo-badge');
+    if (_cb) { _cb.className = ''; }
+  })();
   document.getElementById('lesson-progress-bar').style.width = '100%';
 
   const noErrors = lessonState.wrongThisLesson === 0;
@@ -24596,7 +24638,8 @@ function startPractice(type, difficulty) {
     fillBlanks: [],
     fillBankUsed: [],
     tapSelected: new Set(),
-    correctStreak: 0
+    correctStreak: 0,
+    practiceCombo: 0
   };
 
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
@@ -24754,6 +24797,23 @@ function resumePractice() {
   if (_pbtn) _pbtn.textContent = '⏸ Pause';
 }
 
+function getPracticeDifficultyChip(lessonId) {
+  var _lesson = (typeof findLesson === 'function') ? findLesson(lessonId) : null;
+  if (!_lesson) return '';
+  var _tags = _lesson.tags || [];
+  var _level, _label;
+  if (_tags.indexOf('advanced') !== -1) {
+    _level = 'hard'; _label = 'Hard';
+  } else if (_tags.indexOf('beginner') !== -1) {
+    _level = 'easy'; _label = 'Easy';
+  } else {
+    _level = 'medium'; _label = 'Medium';
+  }
+  return '<span class="practice-difficulty-chip ' + _level + '">'
+    + (_level === 'easy'   ? '&#x25CF;' : _level === 'hard' ? '&#x25B2;' : '&#x25A0;')
+    + ' ' + _label + '</span>';
+}
+
 function renderPracticeQuestion() {
   const q = lessonState.practiceQuestions[lessonState.practiceIdx];
   const total = lessonState.practiceQuestions.length;
@@ -24764,6 +24824,7 @@ function renderPracticeQuestion() {
   lessonState.slideAnswered = false;
   lessonState.inPractice = true;
   lessonState._kbFocusIdx = -1;
+  // Ensure combo badge stays visible between questions (don't hide it here)
   // Per-question timer: record start time for Quick Review mode
   if (lessonState.practiceType !== 'timed') {
     lessonState.questionStartTime = Date.now();
@@ -24780,6 +24841,7 @@ function renderPracticeQuestion() {
   document.getElementById('lesson-content').innerHTML = `
     <div style="font-size:12px;font-weight:800;color:var(--gray4);margin-bottom:12px;">Question ${idx+1} of ${total}${lessonState.practiceType === 'quick' && lessonState.adaptiveLevel ? ' &nbsp;<span style="font-size:11px;padding:2px 7px;border-radius:10px;background:' + (lessonState.adaptiveLevel === 3 ? '#fce7f3' : lessonState.adaptiveLevel === 2 ? '#e0f9ff' : '#f0fdf4') + ';color:' + (lessonState.adaptiveLevel === 3 ? '#be185d' : lessonState.adaptiveLevel === 2 ? '#0369a1' : '#15803d') + ';">' + (lessonState.adaptiveLevel === 3 ? 'Hard' : lessonState.adaptiveLevel === 2 ? 'Medium' : 'Easy') + '</span>' : ''}</div>
     <div class="slide-mascot-wrap" style="margin-bottom:8px;">${clariSVG('think', 60)}</div>
+    <div style="text-align:center;margin-bottom:6px;">${getPracticeDifficultyChip(q.lessonId || '')}</div>
     <div class="slide-quiz-title">${q.question}</div>
     <div class="quiz-options">${opts}</div>
     <div id="quiz-feedback"></div>` + _kbHintHtml;
@@ -24867,6 +24929,24 @@ function selectPracticeOption(el, idx, correct) {
     el.classList.add('correct');
     lessonState.practiceScore++;
     lessonState.correctStreak = (lessonState.correctStreak || 0) + 1;
+    lessonState.practiceCombo = (lessonState.practiceCombo || 0) + 1;
+    // Update combo badge
+    (function() {
+      var _cb = document.getElementById('practice-combo-badge');
+      if (_cb) {
+        if (lessonState.practiceCombo >= 2) {
+          _cb.textContent = '🔥 ' + lessonState.practiceCombo + 'x COMBO';
+          _cb.className = 'show';
+          // Re-trigger pulse animation
+          void _cb.offsetWidth;
+          _cb.style.animation = 'none';
+          void _cb.offsetWidth;
+          _cb.style.animation = '';
+        } else {
+          _cb.className = '';
+        }
+      }
+    })();
     // Track max streak reached this session (for achievements)
     if (!lessonState.practiceMaxStreak || lessonState.correctStreak > lessonState.practiceMaxStreak) {
       lessonState.practiceMaxStreak = lessonState.correctStreak;
@@ -25014,6 +25094,12 @@ function selectPracticeOption(el, idx, correct) {
       })();
     }
     lessonState.correctStreak = 0;
+    lessonState.practiceCombo = 0;
+    // Hide combo badge on wrong answer
+    (function() {
+      var _cb = document.getElementById('practice-combo-badge');
+      if (_cb) { _cb.className = ''; }
+    })();
   }
   // Adaptive difficulty check — Quick Review only, every 5 questions
   if (lessonState.practiceMode && lessonState.practiceType === 'quick') {
