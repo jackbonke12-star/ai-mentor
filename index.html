@@ -179,10 +179,6 @@ body.text-xl     { --text-scale: 1.3; }
   70%  { transform: scale(1.3); }
   100% { transform: scale(1); }
 }
-@keyframes confettiFall {
-  0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(120px) rotate(360deg); opacity: 0; }
-}
 @keyframes pulseGreen {
   0%,100% { box-shadow: 0 0 0 0 rgba(88,204,2,0.4); }
   50%      { box-shadow: 0 0 0 8px rgba(88,204,2,0); }
@@ -711,13 +707,7 @@ body.text-xl     { --text-scale: 1.3; }
   gap: 14px;
   cursor: pointer;
 }
-.reviews-due-count {
-  font-size: 38px;
-  font-weight: 900;
-  color: #9a7000;
-  line-height: 1;
-  flex-shrink: 0;
-}
+/* learn-r5: removed dead CSS (.reviews-due-count — badge number removed in prac-r4-02) */
 .reviews-due-label {
   font-size: 15px;
   font-weight: 800;
@@ -1043,12 +1033,7 @@ body.text-xl     { --text-scale: 1.3; }
 .pd-unit-wrap { position: relative; width: 32px; height: 44px; display: flex; flex-direction: column; align-items: center; gap: 0; }
 .pd-unit-num { font-size: 10px; font-weight: 900; text-align: center; line-height: 1.2; }
 .section-sub-title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--gray4); }
-.pd-chart { display: flex; align-items: flex-end; gap: 6px; height: 60px; margin-bottom: 4px; }
-.pd-bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; height: 100%; }
-.pd-bar-outer { flex: 1; width: 100%; background: var(--gray2); border-radius: 3px; display: flex; align-items: flex-end; overflow: hidden; }
-.pd-bar-inner { width: 100%; border-radius: 3px; min-height: 2px; }
-.pd-bar-label { font-size: 10px; font-weight: 700; color: var(--gray3); }
-.pd-bar-xp    { font-size: 9px; font-weight: 800; color: var(--blue); }
+/* learn-r5: removed dead CSS (.pd-chart, .pd-bar-col, .pd-bar-outer, .pd-bar-inner, .pd-bar-label, .pd-bar-xp — XP bar chart removed in prac-r4-01) */
 
 /* Lesson breadcrumb */
 #slide-counter { display: flex; flex-direction: column; align-items: center; gap: 1px; }
@@ -1692,75 +1677,7 @@ mark.search-hl {
 }
 .lesson-share-btn:active { color: var(--clari-blue); transform: scale(0.88); }
 :root[data-theme="dark"] .lesson-share-btn { color: var(--gray4); }
-/* ============================================================
-   learn-30: Lesson of the Day banner
-   ============================================================ */
-.lotd-banner {
-  margin: 0 12px 10px;
-  border-radius: 16px;
-  padding: 14px 16px;
-  background: linear-gradient(135deg, #1cb0f6 0%, #0e8ecf 100%);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(28,176,246,0.30);
-  transition: transform 0.15s, box-shadow 0.15s;
-  position: relative;
-  overflow: hidden;
-}
-.lotd-banner::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.10) 0%, transparent 60%);
-  pointer-events: none;
-}
-.lotd-banner:active { transform: scale(0.98); box-shadow: 0 2px 8px rgba(28,176,246,0.20); }
-.lotd-icon {
-  width: 42px; height: 42px; border-radius: 12px;
-  background: rgba(255,255,255,0.22);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; font-size: 22px;
-}
-.lotd-body { flex: 1; min-width: 0; }
-.lotd-label {
-  font-size: 9px; font-weight: 900; letter-spacing: 0.08em;
-  text-transform: uppercase; opacity: 0.80; margin-bottom: 2px;
-}
-.lotd-title {
-  font-size: 14px; font-weight: 900; line-height: 1.25;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.lotd-meta {
-  font-size: 11px; font-weight: 700; opacity: 0.80; margin-top: 3px;
-}
-.lotd-btn {
-  flex-shrink: 0;
-  background: rgba(255,255,255,0.22);
-  border: 2px solid rgba(255,255,255,0.45);
-  border-radius: 10px;
-  color: #fff;
-  font-size: 12px; font-weight: 900;
-  padding: 6px 14px;
-  cursor: pointer;
-  font-family: inherit;
-  transition: background 0.15s;
-  pointer-events: none;
-}
-.lotd-done-banner {
-  margin: 0 12px 10px;
-  border-radius: 16px;
-  padding: 10px 16px;
-  background: #e6f9ec;
-  color: #1a7a4a;
-  font-size: 13px; font-weight: 800;
-  text-align: center;
-  border: 1.5px solid #b3eecf;
-}
-:root[data-theme="dark"] .lotd-banner { box-shadow: 0 4px 16px rgba(28,176,246,0.20); }
-:root[data-theme="dark"] .lotd-done-banner { background: #1a3a2a; color: #4ade80; border-color: #166534; }
+/* learn-r7-03: .lotd-banner / .lotd-done-banner CSS removed — banner removed */
 /* ============================================================
    learn-32: Reading time estimate chip on lesson cards
    ============================================================ */
@@ -2181,12 +2098,6 @@ mark.search-hl {
   background: var(--white);
 }
 #view-lesson.active { display: flex; }
-/* Reading progress bar — thin top line showing slide position */
-.lesson-read-progress {
-  height: 3px; width: 0%; background: var(--clari-blue, #1cb0f6);
-  transition: width 0.3s ease; flex-shrink: 0;
-}
-
 /* ============================================================
    LESSON STREAK MILESTONE OVERLAY
    ============================================================ */
@@ -3098,30 +3009,13 @@ mark.search-hl {
   letter-spacing: 0.01em;
 }
 #tb-lesson-streak.visible { display: flex; }
-.tb-streak-reminder { display:none; align-items:center; justify-content:center; background:#ff9600; color:#fff; font-size:11px; font-weight:800; padding:3px 10px; border-radius:20px; white-space:nowrap; flex-shrink:0; }
 /* Lesson tag pills on lesson cards */
 .lesson-tags-row { display:flex; flex-wrap:wrap; gap:4px; margin-top:4px; }
 .lesson-tag-pill { font-size:10px; font-weight:700; background:var(--gray1); color:var(--gray4); padding:1px 7px; border-radius:20px; letter-spacing:.02em; text-transform:lowercase; }
 :root[data-theme="dark"] .lesson-tag-pill { background:var(--gray2); color:var(--gray3); }
 .dyk-text { font-size:13px; color:var(--text); line-height:1.5; }
 /* learn-r4: removed dead CSS (.rec-next-* — elements removed in learn-r4-03) */
-.daily-xp-goal-card { display:flex; align-items:center; gap:10px; background:#eff6ff; border:1.5px solid #bfdbfe; border-radius:12px; padding:10px 14px; margin-bottom:12px; }
-:root[data-theme="dark"] .daily-xp-goal-card { background:#1e3a5f; border-color:#2563eb; }
-.daily-xp-goal-card.goal-met { background:#f0fdf4; border-color:#bbf7d0; }
-:root[data-theme="dark"] .daily-xp-goal-card.goal-met { background:#052e16; border-color:#166534; }
-.dxp-icon { font-size:18px; flex-shrink:0; }
-.dxp-body { flex:1; min-width:0; }
-.dxp-label { font-size:11px; font-weight:800; color:#1d4ed8; text-transform:uppercase; letter-spacing:.04em; margin-bottom:3px; }
-.daily-xp-goal-card.goal-met .dxp-label { color:#16a34a; }
-:root[data-theme="dark"] .dxp-label { color:#60a5fa; }
-:root[data-theme="dark"] .daily-xp-goal-card.goal-met .dxp-label { color:#4ade80; }
-.dxp-bar-outer { height:7px; background:var(--gray2); border-radius:4px; overflow:hidden; margin-top:4px; }
-.dxp-bar-inner { height:100%; background:#3b82f6; border-radius:4px; transition:width 0.5s ease; }
-.daily-xp-goal-card.goal-met .dxp-bar-inner { background:var(--green); }
-.dxp-count { font-size:12px; font-weight:800; color:#1d4ed8; white-space:nowrap; }
-.daily-xp-goal-card.goal-met .dxp-count { color:var(--green); }
-:root[data-theme="dark"] .dxp-count { color:#60a5fa; }
-:root[data-theme="dark"] .daily-xp-goal-card.goal-met .dxp-count { color:#4ade80; }
+/* learn-r7-02: .daily-xp-goal-card / .dxp-* CSS removed — JS card removed in learn-r6 */
 .lesson-quote { font-size:13px; font-style:italic; color:var(--gray4); text-align:center; padding:10px 20px; border-top:1px solid var(--gray1); margin-top:4px; line-height:1.5; }
 .lesson-rating-wrap { display:flex; flex-direction:column; align-items:center; gap:6px; margin:8px 0; }
 .lesson-rating-label { font-size:12px; font-weight:700; color:var(--gray4); }
@@ -3869,47 +3763,7 @@ mark.search-hl {
   margin-top: 4px;
 }
 
-/* practice-40: local practice leaderboard */
-.practice-lb-wrap {
-  margin: 0 0 14px;
-  background: var(--white); border: 2px solid var(--gray2);
-  border-radius: var(--radius, 12px); overflow: hidden;
-}
-.practice-lb-toggle {
-  width: 100%; background: none; border: none; cursor: pointer;
-  padding: 11px 14px; display: flex; align-items: center;
-  justify-content: space-between; font-size: 13px; font-weight: 800;
-  color: var(--text);
-}
-.practice-lb-toggle:hover { background: var(--gray1); }
-.practice-lb-chevron {
-  display: inline-block; transition: transform 0.2s;
-  font-size: 11px; color: var(--gray4);
-}
-.practice-lb-chevron.open { transform: rotate(180deg); }
-.practice-lb-body { display: none; padding: 0 14px 10px; }
-.practice-lb-body.open { display: block; }
-.practice-lb-row {
-  display: flex; align-items: center; gap: 8px;
-  padding: 7px 0; border-bottom: 1px solid var(--gray1);
-  font-size: 13px;
-}
-.practice-lb-row:last-child { border-bottom: none; }
-.practice-lb-rank {
-  font-size: 15px; font-weight: 900; min-width: 28px;
-  text-align: center; color: var(--gray4);
-}
-.practice-lb-rank.gold   { color: #f59e0b; }
-.practice-lb-rank.silver { color: #94a3b8; }
-.practice-lb-rank.bronze { color: #b45309; }
-.practice-lb-info { flex: 1; }
-.practice-lb-type { font-weight: 700; color: var(--text); font-size: 12px; }
-.practice-lb-date { font-size: 11px; color: var(--gray4); }
-.practice-lb-score { font-weight: 900; color: var(--green2); min-width: 42px; text-align: right; }
-.practice-lb-empty {
-  font-size: 13px; font-weight: 600; color: var(--gray4);
-  text-align: center; padding: 10px 0;
-}
+/* r6: removed dead CSS — practice-lb-* leaderboard */
 
 /* practice-41: daily challenge */
 .practice-daily-challenge-card {
@@ -4146,38 +4000,7 @@ mark.search-hl {
 .practice-quick5-sub   { font-size: 11px; font-weight: 700; opacity: 0.85; }
 .practice-quick5-arrow { font-size: 20px; margin-left: auto; }
 
-/* practice-49: practice milestone badges */
-.practice-milestone-row {
-  display: flex; align-items: center; gap: 10px;
-  background: var(--white); border: 2px solid var(--gray2);
-  border-radius: var(--radius); padding: 13px 16px;
-  margin-top: 14px; flex-wrap: wrap;
-}
-.practice-milestone-title {
-  font-size: 12px; font-weight: 900; color: var(--text);
-  text-transform: uppercase; letter-spacing: 0.8px;
-  width: 100%; margin-bottom: 4px;
-}
-.practice-milestone-badge {
-  display: flex; flex-direction: column; align-items: center; gap: 4px;
-  flex: 1; min-width: 56px; max-width: 80px;
-  padding: 8px 4px; border-radius: 12px; border: 2px solid transparent;
-  transition: border-color 0.2s, background 0.2s;
-  cursor: default;
-}
-.practice-milestone-badge.earned {
-  background: #fef9c3; border-color: #fde047;
-}
-.practice-milestone-badge.earned .pmb-icon { filter: none; opacity: 1; }
-.practice-milestone-badge.locked .pmb-icon { filter: grayscale(1); opacity: 0.35; }
-.pmb-icon  { font-size: 26px; line-height: 1; }
-.pmb-count { font-size: 11px; font-weight: 900; color: var(--text); }
-.pmb-name  { font-size: 10px; font-weight: 700; color: var(--gray4); text-align: center; line-height: 1.2; }
-.practice-milestone-badge.earned .pmb-count { color: #92400e; }
-:root[data-theme="dark"] .practice-milestone-badge.earned {
-  background: #422006; border-color: #ca8a04;
-}
-:root[data-theme="dark"] .practice-milestone-badge.earned .pmb-count { color: #fde047; }
+/* practice-49: milestone badges removed r6-cleanup */
 
 /* practice-50: session pace indicator */
 #practice-pace-pill {
@@ -4244,7 +4067,7 @@ mark.search-hl {
   font-weight: 800; color: var(--text); cursor: pointer;
 }
 .practice-summary-copy-btn:hover { background: var(--gray1); }
-.practice-summary-share-btn { border-color: var(--blue); color: var(--blue); }
+/* r6: removed dead CSS — practice-summary-share-btn */
 /* practice-44: beat-your-score best chips */
 .pbs-chip {
   display: inline-flex; align-items: center; gap: 4px;
@@ -4410,26 +4233,7 @@ mark.search-hl {
   50% { opacity: 0.75; }
 }
 
-/* practice-53: quick stats bar */
-.practice-quick-stats-bar {
-  display: flex; align-items: stretch; gap: 8px;
-  margin-bottom: 12px;
-}
-.pqsb-tile {
-  flex: 1; background: var(--white); border: 2px solid var(--gray2);
-  border-radius: 12px; padding: 10px 8px 8px;
-  display: flex; flex-direction: column; align-items: center; gap: 2px;
-  transition: border-color 0.15s;
-}
-.pqsb-tile:hover { border-color: var(--blue); }
-.pqsb-val {
-  font-size: 18px; font-weight: 900; color: var(--text); line-height: 1;
-}
-.pqsb-lbl {
-  font-size: 10px; font-weight: 800; color: var(--gray4);
-  text-transform: uppercase; letter-spacing: 0.5px; text-align: center;
-}
-.pqsb-tile.highlight .pqsb-val { color: var(--blue); }
+/* practice-53: quick stats bar removed r6-cleanup */
 
 /* practice-60b: post-session-footer-cleanup */
 .practice-share-section { margin-bottom: 10px; }
@@ -5057,56 +4861,7 @@ mark.search-hl {
   display: none !important;
 }
 
-.profile-completion-wrap {
-  margin: 8px 16px 0;
-  background: rgba(255,255,255,0.12);
-  border-radius: 12px;
-  padding: 10px 14px;
-  text-align: left;
-}
-.profile-completion-label {
-  font-size: 11px;
-  font-weight: 800;
-  color: rgba(255,255,255,0.8);
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 6px;
-}
-.profile-completion-pct { color: white; }
-.profile-completion-track {
-  height: 6px;
-  background: rgba(255,255,255,0.18);
-  border-radius: 3px;
-  overflow: hidden;
-}
-.profile-completion-fill {
-  height: 100%;
-  background: rgba(255,255,255,0.75);
-  border-radius: 3px;
-  transition: width 0.5s ease;
-}
-.profile-completion-items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin-top: 7px;
-}
-.profile-completion-item {
-  font-size: 10px;
-  font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.55);
-  border: 1px solid rgba(255,255,255,0.15);
-}
-.profile-completion-item.done {
-  background: rgba(255,255,255,0.22);
-  color: rgba(255,255,255,0.9);
-  border-color: rgba(255,255,255,0.3);
-}
+/* r6: removed dead CSS — profile-completion-* bar */
 
 .section-card.collapsible { overflow: hidden; }
 .section-card-header {
@@ -5152,7 +4907,7 @@ mark.search-hl {
 }
 .stat-num   { font-size: 26px; font-weight: 900; }
 .stat-label { font-size: 12px; font-weight: 700; color: var(--gray4); margin-top: 2px; }
-.achievements-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 10px; }
+/* r6: removed dead CSS — achievements-grid */
 .ach-badge {
   display: flex; flex-direction: column; align-items: center; gap: 4px;
   padding: 8px 4px; cursor: pointer; border-radius: 8px;
@@ -6524,47 +6279,7 @@ mark.search-hl {
   cursor: pointer; transition: all 0.15s; font-family: 'Nunito', sans-serif;
 }
 .av-toggle-btn.selected { border-color: var(--blue); background: rgba(59,130,246,0.08); color: var(--blue); }
-/* ============================================================
-   90-DAY LEARNING HEATMAP
-   ============================================================ */
-.heatmap-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
-.heatmap-grid {
-  display: grid;
-  grid-template-columns: repeat(13, 1fr);
-  gap: 4px;
-  min-width: 280px;
-}
-.heatmap-month-row {
-  display: flex; gap: 4px; margin-bottom: 6px;
-  overflow: hidden;
-}
-.heatmap-month-label {
-  font-size: 10px; font-weight: 800; color: var(--gray3);
-  text-transform: uppercase; letter-spacing: 0.4px;
-  flex: 1; text-align: center;
-}
-.hm-dot {
-  aspect-ratio: 1; border-radius: 4px;
-  cursor: pointer; transition: transform 0.1s, opacity 0.1s;
-  background: var(--gray1);
-  position: relative;
-}
-.hm-dot:active { transform: scale(0.85); }
-.hm-dot[data-count="0"] { background: var(--gray1); }
-.hm-dot[data-count="1"] { background: rgba(88,204,2,0.35); }
-.hm-dot[data-count="2"] { background: rgba(88,204,2,0.60); }
-.hm-dot[data-count="3"] { background: rgba(88,204,2,0.80); }
-.hm-dot[data-count="4"] { background: var(--green); }
-.hm-dot[data-count="5"] { background: var(--green); box-shadow: 0 0 6px rgba(88,204,2,0.5); }
-.hm-today { outline: 2px solid var(--blue); outline-offset: 1px; border-radius: 5px; }
-.heatmap-legend {
-  display: flex; align-items: center; gap: 6px; margin-top: 10px;
-  font-size: 11px; font-weight: 700; color: var(--gray3);
-}
-.heatmap-legend-dots { display: flex; gap: 3px; }
-.heatmap-legend-dot {
-  width: 12px; height: 12px; border-radius: 3px;
-}
+/* r6: removed dead CSS — 90-day heatmap */
 /* Tooltip */
 .hm-tooltip {
   position: fixed; z-index: 9999;
@@ -8263,14 +7978,6 @@ mark.search-hl {
 .confetti-wrap {
   position: absolute; inset: 0; overflow: hidden; pointer-events: none;
 }
-#lesson-confetti-wrap {
-  position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 9000;
-}
-.confetti-piece {
-  position: absolute; width: 10px; height: 10px;
-  animation: confettiFall 2s ease forwards;
-}
-
 /* Achievement toast */
 #achievement-toast {
   position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(80px);
@@ -9060,51 +8767,7 @@ mark.search-hl {
 .lesson-note-indicator:hover .note-tooltip { display: block; }
 :root[data-theme='dark'] .lesson-note-indicator { background: #2a2200; border-color: #a87c00; color: #fbbf24; }
 :root[data-theme='dark'] .lesson-note-indicator .note-tooltip { background: var(--bg-card); border-color: var(--gray2); color: var(--text); }
-/* Recently completed lesson recap card (learn-04) */
-.recap-card {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 12px 10px;
-  padding: 10px 14px;
-  background: var(--white);
-  border-radius: 14px;
-  border-left: 4px solid var(--green);
-  box-shadow: var(--shadow);
-  animation: fadeIn 0.3s ease;
-}
-.recap-card-icon {
-  font-size: 22px;
-  flex-shrink: 0;
-  line-height: 1;
-}
-.recap-card-body {
-  flex: 1;
-  min-width: 0;
-}
-.recap-card-label {
-  font-size: 10px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--green2);
-  margin-bottom: 1px;
-}
-.recap-card-title {
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--text);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.recap-card-when {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--gray4);
-  margin-top: 1px;
-}
-:root[data-theme='dark'] .recap-card { background: var(--bg-card); }
+/* learn-r7-01: .recap-card CSS removed — recap card removed */
 
 /* Long-press lesson preview tooltip */
 #lp-tooltip {
@@ -9215,7 +8878,6 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
     <span id="tb-course-pct" class="tb-course-pct" aria-label="Course completion percentage"></span>
     <div id="tb-xp-bar-wrap" aria-hidden="true"><div id="tb-xp-bar-fill"></div></div>
     <span id="tb-lesson-streak" aria-label="Lessons completed this session"></span>
-    <div id="tb-streak-reminder" class="tb-streak-reminder" style="display:none;" aria-live="polite">Keep your streak alive!</div>
     <div id="tb-search-wrap" role="search" aria-label="Search lessons">
       <button id="tb-search-icon-btn" onclick="toggleTopBarSearch()" title="Search lessons" aria-label="Search lessons" aria-expanded="false">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
@@ -9403,7 +9065,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 
     <!-- ======== LESSON PLAYER ======== -->
     <div class="view" id="view-lesson">
-      <div class="lesson-read-progress" id="lesson-read-progress"></div>
+      <!-- r5-02: lesson-read-progress bar removed -->
       <div class="lesson-top-bar">
         <button class="lesson-close-btn" onclick="closeLesson()" aria-label="Close lesson">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#777" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
@@ -9425,7 +9087,6 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 
     <!-- ======== PRACTICE TAB ======== -->
     <div class="view" id="view-practice" role="main">
-      <div id="practice-quick-stats-bar" class="practice-quick-stats-bar" style="display:none;"></div>
       <div id="practice-mode-banner" class="practice-mode-banner">
         <div class="pmb-top">
           <div>
@@ -9472,16 +9133,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
         <span class="pmtb-chevron">&#9660;</span>
       </button>
       <div class="practice-modes-extra" id="practice-modes-extra">
-        <div class="practice-card" id="weak-areas-card">
-          <span id="wrong-count-badge" style="display:none;" class="wrong-count-badge"></span>
-          <div class="practice-card-info">
-            <div class="practice-card-title">Weak Areas</div>
-            <div class="practice-card-sub">Questions you got wrong</div>
-            <div id="practice-pool-size-weak" style="font-size:11px;font-weight:700;color:var(--gray4);margin-top:3px;"></div>
-            <div id="pbs-chip-weak"></div>
-          </div>
-          <button class="btn btn-yellow btn-sm" onclick="startPractice(&apos;weak&apos;)">Review</button>
-        </div>
+        <!-- weak-areas-card removed r5-cleanup -->
         <div class="practice-card">
 
           <div class="practice-card-info">
@@ -9538,9 +9190,8 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
         <div class="practice-history-title">Recent Sessions</div>
         <div id="practice-history-list"></div>
       </div>
-      <div id="practice-milestone-badges-wrap"></div>
       <div id="practice-lesson-stats-wrap"></div>
-      <div id="practice-leaderboard-wrap" style="margin-top:14px;"></div>
+      <!-- practice-leaderboard-wrap removed r5-cleanup -->
       <div class="practice-notes-section" style="margin-top:14px;">
         <button class="practice-notes-toggle" onclick="(function(btn){btn.classList.toggle('open');var b=btn.nextElementSibling;b.classList.toggle('open');if(b.classList.contains(&apos;open&apos;))renderPracticeSessionNotes();})(this)" aria-expanded="false">
           <span>&#x1F4DD; Session Notes</span>
@@ -9610,11 +9261,6 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
     <div class="section-card">
       <div class="section-title">Achievements</div>
       <div id="ach-progress-label" class="ach-progress-label"></div>
-      <div class="achievements-grid" id="achievements-grid"></div>
-    </div>
-    <div class="section-card">
-      <div class="section-title">90-Day Activity</div>
-      <div id="profile-heatmap"></div>
     </div>
     <div class="section-card collapsible collapsed" id="profile-activity-card"></div>
     <div class="section-card collapsible collapsed" id="profile-streak-stats-card"></div>
@@ -9777,8 +9423,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
   <button onclick="closeStreakOverlay()" style="margin-top:24px;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.5);color:white;border-radius:24px;padding:12px 32px;font-size:15px;font-weight:800;cursor:pointer;">Keep Going!</button>
 </div>
 
-<!-- LESSON COMPLETION CONFETTI -->
-<div id="lesson-confetti-wrap"></div>
+<!-- r5-01: lesson-confetti-wrap removed -->
 
 <!-- ACHIEVEMENT TOAST -->
 <div id="achievement-toast">
@@ -19681,9 +19326,8 @@ function lessonMatchesSearch(lesson, query, tag) {
   const titleMatch = !q || lesson.title.toLowerCase().includes(q);
   const tagMatch   = !tag || (lesson.tags || []).includes(tag);
   const diffMatch  = !learnDiffFilter || getLessonDifficulty(lesson) === learnDiffFilter;
-  const bkMatch    = !learnBookmarkFilter || (S.bookmarks || []).includes(lesson.id);
-  const quickMatch = !learnQuickFilter || (lesson.slides || []).length < 6;
-  return titleMatch && tagMatch && diffMatch && bkMatch && quickMatch;
+  // learn-r5: bkMatch/quickMatch removed — filterBookmarks/filterQuick setters were deleted in r4
+  return titleMatch && tagMatch && diffMatch;
 }
 
 function updateLearnSearch(val) {
@@ -19750,8 +19394,7 @@ function clearLearnSearch() {
   learnSearchQuery = '';
   learnFilterTag = '';
   learnDiffFilter = '';
-  learnBookmarkFilter = false;
-  learnQuickFilter = false;
+  // learn-r5: dead no-op resets removed (learnBookmarkFilter/learnQuickFilter always false)
   renderLearnTab();
 }
 
@@ -21681,89 +21324,17 @@ function renderLearnTab() {
       '</div>';
   }
 
-  // Clari welcome banner — social/motivational
-  const _tod = (function() {
-    const h = new Date().getHours();
-    if (h >= 5  && h < 12) return { state: 'waving',    greeting: 'Good morning', emoji: '\u2600\uFE0F' };
-    if (h >= 12 && h < 17) return { state: 'happy',     greeting: 'Good afternoon', emoji: '\u26C5' };
-    if (h >= 17 && h < 21) return { state: 'excited',   greeting: 'Good evening', emoji: '\uD83C\uDF1F' };
-    return { state: 'think', greeting: 'Still up?', emoji: '\uD83C\uDF19' };
-  })();
-  // Clari mood: session streak overrides all; otherwise use daily streak thresholds
-  const _clariWelcomeState = (function() {
-    var _sesLs = S.session_lesson_streak || 0;
-    if (_sesLs >= 3)      return 'star';
-    var _st = S.streak || 0;
-    if (_st >= 7)         return 'excited';
-    if (_st >= 3)         return 'happy';
-    if (_st === 0)        return 'encouraging';
-    return _tod.state; // streak 1-2: keep time-of-day expression
-  })();
-  const _name = S.user_name ? (', ' + S.user_name) : '';
+  // learn-r6-03: _tod / _clariWelcomeState / _name removed (Clari banner gone since learn-r2)
   // learn-cl-03: dyk-card removed (random trivia added visual noise)
   // Recommended Next section removed (learn-r4-03)
-  // Daily XP Goal card
-  (function() {
-    var _dxpGoal    = S.daily_xp_goal || 20;
-    var _todayStr   = todayStr();
-    var _xpLog      = S.xp_log || [];
-    var _todayEntry = _xpLog.find(function(e) { return e.d === _todayStr; });
-    var _earnedToday = _todayEntry ? (_todayEntry.xp || 0) : 0;
-    var _dxpPct  = Math.min(100, Math.round((_earnedToday / _dxpGoal) * 100));
-    var _dxpMet  = _earnedToday >= _dxpGoal;
-    var _dxpIcon = _dxpMet ? '✅' : '⚡';
-    html += '<div class="daily-xp-goal-card' + (_dxpMet ? ' goal-met' : '') + '">' +
-      '<span class="dxp-icon">' + _dxpIcon + '</span>' +
-      '<div class="dxp-body">' +
-        '<div class="dxp-label">' + (_dxpMet ? '✓ Daily XP Goal Met!' : 'Daily XP Goal') + '</div>' +
-        '<div class="dxp-bar-outer"><div class="dxp-bar-inner" style="width:' + _dxpPct + '%"></div></div>' +
-      '</div>' +
-      '<div class="dxp-count">' + _earnedToday + ' / ' + _dxpGoal + ' XP</div>' +
-    '</div>';
-  })();
+  // learn-r6-01: Daily XP Goal card removed
 
   // learn-r5-01: Comeback message removed (visual noise after 3+ days away)
 
   // clari-banner removed (learn-r2): greeting noise on every visit
 
   
-  // Recently completed lesson recap card (learn-04)
-  (function() {
-    var _todayD  = todayStr();
-    var _reviews = S.lesson_reviews || {};
-    var _completed = S.completed || [];
-    // Find most recently completed lesson that was finished today
-    // Walk S.completed in reverse (last added = most recent)
-    var _recapLesson = null;
-    for (var _ri = _completed.length - 1; _ri >= 0; _ri--) {
-      var _rid = _completed[_ri];
-      var _rev = _reviews[_rid];
-      if (_rev && _rev.completedAt === _todayD) {
-        // Find lesson object
-        for (var _rui = 0; _rui < COURSE.length; _rui++) {
-          var _runit = COURSE[_rui];
-          for (var _rli = 0; _rli < _runit.lessons.length; _rli++) {
-            if (_runit.lessons[_rli].id === _rid) {
-              _recapLesson = _runit.lessons[_rli];
-              break;
-            }
-          }
-          if (_recapLesson) break;
-        }
-        break;
-      }
-    }
-    if (_recapLesson) {
-      html += '<div class="recap-card">' +
-        '<div class="recap-card-icon">\u2705</div>' +
-        '<div class="recap-card-body">' +
-          '<div class="recap-card-label">Last completed today</div>' +
-          '<div class="recap-card-title">' + escHtml(_recapLesson.title) + '</div>' +
-          '<div class="recap-card-when">Keep it up! \u2b50 +' + (_recapLesson.xp || 0) + ' XP earned</div>' +
-        '</div>' +
-      '</div>';
-    }
-  })();
+  // learn-r7-01: Recently completed recap card removed (redundant with continue-card)
 
   html += `<div class="daily-tip-card" id="daily-tip-card"></div>`;
 
@@ -21793,36 +21364,10 @@ function renderLearnTab() {
     html += buildRecommendedStrip(3);
   }
 
-  // learn-30: Lesson of the Day banner
-  (function() {
-    var _lotd = getLessonOfDay();
-    if (!_lotd) return;
-    var _lotdDone = S.completed.includes(_lotd.lesson.id);
-    var _lotdLocked = !_lotd.lesson.free && !S.premium;
-    if (_lotdDone) {
-      html += "<div class=\"lotd-done-banner\">"
-        + "&#x2713; You completed today's featured lesson: <strong>" + escHtml(_lotd.lesson.title) + "</strong>"
-        + "</div>";
-      return;
-    }
-    if (_lotdLocked) return;
-    var _lotdMins = (typeof estimateLessonMinutes === "function") ? estimateLessonMinutes(_lotd.lesson) : "?";
-    html += "<div class=\"lotd-banner\" onclick=\"startLesson('" + _lotd.lesson.id + "')\">"
-      + "<div class=\"lotd-icon\">&#x2B50;</div>"
-      + "<div class=\"lotd-body\">"
-      + "<div class=\"lotd-label\">Lesson of the Day</div>"
-      + "<div class=\"lotd-title\">" + escHtml(_lotd.lesson.title) + "</div>"
-      + "<div class=\"lotd-meta\">Unit " + _lotd.unit.num + " &bull; ~" + _lotdMins + " min &bull; +" + _lotd.lesson.xp + " XP</div>"
-      + "</div>"
-      + "<button class=\"lotd-btn\" tabindex=\"-1\">Start</button>"
-      + "</div>";
-  })();
+  // learn-r7-03: Lesson of the Day banner removed (visual noise; redundant with continue-card)
 
-  // Search bar + filter tags (difficulty chips + text search + topic tags)
-  var _dcAll   = learnDiffFilter === '' ? 'active' : '';
-  var _dcEasy  = learnDiffFilter === 'easy' ? 'active' : '';
-  var _dcMod   = learnDiffFilter === 'moderate' ? 'active' : '';
-  var _dcHard  = learnDiffFilter === 'challenging' ? 'active' : '';
+  // learn-r5: dead code removed (_dcAll, _dcEasy, _dcMod, _dcHard — diff-filter-row was deleted in r3)
+  // Search bar + filter tags (text search + topic tags)
   // learn-38: dynamic tag filter pills
   (function() {
     var _allTags38 = getAllCourseTags().slice(0, 14); // top 14 tags
@@ -21878,7 +21423,7 @@ function renderLearnTab() {
       })
     : COURSE;
 
-  const activeSearch = learnSearchQuery.trim() || learnFilterTag || learnDiffFilter || learnBookmarkFilter || learnQuickFilter;
+  const activeSearch = learnSearchQuery.trim() || learnFilterTag || learnDiffFilter;
   let totalMatches = 0;
 
   // Group units by track
@@ -26639,9 +26184,7 @@ function renderLessonSlide() {
   // Progress bar
   const pct = totalSlides > 1 ? (idx / (totalSlides - 1)) * 100 : 0;
   document.getElementById('lesson-progress-bar').style.width = pct + '%';
-  // Thin reading progress bar at top of lesson view
-  const _readBar = document.getElementById('lesson-read-progress');
-  if (_readBar) _readBar.style.width = (totalSlides > 1 ? ((idx + 1) / totalSlides) * 100 : 100) + '%';
+  // r5-02: lesson-read-progress JS update removed
   document.getElementById('lesson-hearts').innerHTML = renderHearts(lessonState.hearts, 5);
 
   if (idx >= totalSlides) {
@@ -28272,7 +27815,7 @@ function renderLessonComplete() {
     ${ratingHtml}
   </div>`;
 
-  fireLessonConfetti();
+  // r5-01: fireLessonConfetti() call removed
 
   // ── Animate XP counter from 0 to xpEarned over 600ms ─────────────────────
   (function() {
@@ -28321,8 +27864,7 @@ function renderLessonComplete() {
   })();
 
   if (noErrors) {
-    setTimeout(fireLessonConfetti, 800);
-    setTimeout(fireLessonConfetti, 1600);
+    // r5-01: fireLessonConfetti timeouts removed
     setTimeout(function() { showToast('🤩 Perfect lesson! No mistakes!', 'success', 3500); }, 400);
   }
   // Clari reaction based on score
@@ -28489,31 +28031,6 @@ function fireLearnTabConfetti() {
   }
 }
 
-function fireLessonConfetti() {
-  const wrap = document.getElementById('lesson-confetti-wrap');
-  if (!wrap) return;
-  wrap.innerHTML = '';
-  const _isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  const colors = _isDark
-    ? ['#00ff41', '#1cb0f6', '#ff6b6b', '#ffd700', '#ff69b4', '#b366ff', '#00e5ff']
-    : ['#58cc02','#ffc800','#1cb0f6','#ff4b4b','#a560f8','#ff7eb3','#5BC0F8','#ff9f43','#26de81','#fd79a8','#fdcb6e'];
-  const count = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 70;
-  for (let i = 0; i < count; i++) {
-    const piece = document.createElement('div');
-    piece.className = 'confetti-piece';
-    piece.style.cssText = [
-      'left:' + (Math.random() * 100) + '%',
-      'top:' + (Math.random() * -30) + '%',
-      'background:' + colors[Math.floor(Math.random() * colors.length)],
-      'animation-delay:' + (Math.random() * 0.8) + 's',
-      'animation-duration:' + (1.2 + Math.random() * 1.2) + 's',
-      'border-radius:' + (Math.random() > 0.5 ? '50%' : '3px'),
-      'width:' + (5 + Math.random() * 9) + 'px',
-      'height:' + (5 + Math.random() * 9) + 'px'
-    ].join(';');
-    wrap.appendChild(piece);
-  }
-
 // ============================================================
 // UNIT COMPLETE CELEBRATION MODAL
 // ============================================================
@@ -28655,8 +28172,6 @@ function toggleBookmark(lessonId, event) {
   renderLearnTab();
 }
 
-  setTimeout(function() { wrap.innerHTML = ''; }, 3000);
-}
 
 function showXPFloat(amount) {
   const el = document.createElement('div');
@@ -29079,34 +28594,7 @@ function updatePracticeSoundBtn() {
 
 function renderPracticeTab() {
   updatePracticeSoundBtn();
-  // practice-53: quick stats bar
-  (function() {
-    var _bar53 = document.getElementById('practice-quick-stats-bar');
-    if (!_bar53) return;
-    var _hist53 = S.practice_history || [];
-    if (_hist53.length === 0) { _bar53.style.display = 'none'; return; }
-    var _sessions53 = _hist53.length;
-    var _totalQ53 = _hist53.reduce(function(a, h) { return a + (h.total || 0); }, 0);
-    var _sumPct53 = 0;
-    _hist53.forEach(function(h) { if (h.total > 0) _sumPct53 += Math.round((h.score / h.total) * 100); });
-    var _avg53 = _hist53.length > 0 ? Math.round(_sumPct53 / _hist53.length) : 0;
-    var _bestMap53 = S.practice_best || {};
-    var _bestAll53 = 0;
-    Object.keys(_bestMap53).forEach(function(k) { if (_bestMap53[k] > _bestAll53) _bestAll53 = _bestMap53[k]; });
-    var _tiles53 = [
-      { val: _sessions53, lbl: 'Sessions', hi: _sessions53 >= 10 },
-      { val: _totalQ53, lbl: 'Questions', hi: false },
-      { val: _avg53 + '%', lbl: 'Avg Score', hi: _avg53 >= 80 },
-      { val: (_bestAll53 > 0 ? _bestAll53 + '%' : '--'), lbl: 'Best Ever', hi: _bestAll53 >= 100 }
-    ];
-    _bar53.innerHTML = _tiles53.map(function(t) {
-      return '<div class="pqsb-tile' + (t.hi ? ' highlight' : '') + '">'
-        + '<div class="pqsb-val">' + t.val + '</div>'
-        + '<div class="pqsb-lbl">' + t.lbl + '</div>'
-        + '</div>';
-    }).join('');
-    _bar53.style.display = 'flex';
-  })();
+  // practice-53: quick stats bar removed r6-cleanup
   // Practice Mode banner: motivational subtitle + stat strip
   (function() {
     // Time-of-day subtitle
@@ -29231,7 +28719,6 @@ function renderPracticeTab() {
   })();
   renderWrongCountBadge();
   renderDiffEscalator();
-  renderPracticeMilestoneBadges();
   renderPracticeRecords();
   renderPracticeWeakHeatmap();
   renderPracticeRecentSessions();
@@ -29353,8 +28840,7 @@ function renderPracticeTab() {
     _wdTarget.innerHTML = '<span class="weak-drill-target-badge">⚠️ Focus: ' + _worst + ' (' + _unitCounts[_worst] + ' wrong)</span>';
   })();
 
-  // practice-40: render leaderboard panel
-  renderPracticeLeaderboard();
+  // practice-40: renderPracticeLeaderboard call removed (r5-cleanup)
 
   const el = document.getElementById('practice-history-list');
   if (!el) return;
@@ -29483,8 +28969,6 @@ function renderPracticeRecords() {
   var rows = [
     { val: bestQuick,       lbl: 'Best Quick Score' },
     { val: bestTimed,       lbl: 'Best Timed Score' },
-    { val: String(sessions),lbl: 'Total Sessions'   },
-    { val: String(totalQ),  lbl: 'Total Qs Answered'},
     { val: displayStreak + 'd', lbl: 'Best Streak'  },
     { val: avgPct + '%',    lbl: 'Average Score'    }
   ];
@@ -29851,8 +29335,7 @@ function startPractice(type, difficulty) {
     fillBlanks: [],
     fillBankUsed: [],
     tapSelected: new Set(),
-    correctStreak: 0,
-    practiceCombo: 0
+    correctStreak: 0
   };
 
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
@@ -30232,7 +29715,7 @@ function selectPracticeOption(el, idx, correct) {
     el.classList.add('correct');
     lessonState.practiceScore++;
     lessonState.correctStreak = (lessonState.correctStreak || 0) + 1;
-    lessonState.practiceCombo = (lessonState.practiceCombo || 0) + 1;
+    // learn-r5: practiceCombo increment removed — combo badge UI deleted in prior round
 
     // Track max streak reached this session (for achievements)
     if (!lessonState.practiceMaxStreak || lessonState.correctStreak > lessonState.practiceMaxStreak) {
@@ -30405,7 +29888,7 @@ function selectPracticeOption(el, idx, correct) {
       })();
     }
     lessonState.correctStreak = 0;
-    lessonState.practiceCombo = 0;
+  // learn-r5: practiceCombo reset removed (dead write)
   }
   // Adaptive difficulty check — Quick Review only, every 5 questions
   if (lessonState.practiceMode && lessonState.practiceType === 'quick') {
@@ -30557,11 +30040,7 @@ function copySummaryCard() {
   else { var ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove(); showToast("Copied!", "success", 1500); }
 }
 
-function shareSummaryCard() {
-  var t = window._practiceShareCardText || "";
-  if (navigator.share) { navigator.share({ title: "My Practice Results", text: t }).catch(function(){}); }
-  else { copySummaryCard(); }
-}
+// shareSummaryCard removed r5-cleanup
 
 function renderPracticeSummaryCard(score, total, accuracy, elapsed, practiceType) {
   var panel = document.getElementById("practice-xp-breakdown-panel");
@@ -30600,8 +30079,7 @@ function renderPracticeSummaryCard(score, total, accuracy, elapsed, practiceType
     + '<div class="practice-summary-card-body">' + safeCard + '</div>'
     + '<div class="practice-summary-btns">'
     + '<button class="practice-summary-copy-btn" onclick="copySummaryCard()">Copy</button>'
-    + '<button class="practice-summary-share-btn" onclick="shareSummaryCard()">📤 Share</button>'
-    + '</div></div>';
+    + '</div></div>'; // share btn removed r5-cleanup
 }
 
 function getGradeLetter(pct) {
@@ -31054,68 +30532,7 @@ function renderPracticeLessonStats() {
     + '</div>';
 }
 
-// ============================================================
-// practice-40: LOCAL PRACTICE LEADERBOARD
-// ============================================================
-function renderPracticeLeaderboard() {
-  var _wrap = document.getElementById('practice-leaderboard-wrap');
-  if (!_wrap) return;
-  var _hist = (S.practice_history || []).slice();
-  // Sort all sessions by percentage descending
-  _hist.sort(function(a, b) {
-    var _pA = a.total > 0 ? (a.score / a.total) : 0;
-    var _pB = b.total > 0 ? (b.score / b.total) : 0;
-    return _pB - _pA;
-  });
-  var _top = _hist.slice(0, 10);
-
-  // Preserve open state across re-renders
-  var _existingBody = _wrap.querySelector('.practice-lb-body');
-  var _isOpen = _existingBody ? _existingBody.classList.contains('open') : false;
-
-  function _typeLabel(t) {
-    if (t === 'quick')      return 'Quick Practice';
-    if (t === 'weak')       return 'Weak Areas';
-    if (t === 'timed')      return 'Timed Challenge';
-    if (t === 'weak_drill') return 'Weak Spots Drill';
-    if (t === 'review')     return 'Review';
-    return t || 'Practice';
-  }
-
-  var _rowsHtml = '';
-  if (_top.length === 0) {
-    _rowsHtml = '<div class="practice-lb-empty">No sessions yet — complete a practice to see your scores!</div>';
-  } else {
-    _rowsHtml = _top.map(function(h, i) {
-      var _pct = h.total > 0 ? Math.round((h.score / h.total) * 100) : 0;
-      var _rankClass = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
-      var _medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : String(i + 1) + '.';
-      return '<div class="practice-lb-row">'
-        + '<div class="practice-lb-rank ' + _rankClass + '">' + _medal + '</div>'
-        + '<div class="practice-lb-info">'
-        +   '<div class="practice-lb-type">' + _typeLabel(h.type) + '</div>'
-        +   '<div class="practice-lb-date">' + (h.date || '') + '</div>'
-        + '</div>'
-        + '<div class="practice-lb-score">' + _pct + '%</div>'
-        + '</div>';
-    }).join('');
-  }
-
-  _wrap.innerHTML = '<div class="practice-lb-wrap">'
-    + '<button class="practice-lb-toggle" onclick="(function(btn){'
-    + 'var body=btn.nextElementSibling;'
-    + 'var chev=btn.querySelector(".practice-lb-chevron");'
-    + 'body.classList.toggle("open");'
-    + 'if(chev)chev.classList.toggle("open");'
-    + '})(this)">'
-    + '<span>🏆 Your Best Sessions</span>'
-    + '<span class="practice-lb-chevron' + (_isOpen ? ' open' : '') + '">▾</span>'
-    + '</button>'
-    + '<div class="practice-lb-body' + (_isOpen ? ' open' : '') + '">'
-    + _rowsHtml
-    + '</div>'
-    + '</div>';
-}
+// practice-40: renderPracticeLeaderboard removed (r5-cleanup)
 
 // ============================================================
 // ============================================================
@@ -31159,63 +30576,9 @@ function startQuick5() {
 // ============================================================
 // practice-49: PRACTICE MILESTONE BADGES
 // ============================================================
-function renderPracticeMilestoneBadges() {
-  var _wrap = document.getElementById('practice-milestone-badges-wrap');
-  if (!_wrap) return;
-  var _total = (S.practice_history || []).length;
-  var _earned = S.achievements || [];
-  var _milestones = [
-    { count: 10,  icon: '🥇', name: 'Starter',   id: 'practice_milestone_10'  },
-    { count: 25,  icon: '🏅', name: 'Dedicated', id: 'practice_milestone_25'  },
-    { count: 50,  icon: '🔥', name: 'On Fire',   id: 'practice_milestone_50'  },
-    { count: 100, icon: '👑', name: 'Legend',    id: 'practice_milestone_100' }
-  ];
-  var _badgesHtml = _milestones.map(function(m) {
-    var _isEarned = _earned.includes(m.id) || _total >= m.count;
-    return '<div class="practice-milestone-badge ' + (_isEarned ? 'earned' : 'locked') + '"'
-      + ' title="' + m.count + ' sessions ' + (_isEarned ? 'completed!' : '-- keep going!') + '">'
-      + '<span class="pmb-icon">' + m.icon + '</span>'
-      + '<span class="pmb-count">' + m.count + '</span>'
-      + '<span class="pmb-name">' + m.name + '</span>'
-      + '</div>';
-  }).join('');
-  _wrap.innerHTML = '<div class="practice-milestone-row">'
-    + '<div class="practice-milestone-title">🏆 Session Milestones (' + _total + ' completed)</div>'
-    + _badgesHtml
-    + '</div>';
-}
+function renderPracticeMilestoneBadges() { /* removed r6-cleanup */ }
 
-// practice-49: Hook into finishPractice to award milestone achievements
-(function() {
-  var _origFP = window.finishPractice;
-  if (typeof _origFP !== 'function') return;
-  window.finishPractice = function() {
-    _origFP.apply(this, arguments);
-    setTimeout(function() {
-      var _total49 = (S.practice_history || []).length;
-      var _earned49 = (S.achievements || []).slice();
-      var _milestones49 = [
-        { count: 10,  id: 'practice_milestone_10',  label: '10 Sessions!' },
-        { count: 25,  id: 'practice_milestone_25',  label: '25 Sessions!' },
-        { count: 50,  id: 'practice_milestone_50',  label: '50 Sessions!' },
-        { count: 100, id: 'practice_milestone_100', label: '100 Sessions!' }
-      ];
-      var _newEarned = false;
-      _milestones49.forEach(function(m) {
-        if (!_earned49.includes(m.id) && _total49 >= m.count) {
-          _earned49.push(m.id);
-          _newEarned = true;
-          setTimeout(function() {
-            if (typeof showToast === 'function')
-              showToast('🏆 Milestone: ' + m.label + ' Practice complete!', 'success', 3500);
-          }, 1600);
-        }
-      });
-      if (_newEarned) save('achievements', _earned49);
-      renderPracticeMilestoneBadges();
-    }, 300);
-  };
-})();
+// practice-49: milestone hook removed r6-cleanup
 
 // ============================================================
 // practice-50: SESSION PACE INDICATOR (pill in lesson header, updated per question)
@@ -31600,8 +30963,7 @@ function startWeakDrill() {
     fillBlanks: [],
     fillBankUsed: [],
     tapSelected: new Set(),
-    correctStreak: 0,
-    practiceCombo: 0
+    correctStreak: 0
   };
   document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
   document.getElementById('view-lesson').classList.add('active');
@@ -32272,88 +31634,13 @@ function renderPlanTab() {
   // plan-r4-02: removed — motivational nudge banner suppressed
 
   // --- Difficulty Curve Chart (plan-07) ---
-  (function() {
-    var _rows7 = '';
-    for (var _ui7 = 0; _ui7 < COURSE.length; _ui7++) {
-      var _u7   = COURSE[_ui7];
-      var _tot7 = (_u7.lessons || []).length;
-      if (_tot7 === 0) continue;
-      var _done7 = (_u7.lessons || []).filter(function(l7) {
-        return (S.completed || []).indexOf(l7.id) > -1;
-      }).length;
-      var _pct7  = Math.round((_done7 / _tot7) * 100);
-      var _col7  = _u7.color || '#5BC0F8';
-      var _fillStyle7 = _pct7 === 0
-        ? 'background:var(--gray2,#e5e7eb);'
-        : 'background:' + _col7 + ';';
-      var _pctColor7 = _pct7 === 0 ? 'var(--gray4)' : (_pct7 === 100 ? '#58CC02' : _col7);
-      var _rawTitle7 = _u7.title || '';
-      var _shortTitle7 = _rawTitle7.length > 14
-        ? _rawTitle7.substring(0, 13) + '…'
-        : _rawTitle7;
-      _rows7 +=
-        '<div class="plan-diff-row">' +
-          '<div class="plan-diff-label" title="' + _rawTitle7 + '">' + _shortTitle7 + '</div>' +
-          '<div class="plan-diff-bar-bg">' +
-            '<div class="plan-diff-bar-fill" style="width:' + _pct7 + '%;' + _fillStyle7 + '"></div>' +
-          '</div>' +
-          '<div class="plan-diff-pct" style="color:' + _pctColor7 + ';">' + _pct7 + '%</div>' +
-        '</div>';
-    }
-    html +=
-      '<div class="plan-diff-wrap">' +
-        '<div class="plan-diff-title">Course Progress by Unit</div>' +
-        _rows7 +
-      '</div>';
-  })();
+  // plan-r5-02: removed — difficulty curve / course progress by unit chart suppressed
 
   // --- Estimated Time to Complete (plan-06) ---
   // plan-r4-01: removed — completion-time prediction card suppressed
 
   // --- Weekly XP Goal Progress (plan-05) ---
-  (function() {
-    var _wxp     = S.weekly_xp || 0;
-    var _dxpGoal = S.daily_xp_goal || 20;
-    var _wxpGoal = _dxpGoal * 7;
-    var _wxpPct  = Math.min(1, _wxp / _wxpGoal);
-    var _wxpMet  = _wxp >= _wxpGoal;
-    var _barW    = Math.max(2, Math.round(_wxpPct * 100));
-    var _metCls  = _wxpMet ? ' wxp-met' : '';
-    var _onclickToggle = "(function(){"
-      + "var r=document.getElementById('plan-wxp-goal-row');"
-      + "r.classList.toggle('visible');"
-      + "if(r.classList.contains('visible')){"
-      + "var inp=document.getElementById('plan-wxp-goal-inp');"
-      + "if(inp){inp.value=Math.round((S.daily_xp_goal||20)*7);inp.focus();}"
-      + "}})()";
-    var _onclickSave = "(function(){"
-      + "var v=parseInt(document.getElementById('plan-wxp-goal-inp').value,10);"
-      + "if(!v||v<10)return;"
-      + "save('daily_xp_goal',Math.round(v/7)||20);"
-      + "document.getElementById('plan-wxp-goal-row').classList.remove('visible');"
-      + "renderPlanTab();"
-      + "})()";
-    html =
-      '<div class="plan-wxp-wrap plan-pressure-widget">' +
-        '<div class="plan-wxp-header">' +
-          '<div class="plan-wxp-title">Weekly XP Goal</div>' +
-          '<button class="plan-wxp-edit-btn" onclick="' + _onclickToggle + '">Set Goal</button>' +
-        '</div>' +
-        '<div class="plan-wxp-bar-bg">' +
-          '<div class="plan-wxp-bar-fill' + _metCls + '" style="width:' + _barW + '%"></div>' +
-        '</div>' +
-        '<div class="plan-wxp-meta">' +
-          '<span class="wxp-earned' + _metCls + '">' + _wxp + ' XP earned this week</span>' +
-          '<span>Goal: ' + _wxpGoal + ' XP</span>' +
-        '</div>' +
-        '<div class="plan-wxp-goal-row" id="plan-wxp-goal-row">' +
-          '<span style="font-size:12px;font-weight:700;color:var(--gray4);">Weekly goal:</span>' +
-          '<input id="plan-wxp-goal-inp" class="plan-wxp-goal-input" type="number" min="10" max="9999" value="' + _wxpGoal + '">' +
-          '<span style="font-size:12px;font-weight:600;color:var(--gray4);">XP</span>' +
-          '<button class="plan-wxp-goal-save" onclick="' + _onclickSave + '">Save</button>' +
-        '</div>' +
-      '</div>' + html;
-  })();
+  // plan-r5-01: removed — weekly XP goal progress bar suppressed
 
   // --- More Stats collapsible wrapper (wraps plan-10 + plan-11) ---
   html +=
@@ -32631,93 +31918,7 @@ function renderPlanTab() {
   // --- Study Pace Indicator (plan-16) ---
   // plan-r4-03: removed — Ahead/On Track/Behind motivational widget suppressed
 
-  // --- Weekly Summary Card (plan-17) ---
-  (function() {
-    // Compute the ISO week string for the PREVIOUS week so we can show
-    // "last week" stats.  We store this week's data as S.weekly_* — on
-    // Monday the current week resets, so we show the previous week's best.
-    // Because we may not persist last-week data separately, we display the
-    // CURRENT week stats with a label that clarifies the period.
-
-    var _now17   = new Date();
-    var _dow17   = _now17.getDay(); // 0=Sun…6=Sat
-    // Show the card on Mondays (dow===1) AND always — it is always useful.
-
-    // Current week stats (safe fallback)
-    var _wxp17    = S.weekly_xp || 0;
-    var _wbest17  = S.weekly_best || 0;
-    var _wdone17  = (S.weekly_lessons_done || []).length;
-    var _streak17 = S.streak || 0;
-    var _total17  = (S.completed || []).length;
-
-    // Calculate total XP for last week using xp_log if available
-    var _xpLog17    = S.xp_log || [];
-    // Get Monday and Sunday of CURRENT week (Mon-start)
-    var _monOffset17 = (_dow17 === 0 ? 6 : _dow17 - 1);
-    var _monDate17   = new Date(_now17);
-    _monDate17.setDate(_now17.getDate() - _monOffset17);
-    _monDate17.setHours(0,0,0,0);
-
-    // For "this week" label
-    var _monStr17 = _monDate17.toISOString().split('T')[0];
-    var _monDisp17 = _monDate17.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-
-    // Count lessons and XP from xp_log this week
-    var _weekXpFromLog17  = 0;
-    var _weekLsnFromLog17 = 0;
-    for (var _i17 = 0; _i17 < _xpLog17.length; _i17++) {
-      var _entry17 = _xpLog17[_i17];
-      var _entDate17 = (_entry17.date || '').slice(0, 10);
-      if (_entDate17 >= _monStr17) {
-        _weekXpFromLog17  += (_entry17.xp || 0);
-        _weekLsnFromLog17 += 1;
-      }
-    }
-    // Use log data if richer, else fall back to S.weekly_* counters
-    var _dispXp17  = _weekXpFromLog17 > 0 ? _weekXpFromLog17 : _wxp17;
-    var _dispLsn17 = _weekLsnFromLog17 > 0 ? _weekLsnFromLog17 : _wdone17;
-
-    // Note text
-    var _notes17 = [
-      "Every lesson you finish is a brick in the wall of a skill that lasts a lifetime.",
-      "Consistency beats intensity. You showed up this week — that matters.",
-      "Progress is progress, no matter the size. Great week!",
-      "Small steps every week add up to big changes. Keep going!",
-      "You are building a habit that most people never start."
-    ];
-    var _noteIdx17 = (_total17 + _streak17) % _notes17.length;
-    var _note17    = _notes17[_noteIdx17];
-
-    // Only show if user has started (has completed at least 1 lesson)
-    if (_total17 === 0) return;
-
-    html +=
-      '<div class="plan-week-summary">' +
-        '<div class="plan-week-summary-hdr">' +
-          '<div class="plan-week-summary-title">&#128197; This Week (' + _monDisp17 + '+)</div>' +
-          '<div class="plan-week-summary-badge">Week in Review</div>' +
-        '</div>' +
-        '<div class="plan-week-stat-row">' +
-          '<div class="plan-week-stat">' +
-            '<div class="plan-week-stat-val">' + _dispLsn17 + '</div>' +
-            '<div class="plan-week-stat-lbl">Lessons</div>' +
-          '</div>' +
-          '<div class="plan-week-stat">' +
-            '<div class="plan-week-stat-val">' + _dispXp17 + '</div>' +
-            '<div class="plan-week-stat-lbl">XP Earned</div>' +
-          '</div>' +
-          '<div class="plan-week-stat">' +
-            '<div class="plan-week-stat-val">' + _streak17 + '</div>' +
-            '<div class="plan-week-stat-lbl">Day Streak</div>' +
-          '</div>' +
-          '<div class="plan-week-stat">' +
-            '<div class="plan-week-stat-val">' + _total17 + '</div>' +
-            '<div class="plan-week-stat-lbl">Total Done</div>' +
-          '</div>' +
-        '</div>' +
-        '<div class="plan-week-note">' + _note17 + '</div>' +
-      '</div>';
-  })();
+  // --- Weekly Summary Card (plan-17) --- // plan-r6-02: removed — stats duplicate compact stats row; motivational quote is decorative
 
   // --- Upcoming Reviews Timeline (plan-18) ---
   (function() {
@@ -32811,148 +32012,9 @@ function renderPlanTab() {
       '</div>';
   })();
 
-  // --- Course Completion Donut (plan-19) ---
-  (function() {
-    var _done19  = (S.completed || []).length;
-    var _total19 = 0;
-    for (var _ui19 = 0; _ui19 < COURSE.length; _ui19++) {
-      _total19 += (COURSE[_ui19].lessons || []).length;
-    }
-    if (_total19 === 0) return;
+  // --- Course Completion Donut (plan-19) --- // plan-r6-01: removed — duplicates compact stats row and Goal Progress Ring
 
-    var _pct19 = Math.round((_done19 / _total19) * 100);
-
-    // SVG donut geometry
-    // r=34 => circumference = 2*PI*34 = ~213.6
-    var _r19   = 34;
-    var _circ19 = Math.round(2 * 3.14159 * _r19 * 10) / 10; // 213.6
-    var _dash19 = Math.round((_pct19 / 100) * _circ19 * 10) / 10;
-    var _gap19  = _circ19 - _dash19;
-
-    // Color by progress
-    var _color19;
-    if (_pct19 >= 75) { _color19 = '#58CC02'; }
-    else if (_pct19 >= 40) { _color19 = '#3b82f6'; }
-    else { _color19 = '#f59e0b'; }
-
-    // Remaining
-    var _rem19 = _total19 - _done19;
-
-    // Certs earned
-    var _certs19 = (S.earned_certs || []).length;
-
-    html +=
-      '<div class="plan-donut-wrap">' +
-        '<div class="plan-donut-svg-area">' +
-          '<svg class="plan-donut-svg" width="88" height="88" viewBox="0 0 88 88">' +
-            '<circle class="plan-donut-track" cx="44" cy="44" r="' + _r19 + '"/>' +
-            '<circle class="plan-donut-fill" cx="44" cy="44" r="' + _r19 + '"' +
-              ' stroke="' + _color19 + '"' +
-              ' stroke-dasharray="' + _dash19 + ' ' + _gap19 + '"' +
-              ' stroke-dashoffset="0"/>' +
-          '</svg>' +
-          '<div class="plan-donut-label">' +
-            '<div class="plan-donut-pct">' + _pct19 + '<span class="plan-donut-pct-sym">%</span></div>' +
-          '</div>' +
-        '</div>' +
-        '<div class="plan-donut-info">' +
-          '<div class="plan-donut-info-title">Course Progress</div>' +
-          '<div class="plan-donut-info-sub">' + _done19 + ' of ' + _total19 + ' lessons completed</div>' +
-          '<div class="plan-donut-stat-row">' +
-            '<div class="plan-donut-stat" style="color:#6b7280;">' +
-              '<span>' + _rem19 + '</span> left' +
-            '</div>' +
-            '<div class="plan-donut-stat" style="color:#6b7280;">' +
-              '<span>' + _certs19 + '</span> cert' + (_certs19 !== 1 ? 's' : '') +
-            '</div>' +
-          '</div>' +
-        '</div>' +
-      '</div>';
-  })();
-
-  // --- Learning Velocity Indicator (plan-20) ---
-  (function() {
-    // Only show if user has done at least 1 lesson
-    if ((S.completed || []).length === 0) return;
-
-    var _log20    = S.lesson_log || {};
-    var _today20  = todayStr();
-
-    // Helper: get Mon of the week containing a date string (Mon-start)
-    function _weekMon20(ds) {
-      var d = new Date(ds + 'T12:00:00');
-      var dow = d.getDay(); // 0=Sun
-      var offset = (dow === 0 ? 6 : dow - 1);
-      d.setDate(d.getDate() - offset);
-      return d.toISOString().split('T')[0];
-    }
-
-    // Build lessons-per-week map from lesson_log
-    var _weekMap20 = {};
-    var _dates20   = Object.keys(_log20);
-    for (var _d20 = 0; _d20 < _dates20.length; _d20++) {
-      var _ds20  = _dates20[_d20];
-      var _cnt20 = _log20[_ds20] || 0;
-      if (_cnt20 > 0) {
-        var _wk20 = _weekMon20(_ds20);
-        _weekMap20[_wk20] = (_weekMap20[_wk20] || 0) + _cnt20;
-      }
-    }
-
-    var _thisWk20 = _weekMon20(_today20);
-    var _prevWk20 = (function() {
-      var d = new Date(_thisWk20 + 'T12:00:00');
-      d.setDate(d.getDate() - 7);
-      return d.toISOString().split('T')[0];
-    })();
-
-    var _thisCount20 = _weekMap20[_thisWk20] || 0;
-    var _prevCount20 = _weekMap20[_prevWk20] || 0;
-
-    // Build 6-week sparkline (oldest left, this week right)
-    var _sparkWeeks20 = [];
-    for (var _w20 = 5; _w20 >= 0; _w20--) {
-      var _wd = new Date(_thisWk20 + 'T12:00:00');
-      _wd.setDate(_wd.getDate() - _w20 * 7);
-      var _wkStr = _wd.toISOString().split('T')[0];
-      _sparkWeeks20.push({ wk: _wkStr, cnt: _weekMap20[_wkStr] || 0 });
-    }
-    var _maxSpark20 = 1;
-    for (var _s20 = 0; _s20 < _sparkWeeks20.length; _s20++) {
-      if (_sparkWeeks20[_s20].cnt > _maxSpark20) _maxSpark20 = _sparkWeeks20[_s20].cnt;
-    }
-
-    // Trend
-    var _trendKey20, _arrow20, _badge20, _sub20;
-    if (_prevCount20 === 0 && _thisCount20 >= 0) {
-      _trendKey20 = 'flat'; _arrow20 = '&#8594;'; _badge20 = 'Stable';
-      _sub20 = 'Not enough history yet — keep going this week!';
-    } else if (_thisCount20 > _prevCount20 + 1) {
-      _trendKey20 = 'up'; _arrow20 = '&#8679;'; _badge20 = 'Trending Up';
-      _sub20 = _thisCount20 + ' lessons this week vs ' + _prevCount20 + ' last week';
-    } else if (_thisCount20 < _prevCount20 - 1) {
-      _trendKey20 = 'down'; _arrow20 = '&#8681;'; _badge20 = 'Slowing Down';
-      _sub20 = _thisCount20 + ' lessons this week vs ' + _prevCount20 + ' last week';
-    } else {
-      _trendKey20 = 'flat'; _arrow20 = '&#8596;'; _badge20 = 'Stable';
-      _sub20 = _thisCount20 + ' lessons this week — steady pace!';
-    }
-
-    // Build sparkline dots
-    var _sparkHtml20 = '';
-    for (var _k20 = 0; _k20 < _sparkWeeks20.length; _k20++) {
-      var _sw20   = _sparkWeeks20[_k20];
-      var _htPct  = Math.round((_sw20.cnt / _maxSpark20) * 100);
-      var _isCur  = _sw20.wk === _thisWk20;
-      _sparkHtml20 +=
-        '<div class="plan-velocity-dot' + (_isCur ? ' vd-this' : '') + '"' +
-          ' style="height:' + Math.max(4, Math.round(_htPct * 0.24)) + 'px;"' +
-          ' title="Week of ' + _sw20.wk + ': ' + _sw20.cnt + ' lessons"></div>';
-    }
-
-    // Velocity stored for combined Pace & Forecast card (plan-36)
-    window._planVel = { trendKey: _trendKey20, badge: _badge20, sub: _sub20 };
-  })();
+  // --- Learning Velocity Indicator (plan-20) --- // plan-r6-03: removed — never emitted HTML; sole consumer plan-29 also uses if(false)
 
   // --- Smart Break Reminder (plan-21) ---
   (function() {
@@ -34324,75 +33386,9 @@ function renderProfileTab() {
   const _totalCount = ACHIEVEMENTS.length;
   const _achLabelEl = document.getElementById('ach-progress-label');
   if (_achLabelEl) _achLabelEl.textContent = `${_earnedCount} / ${_totalCount} earned`;
-  // --- Achievement Showcase Improvements (plan-04) ---
-  const _hintMap = { first_lesson: 'Do 1 lesson', five_lessons: 'Do 5 lessons', all_unit1: 'Complete Unit 1', streak_3: '3-day streak', streak_7: '7-day streak', level_5: 'Reach level 5', perfect: 'No mistakes in a lesson', practice_1: 'Do a practice session', plan_done: 'Complete the survey', all_safe: 'Complete Unit 5', all_unit6: 'Complete Unit 6', all_unit7: 'Complete Unit 7', all_unit8: 'Complete Unit 8', all_unit9: 'Complete Unit 9', quickfire_perfect: 'Score 5/5 Quick-Fire', scenario_master: '5 correct scenarios', practice_hot_streak: '5 correct in a row', practice_speed_demon: '10 timed Qs in <2min', practice_master_reviewer: 'Master 5 weak questions', practice_addict: 'Complete 10 sessions' };
-  document.getElementById('achievements-grid').innerHTML = ACHIEVEMENTS.map(a => {
-    const isEarned = earned.has(a.id);
-    const prog = isEarned ? null : getAchievementProgress(a.id);
-    const pct = prog ? Math.round((prog.current / prog.total) * 100) : 100;
-    const hint = _hintMap[a.id] || a.desc;
-    // Lock SVG overlay
-    const lockSVG = !isEarned
-      ? '<div class="ach-lock-overlay">'
-          + '<svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">'
-          + '<rect x="5" y="11" width="14" height="10" rx="2"/>'
-          + '<path d="M8 11V7a4 4 0 0 1 8 0v4"/>'
-          + '</svg></div>'
-      : '';
-    const progressHTML = isEarned
-      ? `<div class="ach-earned-chip-v2">&#10003; Earned</div>`
-      : (prog && prog.total > 1
-          ? `<div class="ach-progress-wrap">
-               <div class="ach-progress-bar-bg"><div class="ach-progress-bar-fill" style="width:${pct}%"></div></div>
-               <div class="ach-progress-pct">${prog.current}/${prog.total}</div>
-             </div>`
-          : `<div class="ach-hint">${hint}</div>`);
-    const iconWrapStyle = !isEarned ? 'position:relative;' : '';
-    return `<div class="ach-badge ${isEarned ? '' : 'ach-badge-locked'}" onclick="showAchievementDetail('${a.id}',${isEarned})" title="${isEarned ? a.label + ': Earned!' : hint}">
-      <div class="ach-icon ${isEarned ? 'earned' : ''}" style="${iconWrapStyle}">${achievementIconHTML(a.id, isEarned, 20)}${lockSVG}</div>
-      <div class="ach-label ${isEarned ? 'earned' : ''}">${a.label}</div>
-      ${progressHTML}
-    </div>`;
-  }).join('');
+  // achievements-grid render — removed (r4-02); count shown in ach-progress-label
 
-  // 90-day heatmap
-  (function() {
-    const _heatEl = document.getElementById('profile-heatmap');
-    if (!_heatEl) return;
-    const _log = S.lesson_log || {};
-    const _today = todayStr();
-    // Build 90 days going back from today
-    const _days = [];
-    for (let i = 89; i >= 0; i--) {
-      const d = new Date();
-      d.setDate(d.getDate() - i);
-      const ds = d.toISOString().split('T')[0];
-      _days.push({ date: ds, count: Math.min(5, _log[ds] || ((S.active_days||[]).includes(ds) ? 1 : 0)) });
-    }
-    // Month labels: find first occurrence of each month in the 90-day window
-    const _months = [];
-    let _lastMonth = '';
-    _days.forEach((d, idx) => {
-      const mo = d.date.substring(5, 7);
-      const moName = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(mo)-1];
-      if (mo !== _lastMonth) { _months.push({ name: moName, idx }); _lastMonth = mo; }
-    });
-    // Build HTML
-    const _totalDays = _days.length;
-    let _html = '<div class="heatmap-month-row" style="position:relative;height:16px;">';
-    _html += _months.map(m => `<span class="heatmap-month-label" style="position:absolute;left:${(m.idx / _totalDays * 100).toFixed(1)}%;">${m.name}</span>`).join('');
-    _html += '</div>';
-    _html += '<div class="heatmap-grid">';
-    _html += _days.map(d => {
-      const isToday = d.date === _today;
-      return `<div class="hm-dot${isToday ? ' hm-today' : ''}" data-count="${d.count}" data-date="${d.date}" onclick="showHeatmapTooltip(event,'${d.date}',${d.count})"></div>`;
-    }).join('');
-    _html += '</div>';
-    _html += '<div class="heatmap-legend">Less <div class="heatmap-legend-dots">' +
-      [0,1,2,3,4,5].map(n => `<div class="heatmap-legend-dot" style="background:${n===0?'var(--gray1)':n===1?'rgba(88,204,2,0.35)':n===2?'rgba(88,204,2,0.60)':n===3?'rgba(88,204,2,0.80)':n===4?'var(--green)':'var(--green)'}"></div>`).join('') +
-      '</div> More</div>';
-    _heatEl.innerHTML = '<div class="heatmap-wrap">' + _html + '</div>';
-  })();
+  // 90-day heatmap — removed (r4-03)
 
   // Settings
   document.getElementById('settings-rows').innerHTML = `
@@ -34814,44 +33810,7 @@ function renderProfileTab() {
   // profile-42: render bio/note field
   renderProfileBio();
 
-  // profile-38: Profile completion bar
-  (function() {
-    var _wrap = document.getElementById('profile-completion-bar-wrap');
-    if (!_wrap) return;
-
-    var _checks = [
-      { label: 'Name set',       done: !!(S.user_name && S.user_name.trim()) },
-      { label: 'Goal set',       done: !!(S.survey_answers && S.survey_answers.q1 && S.survey_answers.q1.trim()) },
-      { label: 'Avatar chosen',  done: !!(S.avatar_custom || S.avatar > 0) },
-      { label: '1st lesson',     done: (S.completed || []).length >= 1 },
-      { label: 'Practiced',      done: (S.practice_history || []).length >= 1 },
-      { label: 'Theme set',      done: !!(S.dark_mode !== undefined && S.dark_mode !== null) },
-      { label: 'Streak started', done: (S.streak || 0) >= 1 }
-    ];
-
-    var _doneCount = _checks.filter(function(c) { return c.done; }).length;
-    var _pct = Math.round((_doneCount / _checks.length) * 100);
-    // Hide once user has completed 3+ lessons — setup guidance is no longer needed
-    if ((S.completed || []).length >= 3) { _wrap.innerHTML = ''; return; }
-
-    var _pillsHtml = _checks.map(function(c) {
-      return '<div class="profile-completion-item' + (c.done ? ' done' : '') + '">' +
-        (c.done ? '✓ ' : '') + c.label +
-      '</div>';
-    }).join('');
-
-    _wrap.innerHTML =
-      '<div class="profile-completion-wrap">' +
-        '<div class="profile-completion-label">' +
-          '<span>Profile Setup</span>' +
-          '<span class="profile-completion-pct">' + _pct + '%</span>' +
-        '</div>' +
-        '<div class="profile-completion-track">' +
-          '<div class="profile-completion-fill" style="width:' + _pct + '%"></div>' +
-        '</div>' +
-        '<div class="profile-completion-items">' + _pillsHtml + '</div>' +
-      '</div>';
-  })();
+  // profile-38: Profile completion bar — removed (r4-01)
 
 
   // profile-16: Dark/Light Mode Toggle
@@ -35077,135 +34036,7 @@ function renderProfileTab() {
       '</div>';
   })();
 
-  // profile-13: Shareable Profile Card
-  (function() {
-    var _scEl = document.getElementById('profile-share-card');
-    if (!_scEl) return;
-    var _scLevel  = xpToLevel(S.xp || 0);
-    var _scName   = S.user_name || 'Learner';
-    var _scXP     = S.xp || 0;
-    var _scStreak = S.streak || 0;
-    var _scDone   = (S.completed || []).length;
-    var _scTop    = computeLevelTopPercent(_scLevel);
-    var _scAvaList = ['😀','😎','🧐','🤗','🤯','😍','🧑','🦸','🦹','🧗','🤠','👽'];
-    var _scAvaEmoji = _scAvaList[Math.min(S.avatar || 0, 11)];
-    if (S.avatar_custom) _scAvaEmoji = '👤';
-    _scEl.innerHTML =
-      '<div class="section-title">My Stats Card</div>' +
-      '<div class="share-card-wrap">' +
-        '<div class="share-card-avatar">' + _scAvaEmoji + '</div>' +
-        '<div class="share-card-name">' + _scName.replace(/</g, '&lt;') + '</div>' +
-        '<div class="share-card-badge">⭐ Level ' + _scLevel + ' · Top ' + _scTop + '%</div>' +
-        '<div class="share-card-stats">' +
-          '<div class="share-card-stat">' +
-            '<div class="share-card-stat-val">' + _scXP + '</div>' +
-            '<div class="share-card-stat-lbl">Total XP</div>' +
-          '</div>' +
-          '<div class="share-card-stat">' +
-            '<div class="share-card-stat-val">' + _scStreak + '</div>' +
-            '<div class="share-card-stat-lbl">Streak</div>' +
-          '</div>' +
-          '<div class="share-card-stat">' +
-            '<div class="share-card-stat-val">' + _scDone + '</div>' +
-            '<div class="share-card-stat-lbl">Lessons</div>' +
-          '</div>' +
-          '<div class="share-card-stat">' +
-            '<div class="share-card-stat-val">' + _scLevel + '</div>' +
-            '<div class="share-card-stat-lbl">Level</div>' +
-          '</div>' +
-        '</div>' +
-        '<button class="share-card-copy-btn" onclick="copyProfileCard()">📋 Copy Stats</button>' +
-      '</div>';
-  })();
-
-  // profile-28: Share Your Progress Button
-  (function() {
-    var _spEl = document.getElementById('profile-share-progress-card');
-    if (!_spEl) return;
-
-    // Gather stats
-    var _name     = S.user_name || 'Learner';
-    var _xp       = S.xp || 0;
-    var _streak   = S.streak || 0;
-    var _done     = (S.completed || []).length;
-    var _level    = (typeof xpToLevel === 'function') ? xpToLevel(_xp) : (S.level || 1);
-    // Hide share card entirely when user has no progress yet
-    if (_xp === 0 && _done === 0) { _spEl.innerHTML = ''; return; }
-    var _bestStreak = S.practice_best_streak || 0;
-    var _totalQ   = S.total_questions_answered || 0;
-
-    // Favourite unit
-    var _favTitle = '';
-    var _unitCounts26 = {};
-    (S.completed || []).forEach(function(lid) {
-      var _m = lid.match(/^(u\d+)/);
-      if (_m) _unitCounts26[_m[1]] = (_unitCounts26[_m[1]] || 0) + 1;
-    });
-    if (typeof COURSE !== 'undefined') {
-      var _favId26 = null; var _favMax26 = 0;
-      Object.keys(_unitCounts26).forEach(function(uid) {
-        if (_unitCounts26[uid] > _favMax26) { _favMax26 = _unitCounts26[uid]; _favId26 = uid; }
-      });
-      if (_favId26) {
-        var _favUnit = COURSE.find(function(u) { return u.id === _favId26; });
-        if (_favUnit) _favTitle = _favUnit.title;
-      }
-    }
-
-    // Total lessons in course
-    var _total28 = 0;
-    if (typeof COURSE !== 'undefined') {
-      COURSE.forEach(function(u) { _total28 += u.lessons.length; });
-    }
-    var _pct28 = _total28 > 0 ? Math.round((_done / _total28) * 100) : 0;
-
-    // Avatar emoji
-    var _AVLIST28 = ['😀','😎','🧐','🤗','🤯','😍','🦸','🤠','🧙','🦊'];
-    var _ava28 = _AVLIST28[Math.min(S.avatar || 0, _AVLIST28.length - 1)];
-
-    // Build shareable text
-    function buildShareText() {
-      var _lines = [];
-      _lines.push(_ava28 + ' ' + _name + ' is learning AI with Clari!');
-      _lines.push('');
-      _lines.push('🏆 Level ' + _level + ' • ' + _xp + ' XP');
-      _lines.push('🔥 ' + _streak + '-day streak');
-      _lines.push('📚 ' + _done + ' / ' + (_total28 || '?') + ' lessons (' + _pct28 + '%)');
-      if (_bestStreak > 0) _lines.push('⚡ Best answer streak: ' + _bestStreak + ' in a row');
-      if (_totalQ > 0)     _lines.push('❓ ' + _totalQ + ' questions answered');
-      if (_favTitle)       _lines.push('📌 Favorite topic: ' + _favTitle);
-      _lines.push('');
-      _lines.push('🔗 Try it free → clariai.app');
-      _lines.push('#AILearning #Clari #KeepLearning');
-      return _lines.join('\n');
-    }
-
-    var _shareText = buildShareText();
-
-    _spEl.innerHTML =
-      '<div class="section-title">Share Your Progress</div>' +
-      '<div class="share-progress-wrap">' +
-        '<div class="share-progress-preview" id="share-progress-preview-text">' +
-          _shareText.replace(/</g, '&lt;').replace(/\n/g, '<br>') +
-        '</div>' +
-        '<div class="share-progress-actions">' +
-          '<button class="share-progress-copy-btn" id="share-progress-copy-btn" ' +
-            'onclick="profileCopyShareText()" aria-label="Copy progress text">' +
-            '📋 Copy to Clipboard' +
-          '</button>' +
-          '<button class="share-progress-regen-btn" onclick="profileRegenShare()" ' +
-            'aria-label="Refresh share text" title="Refresh">' +
-            '↻' +
-          '</button>' +
-        '</div>' +
-        '<div class="share-progress-note">Paste directly into any social media post or message.</div>' +
-      '</div>';
-
-    // Store text for copy helper
-    if (typeof window !== 'undefined') {
-      window._profileShareText = _shareText;
-    }
-  })();
+  // profile-13 + profile-28: Share Profile / Share Progress — removed (r4-01)
 
   // profile-27: Days Until Goal Countdown
   (function() {
@@ -35402,78 +34233,7 @@ function renderProfileTab() {
       '</div>';
   })();
 
-  // profile-25: Total Questions Answered Counter — suppressed (vanity metric)
-  (function() {
-    return; // prof-r3-01: suppressed
-    var _tqEl = document.getElementById('profile-total-q-card');
-    if (!_tqEl) return;
-
-    // Practice questions answered (from history)
-    var _hist = S.practice_history || [];
-    var _practiceQ = _hist.reduce(function(acc, h) { return acc + (h.total || 0); }, 0);
-
-    // In-lesson quiz answers are tracked via S.wrong_answers (questions answered incorrectly)
-    // and S.mastered_questions (questions answered and removed from bank).
-    // We use S.total_questions_answered if set, else combine available signals.
-    var _storedTotal = S.total_questions_answered || 0;
-    var _totalQ = Math.max(_storedTotal, _practiceQ);
-
-    // Milestone thresholds
-    var _milestones = [10, 25, 50, 100, 250, 500, 1000];
-    var _nextMilestone = _milestones[_milestones.length - 1];
-    var _prevMilestone = 0;
-    for (var _mi = 0; _mi < _milestones.length; _mi++) {
-      if (_totalQ < _milestones[_mi]) {
-        _nextMilestone = _milestones[_mi];
-        _prevMilestone = _mi > 0 ? _milestones[_mi - 1] : 0;
-        break;
-      }
-    }
-    var _range = _nextMilestone - _prevMilestone;
-    var _progress = _totalQ - _prevMilestone;
-    var _milestonePct = _range > 0 ? Math.min(100, Math.round((_progress / _range) * 100)) : 100;
-    var _remaining = _nextMilestone - _totalQ;
-
-    // Earned milestone badges
-    var _earnedBadges = _milestones.filter(function(m) { return _totalQ >= m; });
-
-    var _badgeHtml = _milestones.slice(0, 5).map(function(m) {
-      var _earned2 = _totalQ >= m;
-      return '<div class="total-q-badge' + (_earned2 ? ' earned' : '') + '">' +
-        (_earned2 ? '✓' : '○') + ' ' + m +
-      '</div>';
-    }).join('');
-
-    var _subMsg;
-    if (_totalQ === 0) {
-      _subMsg = 'Start a practice session to answer your first question.';
-    } else if (_totalQ < 10) {
-      _subMsg = 'Great start! ' + (10 - _totalQ) + ' more to reach your first milestone.';
-    } else {
-      _subMsg = _remaining + ' more to reach ' + _nextMilestone + '.';
-    }
-
-    _tqEl.innerHTML =
-      '<div class="section-title">Questions Answered</div>' +
-      '<div class="total-q-wrap">' +
-        '<div class="total-q-hero">' +
-          '<div class="total-q-number">' + _totalQ + '</div>' +
-          '<div class="total-q-unit">questions</div>' +
-        '</div>' +
-        '<div class="total-q-sub">' + _subMsg + '</div>' +
-        '<div class="total-q-milestone-wrap">' +
-          '<div class="total-q-milestone-header">' +
-            '<span class="total-q-milestone-label">To ' + _nextMilestone + ' milestone</span>' +
-            '<span class="total-q-milestone-pct">' + _milestonePct + '%</span>' +
-          '</div>' +
-          '<div class="total-q-milestone-track">' +
-            '<div class="total-q-milestone-fill" style="width:' + _milestonePct + '%;"></div>' +
-          '</div>' +
-          '<div class="total-q-milestone-sub">' + _progress + ' / ' + _range + ' toward next milestone</div>' +
-        '</div>' +
-        '<div class="total-q-badges">' + _badgeHtml + '</div>' +
-      '</div>';
-  })();
+  // profile-25: Total Questions Answered — removed (prof-r5-01: vanity metric, dead code)
 
   // profile-24: merged into profile-30 Personal Records (profile-39)
 
@@ -35809,12 +34569,7 @@ function renderProfileTab() {
           '<div class="habits-stat-label">Top Unit</div>' +
           '<div class="habits-stat-sub">' + (_topCount > 0 ? _topCount + ' lessons done' : 'No lessons yet') + '</div>' +
         '</div>' +
-        '<div class="habits-stat-card">' +
-          '<div class="habits-stat-icon">🗓</div>' +
-          '<div class="habits-stat-value">' + _totalDays + '</div>' +
-          '<div class="habits-stat-label">Total Days Active</div>' +
-          '<div class="habits-stat-sub">Days you learned something</div>' +
-        '</div>' +
+        // prof-r5-02: "Total Days Active" card removed (duplicated in Streak Stats card)
       '</div>';
 
     // ── Day-of-week XP bar chart ──
@@ -35980,94 +34735,7 @@ function renderProfileTab() {
 
   // profile-36: Export Data moved to Settings card (profile-41)
 
-  // profile-35: Commitment Score
-  (function() {
-    var _csEl = document.getElementById('profile-commitment-card');
-    if (!_csEl) return;
-
-    var _streak35   = Math.max(S.streak || 0, S.best_streak || 0);
-    var _activeDays35 = (S.active_days || []).length;
-    var _hist35     = S.practice_history || [];
-    var _completed35 = (S.completed || []).length;
-
-    // Factor 1: Streak score (max 30 pts) — 7+ day streak = full
-    var _streakPts = Math.min(30, Math.round((_streak35 / 7) * 30));
-
-    // Factor 2: Active days (max 30 pts) — 20+ days = full
-    var _daysPts = Math.min(30, Math.round((_activeDays35 / 20) * 30));
-
-    // Factor 3: Lessons completed (max 25 pts) — 20+ lessons = full
-    var _lessonPts = Math.min(25, Math.round((_completed35 / 20) * 25));
-
-    // Factor 4: Practice sessions (max 15 pts) — 10+ = full
-    var _sessionPts = Math.min(15, Math.round((_hist35.length / 10) * 15));
-
-    var _total35 = _streakPts + _daysPts + _lessonPts + _sessionPts;
-
-    // Grade
-    var _grade, _gradeColor, _gradeMsg;
-    if (_total35 >= 90) {
-      _grade = 'S'; _gradeColor = '#ffd900';
-      _gradeMsg = 'Elite commitment. You are unstoppable.';
-    } else if (_total35 >= 75) {
-      _grade = 'A'; _gradeColor = '#58cc02';
-      _gradeMsg = 'Excellent dedication. Keep pushing!';
-    } else if (_total35 >= 55) {
-      _grade = 'B'; _gradeColor = '#1cb0f6';
-      _gradeMsg = 'Good momentum. Build that streak!';
-    } else if (_total35 >= 35) {
-      _grade = 'C'; _gradeColor = '#ff9600';
-      _gradeMsg = 'Getting started. Aim for 7 days in a row.';
-    } else {
-      _grade = 'D'; _gradeColor = '#ff4b4b';
-      _gradeMsg = 'Just beginning. One lesson a day changes everything.';
-    }
-
-    // Ring: 314 = circumference of r=50
-    var _offset = Math.round(314 - (_total35 / 100) * 314);
-
-    var _factors = [
-      { name: 'Daily Streak',   pts: _streakPts,  max: 30, color: '#ff9600' },
-      { name: 'Active Days',    pts: _daysPts,    max: 30, color: '#1cb0f6' },
-      { name: 'Lessons Done',   pts: _lessonPts,  max: 25, color: '#58cc02' },
-      { name: 'Practice Sessions', pts: _sessionPts, max: 15, color: '#ce82ff' }
-    ];
-
-    var _factorRows = _factors.map(function(f) {
-      var _barPct = Math.round((f.pts / f.max) * 100);
-      return (
-        '<div class="commit-score-factor-row">' +
-          '<div class="commit-score-factor-name">' + f.name + '</div>' +
-          '<div class="commit-score-factor-bar">' +
-            '<div class="commit-score-factor-fill" style="width:' + _barPct + '%;background:' + f.color + ';"></div>' +
-          '</div>' +
-          '<div class="commit-score-factor-pts">' + f.pts + '/' + f.max + '</div>' +
-        '</div>'
-      );
-    }).join('');
-
-    _csEl.innerHTML =
-      '<div class="section-title">Commitment Score</div>' +
-      '<div class="commit-score-wrap">' +
-        '<div class="commit-score-ring-wrap">' +
-          '<svg class="commit-score-ring-svg" viewBox="0 0 120 120">' +
-            '<circle class="commit-score-ring-track" cx="60" cy="60" r="50"/>' +
-            '<circle class="commit-score-ring-fill" cx="60" cy="60" r="50" ' +
-              'stroke="' + _gradeColor + '" ' +
-              'style="stroke-dashoffset:' + _offset + '"/>' +
-          '</svg>' +
-          '<div class="commit-score-center">' +
-            '<div class="commit-score-num">' + _total35 + '</div>' +
-            '<div class="commit-score-label">/ 100</div>' +
-          '</div>' +
-        '</div>' +
-        '<div class="commit-score-grade" style="background:' + _gradeColor + '22;color:' + _gradeColor + '">' +
-          'Grade ' + _grade +
-        '</div>' +
-        '<div style="font-size:12px;font-weight:600;color:var(--gray4);text-align:center;padding:0 8px;">' + _gradeMsg + '</div>' +
-        '<div class="commit-score-factors">' + _factorRows + '</div>' +
-      '</div>';
-  })();
+  // profile-35: Commitment Score — removed (prof-r5-03: decorative gauge, not a core stat)
 
   // profile-34: Learning DNA Card
   (function() {
