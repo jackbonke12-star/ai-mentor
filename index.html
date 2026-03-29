@@ -4671,18 +4671,6 @@ mark.search-hl {
 .plan-free-card-sub { font-size: 13px; font-weight: 600; color: #166534; line-height: 1.5; }
 .plan-free-card-tip { font-size: 12px; color: #16a34a; margin-top: 12px; font-weight: 600; }
 [data-study-mode="free"] .plan-pressure-widget { display: none !important; }
-.plan-sched-wrap { margin-bottom: 0; }
-.plan-sched-title { font-size: 13px; font-weight: 900; color: var(--text); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
-.plan-sched-title-hint { font-size: 11px; font-weight: 600; color: var(--gray4,#aaa); }
-.plan-sched-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
-.plan-sched-cell { display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; }
-.plan-sched-day-lbl { font-size: 10px; font-weight: 700; color: var(--gray4,#aaa); }
-.plan-sched-dot { width: 32px; height: 32px; border-radius: 8px; background: var(--gray1,#f0f0f0); border: 2px solid transparent; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--gray4,#bbb); transition: background 0.15s, border-color 0.15s; }
-.plan-sched-dot.sched-on { background: #dbeafe; border-color: #3b82f6; color: #1d4ed8; }
-.plan-sched-dot.sched-today { border-color: var(--blue,#1cb0f6); }
-.plan-sched-dot.sched-on.sched-today { background: #bfdbfe; border-color: #1d4ed8; }
-.plan-sched-dot:hover { border-color: var(--blue,#1cb0f6); }
-.plan-sched-hint-row { font-size: 11px; font-weight: 600; color: var(--gray4,#aaa); margin-top: 8px; text-align: center; }
 .plan-stats-row { display: flex; gap: 8px; margin-bottom: 12px; }
 .plan-stat-pill { flex: 1; background: var(--card-bg,#fff); border: 1px solid var(--gray2,#e5e7eb); border-radius: 12px; padding: 10px 8px; text-align: center; }
 .plan-stat-pill-num { font-size: 18px; font-weight: 900; color: var(--text); line-height: 1.1; }
@@ -5989,115 +5977,6 @@ mark.search-hl {
   background: #fef3c7; padding: 2px 8px; border-radius: 20px;
   flex-shrink: 0;
 }
-/* --- Topic Strength Radar (plan-22) --- */
-/* plan-34: collapsible radar */
-.plan-radar-collapsible { border: 1px solid var(--gray2,#e5e7eb); border-radius: 12px; overflow: hidden; background: var(--card-bg,#fff); }
-.plan-radar-toggle { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; cursor: pointer; background: none; border: none; width: 100%; text-align: left; }
-.plan-radar-toggle:hover { background: var(--gray1,#f9fafb); }
-.plan-radar-toggle-label { font-size: 13px; font-weight: 800; color: var(--text); }
-.plan-radar-toggle-right { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--gray4,#999); }
-.plan-radar-body { padding: 0 14px 12px; display: none; }
-.plan-radar-body.open { display: block; }
-.plan-radar-wrap {
-  background: #fff; border: 1.5px solid #e5e7eb;
-  border-radius: 16px; padding: 14px 16px;
-  margin-bottom: 16px;
-}
-.plan-radar-hdr {
-  display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
-}
-.plan-radar-hdr-icon {
-  width: 32px; height: 32px; border-radius: 9px; background: #f3e8ff;
-  display: flex; align-items: center; justify-content: center; font-size: 16px;
-  flex-shrink: 0;
-}
-.plan-radar-hdr-title {
-  font-size: 13px; font-weight: 900; color: var(--text);
-}
-.plan-radar-hdr-sub {
-  font-size: 10px; font-weight: 600; color: #9ca3af; margin-top: 1px;
-}
-.plan-radar-row {
-  display: flex; align-items: center; gap: 8px;
-  margin-bottom: 7px;
-}
-.plan-radar-name {
-  font-size: 10px; font-weight: 700; color: #374151;
-  width: 90px; flex-shrink: 0; overflow: hidden;
-  text-overflow: ellipsis; white-space: nowrap;
-}
-.plan-radar-bar-bg {
-  flex: 1; height: 6px; border-radius: 20px; background: #f3f4f6;
-  overflow: hidden;
-}
-.plan-radar-bar-fill {
-  height: 100%; border-radius: 20px;
-  transition: width 0.5s ease;
-}
-.plan-radar-bar-fill.rb-strong  { background: #58CC02; }
-.plan-radar-bar-fill.rb-build   { background: #3b82f6; }
-.plan-radar-bar-fill.rb-start   { background: #e5e7eb; }
-.plan-radar-tag {
-  font-size: 9px; font-weight: 800; width: 52px;
-  text-align: right; flex-shrink: 0;
-}
-.plan-radar-tag.rt-strong { color: #15803d; }
-.plan-radar-tag.rt-build  { color: #1d4ed8; }
-.plan-radar-tag.rt-start  { color: #9ca3af; }
-/* --- Weekly Digest Widget (plan-23) --- */
-/* plan-33: collapsible digest */
-.plan-digest-wrap { border: 1px solid var(--gray2,#e5e7eb); border-radius: 12px; overflow: hidden; background: var(--card-bg,#fff); margin-bottom: 0; }
-.plan-digest-toggle { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; cursor: pointer; background: none; border: none; width: 100%; text-align: left; }
-.plan-digest-toggle:hover { background: var(--gray1,#f9fafb); }
-.plan-digest-toggle-title { font-size: 13px; font-weight: 800; color: var(--text); }
-.plan-digest-toggle-right { display: flex; align-items: center; gap: 8px; }
-.plan-digest-toggle-pill { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 99px; background: var(--gray1,#f0f0f0); color: var(--gray4,#888); }
-.plan-digest-toggle-arrow { font-size: 11px; color: var(--gray4,#999); }
-.plan-digest-body { padding: 0 14px 12px; display: none; }
-.plan-digest-body.open { display: block; }
-.plan-digest-hdr {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 12px;
-}
-.plan-digest-title {
-  font-size: 13px; font-weight: 900; color: var(--text);
-}
-.plan-digest-pill {
-  font-size: 10px; font-weight: 800; padding: 2px 8px;
-  border-radius: 20px; background: #eff6ff; color: #1d4ed8;
-}
-.plan-digest-kpi-row {
-  display: flex; gap: 8px; margin-bottom: 10px;
-}
-.plan-digest-kpi {
-  flex: 1; text-align: center;
-  padding: 8px 4px; background: #f9fafb;
-  border-radius: 10px;
-}
-.plan-digest-kpi-val {
-  font-size: 18px; font-weight: 900; color: var(--text); line-height: 1;
-}
-.plan-digest-kpi-lbl {
-  font-size: 9px; font-weight: 700; color: #9ca3af;
-  text-transform: uppercase; letter-spacing: 0.4px; margin-top: 2px;
-}
-.plan-digest-ach {
-  display: flex; align-items: center; gap: 8px;
-  background: #fefce8; border: 1px solid #fde68a;
-  border-radius: 10px; padding: 8px 10px;
-}
-.plan-digest-ach-icon { font-size: 18px; flex-shrink: 0; }
-.plan-digest-ach-text { flex: 1; }
-.plan-digest-ach-label {
-  font-size: 11px; font-weight: 700; color: #92400e;
-}
-.plan-digest-ach-name {
-  font-size: 12px; font-weight: 900; color: #78350f;
-}
-.plan-digest-no-ach {
-  font-size: 11px; font-weight: 600; color: #9ca3af;
-  text-align: center; padding: 4px 0;
-}
 /* --- Next Milestone Countdown (plan-24) --- */
 .plan-milestone-wrap {
   background: linear-gradient(135deg, #fdf4ff 0%, #eff6ff 100%);
@@ -7036,45 +6915,6 @@ mark.search-hl {
 :root[data-theme="dark"] .reminder-time-input {
   background: var(--gray1); border-color: var(--gray2); color: var(--text);
 }
-/* ---- profile-36: Export Data Button ---- */
-.export-data-wrap {
-  display: flex; flex-direction: column; gap: 14px;
-}
-.export-data-summary {
-  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;
-}
-.export-data-stat {
-  background: var(--bg-hover, rgba(0,0,0,0.04));
-  border: 1.5px solid var(--gray2); border-radius: 12px;
-  padding: 10px 6px; text-align: center;
-}
-.export-data-stat-val {
-  font-size: 20px; font-weight: 900; color: var(--text);
-}
-.export-data-stat-lbl {
-  font-size: 10px; font-weight: 700; color: var(--gray3);
-  text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px;
-}
-.export-data-btn {
-  width: 100%; padding: 14px 18px; border-radius: 14px;
-  border: 2px solid var(--green, #58cc02);
-  background: var(--green, #58cc02); color: #fff;
-  font-size: 15px; font-weight: 900; cursor: pointer;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  transition: opacity 0.15s, transform 0.12s;
-  -webkit-tap-highlight-color: transparent;
-  font-family: inherit;
-}
-.export-data-btn:active { opacity: 0.75; transform: scale(0.97); }
-.export-data-btn.exported {
-  background: #8b5cf6; border-color: #8b5cf6;
-}
-.export-data-note {
-  font-size: 10px; font-weight: 600; color: var(--gray3); text-align: center;
-}
-:root[data-theme="dark"] .export-data-stat {
-  background: var(--gray1); border-color: var(--gray2);
-}
 
 /* ---- profile-35: Commitment Score ---- */
 .commit-score-wrap {
@@ -7605,64 +7445,6 @@ mark.search-hl {
   background: var(--gray1);
 }
 
-/* ---- profile-24: Longest Answer Streak Display ---- */
-.answer-streak-hero {
-  display: flex; flex-direction: column; align-items: center;
-  gap: 6px; padding: 16px 0 8px;
-}
-.answer-streak-flame {
-  font-size: 48px; line-height: 1;
-  filter: drop-shadow(0 4px 8px rgba(249,115,22,0.4));
-  animation: streak-flame-pulse 2s ease-in-out infinite;
-}
-@keyframes streak-flame-pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-}
-.answer-streak-number {
-  font-size: 52px; font-weight: 900; line-height: 1;
-  background: linear-gradient(135deg, #f97316, #fbbf24);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.answer-streak-label {
-  font-size: 12px; font-weight: 800; color: var(--gray4);
-  text-transform: uppercase; letter-spacing: 0.6px;
-}
-.answer-streak-sub {
-  font-size: 11px; font-weight: 700; color: var(--gray3); margin-top: 2px;
-}
-.answer-streak-bars {
-  display: flex; flex-direction: column; gap: 10px; margin-top: 8px;
-}
-.answer-streak-row {
-  display: flex; align-items: center; gap: 10px;
-}
-.answer-streak-row-label {
-  width: 88px; flex-shrink: 0;
-  font-size: 11px; font-weight: 700; color: var(--gray4); text-align: right;
-}
-.answer-streak-row-track {
-  flex: 1; height: 14px; border-radius: 7px;
-  background: var(--bg-hover, rgba(0,0,0,0.06));
-  overflow: hidden;
-}
-.answer-streak-row-fill {
-  height: 100%; border-radius: 7px;
-  background: linear-gradient(90deg, #f97316, #fbbf24);
-  transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1);
-}
-.answer-streak-row-val {
-  width: 28px; font-size: 12px; font-weight: 800;
-  color: var(--text); text-align: left;
-}
-.answer-streak-zero {
-  font-size: 13px; font-weight: 600; color: var(--gray3);
-  text-align: center; padding: 12px 0;
-}
-:root[data-theme="dark"] .answer-streak-row-track {
-  background: var(--gray1);
-}
 
 /* ---- profile-23: Practice vs Learn Balance Chart ---- */
 .balance-chart-wrap {
@@ -9809,9 +9591,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
       </button>
       <div class="practice-modes">
         <div class="practice-card">
-          <div class="practice-card-icon" style="background:#e0f9ff;">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1cb0f6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-          </div>
+
           <div class="practice-card-info">
             <div class="practice-card-title">Quick Practice</div>
             <div class="practice-card-sub">5 random questions</div>
@@ -9829,12 +9609,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
       </button>
       <div class="practice-modes-extra" id="practice-modes-extra">
         <div class="practice-card" id="weak-areas-card">
-          <div class="practice-card-icon-wrap">
-            <div class="practice-card-icon" style="background:#fff3e0;">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffa000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-            </div>
-            <span id="wrong-count-badge" style="display:none;" class="wrong-count-badge"></span>
-          </div>
+          <span id="wrong-count-badge" style="display:none;" class="wrong-count-badge"></span>
           <div class="practice-card-info">
             <div class="practice-card-title">Weak Areas</div>
             <div class="practice-card-sub">Questions you got wrong</div>
@@ -9844,9 +9619,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
           <button class="btn btn-yellow btn-sm" onclick="startPractice(&apos;weak&apos;)">Review</button>
         </div>
         <div class="practice-card">
-          <div class="practice-card-icon" style="background:#f2e8ff;">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#a560f8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 3"/><path d="M9 2h6"/><path d="M12 2v3"/><path d="M19.07 4.93l-1.41 1.41"/></svg>
-          </div>
+
           <div class="practice-card-info">
             <div class="practice-card-title">Timed Challenge</div>
             <div class="practice-card-sub">10 questions, 60 seconds</div>
@@ -9856,9 +9629,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
           <button class="btn btn-purple btn-sm" onclick="showDifficultySelector(&apos;timed&apos;)">Challenge</button>
         </div>
         <div class="practice-card" id="weak-drill-card">
-          <div class="practice-card-icon" style="background:#fee2e2;">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M10.5 10.677a2 2 0 0 0 2.823 2.823"/><path d="M7.362 7.561C5.68 8.875 4.279 10.835 3 13c1.889 3.482 5.12 6 9 6 1.55 0 3.01-.404 4.273-1.115"/><path d="M12 5c3.879 0 7.111 2.518 9 6a15.66 15.66 0 0 1-1.078 1.785"/></svg>
-          </div>
+
           <div class="practice-card-info">
             <div class="practice-card-title">Weak Spots Drill</div>
             <div class="practice-card-sub">7 hardest-topic questions</div>
@@ -10120,25 +9891,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
   </div>
 </div>
 
-<!-- GEM SHOP MODAL -->
-<div class="modal-overlay" id="gem-shop-modal">
-  <div class="modal-card" style="max-height:90vh;overflow-y:auto;">
-    <div style="display:flex;justify-content:center;margin-bottom:8px;" id="gem-shop-clari"></div>
-    <div class="modal-title"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='#60a5fa' stroke='#3b82f6' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M4 9l3-5h10l3 5-10 11L4 9z'/><path d='M4 9h16'/><path d='M9 4L7 9l5 11M15 4l2 5-5 11'/></svg></span> Gem Shop</div>
-    <div class="modal-sub" id="gem-shop-balance">You have 0 gems</div>
-    <div class="shop-items" id="shop-items-list"></div>
-    <button class="btn btn-ghost btn-full mt8" onclick="closeModal(&apos;gem-shop-modal&apos;)">Close</button>
-  </div>
-</div>
 
-<!-- LEVEL UP OVERLAY -->
-<div id="level-up-overlay">
-  <div class="confetti-wrap" id="confetti-wrap"></div>
-  <div id="levelup-clari" style="display:flex;justify-content:center;margin-bottom:16px;"></div>
-  <div class="level-up-num" id="levelup-num">5</div>
-  <div style="font-size:13px;font-weight:800;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:2px;">LEVEL</div>
-  <div class="level-up-label">You're leveling up! Keep going!</div>
-</div>
 
 
 <!-- LESSON STREAK MILESTONE OVERLAY -->
@@ -21840,6 +21593,12 @@ function toggleHistoryPanel() {
   if (arrow) arrow.classList.toggle('open', _historyPanelOpen);
 }
 
+// learn-r3: bookmarks strip collapsible toggle
+function toggleBookmarksStrip() {
+  save('bookmarks_strip_open', !(S.bookmarks_strip_open || false));
+  renderLearnTab();
+}
+
 // learn-40: toggle favourite lesson
 function toggleFavoriteLesson(lessonId, evt) {
   if (evt) evt.stopPropagation();
@@ -21988,7 +21747,8 @@ function renderLearnTab() {
           '<span style="margin-left:4px;font-size:10px;opacity:0.6;" onclick="toggleBookmark(\'' + item.lesson.id + '\', event)">&#x2715;</span>' +
           '</div>';
       }).join('');
-      html += '<div class="bookmarks-strip-wrap"><div class="bookmarks-strip-label">&#9733; Saved Lessons</div><div class="bookmarks-strip">' + _chips + '</div></div>';
+      var _bkOpen = S.bookmarks_strip_open || false;
+      html += '<div class="bookmarks-strip-wrap">' + '<button class="bookmarks-strip-toggle" onclick="toggleBookmarksStrip()" style="display:flex;align-items:center;gap:6px;width:100%;background:none;border:none;padding:6px 12px 4px;cursor:pointer;color:var(--text-muted,#888);font-size:12px;font-family:inherit;text-align:left;">' + '&#9733; Saved (' + _bmLessons.length + ')' + '<span style="font-size:10px;transition:transform .2s;display:inline-block;transform:' + (_bkOpen ? 'rotate(180deg)' : 'rotate(0deg)') + '">▾</span>' + '</button>' + '<div class="bookmarks-strip" style="display:' + (_bkOpen ? 'flex' : 'none') + ';">' + _chips + '</div>' + '</div>';
     }
   }
 
@@ -22313,21 +22073,6 @@ function renderLearnTab() {
   })();
 
   html += `<div class="learn-search-wrap">
-  <div class="diff-filter-row">
-    <div class="diff-chip dc-all ${_dcAll}" onclick="filterDifficulty('')">All<span class="diff-chip-count">${(function(){ var _c=countLessonsByDifficulty(); return _c.all; })()}</span></div>
-    <div class="diff-chip dc-easy ${_dcEasy}" onclick="filterDifficulty(&apos;easy&apos;)">Easy<span class="diff-chip-count">${(function(){ var _c=countLessonsByDifficulty(); return _c.easy; })()}</span></div>
-    <div class="diff-chip dc-moderate ${_dcMod}" onclick="filterDifficulty(&apos;moderate&apos;)">Moderate<span class="diff-chip-count">${(function(){ var _c=countLessonsByDifficulty(); return _c.moderate; })()}</span></div>
-    <div class="diff-chip dc-hard ${_dcHard}" onclick="filterDifficulty(&apos;challenging&apos;)">Challenging<span class="diff-chip-count">${(function(){ var _c=countLessonsByDifficulty(); return _c.challenging; })()}</span></div>
-    <div class="diff-chip dc-bookmarks ${learnBookmarkFilter ? 'active' : ''}" onclick="filterBookmarks()" title="Show bookmarked lessons only">&#9733; Bookmarks</div>
-    <div class="diff-chip dc-quick ${learnQuickFilter ? 'active' : ''}" onclick="filterQuick()" title="Show lessons under 5 minutes (fewer than 6 slides)">&#x23F1; Quick</div>
-    <select class="learn-sort-select" onchange="setLearnSort(this.value)" title="Sort lessons" aria-label="Sort lessons">
-      <option value="default"   ${learnSortMode==='default'   ? 'selected' : ''}>&#x21C5; Default</option>
-      <option value="xp-desc"  ${learnSortMode==='xp-desc'  ? 'selected' : ''}>&#x2B06; Highest XP</option>
-      <option value="easy-first" ${learnSortMode==='easy-first' ? 'selected' : ''}>&#x1F7E2; Easiest first</option>
-      <option value="hard-first" ${learnSortMode==='hard-first' ? 'selected' : ''}>&#x1F7E3; Hardest first</option>
-      <option value="completed-last" ${learnSortMode==='completed-last' ? 'selected' : ''}>&#x2713; Not started first</option>
-    </select>
-  </div>
   <div class="learn-search-input-row">
     <svg class="learn-search-icon" width="16" height="16" viewBox="0 0 24 24"
       fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
@@ -22397,15 +22142,7 @@ function renderLearnTab() {
         : unitLessons;
       // Sort filtered lessons per learnSortMode
       var visibleLessons = _filteredLessons.slice();
-      // learn-37: float pinned lessons to top within their unit
-      var _pinnedIds37 = S.pinned_lessons || [];
-      if (_pinnedIds37.length > 0) {
-        visibleLessons.sort(function(a, b) {
-          var _ap = _pinnedIds37.indexOf(a.id) > -1 ? 0 : 1;
-          var _bp = _pinnedIds37.indexOf(b.id) > -1 ? 0 : 1;
-          return _ap - _bp;
-        });
-      }
+      // learn-r3: pinned-sort removed — pin badge on card communicates pinning
       if (learnSortMode === 'xp-desc') {
         visibleLessons.sort(function(a, b) { return (b.xp || 0) - (a.xp || 0); });
       } else if (learnSortMode === 'easy-first') {
@@ -22433,18 +22170,7 @@ function renderLearnTab() {
       const doneCount = unitLessons.filter(l => S.completed.includes(l.id)).length;
       const ringPct = unitLessons.length ? doneCount / unitLessons.length : 0;
 
-      html += `<div class="unit-section" id="unit-section-${unit.num}">
-        <div class="unit-header${ringPct >= 1 ? ' unit-all-done' : ''}">
-          <div class="unit-num" style="background:${unit.color}">${unit.num}</div>
-          <div style="flex:1;min-width:0;">
-            <div class="unit-title">Unit ${unit.num} · ${unit.title}</div>
-            <div class="unit-sub">${doneCount}/${unitLessons.length} done${ringPct >= 1 ? '<span class="unit-all-done-label"> ★ Complete!</span>' : ''}</div>
-            <div class="unit-prog-bar-outer"><div class="unit-prog-bar-fill ${ringPct >= 1 ? 'complete' : 'partial'}" style="width:${Math.round(ringPct*100)}%;${ringPct < 1 ? 'background:'+ unit.color +';' : ''}"></div></div>
-            <div class="unit-pct-text ${ringPct >= 1 ? 'complete' : ''}">${Math.round(ringPct*100)}% complete</div>
-            ${(function(){ var _remXp = unitLessons.filter(function(l){ return !S.completed.includes(l.id); }).reduce(function(s,l){ return s+(l.xp||0); },0); return _remXp > 0 ? '<div class="unit-xp-remaining">' + _remXp + ' XP remaining in this unit</div>' : ''; })()}
-          </div>
-          <div class="unit-progress-ring${ringPct >= 1 ? ' ring-complete' : ''}">${smallRingHTML(ringPct, unit.color, ringPct >= 1)}</div>
-        </div>`;
+      html += `<div class="unit-section" id="unit-section-${unit.num}">`; // learn-r3: unit-header removed
 
       visibleLessons.forEach(lesson => {
         const done = S.completed.includes(lesson.id);
@@ -22494,14 +22220,7 @@ function renderLearnTab() {
              + '--unit-color-bright:' + unit.color + ';')
           : '';
 
-        var _lessonTags = lesson.tags || [];
-        var _tagsHtml = '';
-        if (_lessonTags.length > 0 && !done) {
-          var _tPills = _lessonTags.slice(0, 3).map(function(t) {
-            return '<span class="lesson-tag-pill">' + escHtml(t) + '</span>';
-          }).join('');
-          _tagsHtml = '<div class="lesson-tags-row">' + _tPills + '</div>';
-        }
+        var _tagsHtml = ''; // learn-r3: tag pills removed (visual noise)
         let starsHtml = '';
         if (done) {
           starsHtml = '<div class="stars-row">' +
@@ -29503,18 +29222,8 @@ function checkAchievements() {
 function showAchievementToast(achId) {
   const ach = ACHIEVEMENTS.find(a => a.id === achId);
   if (!ach) return;
-  const toast = document.getElementById('achievement-toast');
-  const iconEl = document.getElementById('ach-toast-icon');
-  const nameEl = document.getElementById('ach-toast-name');
   SoundManager.playAchievement();
-  if (iconEl) iconEl.innerHTML = achievementIconHTML(achId, true, 32);
-  if (nameEl) nameEl.textContent = ach.label + ' — ' + ach.desc;
-  toast.classList.remove('show');
-  void toast.offsetWidth; // reflow
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 2600);
-  // Clari popup for achievement unlock
-  setTimeout(function() { showClariPopup('proud', 'clari-spin', 'Achievement unlocked!', 2500); }, 400);
+  showToast('Achievement: ' + ach.label, 'success', 2500);
 }
 
 function showAchievementDetail(id, earned) {
@@ -29554,33 +29263,7 @@ function achievementIconHTML(achId, earned, size) {
 // ============================================================
 function showLevelUp(level) {
   SoundManager.playLevelUp();
-  const overlay = document.getElementById('level-up-overlay');
-  document.getElementById('levelup-num').textContent = level;
-  document.getElementById('levelup-clari').innerHTML = clariSVG('celebrating', 80);
-
-  // Generate confetti
-  const wrap = document.getElementById('confetti-wrap');
-  wrap.innerHTML = '';
-  const colors = ['#58cc02','#ffc800','#1cb0f6','#ff4b4b','#a560f8'];
-  for (let i = 0; i < 30; i++) {
-    const piece = document.createElement('div');
-    piece.className = 'confetti-piece';
-    piece.style.cssText = `
-      left:${Math.random()*100}%;
-      top:${Math.random()*-20}%;
-      background:${colors[Math.floor(Math.random()*colors.length)]};
-      animation-delay:${Math.random()*1.5}s;
-      animation-duration:${1.5+Math.random()}s;
-      border-radius:${Math.random()>0.5?'50%':'2px'};
-      width:${6+Math.random()*8}px;
-      height:${6+Math.random()*8}px;
-    `;
-    wrap.appendChild(piece);
-  }
-
-  overlay.classList.add('open');
-  const timer = setTimeout(() => overlay.classList.remove('open'), 3000);
-  overlay.onclick = () => { clearTimeout(timer); overlay.classList.remove('open'); };
+  showToast('Level up! ⬆ Level ' + level, 'success', 2500);
 }
 
 // ============================================================
@@ -29979,12 +29662,7 @@ function renderPracticeWeakHeatmap() {
   if (!_el) return;
   var _wrong = S.wrong_answers || [];
   if (_wrong.length === 0) {
-    _el.innerHTML = '<div class="practice-weak-heatmap">'
-      + '<div class="practice-weak-heatmap-title">'
-      + '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>'
-      + 'Weak Topics</div>'
-      + '<div class="practice-weak-heatmap-empty">No weak spots yet! 🎯</div>'
-      + '</div>';
+    _el.innerHTML = '';
     return;
   }
   // Group by unit: lessonId like "u1l2" -> "Unit 1"
@@ -30733,7 +30411,6 @@ function renderPracticeQuestion() {
   document.getElementById('lesson-content').innerHTML = `
     <div style="font-size:12px;font-weight:800;color:var(--gray4);margin-bottom:12px;">Question ${idx+1} of ${total}${lessonState.practiceType === 'quick' && lessonState.adaptiveLevel ? ' &nbsp;<span style="font-size:11px;padding:2px 7px;border-radius:10px;background:' + (lessonState.adaptiveLevel === 3 ? '#fce7f3' : lessonState.adaptiveLevel === 2 ? '#e0f9ff' : '#f0fdf4') + ';color:' + (lessonState.adaptiveLevel === 3 ? '#be185d' : lessonState.adaptiveLevel === 2 ? '#0369a1' : '#15803d') + ';">' + (lessonState.adaptiveLevel === 3 ? 'Hard' : lessonState.adaptiveLevel === 2 ? 'Medium' : 'Easy') + '</span>' : ''}</div>
     <div class="slide-mascot-wrap" style="margin-bottom:8px;">${clariSVG('think', 60)}</div>
-    <div style="text-align:center;margin-bottom:6px;">${getPracticeDifficultyChip(q.lessonId || '')}</div>
     <div class="slide-quiz-title">${q.question}</div>
     <div class="quiz-options">${opts}</div>
     <div id="quiz-feedback"></div>
@@ -31438,8 +31115,6 @@ function finishPractice() {
         + _bestLine
         + '<div class="practice-celeb-msg">' + _celebMsg + '</div>'
         + _comebackHtml55
-        + '<div style="font-size:13px;font-weight:600;color:var(--gray4);">Time: ' + _elapsedStr + '</div>'
-        + ((lessonState.practiceType !== 'timed' && lessonState.avgAnswerTime) ? '<div style="font-size:12px;font-weight:700;color:#0369a1;">Avg: ' + lessonState.avgAnswerTime.toFixed(1) + 's per question</div>' : '')
         + '<div class="xp-earned-pill"><svg width="18" height="18" viewBox="0 0 24 24" fill="#5c4200"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>+' + (20 + bonusXP) + ' XP earned</div>'
 
         + '<div id="practice-xp-breakdown-panel"></div>'
@@ -31452,7 +31127,6 @@ function finishPractice() {
         + '<div style="font-size:15px;font-weight:800;color:var(--gray4);">' + score + ' / ' + total + ' correct</div>'
         + _bestLine
         + '<div class="practice-encourage-msg">' + _celebMsg + ' You\'re closer than you think!</div>'
-        + '<div style="font-size:13px;font-weight:600;color:var(--gray4);">Time: ' + _elapsedStr + '</div>'
         + '<div class="xp-earned-pill"><svg width="18" height="18" viewBox="0 0 24 24" fill="#5c4200"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>+' + (20 + bonusXP) + ' XP earned</div>'
         + '<div id="practice-xp-breakdown-panel"></div>'
         + '</div>';
@@ -32461,7 +32135,6 @@ function renderPlanTab() {
           '<div class="plan-today-banner-body">' +
             '<div class="plan-today-banner-label">Daily goal</div>' +
             '<div class="plan-today-banner-title">Goal complete for today!</div>' +
-            '<div class="plan-today-banner-meta">' + _todayCnt35 + ' lesson' + (_todayCnt35 !== 1 ? 's' : '') + ' done &mdash; great work</div>' +
           '</div>' +
         '</div>';
     } else if (_nextId35) {
@@ -32473,7 +32146,6 @@ function renderPlanTab() {
           '<div class="plan-today-banner-body">' +
             '<div class="plan-today-banner-label">Up next</div>' +
             '<div class="plan-today-banner-title">' + _nextTitle35 + '</div>' +
-            '<div class="plan-today-banner-meta">' + _metaLbl35 + '</div>' +
           '</div>' +
           '<button class="plan-today-banner-btn" onclick="' + _startOc35 + '">Start &rarr;</button>' +
         '</div>';
@@ -34070,7 +33742,7 @@ function renderPlanTab() {
       + _bestSlotData32.label.toLowerCase() + ' (' + _bestSlotData32.range + ').'
       + ' Schedule a daily reminder then for maximum momentum.';
 
-    html +=
+    if (false) html +=
       '<div class="plan-stime-wrap">' +
         '<div class="plan-stime-title">' +
           '<div class="plan-stime-title-icon">&#9201;</div>' +
@@ -34259,7 +33931,7 @@ function renderPlanTab() {
 
     var _vel29 = (typeof window !== 'undefined' && window._planVel) ? window._planVel : { trendKey: 'flat', badge: 'Stable', sub: '' };
     var _velBadgeCls29 = 'plan-pace-vel-badge plan-pace-vel-' + _vel29.trendKey;
-    html +=
+    if (false) html +=
       '<div class="plan-pace-card plan-pressure-widget">' +
         '<div class="plan-pace-top">' +
           '<div class="plan-pace-title">Pace &amp; Forecast</div>' +
@@ -34361,7 +34033,7 @@ function renderPlanTab() {
     var _msg28 = _msgs28[_msgIdx28];
     var _subtitle28 = _metDays28 + ' of 7 goal days met this week';
 
-    html +=
+    if (false) html +=
       '<div class="plan-wring-wrap plan-pressure-widget">' +
         '<div class="plan-wring-ring-area">' +
           _ringSVG28 +
@@ -34456,7 +34128,7 @@ function renderPlanTab() {
     var _pctDone27 = COURSE.length > 0 ? Math.round((_doneCnt27 / COURSE.length) * 100) : 0;
 
     html +=
-      '<div class="plan-timeline-wrap">' +
+      '<div class="plan-timeline-wrap collapsed">' +
         '<div class="plan-timeline-title">Unit Progress Timeline</div>' +
         '<div class="plan-timeline-track">' + _trackHtml27 + '</div>' +
         '<div class="plan-timeline-legend">' +
@@ -34563,7 +34235,7 @@ function renderPlanTab() {
       _msg25 = _rem25 + ' XP to go — keep pushing!';
     }
 
-    html +=
+    if (false) html +=
       '<div class="plan-dxp-wrap plan-pressure-widget">' +
         '<div class="plan-dxp-header">' +
           '<div class="plan-dxp-title">' +
@@ -35097,7 +34769,7 @@ function renderProfileTab() {
           }).join('')}
         </svg>`
       : `<svg class="xp-sparkline-svg" width="${_spW}" height="${_spH}" viewBox="0 0 ${_spW} ${_spH}"><line x1="${_spPad}" y1="${_spH/2}" x2="${_spW-_spPad}" y2="${_spH/2}" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="3,3"/></svg>`;
-    if (_xpBarOuter) _xpBarOuter.innerHTML = `<div class="profile-xp-bar-wrap"><div class="profile-xp-bar-label">${_xpInLevel} / 100 XP to Level ${level + 1}</div><div class="profile-xp-bar-track"><div class="profile-xp-bar-fill" style="width:${_xpInLevel}%"></div></div></div><div class="xp-sparkline-wrap">${_spSvg}<div class="xp-sparkline-label">7-day XP trend</div></div>`;
+    if (_xpBarOuter) _xpBarOuter.innerHTML = `<div class="profile-xp-bar-wrap"><div class="profile-xp-bar-label">${_xpInLevel} / 100 XP to Level ${level + 1}</div><div class="profile-xp-bar-track"><div class="profile-xp-bar-fill" style="width:${_xpInLevel}%"></div></div></div>`; // prof-r3-01: sparkline removed
   })();
   const _strip = document.getElementById('profile-stat-strip');
   if (_strip) _strip.innerHTML = `<div class="profile-stat-strip"><div class="profile-stat-strip-item"><div class="profile-strip-val"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><path d='M12 22c5 0 8-3 8-7 0-2.5-1.5-4.5-3-6 .5 2-1 3.5-2 4 .5-2-1-4-3-5.5 0 3-2 4.5-3 7-.5-1-.5-2.5.5-4C7.5 12 5 14.5 5 17c0 3 3 5 7 5z' fill='#f97316'/></svg></span> ${S.streak || 0}</div><div class="profile-strip-label">Streak</div></div><div class="profile-stat-strip-item"><div class="profile-strip-val"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='#fbbf24'><path d='M12 2l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 17l-5.8 3 1.1-6.5L2.5 8.9l6.6-.9L12 2z'/></svg></span> ${S.xp || 0}</div><div class="profile-strip-label">Total XP</div></div><div class="profile-stat-strip-item"><div class="profile-strip-val"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><rect x='4' y='4' width='6' height='16' rx='1'/><rect x='11' y='6' width='5' height='14' rx='1'/><rect x='17' y='8' width='4' height='12' rx='1'/></svg></span> ${S.completed.length}</div><div class="profile-strip-label">Lessons</div></div></div>`;
@@ -36300,8 +35972,9 @@ function renderProfileTab() {
       '</div>';
   })();
 
-  // profile-25: Total Questions Answered Counter
+  // profile-25: Total Questions Answered Counter — suppressed (vanity metric)
   (function() {
+    return; // prof-r3-01: suppressed
     var _tqEl = document.getElementById('profile-total-q-card');
     if (!_tqEl) return;
 
