@@ -1639,12 +1639,7 @@ body.text-xl     { --text-scale: 1.3; }
 .lc-rating-star { font-size:11px; line-height:1; }
 .lc-rating-star.filled { color:#f5c518; }
 .lc-rating-star.empty  { color:var(--gray3); }
-/* learn-14: completed-date label on lesson cards */
-.lc-completed-date {
-  display: block; font-size: 11px; font-weight: 700;
-  color: var(--gray3); margin-top: 3px; letter-spacing: 0.01em;
-}
-:root[data-theme="dark"] .lc-completed-date { color: var(--gray3); }
+/* learn-r4: removed dead CSS (.lc-completed-date — removed in learn-r4-01) */
 
 /* learn-21: "This week" recent badge on lesson cards */
 .lc-recent-badge {
@@ -2361,19 +2356,7 @@ mark.search-hl {
 }
 :root[data-theme='dark'] .lc-new-badge { background: var(--green2); }
 
-/* learn-11: lesson play-hint action button */
-.lc-play-hint {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 28px; height: 28px; border-radius: 50%;
-  background: var(--gray1); border: none; cursor: pointer;
-  flex-shrink: 0; pointer-events: auto;
-  transition: background 0.15s;
-  margin-right: 2px;
-}
-.lc-play-hint:hover { background: var(--gray2); }
-.lesson-row.completed .lc-play-hint { background: #e6f9ec; }
-:root[data-theme='dark'] .lc-play-hint { background: var(--gray2); }
-:root[data-theme='dark'] .lesson-row.completed .lc-play-hint { background: #1a3a2a; }
+/* learn-r4: removed dead CSS (.lc-play-hint — removed in learn-r4-02) */
 /* learn-16: lesson card description expand/collapse */
 .lc-chevron-btn {
   display: inline-flex; align-items: center; justify-content: center;
@@ -2792,32 +2775,7 @@ mark.search-hl {
   transform: translateY(0);
 }
 
-/* Practice combo badge */
-#practice-combo-badge {
-  display: none;
-  position: fixed;
-  top: 72px;
-  right: 18px;
-  z-index: 999;
-  background: linear-gradient(135deg, #ff6b35 0%, #f7c948 100%);
-  color: #fff;
-  font-size: 15px;
-  font-weight: 900;
-  padding: 8px 16px;
-  border-radius: 24px;
-  box-shadow: 0 4px 18px rgba(255,107,53,0.45);
-  pointer-events: none;
-  letter-spacing: 0.03em;
-  animation: comboPulse 0.35s ease;
-}
-#practice-combo-badge.show {
-  display: block;
-}
-@keyframes comboPulse {
-  0%   { transform: scale(0.7); opacity: 0.5; }
-  60%  { transform: scale(1.18); opacity: 1; }
-  100% { transform: scale(1);    opacity: 1; }
-}
+
 
 
 /* ============================================================
@@ -3146,36 +3104,7 @@ mark.search-hl {
 .lesson-tag-pill { font-size:10px; font-weight:700; background:var(--gray1); color:var(--gray4); padding:1px 7px; border-radius:20px; letter-spacing:.02em; text-transform:lowercase; }
 :root[data-theme="dark"] .lesson-tag-pill { background:var(--gray2); color:var(--gray3); }
 .dyk-text { font-size:13px; color:var(--text); line-height:1.5; }
-/* ============================================================
-   learn-25: Recommended Next — unit progress hint + time estimate
-   ============================================================ */
-.rec-next-card-meta {
-  font-size: 11px; font-weight: 600; color: var(--gray3);
-  margin-top: 3px; display: flex; align-items: center; gap: 6px;
-}
-.rec-next-unit-prog {
-  display: inline-flex; align-items: center; gap: 4px;
-  background: #eff6ff; color: #2563eb;
-  border-radius: 20px; padding: 1px 7px;
-  font-size: 10px; font-weight: 800; letter-spacing: .02em;
-}
-:root[data-theme="dark"] .rec-next-unit-prog {
-  background: #1e3a5f; color: #93c5fd;
-}
-/* Recommended Next cards */
-.rec-next-section { margin: 0 12px 16px; }
-.rec-next-label { font-size:11px; font-weight:800; color:var(--clari-blue); text-transform:uppercase; letter-spacing:.05em; margin-bottom:8px; }
-.rec-next-cards { display:flex; flex-direction:column; gap:8px; }
-.rec-next-card { display:flex; align-items:center; gap:12px; background:var(--white); border:1.5px solid var(--gray2); border-left:4px solid var(--clari-blue); border-radius:12px; padding:10px 12px; cursor:pointer; transition:background .15s; }
-.rec-next-card:hover { background:var(--bg-hover); }
-.rec-next-card-body { flex:1; min-width:0; }
-.rec-next-card-unit { font-size:10px; font-weight:700; color:var(--clari-blue); text-transform:uppercase; letter-spacing:.04em; margin-bottom:2px; }
-.rec-next-card-title { font-size:14px; font-weight:700; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.rec-next-card-xp { font-size:11px; font-weight:800; background:#eff6ff; color:#1d4ed8; padding:2px 8px; border-radius:20px; white-space:nowrap; flex-shrink:0; }
-.rec-next-card-btn { font-size:13px; font-weight:800; color:var(--clari-blue); white-space:nowrap; flex-shrink:0; padding:4px 10px; background:#eff6ff; border-radius:20px; }
-:root[data-theme="dark"] .rec-next-card { background:var(--white); border-color:var(--gray2); border-left-color:var(--clari-blue); }
-:root[data-theme="dark"] .rec-next-card-xp { background:#1e3a5f; color:#93c5fd; }
-:root[data-theme="dark"] .rec-next-card-btn { background:#1e3a5f; }
+/* learn-r4: removed dead CSS (.rec-next-* — elements removed in learn-r4-03) */
 .daily-xp-goal-card { display:flex; align-items:center; gap:10px; background:#eff6ff; border:1.5px solid #bfdbfe; border-radius:12px; padding:10px 14px; margin-bottom:12px; }
 :root[data-theme="dark"] .daily-xp-goal-card { background:#1e3a5f; border-color:#2563eb; }
 .daily-xp-goal-card.goal-met { background:#f0fdf4; border-color:#bbf7d0; }
@@ -3365,7 +3294,7 @@ mark.search-hl {
 .practice-modes  { display: flex; flex-direction: column; gap: 12px; }
 .practice-card {
   background: var(--white); border-radius: var(--radius);
-  padding: 18px; border: 2px solid var(--gray2);
+  padding: 10px 14px; border: 2px solid var(--gray2);
   display: flex; align-items: center; gap: 14px;
   transition: border-color 0.15s, box-shadow 0.15s;
 }
@@ -4475,14 +4404,7 @@ mark.search-hl {
 .practice-ls-bar-fill.poor { background: #ef4444; }
 .practice-ls-pct { font-size: 11px; font-weight: 900; color: var(--gray4); min-width: 30px; text-align: right; }
 
-/* practice-54: XP multiplier pill */
-.pmb-xp-mult-pill {
-  display: inline-flex; align-items: center; gap: 5px;
-  background: rgba(255,215,0,0.22); border: 1.5px solid rgba(255,215,0,0.5);
-  border-radius: 20px; padding: 3px 10px;
-  font-size: 12px; font-weight: 900; color: #fde68a;
-  letter-spacing: 0.02em; animation: pmb-xp-pulse 2s ease-in-out infinite;
-}
+
 @keyframes pmb-xp-pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.75; }
@@ -8496,11 +8418,7 @@ mark.search-hl {
 .qf-wrap { padding: 0 4px; }
 .qf-header { margin-bottom: 16px; }
 .qf-progress { font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
-.qf-combo {
-  font-size: 14px; font-weight: 700; color: #f59e0b;
-  margin-bottom: 6px; animation: qfCombo .3s ease;
-}
-@keyframes qfCombo { 0%{transform:scale(1.3)}100%{transform:scale(1)} }
+
 .qf-timer-bar {
   height: 6px; background: var(--border-color);
   border-radius: 3px; overflow: hidden; margin-bottom: 4px;
@@ -8557,48 +8475,8 @@ mark.search-hl {
 .badge-easy   { background: #e6faf0; color: #1a7a4a; border: 1px solid #b3eecf; border-radius: 4px; font-size: 10px; font-weight: 700; padding: 2px 6px; }
 .badge-medium { background: #fff7e0; color: #7a5c00; border: 1px solid #ffe066; border-radius: 4px; font-size: 10px; font-weight: 700; padding: 2px 6px; }
 .badge-hard   { background: #fff0f0; color: #c0392b; border: 1px solid #f5b7b1; border-radius: 4px; font-size: 10px; font-weight: 700; padding: 2px 6px; }
-/* ── Difficulty filter chips (learn tab) ── */
-/* learn-29: count badge inside each diff chip */
-.diff-chip-count {
-  display: inline-block;
-  margin-left: 5px;
-  min-width: 16px;
-  padding: 0 4px;
-  height: 16px;
-  line-height: 16px;
-  border-radius: 8px;
-  font-size: 10px;
-  font-weight: 900;
-  text-align: center;
-  background: rgba(0,0,0,0.10);
-  color: inherit;
-  opacity: 0.85;
-  vertical-align: middle;
-  pointer-events: none;
-}
-.diff-chip.active .diff-chip-count { background: rgba(255,255,255,0.25); opacity: 1; }
-:root[data-theme="dark"] .diff-chip-count { background: rgba(255,255,255,0.12); }
-.diff-filter-row { display:flex; gap:6px; padding:8px 12px 4px; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; flex-wrap:wrap; }
-.learn-sort-select { flex-shrink:0; padding:5px 10px; border-radius:20px; font-size:12px; font-weight:700; cursor:pointer; border:2px solid var(--gray2); background:var(--gray1); color:var(--text); outline:none; font-family:inherit; margin-left:auto; }
-.learn-sort-select:focus { border-color:var(--blue); }
-.diff-filter-row::-webkit-scrollbar { display:none; }
-.diff-chip { flex-shrink:0; padding:5px 14px; border-radius:20px; font-size:12px; font-weight:800; cursor:pointer; border:2px solid transparent; transition:background 0.15s,color 0.15s,border-color 0.15s; white-space:nowrap; background:var(--gray1); color:var(--gray4); }
-.diff-chip:hover:not(.active) { background:var(--gray2); }
-.diff-chip.dc-all.active     { background:var(--blue);   color:#fff; border-color:var(--blue2); }
-.diff-chip.dc-easy.active    { background:#1a7a4a; color:#fff; border-color:#0f5c35; }
-.diff-chip.dc-moderate.active{ background:#c2410c; color:#fff; border-color:#9a3409; }
-.diff-chip.dc-hard.active    { background:#7e22ce; color:#fff; border-color:#6b21a8; }
-.answer-explanation {
-  margin-top: 12px;
-  padding: 10px 14px;
-  background: #fffbe6;
-  border-left: 3px solid #f59e0b;
-  border-radius: 0 8px 8px 0;
-  font-size: 14px;
-  line-height: 1.5;
-  color: #78350f;
-  animation: fadeIn 0.3s ease;
-}
+/* learn-r4: removed dead CSS (.diff-filter-row, .diff-chip, .learn-sort-select, dc-* — removed in learn-r3-01) */
+
 .unit-complete-badge {
   width: 72px; height: 72px; border-radius: 50%;
   display: flex; flex-direction: column;
@@ -8882,11 +8760,7 @@ mark.search-hl {
 .bookmarks-strip-wrap {
   margin: 0 12px 12px;
 }
-.bookmarks-strip-label {
-  font-size: 12px; font-weight: 900; color: var(--gray4);
-  text-transform: uppercase; letter-spacing: 1px;
-  margin-bottom: 8px;
-}
+/* learn-r4: removed dead CSS (.bookmarks-strip-label — label replaced by toggle) */
 .bookmarks-strip {
   display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px;
   scrollbar-width: none;
@@ -8935,10 +8809,7 @@ mark.search-hl {
   opacity: 1;
   transform: translateX(0);
 }
-/* Bookmarks filter chip */
-.diff-chip.dc-bookmarks { border-color: var(--yellow); }
-.diff-chip.dc-bookmarks.active { background: var(--yellow); color: #fff; border-color: var(--yellow); }
-:root[data-theme='dark'] .diff-chip.dc-bookmarks.active { color: #1a1a1a; }
+/* learn-r4: removed dead CSS (.diff-chip.dc-bookmarks — removed in learn-r3-01) */
 /* learn-47: unit header progress ring complete state */
 .unit-progress-ring.ring-complete svg circle:last-child {
   stroke: #ffc800 !important;
@@ -9132,15 +9003,9 @@ mark.search-hl {
 }
 .unit-cert-close-btn:hover { opacity: 0.88; }
 
-/* learn-43: sort completed-last option style */
-.learn-sort-select option[value="completed-last"] {
-  font-style: italic;
-}
+/* learn-r4: removed dead CSS (.learn-sort-select option — removed in learn-r3-01) */
 
-/* learn-09: quick filter chip */
-.diff-chip.dc-quick { border-color: var(--clari-blue); }
-.diff-chip.dc-quick.active { background: var(--clari-blue); color: #fff; border-color: var(--clari-dark); }
-:root[data-theme='dark'] .diff-chip.dc-quick.active { color: #fff; }
+/* learn-r4: removed dead CSS (.diff-chip.dc-quick — removed in learn-r3-01) */
 
 .lesson-bookmark-btn.active {
   border-color: var(--yellow);
@@ -9571,7 +9436,6 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
         <div id="pmb-streak-shield-wrap" style="margin-top:8px;"></div>
         <div class="pmb-stats" id="pmb-stats-strip">
           <div class="pmb-stat" id="pmb-today-stat">0 today</div>
-          <div id="pmb-xp-mult-pill" style="display:none;"></div>
           <div class="pmb-sparkline-pill" id="pmb-accuracy-sparkline" title="Accuracy over last 7 sessions" style="display:none;"></div>
         </div>
       </div>
@@ -9914,7 +9778,6 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 </div>
 
 <!-- LESSON COMPLETION CONFETTI -->
-<div id="practice-combo-badge" aria-live="polite" aria-atomic="true"></div>
 <div id="lesson-confetti-wrap"></div>
 
 <!-- ACHIEVEMENT TOAST -->
@@ -19759,44 +19622,11 @@ function getLessonDifficulty(lesson) {
   return 'moderate';
 }
 
-// learn-29: count lessons in each difficulty tier across all units
-function countLessonsByDifficulty() {
-  var _counts = { all: 0, easy: 0, moderate: 0, challenging: 0 };
-  for (var _ci = 0; _ci < COURSE.length; _ci++) {
-    var _cu = COURSE[_ci];
-    for (var _li = 0; _li < _cu.lessons.length; _li++) {
-      var _l = _cu.lessons[_li];
-      _counts.all++;
-      var _d = getLessonDifficulty(_l);
-      if (_counts[_d] !== undefined) _counts[_d]++;
-    }
-  }
-  return _counts;
-}
+// learn-r4: dead code removed (countLessonsByDifficulty)
 
-/**
- * Set the active difficulty filter chip and re-render.
- */
-function filterDifficulty(val) {
-  learnDiffFilter = val;
-  renderLearnTab();
-}
+// learn-r4: dead code removed (filterDifficulty, filterBookmarks, filterQuick)
 
-function filterBookmarks() {
-  learnBookmarkFilter = !learnBookmarkFilter;
-  renderLearnTab();
-}
-
-// learn-09: toggle quick (<5 min / < 6 slides) filter
-function filterQuick() {
-  learnQuickFilter = !learnQuickFilter;
-  renderLearnTab();
-}
-
-function setLearnSort(mode) {
-  learnSortMode = mode || 'default';
-  renderLearnTab();
-}
+// learn-r4: dead code removed (setLearnSort)
 
 function getTrackForUnit(unitNum) {
   return TRACKS.find(t => t.units.includes(unitNum)) || null;
@@ -20370,19 +20200,7 @@ function renderProgressDashboard() {
     return { date: d, xp: entry ? entry.xp : 0 };
   });
   const maxXp = Math.max(...dayXp.map(e => e.xp), 1);
-  const barChart = `<div class="pd-chart">
-    ${dayXp.map(({ date, xp }) => {
-      const pct = Math.round((xp / maxXp) * 100);
-      const label = new Date(date + 'T12:00:00').toLocaleDateString('en', { weekday: 'short' });
-      return `<div class="pd-bar-col">
-        <div class="pd-bar-outer">
-          <div class="pd-bar-inner" style="height:${pct}%;background:var(--blue)"></div>
-        </div>
-        <div class="pd-bar-label">${label}</div>
-        ${xp > 0 ? `<div class="pd-bar-xp">+${xp}</div>` : ''}
-      </div>`;
-    }).join('')}
-  </div>`;
+
 
   return `<div class="pd-summary">
       <div class="pd-summary-cell"><div class="pd-summary-num" style="color:var(--green)">${doneUnits}</div><div class="pd-summary-label">Units done</div></div>
@@ -20390,8 +20208,7 @@ function renderProgressDashboard() {
       <div class="pd-summary-cell"><div class="pd-summary-num" style="color:var(--gray4)">${totalLessons}</div><div class="pd-summary-label">Total lessons</div></div>
     </div>
     <div class="pd-unit-grid">${unitCircles}</div>
-    <div class="section-sub-title" style="margin-top:16px;margin-bottom:8px;">XP — Last 7 Days</div>
-    ${barChart}`;
+`;
 }
 
 // ============================================================
@@ -20507,11 +20324,7 @@ function updateTopBar() {
       _lsEl.classList.remove('visible');
     }
   }
-  var _strRem = document.getElementById('tb-streak-reminder');
-  if (_strRem) {
-    var _streakAtRisk = S.streak > 0 && S.streak_date !== todayStr() && !S.streak_freeze;
-    _strRem.style.display = _streakAtRisk ? 'flex' : 'none';
-  }
+  // learn-r5-03: streak-reminder nudge removed (visual noise in top bar)
   var _sndBtn = document.getElementById('tb-sound-btn');
   if (_sndBtn) {
     var _soundOn = S.sound_enabled !== false;
@@ -21888,39 +21701,7 @@ function renderLearnTab() {
   })();
   const _name = S.user_name ? (', ' + S.user_name) : '';
   // learn-cl-03: dyk-card removed (random trivia added visual noise)
-  // Recommended Next — 1-2 next-in-order incomplete lessons
-  (function() {
-    var _recNext = [];
-    for (var _rui = 0; _rui < COURSE.length && _recNext.length < 2; _rui++) {
-      var _ru = COURSE[_rui];
-      for (var _rli = 0; _rli < _ru.lessons.length && _recNext.length < 2; _rli++) {
-        var _rl = _ru.lessons[_rli];
-        if (!S.completed.includes(_rl.id) && (_rl.free || S.premium)) {
-          _recNext.push({ lesson: _rl, unit: _ru });
-        }
-      }
-    }
-    if (_recNext.length > 0) {
-      var _rnCards = _recNext.map(function(item) {
-        return '<div class="rec-next-card" onclick="startLesson(\'' + item.lesson.id + '\')">'
-          + '<div class="rec-next-card-body">'
-          + '<div class="rec-next-card-unit">Unit ' + item.unit.num + ': ' + escHtml(item.unit.title) + '</div>'
-          + '<div class="rec-next-card-title">' + escHtml(item.lesson.title) + '</div>'
-          + '</div>'
-          + (function(_it25) {
-              var _d = _it25.unit.lessons.filter(function(l) { return S.completed.includes(l.id); }).length;
-              var _t = _it25.unit.lessons.length;
-              var _m = (typeof estimateLessonMinutes === 'function') ? estimateLessonMinutes(_it25.lesson) : '?';
-              // learn-25: meta row with time, XP, and unit progress
-              return '<div class="rec-next-card-meta">~' + _m + ' min &bull; +' + _it25.lesson.xp
-                + ' XP <span class="rec-next-unit-prog">' + _d + '/' + _t + ' done</span></div>';
-            })(item)
-          + '<span class="rec-next-card-btn">Start →</span>'
-          + '</div>';
-      }).join('');
-      html += '<div class="rec-next-section"><div class="rec-next-label">▶ Recommended Next</div><div class="rec-next-cards">' + _rnCards + '</div></div>';
-    }
-  })();
+  // Recommended Next section removed (learn-r4-03)
   // Daily XP Goal card
   (function() {
     var _dxpGoal    = S.daily_xp_goal || 20;
@@ -21941,19 +21722,7 @@ function renderLearnTab() {
     '</div>';
   })();
 
-  // Comeback message after 3+ days away
-  var _lastActive = S.streak_date || S.goal_date;
-  if (_lastActive && (S.completed || []).length > 0) {
-    var _daysSince = Math.floor((Date.now() - new Date(_lastActive).getTime()) / 86400000);
-    if (_daysSince >= 3 && _daysSince < 60) {
-      var _cbName = S.user_name ? (', ' + S.user_name) : '';
-      html += '<div class="comeback-card">' +
-        '<div class="comeback-emoji">👋</div>' +
-        '<div class="comeback-body"><div class="comeback-title">Welcome back' + _cbName + '!</div>' +
-        "<div class=\"comeback-sub\">It's been " + _daysSince + ' day' + (_daysSince !== 1 ? 's' : '') + " — no worries, let's pick up where you left off!</div>" +
-        '</div></div>';
-    }
-  }
+  // learn-r5-01: Comeback message removed (visual noise after 3+ days away)
 
   // clari-banner removed (learn-r2): greeting noise on every visit
 
@@ -22239,20 +22008,8 @@ function renderLearnTab() {
           _ratingStarsHtml = '<span class="lc-rating-stars" title="Your rating: ' + _savedRating + '/5">' + _rStars + '</span>';
         }
 
-        // learn-14: completed-date label
+        // learn-14: completed-date label removed (learn-r4-01)
         var _completedDateHtml = '';
-        if (done) {
-          var _lldTs = (S.lesson_log_dates || {})[lesson.id];
-          if (_lldTs) {
-            var _lldDays = Math.floor((Date.now() - Number(_lldTs)) / 86400000);
-            var _lldLabel;
-            if (_lldDays === 0) { _lldLabel = 'today'; }
-            else if (_lldDays === 1) { _lldLabel = 'yesterday'; }
-            else if (_lldDays < 14) { _lldLabel = _lldDays + ' days ago'; }
-            else { _lldLabel = Math.floor(_lldDays / 7) + ' weeks ago'; }
-            _completedDateHtml = '<span class="lc-completed-date">✓ Completed ' + _lldLabel + '</span>';
-          }
-        }
 
         // learn-21: "This week" badge — lesson completed within the last 7 days
         var _recentBadge = '';
@@ -22283,17 +22040,8 @@ function renderLearnTab() {
           ? '<span class="lesson-note-indicator" onclick="toggleNoteQuickView(\'' + lesson.id + '\', event)" title="View your note">📝</span>'
           : '';
 
-        // learn-11: play button title reflects completion state
-        var _playTitle = done ? 'Review lesson' : 'Start lesson';
-        var _playStroke = done ? 'var(--green)' : 'var(--clari-blue)';
-        var _playHint = locked ? '' :
-          '<button class="lc-play-hint" '
-          + 'onclick="event.stopPropagation();startLesson(\'' + lesson.id + '\')" '
-          + 'title="' + _playTitle + '" aria-label="' + _playTitle + '">'
-          + '<svg width="13" height="13" viewBox="0 0 24 24" fill="' + _playStroke + '" stroke="none">'
-          + '<path d="M5 3l14 9-14 9V3z"/>'
-          + '</svg>'
-          + '</button>';
+        // learn-11: play-hint action button removed (learn-r4-02)
+        var _playHint = '';
 
         // learn-28: share button (hidden until hover; not shown on locked lessons)
         var _shareBtn = locked ? '' :
@@ -22319,7 +22067,6 @@ function renderLearnTab() {
             <div class="lesson-title"><span class="lpm-title-trigger" onclick="event.stopPropagation();openLessonPreview('${lesson.id}', event)" title="Preview this lesson" style="cursor:pointer;">${learnSearchQuery.trim() ? highlightSearch(lesson.title, learnSearchQuery) : escHtml(lesson.title)}</span>${_recentBadge}${_xpBoostBadge}${_pinBadge37}</div>
             <div class="lesson-meta">+${lesson.xp} XP${diffBadge}${_ratingStarsHtml}<span class="lesson-slides-count"> &bull; ${(lesson.slides||[]).length} slide${(lesson.slides||[]).length !== 1 ? 's' : ''}</span></div>
             ${starsHtml}${_tagsHtml}
-            ${_completedDateHtml}
           </div>
           ${locked ? `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#afafaf" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>` : _reviewDue ? `<span class="review-due-icon" title="Review due"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><circle cx='12' cy='13' r='8'/><polyline points='12,9 12,13 15,15'/><path d='M5 3L3 5M21 5l-2-2'/><line x1='12' y1='21' x2='12' y2='23'/></svg></span></span>${badgeHtml}` : badgeHtml}
           <button class="lc-chevron-btn" id="lc-chevron-${lesson.id}" onclick="event.stopPropagation();toggleLearnCard(&apos;${lesson.id}&apos;)" aria-label="Toggle description" title="Show description" style="transform:${learnExpandedCards[lesson.id]?'rotate(180deg)':'rotate(0deg)'}">&#9662;</button>
@@ -22570,18 +22317,7 @@ function buildRecommendedStrip(n) {
   </div>`;
 }
 
-// learn-47: smallRingHTML extended with complete flag (gold ring)
-function smallRingHTML(pct, color, complete) {
-  const size = 36, r = 14, circ = 2 * Math.PI * r;
-  const dash = circ * pct;
-  const _sc = complete ? '#ffc800' : color;
-  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="transform:rotate(-90deg)">
-    <circle cx="18" cy="18" r="${r}" fill="none" stroke="#eee" stroke-width="3"/>
-    <circle cx="18" cy="18" r="${r}" fill="none" stroke="${_sc}" stroke-width="3"
-      stroke-dasharray="${dash.toFixed(2)} ${circ.toFixed(2)}" stroke-linecap="round"
-      ${complete ? 'filter="url(#gold-glow)"' : ''}/>
-  </svg>`;
-}
+// learn-r4: dead code removed (smallRingHTML)
 
 function lessonIconSVG(color) {
   return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round">
@@ -27144,7 +26880,6 @@ function renderSlideQuiz(slide) {
     <div class="slide-quiz-title">${slide.question}</div>
     <div class="quiz-options">${opts}</div>
     <div id="quiz-feedback"></div>
-    <div id="answer-explanation" style="display:none"></div>
     ${slide.hint ? '<button class="hint-btn" id="quiz-hint-btn" onclick="toggleQuizHint()" aria-expanded="false">💡 Hint</button><div class="hint-box" id="quiz-hint-box">' + slide.hint + '</div>' : ''}
     ${kbHint}
   </div>`;
@@ -27208,13 +26943,7 @@ function selectQuizOption(el, idx, correct) {
     }
     showFeedback(false, getWrongMsg(), allOpts[correct].textContent.trim());
     lessonState.correctStreak = 0;
-    // Show explanation if present
-    const _qSlide = getSessionSlides()[lessonState.slideIdx];
-    const expEl = document.getElementById('answer-explanation');
-    if (expEl && _qSlide && _qSlide.explanation) {
-      expEl.innerHTML = '<div class="answer-explanation">\uD83D\uDCA1 ' + _qSlide.explanation + '</div>';
-      expEl.style.display = 'block';
-    }
+
   }
 
   const btn = document.getElementById('lesson-next-btn');
@@ -28104,7 +27833,6 @@ function renderSlideQuickFire(slide) {
       <div class="qf-wrap">
         <div class="qf-header">
           <div class="qf-progress">${progress}</div>
-          <div class="qf-combo" id="qf-combo" style="display:${qfState.combo >= 3 ? 'block' : 'none'}"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><path d='M12 22c5 0 8-3 8-7 0-2.5-1.5-4.5-3-6 .5 2-1 3.5-2 4 .5-2-1-4-3-5.5 0 3-2 4.5-3 7-.5-1-.5-2.5.5-4C7.5 12 5 14.5 5 17c0 3 3 5 7 5z' fill='#f97316'/></svg></span> ${qfState.combo}x Combo!</div>
           <div class="qf-timer-bar"><div class="qf-timer-fill" id="qf-timer-fill" style="width:${(qfState.timerVal / _qfTimeLimit) * 100}%"></div></div>
           <div class="qf-timer-num" id="qf-timer-num">${qfState.timerVal}s</div>
         </div>
@@ -28136,9 +27864,6 @@ function renderSlideQuickFire(slide) {
       if (qfState.combo > qfState.maxCombo) qfState.maxCombo = qfState.combo;
       if (qfState.combo >= 3) {
         qfState.bonusXp += 20;
-        // Show combo animation
-        const comboEl = document.getElementById('qf-combo');
-        if (comboEl) { comboEl.style.display = 'block'; comboEl.innerHTML = "<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><path d='M12 22c5 0 8-3 8-7 0-2.5-1.5-4.5-3-6 .5 2-1 3.5-2 4 .5-2-1-4-3-5.5 0 3-2 4.5-3 7-.5-1-.5-2.5.5-4C7.5 12 5 14.5 5 17c0 3 3 5 7 5z' fill='#f97316'/></svg></span> " + qfState.combo + 'x Combo!'; }
       }
     } else {
       qfState.combo = 0;
@@ -28356,11 +28081,7 @@ function renderLessonComplete() {
   const shareBar = checkMilestoneShare();
 
   // Progress bar to 100
-  // Hide combo badge at end of session
-  (function() {
-    var _cb = document.getElementById('practice-combo-badge');
-    if (_cb) { _cb.className = ''; }
-  })();
+
   document.getElementById('lesson-progress-bar').style.width = '100%';
   // practice-56b: hide sticky progress bar on finish
   (function() {
@@ -29459,9 +29180,8 @@ function renderPracticeTab() {
     const _dueIds = getReviewsDue();
     if (_dueIds.length > 0) {
       _dueBanner.innerHTML = `<div class="reviews-due-card" onclick="startPractice(&apos;review&apos;)">
-        <div class="reviews-due-count">${_dueIds.length}</div>
         <div style="flex:1;">
-          <div class="reviews-due-label">Review${_dueIds.length > 1 ? 's' : ''} due today</div>
+          <div class="reviews-due-label">Reviews due today</div>
         </div>
         <button class="btn btn-yellow btn-sm" style="flex-shrink:0;" onclick="event.stopPropagation();startPractice(&apos;review&apos;)">Start</button>
       </div>`;
@@ -30377,7 +30097,6 @@ function renderPracticeQuestion() {
   lessonState.slideAnswered = false;
   lessonState.inPractice = true;
   lessonState._kbFocusIdx = -1;
-  // Ensure combo badge stays visible between questions (don't hide it here)
   // Per-question timer: record start time for Quick Review mode
   if (lessonState.practiceType !== 'timed') {
     lessonState.questionStartTime = Date.now();
@@ -30514,23 +30233,7 @@ function selectPracticeOption(el, idx, correct) {
     lessonState.practiceScore++;
     lessonState.correctStreak = (lessonState.correctStreak || 0) + 1;
     lessonState.practiceCombo = (lessonState.practiceCombo || 0) + 1;
-    // Update combo badge
-    (function() {
-      var _cb = document.getElementById('practice-combo-badge');
-      if (_cb) {
-        if (lessonState.practiceCombo >= 2) {
-          _cb.textContent = '🔥 ' + lessonState.practiceCombo + 'x COMBO';
-          _cb.className = 'show';
-          // Re-trigger pulse animation
-          void _cb.offsetWidth;
-          _cb.style.animation = 'none';
-          void _cb.offsetWidth;
-          _cb.style.animation = '';
-        } else {
-          _cb.className = '';
-        }
-      }
-    })();
+
     // Track max streak reached this session (for achievements)
     if (!lessonState.practiceMaxStreak || lessonState.correctStreak > lessonState.practiceMaxStreak) {
       lessonState.practiceMaxStreak = lessonState.correctStreak;
@@ -30703,11 +30406,6 @@ function selectPracticeOption(el, idx, correct) {
     }
     lessonState.correctStreak = 0;
     lessonState.practiceCombo = 0;
-    // Hide combo badge on wrong answer
-    (function() {
-      var _cb = document.getElementById('practice-combo-badge');
-      if (_cb) { _cb.className = ''; }
-    })();
   }
   // Adaptive difficulty check — Quick Review only, every 5 questions
   if (lessonState.practiceMode && lessonState.practiceType === 'quick') {
@@ -32571,72 +32269,7 @@ function renderPlanTab() {
   })();
 
   // --- Smart Nudge Banner (plan-08) ---
-  (function() {
-    var _today8   = todayStr();
-    var _streak8  = S.streak || 0;
-    var _streakAt = S.streak_date || '';
-    var _goalDone = S.goal_today || 0;
-    var _goalTgt  = S.daily_goal || 1;
-    var _freeze8  = S.streak_freeze || false;
-    var _doneLen8 = (S.completed || []).length;
-    var _totalL8  = 0;
-    for (var _ni8 = 0; _ni8 < COURSE.length; _ni8++) {
-      _totalL8 += (COURSE[_ni8].lessons || []).length;
-    }
-    var _log8 = S.lesson_log || {};
-    var _lastActive8 = '';
-    for (var _dk8 in _log8) {
-      if (_log8.hasOwnProperty(_dk8) && _log8[_dk8] > 0 &&
-          (!_lastActive8 || _dk8 > _lastActive8)) {
-        _lastActive8 = _dk8;
-      }
-    }
-    var _daysSince8 = 0;
-    if (_lastActive8 && _lastActive8 !== _today8) {
-      var _ms8 = new Date(_today8).getTime() - new Date(_lastActive8).getTime();
-      _daysSince8 = Math.round(_ms8 / 86400000);
-    }
-    var _nType = '', _nIcon = '', _nMsg = '', _nAction = '';
-    if (_doneLen8 > 0 && _doneLen8 === _totalL8) {
-      _nType = 'nudge-success';
-      _nIcon = '✅';
-      _nMsg  = 'You have completed the entire course! Review a lesson or try the Practice tab to keep your skills sharp.';
-    } else if (_streak8 > 0 && _streakAt !== _today8 && !_freeze8) {
-      _nType   = 'nudge-warning';
-      _nIcon   = '⚠️';
-      _nMsg    = 'Your ' + _streak8 + '-day streak is at risk! Do at least one lesson today to keep it alive.';
-      _nAction = '<button class="plan-nudge-action" onclick="switchTab(\x27learn\x27)">Go to lessons →</button>';
-    } else if (_goalDone >= _goalTgt && _goalTgt > 0 && _goalDone > 0) {
-      _nType   = 'nudge-success';
-      _nIcon   = '✨';
-      _nMsg    = 'Daily goal complete! You have done ' + _goalDone + ' of ' + _goalTgt + ' lessons today. Keep the momentum going!';
-      _nAction = '<button class="plan-nudge-action" onclick="switchTab(\x27learn\x27)">Keep going →</button>';
-    } else if (_daysSince8 >= 3) {
-      _nType   = 'nudge-purple';
-      _nIcon   = '🚀';
-      _nMsg    = 'Welcome back! It has been ' + _daysSince8 + ' day' + (_daysSince8 !== 1 ? 's' : '') + ' since your last lesson. Ready to pick up where you left off?';
-      _nAction = '<button class="plan-nudge-action" onclick="switchTab(\x27learn\x27)">Pick up where I left off →</button>';
-    } else if (_doneLen8 === 0) {
-      _nType   = 'nudge-info';
-      _nIcon   = '🎓';
-      _nMsg    = 'Your plan is ready! Start with the first lesson to unlock your personalized path.';
-      _nAction = '<button class="plan-nudge-action" onclick="switchTab(\x27learn\x27)">Start learning →</button>';
-    } else if (_goalDone === 0) {
-      _nType   = 'nudge-info';
-      _nIcon   = '☀️';
-      _nMsg    = 'No lessons yet today — even one lesson keeps your momentum going and earns you XP!';
-      _nAction = '<button class="plan-nudge-action" onclick="switchTab(\x27learn\x27)">Do a lesson now →</button>';
-    }
-    if (_nType) {
-      html =
-        '<div class="plan-nudge ' + _nType + '">' +
-          '<div class="plan-nudge-icon">' + _nIcon + '</div>' +
-          '<div class="plan-nudge-text">' + _nMsg +
-            (_nAction ? '<br>' + _nAction : '') +
-          '</div>' +
-        '</div>' + html;
-    }
-  })();
+  // plan-r4-02: removed — motivational nudge banner suppressed
 
   // --- Difficulty Curve Chart (plan-07) ---
   (function() {
@@ -32675,48 +32308,7 @@ function renderPlanTab() {
   })();
 
   // --- Estimated Time to Complete (plan-06) ---
-  (function() {
-    var _totalL6 = 0;
-    for (var _ni6 = 0; _ni6 < COURSE.length; _ni6++) {
-      _totalL6 += (COURSE[_ni6].lessons || []).length;
-    }
-    var _doneL6   = (S.completed || []).length;
-    var _remL6    = Math.max(0, _totalL6 - _doneL6);
-    var _pctDone6 = _totalL6 > 0 ? Math.round((_doneL6 / _totalL6) * 100) : 0;
-    var _remMin6  = _remL6 * 5;
-    var _timeStr6;
-    if (_remL6 === 0) {
-      _timeStr6 = 'All done!';
-    } else if (_remMin6 < 60) {
-      _timeStr6 = _remMin6 + ' min';
-    } else {
-      var _hrs6 = Math.floor(_remMin6 / 60);
-      var _mins6 = _remMin6 % 60;
-      _timeStr6 = _hrs6 + 'h' + (_mins6 > 0 ? ' ' + _mins6 + 'm' : '');
-    }
-    var _subStr6 = _remL6 === 0
-      ? 'You have completed every lesson — amazing work!'
-      : _remL6 + ' lesson' + (_remL6 !== 1 ? 's' : '') + ' remaining · ~5 min each';
-    var _clockSVG6 =
-      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"'
-      + ' stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'
-      + '<circle cx="12" cy="12" r="10"/>'
-      + '<polyline points="12 6 12 12 16 14"/>'
-      + '</svg>';
-    html +=
-      '<div class="plan-etc-wrap">' +
-        '<div class="plan-etc-icon">' + _clockSVG6 + '</div>' +
-        '<div class="plan-etc-body">' +
-          '<div class="plan-etc-title">Time to Finish Course</div>' +
-          '<div class="plan-etc-time">' + _timeStr6 + '</div>' +
-          '<div class="plan-etc-sub">' + _subStr6 + '</div>' +
-        '</div>' +
-        '<div class="plan-etc-pct-wrap">' +
-          '<div class="plan-etc-pct-num">' + _pctDone6 + '%</div>' +
-          '<div class="plan-etc-pct-lbl">complete</div>' +
-        '</div>' +
-      '</div>';
-  })();
+  // plan-r4-01: removed — completion-time prediction card suppressed
 
   // --- Weekly XP Goal Progress (plan-05) ---
   (function() {
@@ -32779,89 +32371,7 @@ function renderPlanTab() {
     '<div class="plan-more-stats-body" style="display:none;">';
 
   // --- Forecast Chart (plan-10) ---
-  (function() {
-    var _today10 = todayStr();
-    var _log10   = S.lesson_log || {};
-    var _totalL10 = 0;
-    for (var _ni10 = 0; _ni10 < COURSE.length; _ni10++) {
-      _totalL10 += (COURSE[_ni10].lessons || []).length;
-    }
-    var _doneL10 = (S.completed || []).length;
-    var _remL10  = Math.max(0, _totalL10 - _doneL10);
-
-    // Build 14-day rolling window
-    var _days10   = [];
-    var _maxCnt10 = 1;
-    for (var _di10 = 13; _di10 >= 0; _di10--) {
-      var _d10 = new Date(_today10 + 'T12:00:00');
-      _d10.setDate(_d10.getDate() - _di10);
-      var _ds10  = _d10.toISOString().split('T')[0];
-      var _cnt10 = _log10[_ds10] || 0;
-      if (_cnt10 > _maxCnt10) _maxCnt10 = _cnt10;
-      _days10.push({ ds: _ds10, cnt: _cnt10, isToday: _di10 === 0 });
-    }
-
-    // Average lessons per active day
-    var _sumLpd10    = 0;
-    var _activeDays10 = 0;
-    for (var _ai10 = 0; _ai10 < _days10.length; _ai10++) {
-      if (_days10[_ai10].cnt > 0) { _sumLpd10 += _days10[_ai10].cnt; _activeDays10++; }
-    }
-    var _avgLpd10 = _activeDays10 > 0 ? (_sumLpd10 / _activeDays10) : 0;
-
-    // ETA
-    var _etaStr10;
-    var _etaDone10 = _remL10 === 0;
-    if (_etaDone10) {
-      _etaStr10 = 'Course complete!';
-    } else if (_avgLpd10 < 0.1) {
-      _etaStr10 = 'Start lessons to see forecast';
-    } else {
-      var _daysNeeded10 = Math.ceil(_remL10 / _avgLpd10);
-      var _etaDate10 = new Date(_today10 + 'T12:00:00');
-      _etaDate10.setDate(_etaDate10.getDate() + _daysNeeded10);
-      var _months10 = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-      _etaStr10 = _months10[_etaDate10.getMonth()] + ' ' + _etaDate10.getDate() + ', ' + _etaDate10.getFullYear();
-    }
-
-    // Bar chart HTML (14 bars)
-    var _barMaxH10  = 48;
-    var _barsHtml10 = '';
-    var _dayNames10 = ['Su','Mo','Tu','We','Th','Fr','Sa'];
-    for (var _bi10 = 0; _bi10 < _days10.length; _bi10++) {
-      var _b10   = _days10[_bi10];
-      var _h10   = _b10.cnt > 0 ? Math.max(4, Math.round((_b10.cnt / _maxCnt10) * _barMaxH10)) : 3;
-      var _cls10 = _b10.isToday ? 'plan-forecast-bar bar-today'
-                 : (_b10.cnt > 0 ? 'plan-forecast-bar bar-past' : 'plan-forecast-bar bar-future');
-      var _dObj10 = new Date(_b10.ds + 'T12:00:00');
-      var _lbl10  = _b10.isToday ? 'now' : _dayNames10[_dObj10.getDay()];
-      var _tip10  = _b10.ds + ': ' + _b10.cnt + ' lesson' + (_b10.cnt !== 1 ? 's' : '');
-      _barsHtml10 +=
-        '<div class="plan-forecast-bar-col">' +
-          '<div class="' + _cls10 + '" style="height:' + _h10 + 'px;" title="' + _tip10 + '"></div>' +
-          '<div class="plan-forecast-bar-lbl">' + _lbl10 + '</div>' +
-        '</div>';
-    }
-
-    var _paceStr10    = _avgLpd10 > 0 ? (_avgLpd10.toFixed(1) + ' lessons/day avg') : 'No lessons logged yet';
-    var _etaWrapCls10 = _etaDone10 ? 'plan-forecast-eta eta-done' : 'plan-forecast-eta';
-    var _calIcon10    = '📅';
-    var _trophyIcon10 = '🏆';
-    var _etaLbl10 = _etaDone10
-      ? (_trophyIcon10 + ' Course finished')
-      : (_avgLpd10 < 0.1 ? (_calIcon10 + ' Estimated finish') : (_calIcon10 + ' Finish by'));
-
-    html +=
-      '<div class="plan-forecast-wrap">' +
-        '<div class="plan-forecast-title">Completion Forecast</div>' +
-        '<div class="plan-forecast-sub">' + _paceStr10 + ' \u00b7 last 14 days</div>' +
-        '<div class="plan-forecast-bars">' + _barsHtml10 + '</div>' +
-        '<div class="' + _etaWrapCls10 + '">' +
-          '<div class="plan-forecast-eta-label">' + _etaLbl10 + '</div>' +
-          '<div class="plan-forecast-eta-date">' + _etaStr10 + '</div>' +
-        '</div>' +
-      '</div>';
-  })();
+  // plan-r4-01: removed — completion forecast / Finish-by ETA suppressed
 
   // --- Study Time Tracker (plan-11) ---
   (function() {
@@ -33119,87 +32629,7 @@ function renderPlanTab() {
   })();
 
   // --- Study Pace Indicator (plan-16) ---
-  (function() {
-    // ---- Compute expected pace ----
-    // "Expected" = how many lessons should be done by now given daily_goal and
-    // days elapsed since the first active lesson_log entry (or account creation).
-
-    var _log16     = S.lesson_log || {};
-    var _done16    = (S.completed || []).length;
-    var _today16   = todayStr();
-
-    // Find earliest active day
-    var _firstDay16 = _today16;
-    var _keys16 = Object.keys(_log16);
-    for (var _k16 = 0; _k16 < _keys16.length; _k16++) {
-      var _dk16 = _keys16[_k16];
-      if (_log16[_dk16] > 0 && _dk16 < _firstDay16) {
-        _firstDay16 = _dk16;
-      }
-    }
-
-    // Days elapsed (inclusive)
-    var _msDay16      = 86400000;
-    var _elapsed16    = Math.max(1, Math.round(
-      (new Date(_today16 + 'T12:00:00') - new Date(_firstDay16 + 'T12:00:00')) / _msDay16
-    ) + 1);
-
-    var _dailyGoal16  = S.daily_goal || 1;
-    var _expected16   = _elapsed16 * _dailyGoal16;
-
-    // Total lessons in course
-    var _totalLessons16 = 0;
-    for (var _ui16 = 0; _ui16 < COURSE.length; _ui16++) {
-      _totalLessons16 += (COURSE[_ui16].lessons || []).length;
-    }
-    _expected16 = Math.min(_expected16, _totalLessons16);
-
-    // Pace ratio: >1.1 = ahead, 0.85-1.1 = on track, <0.85 = behind
-    // Avoid div-by-zero when expected == 0
-    var _ratio16 = _expected16 > 0 ? (_done16 / _expected16) : (_done16 > 0 ? 2 : 1);
-
-    var _statusKey16, _statusLbl16, _iconTxt16, _paceDesc16;
-    if (_ratio16 >= 1.1) {
-      _statusKey16 = 'ahead';
-      _statusLbl16 = 'Ahead';
-      _iconTxt16   = '&#128640;';
-      _paceDesc16  = "You are ahead of schedule — great momentum!";
-    } else if (_ratio16 >= 0.85) {
-      _statusKey16 = 'track';
-      _statusLbl16 = 'On Track';
-      _iconTxt16   = '&#127919;';
-      _paceDesc16  = "You are right on pace. Keep up the daily habit!";
-    } else {
-      _statusKey16 = 'behind';
-      _statusLbl16 = 'Behind';
-      _iconTxt16   = '&#128336;';
-      _paceDesc16  = "A little behind — even one extra lesson today closes the gap fast.";
-    }
-
-    // Bar: shows actual vs expected as % of expected (capped at 100%)
-    var _barPct16 = _expected16 > 0
-      ? Math.min(100, Math.round((_done16 / _expected16) * 100))
-      : 100;
-
-    html +=
-      '<div class="plan-pace-wrap">' +
-        '<div class="plan-pace-top">' +
-          '<div class="plan-pace-icon pi-' + _statusKey16 + '">' + _iconTxt16 + '</div>' +
-          '<div>' +
-            '<div class="plan-pace-label">Study Pace</div>' +
-            '<div class="plan-pace-sub">' + _paceDesc16 + '</div>' +
-          '</div>' +
-          '<div class="plan-pace-status ps-' + _statusKey16 + '">' + _statusLbl16 + '</div>' +
-        '</div>' +
-        '<div class="plan-pace-bar-bg">' +
-          '<div class="plan-pace-bar-fill pf-' + _statusKey16 + '" style="width:' + _barPct16 + '%;"></div>' +
-        '</div>' +
-        '<div class="plan-pace-meta-row">' +
-          '<span>Completed: ' + _done16 + ' lessons</span>' +
-          '<span>Expected by now: ' + _expected16 + '</span>' +
-        '</div>' +
-      '</div>';
-  })();
+  // plan-r4-03: removed — Ahead/On Track/Behind motivational widget suppressed
 
   // --- Weekly Summary Card (plan-17) ---
   (function() {
