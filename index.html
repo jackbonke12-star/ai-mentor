@@ -559,6 +559,7 @@ body.text-xl     { --text-scale: 1.3; }
   cursor: pointer;
 }
 .tb-gems:hover { opacity: 0.8; }
+.tb-gems { display: none !important; }
 
 /* Gem Shop */
 .shop-items { display: flex; flex-direction: column; gap: 10px; margin: 12px 0; }
@@ -4534,10 +4535,203 @@ mark.search-hl {
 }
 .pqsb-tile.highlight .pqsb-val { color: var(--blue); }
 
+/* practice-60b: post-session-footer-cleanup */
+.practice-share-section { margin-bottom: 10px; }
+.practice-share-toggle {
+  width: 100%; background: none; border: 1.5px solid var(--gray2);
+  border-radius: var(--radius); padding: 8px 14px;
+  font-size: 13px; font-weight: 800; color: var(--gray4);
+  cursor: pointer; display: flex; align-items: center; justify-content: space-between;
+}
+.practice-share-toggle:hover { border-color: var(--blue); color: var(--blue); }
+.practice-share-body { display: none; padding-top: 8px; }
+.practice-share-body.open { display: block; }
+
+/* practice-59b: session-note-charcount */
+.practice-session-note-meta {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 5px;
+}
+.psnm-label {
+  font-size: 12px; font-weight: 900; color: var(--text);
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.psnm-counter {
+  font-size: 11px; font-weight: 700; color: var(--gray4);
+  transition: color 0.15s;
+}
+.psnm-counter.near { color: #f59e0b; }
+.psnm-counter.full { color: #ef4444; }
+
+/* practice-58b: pmb-stats-cleanup */
+#pmb-stats-strip .pmb-stat { font-size: 11px; padding: 3px 9px; }
+
+/* practice-57b: personal-bests-collapsible */
+.practice-pb-card-outer {
+  margin-bottom: 14px;
+  border: 2px solid var(--gray2);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--white);
+}
+.practice-pb-card-toggle {
+  width: 100%; background: none; border: none; cursor: pointer;
+  padding: 11px 14px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 12px; font-weight: 900; color: var(--gray4);
+  text-transform: uppercase; letter-spacing: 0.8px;
+}
+.practice-pb-card-toggle:hover { background: var(--gray1); }
+.practice-pb-toggle-inner { display: flex; align-items: center; gap: 6px; }
+.practice-pb-card-chevron { font-size: 10px; transition: transform 0.2s; }
+.practice-pb-card-toggle.open .practice-pb-card-chevron { transform: rotate(180deg); }
+.practice-pb-card-body { display: none; padding: 0 14px 12px; }
+.practice-pb-card-body.open { display: block; }
+
+/* practice-56b: practice-session-progress-bar */
+.practice-session-prog-wrap {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px 5px;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray2);
+}
+.practice-session-prog-wrap.visible { display: flex; }
+.practice-sess-prog-label {
+  font-size: 11px; font-weight: 900; color: var(--gray4);
+  white-space: nowrap; flex-shrink: 0; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.practice-sess-prog-track {
+  flex: 1; height: 5px; background: var(--gray2);
+  border-radius: 99px; overflow: hidden;
+}
+.practice-sess-prog-fill {
+  height: 100%; border-radius: 99px;
+  background: var(--blue);
+  transition: width 0.3s ease;
+}
+.practice-sess-prog-pct {
+  font-size: 11px; font-weight: 900; color: var(--blue);
+  min-width: 30px; text-align: right; flex-shrink: 0;
+}
+
+/* practice-55b: practice-fav-btn */
+.practice-fav-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: none; border: 1.5px solid var(--gray2);
+  border-radius: 20px; padding: 5px 14px;
+  font-size: 12px; font-weight: 800; color: var(--gray4);
+  cursor: pointer; margin-top: 8px;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.practice-fav-btn:hover { border-color: #f59e0b; color: #d97706; background: #fffbeb; }
+.practice-fav-btn.saved { border-color: #f59e0b; color: #d97706; background: #fef3c7; }
+.practice-fav-star { font-size: 14px; transition: transform 0.2s; }
+.practice-fav-btn.saved .practice-fav-star { transform: scale(1.25); }
+
+/* practice-54b: xp-breakdown-collapsible */
+.practice-xpbd-outer {
+  margin-top: 10px;
+  border: 2px solid #fcd34d;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  overflow: hidden;
+}
+.practice-xpbd-toggle {
+  width: 100%; background: none; border: none; cursor: pointer;
+  padding: 10px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 12px; font-weight: 900; color: #92400e;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.practice-xpbd-toggle:hover { background: rgba(0,0,0,0.04); }
+.practice-xpbd-toggle-chevron { font-size: 10px; transition: transform 0.2s; }
+.practice-xpbd-toggle.open .practice-xpbd-toggle-chevron { transform: rotate(180deg); }
+.practice-xpbd-inner { display: none; padding: 0 16px 12px; }
+.practice-xpbd-inner.open { display: block; }
+
+/* practice-53b: more-modes toggle */
+.practice-modes-extra {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 0;
+}
+.practice-modes-extra.open { display: flex; }
+.practice-more-toggle-btn {
+  width: 100%;
+  background: var(--white);
+  border: 1.5px dashed var(--gray3);
+  border-radius: var(--radius);
+  padding: 9px 14px;
+  font-size: 13px; font-weight: 800; color: var(--gray4);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: border-color 0.15s, color 0.15s;
+  margin-top: 8px;
+}
+.practice-more-toggle-btn:hover { border-color: var(--blue); color: var(--blue); }
+.practice-more-toggle-btn.open { border-style: solid; color: var(--text); }
+.pmtb-chevron { font-size: 10px; transition: transform 0.2s; }
+.practice-more-toggle-btn.open .pmtb-chevron { transform: rotate(180deg); }
+
 /* ============================================================
    MY PLAN TAB
    ============================================================ */
 #view-plan { background: var(--bg); padding: 16px 12px 20px; }
+.plan-today-banner { display: flex; align-items: center; gap: 12px; background: linear-gradient(135deg,#1cb0f6 0%,#0ea5e9 100%); border-radius: 14px; padding: 14px 16px; margin-bottom: 14px; color: #fff; }
+.plan-today-banner-icon { font-size: 20px; flex-shrink: 0; line-height: 1; }
+.plan-today-banner-body { flex: 1; min-width: 0; }
+.plan-today-banner-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.85; margin-bottom: 2px; }
+.plan-today-banner-title { font-size: 15px; font-weight: 900; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.plan-today-banner-meta { font-size: 11px; font-weight: 600; opacity: 0.8; margin-top: 2px; }
+.plan-today-banner-btn { flex-shrink: 0; background: rgba(255,255,255,0.22); border: 1.5px solid rgba(255,255,255,0.55); color: #fff; font-size: 13px; font-weight: 800; padding: 8px 16px; border-radius: 99px; cursor: pointer; transition: background 0.15s; white-space: nowrap; }
+.plan-today-banner-btn:hover { background: rgba(255,255,255,0.35); }
+.plan-today-banner-done { background: linear-gradient(135deg,#58CC02 0%,#40a800 100%); }
+.plan-mode-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; background: var(--gray1,#f4f4f4); border-radius: 99px; padding: 3px; }
+.plan-mode-btn { flex: 1; text-align: center; font-size: 12px; font-weight: 700; padding: 6px 8px; border-radius: 99px; border: none; cursor: pointer; background: none; color: var(--gray4,#888); transition: background 0.15s, color 0.15s; }
+.plan-mode-btn.active { background: var(--card-bg,#fff); color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,0.10); }
+.plan-free-card { background: linear-gradient(135deg,#f0fdf4,#dcfce7); border: 1px solid #86efac; border-radius: 14px; padding: 20px 18px; text-align: center; margin-bottom: 16px; }
+.plan-free-card-title { font-size: 17px; font-weight: 900; color: #15803d; margin-bottom: 6px; }
+.plan-free-card-sub { font-size: 13px; font-weight: 600; color: #166534; line-height: 1.5; }
+.plan-free-card-tip { font-size: 12px; color: #16a34a; margin-top: 12px; font-weight: 600; }
+[data-study-mode="free"] .plan-pressure-widget { display: none !important; }
+.plan-sched-wrap { margin-bottom: 0; }
+.plan-sched-title { font-size: 13px; font-weight: 900; color: var(--text); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
+.plan-sched-title-hint { font-size: 11px; font-weight: 600; color: var(--gray4,#aaa); }
+.plan-sched-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+.plan-sched-cell { display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; }
+.plan-sched-day-lbl { font-size: 10px; font-weight: 700; color: var(--gray4,#aaa); }
+.plan-sched-dot { width: 32px; height: 32px; border-radius: 8px; background: var(--gray1,#f0f0f0); border: 2px solid transparent; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--gray4,#bbb); transition: background 0.15s, border-color 0.15s; }
+.plan-sched-dot.sched-on { background: #dbeafe; border-color: #3b82f6; color: #1d4ed8; }
+.plan-sched-dot.sched-today { border-color: var(--blue,#1cb0f6); }
+.plan-sched-dot.sched-on.sched-today { background: #bfdbfe; border-color: #1d4ed8; }
+.plan-sched-dot:hover { border-color: var(--blue,#1cb0f6); }
+.plan-sched-hint-row { font-size: 11px; font-weight: 600; color: var(--gray4,#aaa); margin-top: 8px; text-align: center; }
+.plan-stats-row { display: flex; gap: 8px; margin-bottom: 12px; }
+.plan-stat-pill { flex: 1; background: var(--card-bg,#fff); border: 1px solid var(--gray2,#e5e7eb); border-radius: 12px; padding: 10px 8px; text-align: center; }
+.plan-stat-pill-num { font-size: 18px; font-weight: 900; color: var(--text); line-height: 1.1; }
+.plan-stat-pill-lbl { font-size: 10px; font-weight: 700; color: var(--gray4,#aaa); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.04em; }
+.plan-stat-pill-num.psn-green { color: #58CC02; }
+.plan-stat-pill-num.psn-blue  { color: #1cb0f6; }
+.plan-stat-pill-num.psn-amber { color: #f59e0b; }
+.plan-pace-card { background: var(--card-bg,#fff); border: 1px solid var(--gray2,#e5e7eb); border-radius: 14px; padding: 14px; margin-bottom: 0; }
+.plan-pace-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.plan-pace-title { font-size: 13px; font-weight: 900; color: var(--text); }
+.plan-pace-vel-badge { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 99px; }
+.plan-pace-vel-up   { background: #dcfce7; color: #15803d; }
+.plan-pace-vel-down { background: #fee2e2; color: #dc2626; }
+.plan-pace-vel-flat { background: #dbeafe; color: #1d4ed8; }
+.plan-pace-slider-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.plan-pace-slider { flex: 1; accent-color: var(--blue,#1cb0f6); }
+.plan-pace-slider-val { font-size: 12px; font-weight: 700; color: var(--gray4,#888); min-width: 72px; text-align: right; }
+.plan-pace-results { display: flex; gap: 10px; }
+.plan-pace-result-card { flex: 1; background: var(--gray1,#f8fafc); border-radius: 10px; padding: 8px 10px; text-align: center; }
+.plan-pace-result-num { font-size: 17px; font-weight: 900; color: var(--text); }
+.plan-pace-result-lbl { font-size: 10px; font-weight: 700; color: var(--gray4,#999); margin-top: 2px; }
+.plan-pace-hint { font-size: 11px; color: var(--gray4,#aaa); margin-top: 8px; }
+.plan-pace-vel-sub { font-size: 11px; color: var(--gray4,#888); margin-top: 4px; }
 .plan-header { font-size: 22px; font-weight: 900; color: var(--text); margin-bottom: 4px; }
 .plan-sub { font-size: 14px; font-weight: 600; color: var(--gray4); margin-bottom: 20px; }
 .plan-section { margin-bottom: 24px; }
@@ -4758,7 +4952,314 @@ mark.search-hl {
 .profile-name-input { font-size: 22px; font-weight: 900; border: none; border-bottom: 2px solid var(--primary); background: transparent; text-align: center; width: 160px; outline: none; color: var(--text); }
 .profile-name-save-btn { background: var(--primary); color: white; border: none; border-radius: 6px; padding: 4px 10px; font-weight: 700; cursor: pointer; margin-left: 6px; font-size: 14px; }
 .profile-body  { padding: 0 12px; }
-.section-card  { background: var(--white); border-radius: var(--radius); margin: 12px 0; padding: 16px; border: 2px solid var(--gray2); }
+.section-card  { background: var(--white); border-radius: var(--radius); margin: 8px 0; padding: 12px; border: 2px solid var(--gray2); }
+
+/* ---- profile-37: Collapsible card system ---- */
+
+/* ---- profile-38: Profile completion bar ---- */
+
+/* ---- profile-40: Hide empty-state cards ---- */
+
+/* ---- profile-41: Export button in settings ---- */
+
+/* ---- profile-42: Bio/note field ---- */
+
+/* ---- profile-43: Compact mode toggle ---- */
+
+/* ---- profile-44: Simplified avatar card ---- */
+.avatar-card-preview-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.avatar-card-preview-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--gray2);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--gray2);
+}
+.avatar-card-preview-info {
+  flex: 1;
+  min-width: 0;
+}
+.avatar-card-preview-name {
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.avatar-card-preview-sub {
+  font-size: 12px;
+  color: var(--gray4);
+  font-weight: 600;
+}
+.avatar-card-change-btn {
+  background: var(--gray2);
+  border: 2px solid var(--gray2);
+  border-radius: 10px;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  padding: 5px 13px;
+  flex-shrink: 0;
+  transition: background 0.15s, border-color 0.15s;
+}
+.avatar-card-change-btn:hover {
+  background: var(--primary, #1cb0f6);
+  border-color: var(--primary, #1cb0f6);
+  color: white;
+}
+
+.profile-compact-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0 4px 4px;
+}
+.profile-compact-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gray4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.profile-compact-toggle {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.profile-compact-toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+.profile-compact-track {
+  position: absolute;
+  inset: 0;
+  background: var(--gray2);
+  border-radius: 20px;
+  transition: background 0.2s;
+  border: 2px solid var(--gray2);
+}
+.profile-compact-toggle input:checked ~ .profile-compact-track {
+  background: var(--green);
+  border-color: var(--green);
+}
+.profile-compact-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+.profile-compact-toggle input:checked ~ .profile-compact-track .profile-compact-thumb {
+  transform: translateX(16px);
+}
+/* In compact mode, all collapsible cards lose their expand ability */
+.profile-body.compact-mode .section-card.collapsible .section-card-header {
+  cursor: default;
+  pointer-events: none;
+}
+.profile-body.compact-mode .section-card.collapsible .section-card-chevron {
+  display: none;
+}
+
+.profile-bio-wrap {
+  margin: 6px 16px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+.profile-bio-text {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.5;
+  min-height: 16px;
+  cursor: pointer;
+  word-break: break-word;
+}
+.profile-bio-text.placeholder { color: rgba(255,255,255,0.35); font-style: italic; }
+.profile-bio-edit-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 1px 3px;
+  color: rgba(255,255,255,0.4);
+  font-size: 13px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.profile-bio-edit-btn:hover { color: rgba(255,255,255,0.85); }
+.profile-bio-textarea {
+  flex: 1;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 8px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  padding: 6px 9px;
+  resize: none;
+  outline: none;
+  line-height: 1.5;
+}
+.profile-bio-save-btn {
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 7px;
+  color: white;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  padding: 3px 9px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 1px;
+}
+.profile-bio-save-btn:hover { background: rgba(255,255,255,0.3); }
+
+.settings-export-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-top: 1px solid var(--gray2);
+  margin-top: 8px;
+}
+.settings-export-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+.settings-export-sub {
+  font-size: 11px;
+  color: var(--gray4);
+  margin-top: 2px;
+}
+.settings-export-btn {
+  background: var(--gray2);
+  border: 2px solid var(--gray2);
+  border-radius: 10px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+}
+.settings-export-btn:hover {
+  background: var(--green);
+  border-color: var(--green);
+  color: white;
+}
+
+.section-card.profile-card-empty-hidden {
+  display: none !important;
+}
+
+.profile-completion-wrap {
+  margin: 8px 16px 0;
+  background: rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 10px 14px;
+  text-align: left;
+}
+.profile-completion-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.profile-completion-pct { color: white; }
+.profile-completion-track {
+  height: 6px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.profile-completion-fill {
+  height: 100%;
+  background: rgba(255,255,255,0.75);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+.profile-completion-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 7px;
+}
+.profile-completion-item {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.55);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.profile-completion-item.done {
+  background: rgba(255,255,255,0.22);
+  color: rgba(255,255,255,0.9);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.section-card.collapsible { overflow: hidden; }
+.section-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  padding: 0;
+  margin: 0;
+}
+.section-card-header .section-title { margin-bottom: 0; }
+.section-card-chevron {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: var(--gray3);
+  transition: transform 0.25s ease;
+}
+.section-card.collapsible.collapsed .section-card-chevron {
+  transform: rotate(-90deg);
+}
+.section-card-body {
+  overflow: hidden;
+  max-height: 2000px;
+  transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.25s ease;
+  opacity: 1;
+  margin-top: 14px;
+}
+.section-card.collapsible.collapsed .section-card-body {
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0;
+}
+
+/* dc-01: hide placeholder section-cards that JS has not filled yet */
+.section-card:empty { display: none !important; }
 .section-title { font-size: 15px; font-weight: 900; color: var(--text); margin-bottom: 14px; }
 .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .stat-cell {
@@ -8384,7 +8885,7 @@ mark.search-hl {
 
   /* Cards */
   .card { border-radius: 14px; padding: 14px; }
-  .section-card { padding: 14px; }
+  .section-card { padding: 11px; }
 
   /* Continue card */
   .continue-card { padding: 16px; border-radius: 16px; }
@@ -9089,7 +9590,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
   <div id="top-bar">
     <div class="tb-streak" aria-label="Day Streak — how many days in a row you have done a lesson" title="Your day streak! This counts how many days in a row you've done at least one lesson. Miss a day and it resets to zero — try to keep it going!">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="#ff9600"><path d="M13.5 0.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5 0.67z"/></svg>
-      <span id="tb-streak-num">0</span><span class="tb-streak-label" style="font-size:9px;font-weight:700;color:var(--gray4);letter-spacing:0.3px;margin-left:2px;line-height:1;">day streak</span>
+      <span id="tb-streak-num">0</span>
     </div>
     <div class="tb-hearts" id="tb-hearts" aria-label="Your lives — answer correctly to keep them" title="These are your lives. If you get too many answers wrong, you lose one. They refill automatically after a short wait, or you can refill them with Gems from the shop."></div>
     <div class="tb-gems" id="tb-gems" onclick="openGemShop()" aria-label="Gems - open shop" title="Gems are rewards you earn by completing lessons. Spend them in the Gem Shop for bonuses like extra lives or a Day Off Pass!"></div>
@@ -9097,7 +9598,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
     <span id="tb-course-pct" class="tb-course-pct" aria-label="Course completion percentage"></span>
     <div id="tb-xp-bar-wrap" aria-hidden="true"><div id="tb-xp-bar-fill"></div></div>
     <span id="tb-lesson-streak" aria-label="Lessons completed this session"></span>
-    <div id="tb-streak-reminder" class="tb-streak-reminder" style="display:none;" aria-live="polite">&#x1F525; Keep your streak alive!</div>
+    <div id="tb-streak-reminder" class="tb-streak-reminder" style="display:none;" aria-live="polite">Keep your streak alive!</div>
     <div id="tb-search-wrap" role="search" aria-label="Search lessons">
       <button id="tb-search-icon-btn" onclick="toggleTopBarSearch()" title="Search lessons" aria-label="Search lessons" aria-expanded="false">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
@@ -9130,7 +9631,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
         <div class="ob-mascot" id="ob-welcome-mascot"></div>
         <div>
           <div class="ob-title">Hey! I'm Clari.</div>
-          <div class="ob-sub mt8">I'm a little robot who's going to help you figure out this whole AI thing. No tech degree required. No pressure. Just us.</div>
+          <div class="ob-sub mt8">I'll help you learn AI — no tech background needed.</div>
         </div>
         <div class="ob-expect-section">
           <div class="ob-expect-heading">What to expect</div>
@@ -9161,7 +9662,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
       <!-- ob-experience -->
       <div class="ob-screen hidden" id="ob-experience">
         <div class="ob-progress-dots" id="ob-dots-exp"></div>
-        <div class="ob-title">🤔 Have you ever used AI before?</div>
+        <div class="ob-title">Have you ever used AI before?</div>
         <div class="ob-cards">
           <button class="ob-card" onclick="obSelectCard(this,'experience','none')">
             <div class="ob-card-icon blue">
@@ -9188,7 +9689,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
       <!-- ob-techcomfort -->
       <div class="ob-screen hidden" id="ob-techcomfort">
         <div class="ob-progress-dots" id="ob-dots-tech"></div>
-        <div class="ob-title">📱 How comfortable are you with technology?</div>
+        <div class="ob-title">How comfortable are you with technology?</div>
         <div class="ob-cards">
           <button class="ob-card" onclick="obSelectCard(this,'tech_comfort','basic')">
             <div class="ob-card-icon yellow">
@@ -9302,6 +9803,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
         </button>
       </div>
       <div class="lesson-content" id="lesson-content"></div>
+      <div class="practice-session-prog-wrap" id="practice-session-prog-wrap"><span class="practice-sess-prog-label" id="psp-label">Q 1 of 1</span><div class="practice-sess-prog-track"><div class="practice-sess-prog-fill" id="psp-fill" style="width:0%;"></div></div><span class="practice-sess-prog-pct" id="psp-pct">0%</span></div>
       <div class="lesson-footer" id="lesson-footer"></div>
     </div>
 
@@ -9311,15 +9813,13 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
       <div id="practice-mode-banner" class="practice-mode-banner">
         <div class="pmb-top">
           <div>
-            <div class="pmb-title">Practice Mode</div>
             <div class="pmb-subtitle" id="pmb-subtitle-text">Sharpen your skills with quick exercises</div>
           </div>
           <button id="practice-sound-toggle-btn" class="pmb-sound-btn" onclick="togglePracticeSounds()" title="Toggle practice sounds" aria-label="Toggle practice sounds">&#x1F514;</button>
         </div>
         <div id="pmb-streak-shield-wrap" style="margin-top:8px;"></div>
         <div class="pmb-stats" id="pmb-stats-strip">
-          <div class="pmb-stat" id="pmb-today-stat">&#x1F4C5; 0 today</div>
-          <div class="pmb-stat" id="pmb-streak-stat">&#x1F525; 0 day streak</div>
+          <div class="pmb-stat" id="pmb-today-stat">0 today</div>
           <div id="pmb-xp-mult-pill" style="display:none;"></div>
           <div class="pmb-sparkline-pill" id="pmb-accuracy-sparkline" title="Accuracy over last 7 sessions" style="display:none;"></div>
         </div>
@@ -9345,12 +9845,20 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
           </div>
           <div class="practice-card-info">
             <div class="practice-card-title">Quick Practice</div>
-            <div class="practice-card-sub">5 random questions from completed lessons</div>
+            <div class="practice-card-sub">5 random questions</div>
             <div id="practice-pool-size-quick" style="font-size:11px;font-weight:700;color:var(--gray4);margin-top:3px;"></div>
             <div id="pbs-chip-quick"></div>
           </div>
           <button class="btn btn-blue btn-sm" onclick="showDifficultySelector(&apos;quick&apos;)">Start</button>
         </div>
+      </div><!-- /.practice-modes primary -->
+      <button class="practice-more-toggle-btn" id="practice-more-toggle-btn"
+        onclick="(function(btn){var ex=document.getElementById('practice-modes-extra');var open=ex.classList.toggle('open');btn.classList.toggle('open',open);btn.querySelector('.pmtb-chevron').textContent=open?'&#9650;':'&#9660;';btn.querySelector('.pmtb-label').textContent=open?'Fewer options':'More options';})(this)"
+        aria-expanded="false">
+        <span class="pmtb-label">More options</span>
+        <span class="pmtb-chevron">&#9660;</span>
+      </button>
+      <div class="practice-modes-extra" id="practice-modes-extra">
         <div class="practice-card" id="weak-areas-card">
           <div class="practice-card-icon-wrap">
             <div class="practice-card-icon" style="background:#fff3e0;">
@@ -9360,7 +9868,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
           </div>
           <div class="practice-card-info">
             <div class="practice-card-title">Weak Areas</div>
-            <div class="practice-card-sub">Review questions you got wrong before</div>
+            <div class="practice-card-sub">Questions you got wrong</div>
             <div id="practice-pool-size-weak" style="font-size:11px;font-weight:700;color:var(--gray4);margin-top:3px;"></div>
             <div id="pbs-chip-weak"></div>
           </div>
@@ -9372,7 +9880,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
           </div>
           <div class="practice-card-info">
             <div class="practice-card-title">Timed Challenge</div>
-            <div class="practice-card-sub">10 questions in 60 seconds — bonus XP!</div>
+            <div class="practice-card-sub">10 questions, 60 seconds</div>
             <div id="practice-pool-size-timed" style="font-size:11px;font-weight:700;color:var(--gray4);margin-top:3px;"></div>
             <div id="pbs-chip-timed"></div>
           </div>
@@ -9384,12 +9892,12 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
           </div>
           <div class="practice-card-info">
             <div class="practice-card-title">Weak Spots Drill</div>
-            <div class="practice-card-sub">7 questions from your hardest topic</div>
+            <div class="practice-card-sub">7 hardest-topic questions</div>
             <div id="practice-weak-drill-target" style="font-size:11px;font-weight:700;color:var(--gray4);margin-top:3px;"></div>
           </div>
           <button class="btn btn-sm" id="weak-drill-start-btn" style="background:#ef4444;color:#fff;border:none;" onclick="startWeakDrill()">Drill</button>
         </div>
-      </div>
+      </div><!-- /.practice-modes-extra -->
       <div style="display:flex;justify-content:flex-end;margin:4px 0 10px;">
         <button id="practice-focus-toggle-btn" class="practice-focus-btn" onclick="setPracticeFocusMode(!practiceFocusMode)" aria-label="Toggle Focus Mode">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -9464,17 +9972,31 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
       <div class="profile-name" id="profile-name-text">You</div>
       <button class="profile-name-edit-btn" onclick="editProfileName()" title="Edit name"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M17 3L21 7L8 20L3 21L4 16Z'/><line x1='14' y1='6' x2='18' y2='10'/></svg></span></button>
     </div>
-    <div id="profile-level-chip-wrap" style="text-align:center;"></div>
     <div id="profile-xp-bar-wrap-outer" style="text-align:center;padding:0 20px;"></div>
     <div id="profile-goal-row-wrap" style="margin-top:2px;"></div>
     <div id="profile-clari-greeting" style="margin-top:10px;padding:0;"></div>
     <div id="profile-stat-strip"></div>
     <div id="profile-theme-toggle-wrap" style="margin-top:6px;"></div>
+    <div id="profile-completion-bar-wrap"></div>
+    <div id="profile-bio-wrap-outer"></div>
   </div>
-  <div class="profile-body">
-    <div class="section-card">
-      <div class="section-title">Your Avatar</div>
-      <div class="avatar-picker" id="avatar-picker"></div>
+  <div class="profile-body" id="profile-body-wrap">
+    <div class="profile-compact-bar" id="profile-compact-bar">
+      <span class="profile-compact-label">Compact</span>
+      <label class="profile-compact-toggle" title="Compact mode">
+        <input type="checkbox" id="profile-compact-checkbox" onchange="toggleProfileCompactMode(this.checked)">
+        <span class="profile-compact-track"><span class="profile-compact-thumb"></span></span>
+      </label>
+    </div>
+    <div class="section-card collapsible collapsed" id="profile-avatar-card">
+      <div id="profile-avatar-card-preview"></div>
+      <div class="section-card-header" onclick="toggleProfileCard(this)">
+        <div class="section-title" style="margin-bottom:0">Your Avatar</div>
+        <svg class="section-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="section-card-body">
+        <div class="avatar-picker" id="avatar-picker"></div>
+      </div>
     </div>
     <div class="section-card" id="profile-summary-card"></div>
     <div class="section-card" id="profile-stats-card" style="display:none;" aria-hidden="true">
@@ -9490,32 +10012,32 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
       <div class="section-title">90-Day Activity</div>
       <div id="profile-heatmap"></div>
     </div>
-    <div class="section-card" id="profile-activity-card"></div>
-    <div class="section-card" id="profile-streak-stats-card"></div>
-    <div class="section-card" id="profile-skills-card"></div>
-    <div class="section-card" id="profile-weekly-card"></div>
-    <div class="section-card" id="profile-share-card"></div>
-    <div class="section-card" id="profile-personality-card"></div>
-    <div class="section-card" id="profile-milestone-card"></div>
-    <div class="section-card" id="profile-xp-level-card"></div>
-    <div class="section-card" id="profile-cert-showcase-card"></div>
-    <div class="section-card" id="profile-habits-card"></div>
-    <div class="section-card" id="profile-goal-card"></div>
-    <div class="section-card" id="profile-username-card"></div>
-    <div class="section-card" id="profile-balance-card"></div>
-    <div class="section-card" id="profile-answer-streak-card"></div>
-    <div class="section-card" id="profile-total-q-card"></div>
-    <div class="section-card" id="profile-fav-topic-card"></div>
-    <div class="section-card" id="profile-days-goal-card"></div>
-    <div class="section-card" id="profile-share-progress-card"></div>
-    <div class="section-card" id="profile-study-hours-card"></div>
-    <div class="section-card" id="profile-pr-board-card"></div>
-    <div class="section-card" id="profile-accuracy-chart-card"></div>
-    <div class="section-card" id="profile-unit-mastery-card"></div>
-    <div class="section-card" id="profile-weakness-card"></div>
-    <div class="section-card" id="profile-dna-card"></div>
-    <div class="section-card" id="profile-commitment-card"></div>
-    <div class="section-card" id="profile-export-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-activity-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-streak-stats-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-skills-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-weekly-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-share-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-personality-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-milestone-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-xp-level-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-cert-showcase-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-habits-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-goal-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-username-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-balance-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-answer-streak-card" style="display:none" aria-hidden="true"></div>
+    <div class="section-card collapsible collapsed" id="profile-total-q-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-fav-topic-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-days-goal-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-share-progress-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-study-hours-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-pr-board-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-accuracy-chart-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-unit-mastery-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-weakness-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-dna-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-commitment-card"></div>
+    <div class="section-card" id="profile-export-card" style="display:none" aria-hidden="true"></div>
     <div class="section-card">
       <div class="section-title">My Notes</div>
       <div id="profile-notes-list"></div>
@@ -9583,7 +10105,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
     <span class="nav-pill">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/><path d="M12 6v6l4 2"/></svg>
     </span>
-    My Plan
+    Plan
   </button>
   <button class="nav-tab" id="nav-profile" onclick="switchTab(&apos;profile&apos;)" aria-label="Profile tab">
     <span class="nav-pill">
@@ -20555,47 +21077,42 @@ function obSelectCard(el, key, val) {
 const SURVEY_QUESTIONS = [
   {
     key: 'q_profession', label: 'Your Work', multi: false,
-    text: '💼 What best describes your work?',
-    hint: 'Fun fact: AI tools are being used across every industry — from nursing to real estate!',
+    text: 'What best describes your work?',
     options: ['Admin & Office Work', 'Bookkeeping & Accounts', 'Customer Service', 'Healthcare / Nursing', 'Small Business Owner', 'Teaching & Education', 'Real Estate', 'Retired & Exploring', 'Something else']
   },
   {
     key: 'q_pain', label: 'Your Biggest Time-Waster', multi: false,
-    text: '⏰ What takes up too much of your time right now?',
-    hint: 'Fun fact: AI can handle most of these tasks in under 30 seconds — seriously!',
+    text: 'What takes up too much of your time right now?',
     options: ['Writing the same emails over and over', 'Filling in forms and doing paperwork', 'Chasing payments or sorting invoices', 'Answering the same customer questions', 'Writing reports and summaries', 'Keeping track of things and staying organised']
   },
   {
     key: 'q1', label: 'Your Goal', multi: false,
-    text: '🎯 What would make the biggest difference for you?',
+    text: 'What would make the biggest difference for you?',
     options: ['Save time on emails and writing', 'Get through my paperwork faster', 'Have AI do my research for me', 'Use AI for my specific job', 'Start from the very beginning', 'Do creative projects']
   },
   {
     key: 'q_tried', label: "AI Tools You've Tried", multi: true,
-    text: '🧪 Which of these have you tried?',
-    hint: 'Fun fact: ChatGPT reached 100 million users in just 2 months — the fastest app ever!',
+    text: 'Which of these have you tried?',
     options: ['ChatGPT', 'Siri / Alexa', 'Google Search', 'None yet']
   },
   {
     key: 'q_worry', label: 'Your Worries', multi: false,
-    text: "🤔 What's your biggest worry about AI?",
-    hint: "Heads up: every one of these is a real concern — and we'll cover them all in this course!",
+    text: "What's your biggest worry about AI?",
     options: ['Privacy / data safety', 'Getting wrong answers', 'It being too complicated', 'Losing my job to AI']
   },
   {
     key: 'q3', label: 'Your Device', multi: false,
-    text: '💻 Which device do you use most?',
+    text: 'Which device do you use most?',
     options: ['Phone', 'Computer', 'Tablet', 'Multiple devices']
   },
   {
     key: 'q4', label: 'Daily Time', multi: false,
-    text: '⏳ How much time can you spend learning each day?',
-    hint: 'Fun fact: just 5 minutes a day adds up to over 30 hours of learning in a year!',
+    text: 'How much time can you spend learning each day?',
     options: ['Just 5 minutes (1 lesson)', 'About 10-15 minutes (2 lessons)', 'Half an hour (3 lessons)', 'As much as needed (5 lessons)']
   },
   {
     key: 'q_study', label: 'Study Focus', multi: false,
-    text: '📚 What kind of work do you most need help with?',
+    text: 'What kind of work do you most need help with?',
     options: ['Essays & papers', 'Research & citations', 'Studying & exam prep', 'Presentations', 'Job applications'],
     condition: (answers) => !answers.q_profession || answers.q_profession === 'Something else' || answers.q_profession === 'Teaching & Education' || answers.q_profession === 'Retired & Exploring'
   }
@@ -21481,21 +21998,7 @@ function renderLearnTab() {
   // Render units
   let html = '';
 
-  // learn-39: study time total chip (show only if at least 1 lesson completed)
-  (function() {
-    var _completedCount = (S.completed || []).length;
-    if (_completedCount === 0) return;
-    var _totalMins = getTotalStudiedMinutes();
-    var _timeLabel = formatStudyTime(_totalMins);
-    html += '<div class="study-time-chip">'
-      + '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"'
-      + ' stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
-      + '<circle cx="12" cy="12" r="9"/><polyline points="12,7 12,12 15,14"/>'
-      + '</svg>'
-      + escHtml(_timeLabel)
-      + ' • ' + _completedCount + ' lesson' + (_completedCount !== 1 ? 's' : '') + ' done'
-      + '</div>';
-  })();
+  // learn-cl-01: study-time-chip removed (redundant with goal bar)
 
   // Bookmarks strip
   var _bkIds = S.bookmarks || [];
@@ -21656,9 +22159,7 @@ function renderLearnTab() {
     return _tod.state; // streak 1-2: keep time-of-day expression
   })();
   const _name = S.user_name ? (', ' + S.user_name) : '';
-  // Did You Know fact card
-  var _dyk = DID_YOU_KNOW[Math.floor(Math.random() * DID_YOU_KNOW.length)];
-  html += '<div class="dyk-card"><span class="dyk-label">💡 Did you know?</span><span class="dyk-text">' + _dyk + '</span></div>';
+  // learn-cl-03: dyk-card removed (random trivia added visual noise)
   // Recommended Next — 1-2 next-in-order incomplete lessons
   (function() {
     var _recNext = [];
@@ -22126,17 +22627,7 @@ function renderLearnTab() {
           + '<line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>'
           + '</svg></button>';
 
-        // learn-32: reading time chip
-        var _rtMins = estimateLessonMinutes(lesson);
-        var _rtClass = _rtMins <= 3 ? 'rt-short' : (_rtMins <= 6 ? 'rt-medium' : 'rt-long');
-        var _rtChip = '<span class="lesson-rt-chip ' + _rtClass + '">'
-          + '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"'
-          + ' stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"'
-          + ' style="flex-shrink:0">'
-          + '<circle cx="12" cy="12" r="9"/>'
-          + '<polyline points="12,7 12,12 15,14"/>'
-          + '</svg>'
-          + '~' + _rtMins + ' min read</span>';
+        // learn-cl-02: reading time chip removed (redundant)
 
         html += `<div class="lesson-row ${done ? 'completed' : ''} ${locked ? 'locked' : ''} ${_unitTintClass} ${_isPinned37 ? 'pinned-lesson' : ''}"
           style="${_unitTintStyle}"
@@ -22145,7 +22636,7 @@ function renderLearnTab() {
           <div class="lesson-icon" style="background:${iconBg}">${iconContent}</div>
           <div class="lesson-info">
             <div class="lesson-title"><span class="lpm-title-trigger" onclick="event.stopPropagation();openLessonPreview('${lesson.id}', event)" title="Preview this lesson" style="cursor:pointer;">${learnSearchQuery.trim() ? highlightSearch(lesson.title, learnSearchQuery) : escHtml(lesson.title)}</span>${_recentBadge}${_xpBoostBadge}${_pinBadge37}</div>
-            <div class="lesson-meta">${_rtChip} +${lesson.xp} XP${diffBadge}${_ratingStarsHtml}<span class="lesson-slides-count"> &bull; ${(lesson.slides||[]).length} slide${(lesson.slides||[]).length !== 1 ? 's' : ''}</span></div>
+            <div class="lesson-meta">+${lesson.xp} XP${diffBadge}${_ratingStarsHtml}<span class="lesson-slides-count"> &bull; ${(lesson.slides||[]).length} slide${(lesson.slides||[]).length !== 1 ? 's' : ''}</span></div>
             ${starsHtml}${_tagsHtml}
             ${_completedDateHtml}
           </div>
@@ -22394,7 +22885,6 @@ function buildRecommendedStrip(n) {
   }).join('');
 
   return `<div style="margin:0 12px 16px;">
-    <div class="rec-strip-label">&#10024; Recommended for You</div>
     <div class="rec-strip">${cards}</div>
   </div>`;
 }
@@ -28205,6 +28695,11 @@ function renderLessonComplete() {
     if (_cb) { _cb.className = ''; }
   })();
   document.getElementById('lesson-progress-bar').style.width = '100%';
+  // practice-56b: hide sticky progress bar on finish
+  (function() {
+    var _pw56f = document.getElementById('practice-session-prog-wrap');
+    if (_pw56f) _pw56f.classList.remove('visible');
+  })();
 
   const noErrors = lessonState.wrongThisLesson === 0;
   const starCount = noErrors ? 3 : lessonState.wrongThisLesson <= 2 ? 2 : 1;
@@ -29281,7 +29776,7 @@ function renderPracticeTab() {
     var _todayData = S.practice_today || { date: '', count: 0 };
     var _todayCount = (_todayData.date === _today) ? (_todayData.count || 0) : 0;
     var _todayStatEl = document.getElementById('pmb-today-stat');
-    if (_todayStatEl) _todayStatEl.innerHTML = '&#x1F4C5; ' + _todayCount + ' question' + (_todayCount === 1 ? '' : 's') + ' today';
+    if (_todayStatEl) _todayStatEl.textContent = _todayCount + ' question' + (_todayCount === 1 ? '' : 's') + ' today';
 
     // Current streak from lesson_log
     var _log = S.lesson_log || {};
@@ -29295,7 +29790,14 @@ function renderPracticeTab() {
       } else { break; }
     }
     var _streakStatEl = document.getElementById('pmb-streak-stat');
-    if (_streakStatEl) _streakStatEl.innerHTML = '&#x1F525; ' + _streak + ' day streak';
+    if (_streakStatEl) {
+      if (_streak > 0) {
+        _streakStatEl.textContent = _streak + '-day streak';
+        _streakStatEl.style.display = '';
+      } else {
+        _streakStatEl.style.display = 'none';
+      }
+    }
     // practice-54: XP multiplier pill based on streak
     (function() {
       var _multPill54 = document.getElementById('pmb-xp-mult-pill');
@@ -29333,7 +29835,6 @@ function renderPracticeTab() {
         <div class="reviews-due-count">${_dueIds.length}</div>
         <div style="flex:1;">
           <div class="reviews-due-label">Review${_dueIds.length > 1 ? 's' : ''} due today</div>
-          <div class="reviews-due-sub">Reinforce what you've learned before you forget it — takes ~2 min</div>
         </div>
         <button class="btn btn-yellow btn-sm" style="flex-shrink:0;" onclick="event.stopPropagation();startPractice(&apos;review&apos;)">Start</button>
       </div>`;
@@ -29654,15 +30155,17 @@ function renderPracticeRecords() {
   }).join('');
 
   el.innerHTML =
-    '<div class="practice-pb-card">' +
-      '<div class="practice-pb-card-title">' +
-        '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
-          '<circle cx="12" cy="8" r="6"/><path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12"/>' +
-        '</svg>' +
-        'Personal Bests' +
-      '</div>' +
-      '<div class="practice-pb-table">' + tableHtml + '</div>' +
-    '</div>';
+    '<div class="practice-pb-card-outer">'
+    + '<button class="practice-pb-card-toggle" onclick="(function(btn){btn.classList.toggle(\'open\');btn.nextElementSibling.classList.toggle(\'open\');})(this)" aria-expanded="false">'
+    + '<span class="practice-pb-toggle-inner">'
+    + '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12"/></svg>'
+    + 'Personal Bests'
+    + '</span>'
+    + '<span class="practice-pb-card-chevron">&#9660;</span>'
+    + '</button>'
+    + '<div class="practice-pb-card-body">'
+    + '<div class="practice-pb-table">' + tableHtml + '</div>'
+    + '</div></div>';
 }
 
 function renderPracticeRecentSessions() {
@@ -30130,6 +30633,30 @@ function _teardownPracticeKeyboardShortcuts() {
   }
 }
 
+// practice-55b: toggle bookmark for a practice question
+function togglePracticeFavorite(btn) {
+  if (!btn) return;
+  var _q55 = btn.getAttribute('data-question') || '';
+  var _favs = S.practice_favorites || [];
+  var _idx = _favs.findIndex(function(f) { return f && f.question === _q55; });
+  var _lbl = document.getElementById('pfb-lbl');
+  if (_idx >= 0) {
+    _favs.splice(_idx, 1);
+    btn.classList.remove('saved');
+    if (_lbl) _lbl.textContent = 'Bookmark';
+  } else {
+    var _curQ = lessonState.practiceQuestions && lessonState.practiceQuestions[lessonState.practiceIdx];
+    _favs.push({
+      question: _q55,
+      lessonId: (_curQ || {}).lessonId || '',
+      date: new Date().toISOString().split('T')[0]
+    });
+    btn.classList.add('saved');
+    if (_lbl) _lbl.textContent = 'Bookmarked';
+  }
+  save('practice_favorites', _favs);
+}
+
 function pausePractice() {
   if (!lessonState || !lessonState.practiceType === 'timed') return;
   if (lessonState.practicePaused) return;
@@ -30211,6 +30738,19 @@ function renderPracticeQuestion() {
   const idx = lessonState.practiceIdx;
 
   document.getElementById('lesson-progress-bar').style.width = ((idx / total) * 100) + '%';
+  // practice-56b: update sticky session progress bar
+  (function() {
+    var _pw56b = document.getElementById('practice-session-prog-wrap');
+    if (!_pw56b) return;
+    _pw56b.classList.add('visible');
+    var _pct56b = total > 0 ? Math.round((idx / total) * 100) : 0;
+    var _lbl56b = document.getElementById('psp-label');
+    var _fill56b = document.getElementById('psp-fill');
+    var _pct56bEl = document.getElementById('psp-pct');
+    if (_lbl56b) _lbl56b.textContent = 'Q ' + (idx + 1) + ' of ' + total;
+    if (_fill56b) _fill56b.style.width = _pct56b + '%';
+    if (_pct56bEl) _pct56bEl.textContent = _pct56b + '%';
+  })();
   document.getElementById('lesson-hearts').innerHTML = renderHearts(lessonState.hearts, 5);
   lessonState.slideAnswered = false;
   lessonState.inPractice = true;
@@ -30229,6 +30769,10 @@ function renderPracticeQuestion() {
 
   var _kbHintHtml = 'ontouchstart' in window ? '' :
     '<div class="practice-kb-hint"><kbd>1</kbd><span class="kb-sep">&ndash;</span><kbd>4</kbd> to answer &nbsp;&bull;&nbsp; <kbd>Enter</kbd> to confirm</div>';
+  // practice-55b: bookmark button for current question
+  var _pFavs55 = S.practice_favorites || [];
+  var _pFavQ55 = (q && q.question) ? q.question : '';
+  var _pIsFav55 = _pFavs55.some(function(f) { return f && f.question === _pFavQ55; });
   // practice-50: update pace pill
   (function() {
     var _pp = document.getElementById('practice-pace-pill');
@@ -30253,6 +30797,20 @@ function renderPracticeQuestion() {
 
   document.getElementById('lesson-footer').innerHTML =
     `<button class="btn btn-green btn-full" id="lesson-next-btn" onclick="nextPracticeQuestion()" disabled>Next</button>`;
+  // practice-55b: inject bookmark button after content renders
+  (function() {
+    var _hintWrap55 = document.getElementById('practice-hint-wrap');
+    if (!_hintWrap55) return;
+    var _favBtn55 = document.createElement('div');
+    _favBtn55.style.textAlign = 'center';
+    _favBtn55.innerHTML = '<button class="practice-fav-btn' + (_pIsFav55 ? ' saved' : '') + '" id="practice-fav-btn"'
+      + ' onclick="togglePracticeFavorite(this)"'
+      + ' data-question="' + (_pFavQ55 || '').replace(/"/g, '&quot;') + '">'
+      + '<span class="practice-fav-star">&#x2605;</span>'
+      + '<span id="pfb-lbl">' + (_pIsFav55 ? 'Bookmarked' : 'Bookmark') + '</span>'
+      + '</button>';
+    _hintWrap55.parentNode.insertBefore(_favBtn55, _hintWrap55.nextSibling);
+  })();
 
   if (lessonState.practiceType === 'timed') {
     var _rPct = (lessonState.timedSeconds / 60) * 100;
@@ -30950,7 +31508,7 @@ function finishPractice() {
         + '<div style="font-size:13px;font-weight:600;color:var(--gray4);">Time: ' + _elapsedStr + '</div>'
         + ((lessonState.practiceType !== 'timed' && lessonState.avgAnswerTime) ? '<div style="font-size:12px;font-weight:700;color:#0369a1;">Avg: ' + lessonState.avgAnswerTime.toFixed(1) + 's per question</div>' : '')
         + '<div class="xp-earned-pill"><svg width="18" height="18" viewBox="0 0 24 24" fill="#5c4200"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>+' + (20 + bonusXP) + ' XP earned</div>'
-        + (lessonState.practiceType === 'timed' ? '<div style="font-size:13px;font-weight:700;color:var(--purple);">Timed bonus XP included!</div>' : lessonState.practiceType === 'review' ? "<div style='font-size:13px;font-weight:700;color:#9a7000;'>Review bonus XP — memory locked in!</div>" : '')
+
         + '<div id="practice-xp-breakdown-panel"></div>'
         + '</div>';
     } else {
@@ -31033,12 +31591,17 @@ function finishPractice() {
         '<span class="practice-xpbd-val' + (r.bonus ? ' bonus' : '') + '">+' + r.val + ' XP</span>' +
         '</div>';
     }).join('');
-    _panel.innerHTML = '<div class="practice-xp-breakdown">' +
-      '<div class="practice-xpbd-title">🌟 XP Breakdown</div>' +
-      _rowsHtml +
-      '<div class="practice-xpbd-total" data-idx="' + _xpData.rows.length + '">' +
-        '<span>Total</span><span>+' + _xpData.total + ' XP</span>' +
-      '</div></div>';
+    _panel.innerHTML = '<div class="practice-xpbd-outer">'
+      + '<button class="practice-xpbd-toggle" onclick="(function(btn){btn.classList.toggle(\'open\');var inner=btn.nextElementSibling;inner.classList.toggle(\'open\');})(this)" aria-expanded="false">'
+      + '<span>XP Breakdown</span>'
+      + '<span class="practice-xpbd-toggle-chevron">&#9660;</span>'
+      + '</button>'
+      + '<div class="practice-xpbd-inner">'
+      + '<div class="practice-xp-breakdown" style="border:none;background:none;padding:4px 0 0;">'
+      + _rowsHtml
+      + '<div class="practice-xpbd-total" data-idx="' + _xpData.rows.length + '">'
+      + '<span>Total</span><span>+' + _xpData.total + ' XP</span>'
+      + '</div></div></div></div>';
     // Staggered animation
     var _allRows = _panel.querySelectorAll('.practice-xpbd-row, .practice-xpbd-total');
     _allRows.forEach(function(el, i) {
@@ -31081,9 +31644,13 @@ function finishPractice() {
     }
   })();
   var _noteHtml = '<div class="practice-session-note-wrap">'
-    + '<div class="practice-session-note-label">&#x1F4DD; Session Note</div>'
+    + '<div class="practice-session-note-meta">'
+    + '<span class="psnm-label">Session Note</span>'
+    + '<span class="psnm-counter" id="psnc">0 / 400</span>'
+    + '</div>'
     + '<textarea id="practice-session-note-ta" class="practice-session-note-textarea"'
-    + ' placeholder="What did you learn or struggle with today?" maxlength="400"></textarea>'
+    + ' placeholder="What did you learn or struggle with today?" maxlength="400"'
+    + ' oninput="(function(t){var n=t.value.length;var c=document.getElementById(\'psnc\');if(c){c.textContent=n+\' / 400\';c.className=\'psnm-counter\'+(n>=380?\'full\':(n>=300?\'near\':\'\'));}})(this)"></textarea>'
     + '<button id="practice-session-note-btn" class="practice-session-note-save" onclick="savePracticeSessionNote()">Save Note</button>'
     + '<div id="practice-session-note-saved" class="practice-session-note-saved">&#x2713; Note saved!</div>'
     + '</div>';
@@ -31102,7 +31669,6 @@ function finishPractice() {
   document.getElementById('lesson-footer').innerHTML =
     _reviewBtn
     + `<button class="btn btn-blue btn-full" style="margin-bottom:10px;" onclick="doCloseLesson();setTimeout(()=>startPractice(&apos;${_practiceAgainType}&apos;),80);">Practice Again</button>`
-    + `<button class="btn btn-ghost btn-full" style="margin-bottom:10px;border:2px solid var(--gray3);font-weight:800;" onclick="challengeFriend()">🤝 Challenge a Friend</button>`
     + `<button class="btn-share-progress" onclick="shareSessionProgress()">📤 Share Progress</button>`
     + _pqHtml
     + _noteHtml
@@ -31114,6 +31680,11 @@ function finishPractice() {
     var _qCard = document.getElementById('practice-quote-card');
     if (_qCard) _qCard.classList.add('visible');
   }, 900);
+  // practice-59b: auto-focus note textarea
+  setTimeout(function() {
+    var _nt59 = document.getElementById('practice-session-note-ta');
+    if (_nt59 && !_nt59.value) _nt59.focus();
+  }, 1100);
 }
 
 // ============================================================
@@ -31904,6 +32475,121 @@ function renderPlanTab() {
 
   var html = '';
 
+  // --- Study Mode Toggle (plan-37) ---
+  (function() {
+    var _mode37 = (typeof localStorage !== 'undefined' ? (localStorage.getItem('planStudyMode') || 'goals') : 'goals');
+    var _isGoals37 = _mode37 !== 'free';
+    if (typeof document !== 'undefined') {
+      var _planView37 = document.getElementById('view-plan');
+      if (_planView37) _planView37.setAttribute('data-study-mode', _mode37);
+    }
+    var _goalsOc37 = "(function(){"
+      + "localStorage.setItem('planStudyMode','goals');"
+      + "var v=document.getElementById('view-plan');if(v)v.setAttribute('data-study-mode','goals');"
+      + "renderPlanTab();"
+      + "})()";
+    var _freeOc37 = "(function(){"
+      + "localStorage.setItem('planStudyMode','free');"
+      + "var v=document.getElementById('view-plan');if(v)v.setAttribute('data-study-mode','free');"
+      + "renderPlanTab();"
+      + "})()";
+    var _gCls37 = 'plan-mode-btn' + (_isGoals37 ? ' active' : '');
+    var _fCls37 = 'plan-mode-btn' + (!_isGoals37 ? ' active' : '');
+    html +=
+      '<div class="plan-mode-bar">' +
+        '<button class="' + _gCls37 + '" onclick="' + _goalsOc37 + '">Daily Goals</button>' +
+        '<button class="' + _fCls37 + '" onclick="' + _freeOc37 + '">Free Study</button>' +
+      '</div>';
+    if (!_isGoals37) {
+      var _freeTips37 = [
+        'Explore a topic that interests you today.',
+        'Revisit an old lesson for a fresh perspective.',
+        'No pressure &mdash; even one lesson counts.',
+        'Browse topics freely and follow your curiosity.',
+        'Learning is a journey, not a race.'
+      ];
+      var _freeTip37 = _freeTips37[(new Date().getDate()) % _freeTips37.length];
+      html +=
+        '<div class="plan-free-card">' +
+          '<div class="plan-free-card-title">Free Study Mode</div>' +
+          '<div class="plan-free-card-sub">No daily goals, no pressure. Just learn what interests you at your own pace.</div>' +
+          '<div class="plan-free-card-tip">' + _freeTip37 + '</div>' +
+        '</div>';
+    }
+  })();
+
+  // --- Today Lesson Banner (plan-35) ---
+  (function() {
+    var _today35  = todayStr();
+    var _log35    = S.lesson_log || {};
+    var _todayCnt35 = _log35[_today35] || 0;
+    var _goal35   = S.daily_goal || 1;
+    var _goalMet35 = _todayCnt35 >= _goal35;
+    var _nextId35 = null, _nextTitle35 = '', _nextUnit35 = '';
+    for (var _ui35 = 0; _ui35 < COURSE.length && !_nextId35; _ui35++) {
+      var _u35 = COURSE[_ui35];
+      for (var _li35 = 0; _li35 < _u35.lessons.length; _li35++) {
+        var _l35 = _u35.lessons[_li35];
+        if (!S.completed.includes(_l35.id) && (_l35.free || S.premium)) {
+          _nextId35    = _l35.id;
+          _nextTitle35 = _l35.title || 'Next Lesson';
+          _nextUnit35  = _u35.title || '';
+          break;
+        }
+      }
+    }
+    if (!_nextId35 && !_goalMet35) return;
+    var _bannerCls35 = 'plan-today-banner' + (_goalMet35 ? ' plan-today-banner-done' : '');
+    if (_goalMet35) {
+      html +=
+        '<div class="' + _bannerCls35 + '">' +
+          '<div class="plan-today-banner-icon">&#10003;</div>' +
+          '<div class="plan-today-banner-body">' +
+            '<div class="plan-today-banner-label">Daily goal</div>' +
+            '<div class="plan-today-banner-title">Goal complete for today!</div>' +
+            '<div class="plan-today-banner-meta">' + _todayCnt35 + ' lesson' + (_todayCnt35 !== 1 ? 's' : '') + ' done &mdash; great work</div>' +
+          '</div>' +
+        '</div>';
+    } else if (_nextId35) {
+      var _startOc35 = "startLesson('" + _nextId35 + "')";
+      var _metaLbl35 = _nextUnit35 ? (_nextUnit35 + ' &middot; ' + _todayCnt35 + '/' + _goal35 + ' done today') : (_todayCnt35 + '/' + _goal35 + ' done today');
+      html +=
+        '<div class="' + _bannerCls35 + '">' +
+          '<div class="plan-today-banner-icon">&#9654;</div>' +
+          '<div class="plan-today-banner-body">' +
+            '<div class="plan-today-banner-label">Up next</div>' +
+            '<div class="plan-today-banner-title">' + _nextTitle35 + '</div>' +
+            '<div class="plan-today-banner-meta">' + _metaLbl35 + '</div>' +
+          '</div>' +
+          '<button class="plan-today-banner-btn" onclick="' + _startOc35 + '">Start &rarr;</button>' +
+        '</div>';
+    }
+  })();
+
+  // --- Compact Stats Row (plan-40) ---
+  (function() {
+    var _done40    = (S.completed || []).length;
+    var _streak40  = S.streak || 0;
+    var _wXp40     = S.weekly_xp || 0;
+    var _streakNum40 = _streak40 > 0 ? (_streak40 + ' day' + (_streak40 !== 1 ? 's' : '')) : '&mdash;';
+    var _streakCls40 = _streak40 > 0 ? 'plan-stat-pill-num psn-amber' : 'plan-stat-pill-num';
+    html +=
+      '<div class="plan-stats-row">' +
+        '<div class="plan-stat-pill">' +
+          '<div class="plan-stat-pill-num psn-green">' + _done40 + '</div>' +
+          '<div class="plan-stat-pill-lbl">Lessons</div>' +
+        '</div>' +
+        '<div class="plan-stat-pill">' +
+          '<div class="' + _streakCls40 + '">' + _streakNum40 + '</div>' +
+          '<div class="plan-stat-pill-lbl">Streak</div>' +
+        '</div>' +
+        '<div class="plan-stat-pill">' +
+          '<div class="plan-stat-pill-num psn-blue">' + _wXp40 + '</div>' +
+          '<div class="plan-stat-pill-lbl">XP this week</div>' +
+        '</div>' +
+      '</div>';
+  })();
+
   // --- Quick Actions Row (plan-13) ---
   (function() {
     // Button 1: Start Today's Lesson — jumps straight into the next incomplete lesson
@@ -31933,23 +32619,17 @@ function renderPlanTab() {
     var _dueLabel13 = _dueCnt13 > 0 ? ("Review Due (" + _dueCnt13 + ")") : "Review Due";
     var _oc13b = _firstDue13 ? ("startLesson('" + _firstDue13 + "')") : "switchTab('practice')";
 
-    // Button 3: Practice Weak Spots — goes to practice tab (targets wrong_answers)
-    var _weakCnt13 = (S.wrong_answers || []).length;
-    var _weakLabel13 = _weakCnt13 > 0 ? ("Weak Spots (" + _weakCnt13 + ")") : "Weak Spots";
+    // Button 3 (Weak Spots) removed by plan-cl-01 — kept to 2 buttons max
 
     html +=
       '<div class="plan-qa-row">' +
         '<button class="plan-qa-btn qa-green" onclick="' + _oc13a + '">' +
-          '<span class="qa-icon">&#9654;&#xFE0F;</span>' +
+          '<span class="qa-icon">&#9654;</span>' +
           '<span class="qa-label">Start Lesson</span>' +
         '</button>' +
         '<button class="plan-qa-btn qa-blue" onclick="' + _oc13b + '">' +
-          '<span class="qa-icon">&#128260;</span>' +
+          '<span class="qa-icon">&#8635;</span>' +
           '<span class="qa-label">' + _dueLabel13 + '</span>' +
-        '</button>' +
-        '<button class="plan-qa-btn qa-purple" onclick="switchTab(&apos;practice&apos;)">' +
-          '<span class="qa-icon">&#129504;</span>' +
-          '<span class="qa-label">' + _weakLabel13 + '</span>' +
         '</button>' +
       '</div>';
   })();
@@ -32076,13 +32756,10 @@ function renderPlanTab() {
     '</div>';
   }
 
-  // AI Tools section
-  html += '<div class="plan-section"><div class="plan-section-title">Your Best AI Matches</div>' +
-    topTools.map(toolCardHTML).join('') +
-  '</div>';
+  // AI Tools section — removed by plan-cl-02 (promotional/filler)
 
   // Quick Wins
-  html += '<div class="plan-section"><div class="plan-section-title">Your Quick Wins</div>' +
+  html += '<div class="plan-section"><div class="plan-section-title">Quick Wins</div>' +
     wins.map(function(w, i) {
       return '<div class="quick-win-item"><div class="quick-win-num">' + (i + 1) + '</div><div class="quick-win-text">' + w + '</div></div>';
     }).join('') +
@@ -32479,7 +33156,7 @@ function renderPlanTab() {
       + "renderPlanTab();"
       + "})()";
     html =
-      '<div class="plan-wxp-wrap">' +
+      '<div class="plan-wxp-wrap plan-pressure-widget">' +
         '<div class="plan-wxp-header">' +
           '<div class="plan-wxp-title">Weekly XP Goal</div>' +
           '<button class="plan-wxp-edit-btn" onclick="' + _onclickToggle + '">Set Goal</button>' +
@@ -32781,11 +33458,8 @@ function renderPlanTab() {
         '</div>';
     }
 
-    html +=
-      '<div class="plan-tips-wrap">' +
-        '<div class="plan-tips-title">Personalized Tips</div>' +
-        '<div class="plan-tips-row">' + _cardsHtml12 + '</div>' +
-      '</div>';
+    // plan-cl-03: Personalized Tips section suppressed
+    void _cardsHtml12;
   })();
 
   // --- Monthly Completion Calendar (plan-15) ---
@@ -33260,18 +33934,8 @@ function renderPlanTab() {
           ' title="Week of ' + _sw20.wk + ': ' + _sw20.cnt + ' lessons"></div>';
     }
 
-    html +=
-      '<div class="plan-velocity-wrap plan-velocity-' + _trendKey20 + '">' +
-        '<div class="plan-velocity-top">' +
-          '<div class="plan-velocity-icon">' + _arrow20 + '</div>' +
-          '<div class="plan-velocity-text">' +
-            '<div class="plan-velocity-label">Learning Velocity</div>' +
-            '<div class="plan-velocity-sub">' + _sub20 + '</div>' +
-          '</div>' +
-          '<div class="plan-velocity-badge">' + _badge20 + '</div>' +
-        '</div>' +
-        '<div class="plan-velocity-dots">' + _sparkHtml20 + '</div>' +
-      '</div>';
+    // Velocity stored for combined Pace & Forecast card (plan-36)
+    window._planVel = { trendKey: _trendKey20, badge: _badge20, sub: _sub20 };
   })();
 
   // --- Smart Break Reminder (plan-21) ---
@@ -33532,8 +34196,8 @@ function renderPlanTab() {
     html +=
       '<div class="plan-stime-wrap">' +
         '<div class="plan-stime-title">' +
-          '<div class="plan-stime-title-icon">⏰</div>' +
-          'Your Best Study Times' +
+          '<div class="plan-stime-title-icon">&#9201;</div>' +
+          'Best Study Times' +
         '</div>' +
         '<div class="plan-stime-bars">' + _barsHtml32 + '</div>' +
         '<div class="plan-stime-best-row">' +
@@ -33591,7 +34255,7 @@ function renderPlanTab() {
     html =
       '<div class="plan-adapt-wrap">' +
         '<div class="plan-adapt-header">' +
-          '<div class="plan-adapt-icon">✨</div>' +
+          '<div class="plan-adapt-icon">&#9733;</div>' +
           '<div class="plan-adapt-title">Adaptive Goal Suggestion</div>' +
         '</div>' +
         '<div class="plan-adapt-stats-row">' +
@@ -33716,29 +34380,32 @@ function renderPlanTab() {
       _initDays29Str = _initDays29 + ' day' + (_initDays29 !== 1 ? 's' : '');
     }
 
+    var _vel29 = (typeof window !== 'undefined' && window._planVel) ? window._planVel : { trendKey: 'flat', badge: 'Stable', sub: '' };
+    var _velBadgeCls29 = 'plan-pace-vel-badge plan-pace-vel-' + _vel29.trendKey;
     html +=
-      '<div class="plan-eta-wrap">' +
-        '<div class="plan-eta-title">' +
-          '<div class="plan-eta-icon">⏳</div>' +
-          'Finish-by Calculator' +
+      '<div class="plan-pace-card plan-pressure-widget">' +
+        '<div class="plan-pace-top">' +
+          '<div class="plan-pace-title">Pace &amp; Forecast</div>' +
+          '<div class="' + _velBadgeCls29 + '">' + _vel29.badge + '</div>' +
         '</div>' +
-        '<div class="plan-eta-slider-row">' +
-          '<input id="' + _sliderId29 + '" class="plan-eta-slider"'
+        (_vel29.sub ? '<div class="plan-pace-vel-sub">' + _vel29.sub + '</div>' : '') +
+        '<div class="plan-pace-slider-row">' +
+          '<input id="' + _sliderId29 + '" class="plan-pace-slider"'
             + ' type="range" min="5" max="60" step="5" value="' + _defaultMin29 + '"'
             + ' oninput="' + _onchange29 + '">' +
-          '<div id="' + _valId29 + '" class="plan-eta-slider-val">' + _defaultMin29 + ' min/day</div>' +
+          '<div id="' + _valId29 + '" class="plan-pace-slider-val">' + _defaultMin29 + ' min/day</div>' +
         '</div>' +
-        '<div class="plan-eta-result-row">' +
-          '<div class="plan-eta-result-card">' +
-            '<div id="' + _daysId29 + '" class="plan-eta-result-num">' + _initDays29Str + '</div>' +
-            '<div class="plan-eta-result-lbl">days to finish</div>' +
+        '<div class="plan-pace-results">' +
+          '<div class="plan-pace-result-card">' +
+            '<div id="' + _daysId29 + '" class="plan-pace-result-num">' + _initDays29Str + '</div>' +
+            '<div class="plan-pace-result-lbl">days left</div>' +
           '</div>' +
-          '<div class="plan-eta-result-card">' +
-            '<div id="' + _dateId29 + '" class="plan-eta-result-num">' + _initDate29 + '</div>' +
-            '<div class="plan-eta-result-lbl">finish date</div>' +
+          '<div class="plan-pace-result-card">' +
+            '<div id="' + _dateId29 + '" class="plan-pace-result-num">' + _initDate29 + '</div>' +
+            '<div class="plan-pace-result-lbl">finish date</div>' +
           '</div>' +
         '</div>' +
-        '<div class="plan-eta-hint">' + _remL29 + ' lessons remaining · ~' + _MPL29 + ' min each</div>' +
+        '<div class="plan-pace-hint">' + _remL29 + ' lessons left &middot; ~' + _MPL29 + ' min each</div>' +
       '</div>';
   })();
 
@@ -33818,7 +34485,7 @@ function renderPlanTab() {
     var _subtitle28 = _metDays28 + ' of 7 goal days met this week';
 
     html +=
-      '<div class="plan-wring-wrap">' +
+      '<div class="plan-wring-wrap plan-pressure-widget">' +
         '<div class="plan-wring-ring-area">' +
           _ringSVG28 +
           '<div class="plan-wring-center-text">' +
@@ -34020,10 +34687,10 @@ function renderPlanTab() {
     }
 
     html +=
-      '<div class="plan-dxp-wrap">' +
+      '<div class="plan-dxp-wrap plan-pressure-widget">' +
         '<div class="plan-dxp-header">' +
           '<div class="plan-dxp-title">' +
-            '<div class="plan-dxp-title-icon">⚡</div>' +
+            '<div class="plan-dxp-title-icon">&#9889;</div>' +
             'Daily XP Goal' +
           '</div>' +
           '<div class="plan-dxp-nums">' + _todayXp25 + ' / ' + _dxpGoal25 + ' XP</div>' +
@@ -34154,6 +34821,63 @@ function renderPlanTab() {
           '<span>' + _best24.cur + ' / ' + _best24.goal + '</span>' +
           '<span>' + _best24.pct + '%</span>' +
         '</div>' +
+      '</div>';
+  })();
+
+  // --- Weekly Schedule Grid (plan-38) ---
+  (function() {
+    var _DAY_NAMES38 = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    var _today38 = todayStr();
+    var _todayDate38 = new Date(_today38 + 'T12:00:00');
+    var _todayDow38 = (_todayDate38.getDay() + 6) % 7;
+
+    var _sched38 = [false, false, false, false, false, false, false];
+    try {
+      var _stored38 = localStorage.getItem('planWeekSchedule');
+      if (_stored38) {
+        var _parsed38 = JSON.parse(_stored38);
+        if (Array.isArray(_parsed38) && _parsed38.length === 7) _sched38 = _parsed38;
+      }
+    } catch(e) {}
+
+    var _schedOnCount38 = 0;
+    for (var _sc38 = 0; _sc38 < _sched38.length; _sc38++) { if (_sched38[_sc38]) _schedOnCount38++; }
+
+    var _cellsHtml38 = '';
+    for (var _di38 = 0; _di38 < 7; _di38++) {
+      var _isOn38    = _sched38[_di38];
+      var _isToday38 = _di38 === _todayDow38;
+      var _dotCls38  = 'plan-sched-dot'
+        + (_isOn38 ? ' sched-on' : '')
+        + (_isToday38 ? ' sched-today' : '');
+      var _dotLbl38  = _isOn38 ? '&#10003;' : '&ndash;';
+      var _toggleOc38 = "(function(){"
+        + "try{"
+        + "var s=JSON.parse(localStorage.getItem('planWeekSchedule')||'[false,false,false,false,false,false,false]');"
+        + "s[" + _di38 + "]=!s[" + _di38 + "];"
+        + "localStorage.setItem('planWeekSchedule',JSON.stringify(s));"
+        + "}catch(e){}"
+        + "renderPlanTab();"
+        + "})()";
+      _cellsHtml38 +=
+        '<div class="plan-sched-cell" onclick="' + _toggleOc38 + '" title="Toggle ' + _DAY_NAMES38[_di38] + '">' +
+          '<div class="plan-sched-day-lbl">' + _DAY_NAMES38[_di38] + '</div>' +
+          '<div class="' + _dotCls38 + '">' + _dotLbl38 + '</div>' +
+        '</div>';
+    }
+
+    var _hintTxt38 = _schedOnCount38 === 0
+      ? 'Tap days to mark your study plan'
+      : (_schedOnCount38 + ' day' + (_schedOnCount38 !== 1 ? 's' : '') + ' planned this week');
+
+    html +=
+      '<div class="plan-sched-wrap">' +
+        '<div class="plan-sched-title">' +
+          'Weekly Schedule' +
+          '<span class="plan-sched-title-hint">tap to toggle</span>' +
+        '</div>' +
+        '<div class="plan-sched-grid">' + _cellsHtml38 + '</div>' +
+        '<div class="plan-sched-hint-row">' + _hintTxt38 + '</div>' +
       '</div>';
   })();
 
@@ -34471,8 +35195,9 @@ function renderProfileTab() {
       '</div>';
   })();
 
+  // profile-level-chip-glow removed (redundant with XP bar label)
   const _levelChipWrap = document.getElementById('profile-level-chip-wrap');
-  if (_levelChipWrap) _levelChipWrap.innerHTML = `<div class="profile-level-chip-glow"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='#fbbf24'><path d='M12 2l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 17l-5.8 3 1.1-6.5L2.5 8.9l6.6-.9L12 2z'/></svg></span> Level ${level}</div>`;
+  if (_levelChipWrap) _levelChipWrap.innerHTML = '';
   const _xpInLevel = (S.xp || 0) % 100;
   const _xpBarOuter = document.getElementById('profile-xp-bar-wrap-outer');
   // Build 7-day XP sparkline
@@ -34505,7 +35230,7 @@ function renderProfileTab() {
     if (_xpBarOuter) _xpBarOuter.innerHTML = `<div class="profile-xp-bar-wrap"><div class="profile-xp-bar-label">${_xpInLevel} / 100 XP to Level ${level + 1}</div><div class="profile-xp-bar-track"><div class="profile-xp-bar-fill" style="width:${_xpInLevel}%"></div></div></div><div class="xp-sparkline-wrap">${_spSvg}<div class="xp-sparkline-label">7-day XP trend</div></div>`;
   })();
   const _strip = document.getElementById('profile-stat-strip');
-  if (_strip) _strip.innerHTML = `<div class="profile-stat-strip"><div class="profile-stat-strip-item"><div class="profile-strip-val"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><path d='M12 22c5 0 8-3 8-7 0-2.5-1.5-4.5-3-6 .5 2-1 3.5-2 4 .5-2-1-4-3-5.5 0 3-2 4.5-3 7-.5-1-.5-2.5.5-4C7.5 12 5 14.5 5 17c0 3 3 5 7 5z' fill='#f97316'/></svg></span> ${S.streak || 0}</div><div class="profile-strip-label">Streak</div></div><div class="profile-stat-strip-item"><div class="profile-strip-val"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='#fbbf24'><path d='M12 2l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 17l-5.8 3 1.1-6.5L2.5 8.9l6.6-.9L12 2z'/></svg></span> ${S.xp || 0}</div><div class="profile-strip-label">Total XP</div></div><div class="profile-stat-strip-item"><div class="profile-strip-val"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><rect x='4' y='4' width='6' height='16' rx='1'/><rect x='11' y='6' width='5' height='14' rx='1'/><rect x='17' y='8' width='4' height='12' rx='1'/></svg></span> ${S.completed.length}</div><div class="profile-strip-label">Lessons</div></div><div class="profile-stat-strip-item"><div class="profile-strip-val"><span class="profile-strip-badge">🏅 Top ${computeLevelTopPercent(level)}%</span></div><div class="profile-strip-label">Ranking</div></div></div>`;
+  if (_strip) _strip.innerHTML = `<div class="profile-stat-strip"><div class="profile-stat-strip-item"><div class="profile-strip-val"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><path d='M12 22c5 0 8-3 8-7 0-2.5-1.5-4.5-3-6 .5 2-1 3.5-2 4 .5-2-1-4-3-5.5 0 3-2 4.5-3 7-.5-1-.5-2.5.5-4C7.5 12 5 14.5 5 17c0 3 3 5 7 5z' fill='#f97316'/></svg></span> ${S.streak || 0}</div><div class="profile-strip-label">Streak</div></div><div class="profile-stat-strip-item"><div class="profile-strip-val"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='#fbbf24'><path d='M12 2l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 17l-5.8 3 1.1-6.5L2.5 8.9l6.6-.9L12 2z'/></svg></span> ${S.xp || 0}</div><div class="profile-strip-label">Total XP</div></div><div class="profile-stat-strip-item"><div class="profile-strip-val"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><rect x='4' y='4' width='6' height='16' rx='1'/><rect x='11' y='6' width='5' height='14' rx='1'/><rect x='17' y='8' width='4' height='12' rx='1'/></svg></span> ${S.completed.length}</div><div class="profile-strip-label">Lessons</div></div></div>`;
 
   // Avatar picker — 12 presets + customizer
   const _cust = S.avatar_custom;
@@ -34733,7 +35458,7 @@ function renderProfileTab() {
     <div class="settings-row">
       <div class="settings-label-wrap">
         <span class="settings-row-icon"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><polygon points='11,5 6,9 2,9 2,15 6,15 11,19 11,5'/><path d='M15.5 8.5a5 5 0 0 1 0 7'/><path d='M19 5a10 10 0 0 1 0 14'/></svg></span></span>
-        <span class="settings-label">Sound Effects</span>
+        <span class="settings-label">Sound</span>
       </div>
       <label class="toggle-switch">
         <input type="checkbox" ${S.sound_enabled !== false ? 'checked' : ''} onchange="toggleSound()">
@@ -34743,7 +35468,7 @@ function renderProfileTab() {
     <div class="settings-row">
       <div class="settings-label-wrap">
         <span class="settings-row-icon"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><circle cx='9' cy='9' r='4'/><path d='M9 13c-3 0-6 1.5-6 4v1'/><path d='M16 8c1 0 2 .5 2.5 1.5S19 12 18 13s-2.5 1-3.5.5'/><path d='M15 13.5c1 .5 2.5.5 3.5-.5 1-.5 1.5-1.5 1.5-2.5s-.5-2-1.5-2.5'/></svg></span>️</span>
-        <span class="settings-label">Read Aloud (TTS)</span>
+        <span class="settings-label">Read Aloud</span>
       </div>
       <label class="toggle-switch">
         <input type="checkbox" ${S.tts_enabled ? 'checked' : ''} onchange="toggleTTS(this.checked)">
@@ -34753,7 +35478,7 @@ function renderProfileTab() {
     ${S.tts_enabled ? `<div class="settings-row">
       <div class="settings-label-wrap">
         <span class="settings-row-icon"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='currentColor'><path d='M3 5l9 7-9 7V5z'/><path d='M13 5l9 7-9 7V5z'/></svg></span></span>
-        <span class="settings-label">Reading Speed</span>
+        <span class="settings-label">TTS Speed</span>
       </div>
       <div class="chip-group">
         <div class="chip ${(S.tts_rate||1.0) <= 1.0 ? 'active' : ''}" onclick="setTTSRate(1.0)">Normal</div>
@@ -34791,7 +35516,7 @@ function renderProfileTab() {
     <div class="settings-row">
       <div class="settings-label-wrap">
         <span class="settings-row-icon"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9'/><path d='M13.73 21a2 2 0 0 1-3.46 0'/></svg></span></span>
-        <span class="settings-label">Daily Reminder</span>
+        <span class="settings-label">Reminder</span>
       </div>
       <label class="toggle-switch">
         <input type="checkbox" ${S.reminder_enabled ? 'checked' : ''} onchange="toggleReminder(this.checked)">
@@ -34806,7 +35531,7 @@ function renderProfileTab() {
     <div class="settings-row">
       <div class="settings-label-wrap">
         <span class="settings-row-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 7.07 17.07"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></span>
-        <span class="settings-label">Accent Color</span>
+        <span class="settings-label">Accent</span>
       </div>
       <div class="accent-picker-row">
 <div class="accent-swatch ${(S.accent_color||'#5BC0F8')==='#5BC0F8'?'selected':''}" data-hex="#5BC0F8" style="background:#5BC0F8;" title="Blue" onclick="setAccentColor(&apos;#5BC0F8&apos;)"></div><div class="accent-swatch ${(S.accent_color||'#5BC0F8')==='#58CC02'?'selected':''}" data-hex="#58CC02" style="background:#58CC02;" title="Green" onclick="setAccentColor(&apos;#58CC02&apos;)"></div><div class="accent-swatch ${(S.accent_color||'#5BC0F8')==='#a560f8'?'selected':''}" data-hex="#a560f8" style="background:#a560f8;" title="Purple" onclick="setAccentColor(&apos;#a560f8&apos;)"></div><div class="accent-swatch ${(S.accent_color||'#5BC0F8')==='#f97316'?'selected':''}" data-hex="#f97316" style="background:#f97316;" title="Orange" onclick="setAccentColor(&apos;#f97316&apos;)"></div><div class="accent-swatch ${(S.accent_color||'#5BC0F8')==='#FF7EB3'?'selected':''}" data-hex="#FF7EB3" style="background:#FF7EB3;" title="Pink" onclick="setAccentColor(&apos;#FF7EB3&apos;)"></div>
@@ -35067,14 +35792,21 @@ function renderProfileTab() {
 
   const _existingCertCard = document.getElementById('profile-certs-card');
   if (_existingCertCard) {
-    _existingCertCard.innerHTML = '<div class="section-title">Certificates</div>' + _certsInner;
+    _existingCertCard.className = 'section-card collapsible collapsed';
+    _existingCertCard.innerHTML = '<div class="section-card-header" onclick="toggleProfileCard(this)">' +
+      '<div class="section-title" style="margin-bottom:0">Certificates</div>' +
+      '<svg class="section-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
+      '</div><div class="section-card-body">' + _certsInner + '</div>';
   } else {
     const _settingsCard = document.querySelector('#view-profile .profile-body .section-card:last-child');
     if (_settingsCard) {
       const _certCard = document.createElement('div');
-      _certCard.className = 'section-card';
+      _certCard.className = 'section-card collapsible collapsed';
       _certCard.id = 'profile-certs-card';
-      _certCard.innerHTML = '<div class="section-title">Certificates</div>' + _certsInner;
+      _certCard.innerHTML = '<div class="section-card-header" onclick="toggleProfileCard(this)">' +
+        '<div class="section-title" style="margin-bottom:0">Certificates</div>' +
+        '<svg class="section-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
+        '</div><div class="section-card-body">' + _certsInner + '</div>';
       _settingsCard.parentNode.insertBefore(_certCard, _settingsCard);
     }
   }
@@ -35101,6 +35833,55 @@ function renderProfileTab() {
       </div>`;
     renderGlossary('');
   }
+
+
+
+  // profile-44: render avatar card compact preview
+  renderAvatarCardPreview();
+
+  // profile-42: render bio/note field
+  renderProfileBio();
+
+  // profile-38: Profile completion bar
+  (function() {
+    var _wrap = document.getElementById('profile-completion-bar-wrap');
+    if (!_wrap) return;
+
+    var _checks = [
+      { label: 'Name set',       done: !!(S.user_name && S.user_name.trim()) },
+      { label: 'Goal set',       done: !!(S.survey_answers && S.survey_answers.q1 && S.survey_answers.q1.trim()) },
+      { label: 'Avatar chosen',  done: !!(S.avatar_custom || S.avatar > 0) },
+      { label: '1st lesson',     done: (S.completed || []).length >= 1 },
+      { label: 'Practiced',      done: (S.practice_history || []).length >= 1 },
+      { label: 'Theme set',      done: !!(S.dark_mode !== undefined && S.dark_mode !== null) },
+      { label: 'Streak started', done: (S.streak || 0) >= 1 }
+    ];
+
+    var _doneCount = _checks.filter(function(c) { return c.done; }).length;
+    var _pct = Math.round((_doneCount / _checks.length) * 100);
+    // Hide once user has completed 3+ lessons — setup guidance is no longer needed
+    if ((S.completed || []).length >= 3) { _wrap.innerHTML = ''; return; }
+
+    var _pillsHtml = _checks.map(function(c) {
+      return '<div class="profile-completion-item' + (c.done ? ' done' : '') + '">' +
+        (c.done ? '✓ ' : '') + c.label +
+      '</div>';
+    }).join('');
+
+    _wrap.innerHTML =
+      '<div class="profile-completion-wrap">' +
+        '<div class="profile-completion-label">' +
+          '<span>Profile Setup</span>' +
+          '<span class="profile-completion-pct">' + _pct + '%</span>' +
+        '</div>' +
+        '<div class="profile-completion-track">' +
+          '<div class="profile-completion-fill" style="width:' + _pct + '%"></div>' +
+        '</div>' +
+        '<div class="profile-completion-items">' + _pillsHtml + '</div>' +
+      '</div>';
+  })();
+
+
   // profile-16: Dark/Light Mode Toggle
   (function() {
     var _ttWrap = document.getElementById('profile-theme-toggle-wrap');
@@ -35376,6 +36157,8 @@ function renderProfileTab() {
     var _streak   = S.streak || 0;
     var _done     = (S.completed || []).length;
     var _level    = (typeof xpToLevel === 'function') ? xpToLevel(_xp) : (S.level || 1);
+    // Hide share card entirely when user has no progress yet
+    if (_xp === 0 && _done === 0) { _spEl.innerHTML = ''; return; }
     var _bestStreak = S.practice_best_streak || 0;
     var _totalQ   = S.total_questions_answered || 0;
 
@@ -35744,89 +36527,7 @@ function renderProfileTab() {
       '</div>';
   })();
 
-  // profile-24: Longest Answer Streak Display
-  (function() {
-    var _asEl = document.getElementById('profile-answer-streak-card');
-    if (!_asEl) return;
-
-    // Derive best practice answer streak.
-    // practice_history stores {type, score, total, date} — no per-session streak.
-    // We use S.practice_best_streak (new persistent key updated when a session ends).
-    // If it doesn't exist yet, we estimate from best score ratio as a proxy.
-    var _hist = S.practice_history || [];
-    var _bestStreak = S.practice_best_streak || 0;
-
-    // If no stored streak but history exists, estimate from best scoring session
-    if (_bestStreak === 0 && _hist.length > 0) {
-      var _maxScore = 0;
-      _hist.forEach(function(h) {
-        if ((h.score || 0) > _maxScore) _maxScore = h.score || 0;
-      });
-      // A rough lower bound: if they got X in a row correctly, streak >= X
-      _bestStreak = _maxScore;
-    }
-
-    // Also check S.practice_max_streak (set by practice-15 / practiceMaxStreak logic)
-    var _altBest = S.practice_max_streak || 0;
-    if (_altBest > _bestStreak) _bestStreak = _altBest;
-
-    // Quick-fire perfect (5/5) is also a known 5-streak
-    if ((S.quickfire_perfect || 0) > 0 && _bestStreak < 5) _bestStreak = 5;
-
-    var _totalSessions = _hist.length;
-
-    if (_bestStreak === 0) {
-      _asEl.innerHTML =
-        '<div class="section-title">Best Answer Streak</div>' +
-        '<div class="answer-streak-zero">' +
-          'Complete a practice session to start tracking your longest streak.' +
-        '</div>';
-      return;
-    }
-
-    // Bar display: compare best streak vs typical run (avg score per session)
-    var _avgScore = _totalSessions > 0
-      ? Math.round(_hist.reduce(function(a, h) { return a + (h.score || 0); }, 0) / _totalSessions)
-      : 0;
-    var _maxBar = Math.max(_bestStreak, _avgScore, 1);
-    var _bestPct = Math.round((_bestStreak / _maxBar) * 100);
-    var _avgPct  = Math.round((_avgScore  / _maxBar) * 100);
-
-    // Motivational label
-    var _praise;
-    if (_bestStreak >= 15) { _praise = "Unstoppable! That streak is legendary."; }
-    else if (_bestStreak >= 10) { _praise = "Incredible focus! 10+ in a row is no small feat."; }
-    else if (_bestStreak >= 7) { _praise = "On fire! 7+ correct in a row shows real mastery."; }
-    else if (_bestStreak >= 5) { _praise = "Hot streak! Keep pushing for double digits."; }
-    else if (_bestStreak >= 3) { _praise = "Good start! Aim for 5 in a row next time."; }
-    else { _praise = "Keep practicing — your streak will grow!"; }
-
-    _asEl.innerHTML =
-      '<div class="section-title">Best Answer Streak</div>' +
-      '<div class="answer-streak-hero">' +
-        '<div class="answer-streak-flame">🔥</div>' +
-        '<div class="answer-streak-number">' + _bestStreak + '</div>' +
-        '<div class="answer-streak-label">correct in a row</div>' +
-        '<div class="answer-streak-sub">' + _praise + '</div>' +
-      '</div>' +
-      '<div class="answer-streak-bars">' +
-        '<div class="answer-streak-row">' +
-          '<div class="answer-streak-row-label">Best streak</div>' +
-          '<div class="answer-streak-row-track">' +
-            '<div class="answer-streak-row-fill" style="width:' + _bestPct + '%;"></div>' +
-          '</div>' +
-          '<div class="answer-streak-row-val">' + _bestStreak + '</div>' +
-        '</div>' +
-        '<div class="answer-streak-row">' +
-          '<div class="answer-streak-row-label">Avg score</div>' +
-          '<div class="answer-streak-row-track">' +
-            '<div class="answer-streak-row-fill" ' +
-              'style="width:' + _avgPct + '%;background:linear-gradient(90deg,#1cb0f6,#3de0ff);"></div>' +
-          '</div>' +
-          '<div class="answer-streak-row-val">' + _avgScore + '</div>' +
-        '</div>' +
-      '</div>';
-  })();
+  // profile-24: merged into profile-30 Personal Records (profile-39)
 
   // profile-23: Practice vs Learn Balance Chart
   (function() {
@@ -36328,38 +37029,7 @@ function renderProfileTab() {
   })();
 
 
-  // profile-36: Export Data Button
-  (function() {
-    var _exEl = document.getElementById('profile-export-card');
-    if (!_exEl) return;
-
-    var _lessons36  = (S.completed || []).length;
-    var _sessions36 = (S.practice_history || []).length;
-    var _xp36       = S.xp || 0;
-
-    _exEl.innerHTML =
-      '<div class="section-title">Export My Data</div>' +
-      '<div class="export-data-wrap">' +
-        '<div class="export-data-summary">' +
-          '<div class="export-data-stat">' +
-            '<div class="export-data-stat-val">' + _lessons36 + '</div>' +
-            '<div class="export-data-stat-lbl">Lessons</div>' +
-          '</div>' +
-          '<div class="export-data-stat">' +
-            '<div class="export-data-stat-val">' + _xp36 + '</div>' +
-            '<div class="export-data-stat-lbl">Total XP</div>' +
-          '</div>' +
-          '<div class="export-data-stat">' +
-            '<div class="export-data-stat-val">' + _sessions36 + '</div>' +
-            '<div class="export-data-stat-lbl">Sessions</div>' +
-          '</div>' +
-        '</div>' +
-        '<button class="export-data-btn" id="export-data-btn" onclick="profileExportData()">' +
-          '📥 Download Progress JSON' +
-        '</button>' +
-        '<div class="export-data-note">All your progress, notes, XP, and session history in one file.</div>' +
-      '</div>';
-  })();
+  // profile-36: Export Data moved to Settings card (profile-41)
 
   // profile-35: Commitment Score
   (function() {
@@ -36727,7 +37397,7 @@ function renderProfileTab() {
       '</div>';
   })();
 
-  // profile-30: Personal Records Board
+  // profile-30+24 merged: Personal Records Board (includes best answer streak)
   (function() {
     var _prEl = document.getElementById('profile-pr-board-card');
     if (!_prEl) return;
@@ -36742,13 +37412,23 @@ function renderProfileTab() {
       }
     });
 
-    // Longest streak
+    // Longest daily streak
     var _bestStreak30 = Math.max(S.best_streak || 0, S.streak || 0);
 
     // Best practice answer streak in a single session
-    var _bestAnsStreak = S.practice_best_streak || 0;
+    var _bestAnsStreak = Math.max(
+      S.practice_best_streak || 0,
+      S.practice_max_streak  || 0
+    );
+    if ((S.quickfire_perfect || 0) > 0 && _bestAnsStreak < 5) _bestAnsStreak = 5;
+    // Estimate from best session score if still 0
+    if (_bestAnsStreak === 0 && _hist30.length > 0) {
+      var _mx = 0;
+      _hist30.forEach(function(h) { if ((h.score||0) > _mx) _mx = h.score||0; });
+      _bestAnsStreak = _mx;
+    }
 
-    // Most lessons completed in one week — infer from lesson_log_dates
+    // Most lessons completed in one week
     var _lld30 = S.lesson_log_dates || {};
     var _weekCounts = {};
     Object.keys(_lld30).forEach(function(lid) {
@@ -36765,31 +37445,44 @@ function renderProfileTab() {
       if (_weekCounts[k] > _bestWeek) _bestWeek = _weekCounts[k];
     });
 
-    var _hasGold = _bestAcc >= 100 || _bestStreak30 >= 7;
+    // Praise line for answer streak
+    var _praise = '';
+    if (_bestAnsStreak >= 15)     _praise = 'Legendary focus.';
+    else if (_bestAnsStreak >= 10) _praise = 'Elite run — 10+ in a row!';
+    else if (_bestAnsStreak >= 5)  _praise = 'Hot streak. Keep pushing!';
+    else if (_bestAnsStreak >= 1)  _praise = 'Keep practicing to grow it.';
 
     _prEl.innerHTML =
       '<div class="section-title">Personal Records</div>' +
       '<div class="pr-board-grid">' +
         '<div class="pr-board-cell' + (_bestStreak30 >= 7 ? ' gold-record' : '') + '">' +
-          '<div class="pr-board-medal">🔥</div>' +
+          '<div class="pr-board-medal">' +
+            '<svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 22c5 0 8-3 8-7 0-2.5-1.5-4.5-3-6 .5 2-1 3.5-2 4 .5-2-1-4-3-5.5 0 3-2 4.5-3 7-.5-1-.5-2.5.5-4C7.5 12 5 14.5 5 17c0 3 3 5 7 5z" fill="#f97316"/></svg>' +
+          '</div>' +
           '<div class="pr-board-val">' + _bestStreak30 + '</div>' +
           '<div class="pr-board-lbl">Best Streak</div>' +
           '<div class="pr-board-sub">days in a row</div>' +
         '</div>' +
         '<div class="pr-board-cell' + (_bestAcc >= 100 ? ' gold-record' : '') + '">' +
-          '<div class="pr-board-medal">🎯</div>' +
+          '<div class="pr-board-medal">' +
+            '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#58cc02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="4,13 9,18 20,6"/></svg>' +
+          '</div>' +
           '<div class="pr-board-val">' + (_hist30.length > 0 ? _bestAcc + '%' : '--') + '</div>' +
           '<div class="pr-board-lbl">Best Accuracy</div>' +
           '<div class="pr-board-sub">in one session</div>' +
         '</div>' +
         '<div class="pr-board-cell' + (_bestAnsStreak >= 10 ? ' gold-record' : '') + '">' +
-          '<div class="pr-board-medal">⚡</div>' +
+          '<div class="pr-board-medal">' +
+            '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>' +
+          '</div>' +
           '<div class="pr-board-val">' + (_bestAnsStreak > 0 ? _bestAnsStreak : '--') + '</div>' +
           '<div class="pr-board-lbl">Answer Streak</div>' +
-          '<div class="pr-board-sub">correct in a row</div>' +
+          '<div class="pr-board-sub">' + (_praise || 'correct in a row') + '</div>' +
         '</div>' +
         '<div class="pr-board-cell' + (_bestWeek >= 5 ? ' gold-record' : '') + '">' +
-          '<div class="pr-board-medal">📅</div>' +
+          '<div class="pr-board-medal">' +
+            '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' +
+          '</div>' +
           '<div class="pr-board-val">' + (_bestWeek > 0 ? _bestWeek : '--') + '</div>' +
           '<div class="pr-board-lbl">Best Week</div>' +
           '<div class="pr-board-sub">lessons in 7 days</div>' +
@@ -36844,8 +37537,257 @@ function renderProfileTab() {
   // Render lesson notes
   renderProfileNotes();
   renderUnit1CertBtn();
+
+
+
+  // profile-41: append Export row to Settings card
+  (function() {
+    var _sr = document.getElementById('settings-rows');
+    if (!_sr) return;
+    // Only inject once
+    if (document.getElementById('settings-export-row-41')) return;
+    var _row = document.createElement('div');
+    _row.id = 'settings-export-row-41';
+    _row.className = 'settings-export-row';
+    _row.innerHTML =
+      '<div>' +
+        '<div class="settings-export-label">Export My Data</div>' +
+        '<div class="settings-export-sub">Download all progress as JSON</div>' +
+      '</div>' +
+      '<button class="settings-export-btn" onclick="profileExportData()">' +
+        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px;"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
+        'Export' +
+      '</button>';
+    _sr.appendChild(_row);
+  })();
+
+
+  // profile-43: apply compact mode state
+  applyProfileCompactModeState();
+
+  // profile-40: hide cards that contain only empty-state content
+  (function() {
+    // Class names used in empty states across various cards
+    var _emptyClasses = [
+      'profile-activity-empty',
+      'fav-topic-zero',
+      'answer-streak-zero',
+      'accuracy-chart-empty',
+      'cert-showcase-empty',
+      'weakness-empty',
+      'unit-mastery-empty',
+      'days-goal-no-date',
+      'balance-chart-wrap'   // contains insight but is fine — skip via data guard below
+    ];
+
+    // IDs of cards that should hide when empty
+    var _candidateIds = [
+      'profile-answer-streak-card',
+      'profile-fav-topic-card',
+      'profile-accuracy-chart-card',
+      'profile-weakness-card',
+      'profile-days-goal-card',
+      'profile-total-q-card',
+      'profile-share-progress-card'
+    ];
+
+    _candidateIds.forEach(function(cid) {
+      var _card = document.getElementById(cid);
+      if (!_card) return;
+      // If already hidden (e.g. answer-streak merged), skip
+      if (_card.style.display === 'none') return;
+
+      // Check if the card's body contains only an empty-state element
+      var _body = _card.querySelector('.section-card-body') || _card;
+      var _hasEmptyOnly = false;
+
+      // Detect: empty state elements present AND no "data" elements present
+      var _hasEmpty = _emptyClasses.some(function(cls) {
+        return !!_body.querySelector('.' + cls);
+      });
+
+      // Data signals: bars, grids, numbers > 0
+      var _hasData = !!_body.querySelector(
+        '.total-q-hero, .fav-topic-wrap, .accuracy-chart-svg-wrap, ' +
+        '.weakness-list, .answer-streak-hero, .days-goal-hero, ' +
+        '.share-progress-wrap'
+      );
+
+      if (_hasEmpty && !_hasData) {
+        _card.classList.add('profile-card-empty-hidden');
+      } else {
+        _card.classList.remove('profile-card-empty-hidden');
+      }
+    });
+
+    // Special: hide profile-total-q-card when total is 0
+    (function() {
+      var _tq = document.getElementById('profile-total-q-card');
+      if (!_tq || _tq.style.display === 'none') return;
+      var _numEl = (_tq.querySelector('.section-card-body') || _tq).querySelector('.total-q-number');
+      if (_numEl && parseInt(_numEl.textContent, 10) === 0) {
+        _tq.classList.add('profile-card-empty-hidden');
+      }
+    })();
+
+  })();
+
+  // profile-37: wrap collapsible card contents
+  (function() {
+    document.querySelectorAll('#view-profile .section-card.collapsible').forEach(function(card) {
+      // Skip if already wrapped
+      if (card.querySelector('.section-card-header')) return;
+      var titleEl = card.querySelector('.section-title');
+      if (!titleEl) return;
+      var titleText = titleEl.innerHTML;
+      var bodyContent = card.innerHTML.replace(titleEl.outerHTML, '').trim();
+      card.innerHTML =
+        '<div class="section-card-header" onclick="toggleProfileCard(this)">' +
+          '<div class="section-title" style="margin-bottom:0">' + titleText + '</div>' +
+          '<svg class="section-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
+        '</div>' +
+        '<div class="section-card-body">' + bodyContent + '</div>';
+    });
+    restoreProfileCardStates();
+  })();
+
 }
 
+
+
+
+// ---- profile-42: Bio / note field ----
+
+// ---- profile-43: Compact mode toggle ----
+
+// ---- profile-44: Avatar card compact preview ----
+function renderAvatarCardPreview() {
+  var _prev = document.getElementById('profile-avatar-card-preview');
+  if (!_prev) return;
+  if (typeof S === 'undefined') return;
+
+  var _name  = S.user_name || 'Learner';
+  var _level = (typeof xpToLevel === 'function') ? xpToLevel(S.xp || 0) : (S.level || 1);
+  var _avatarHtml = '';
+  if (typeof avatarSVG === 'function') {
+    _avatarHtml = avatarSVG(S.avatar_custom ? null : (S.avatar || 0), 44, S.avatar_custom || undefined);
+  }
+
+  _prev.innerHTML =
+    '<div class="avatar-card-preview-row">' +
+      '<div class="avatar-card-preview-wrap">' + _avatarHtml + '</div>' +
+      '<div class="avatar-card-preview-info">' +
+        '<div class="avatar-card-preview-name">' + _name.replace(/</g, '&lt;') + '</div>' +
+        '<div class="avatar-card-preview-sub">Level ' + _level + '</div>' +
+      '</div>' +
+      '<button class="avatar-card-change-btn" onclick="expandAvatarCard()" aria-label="Change avatar">Change</button>' +
+    '</div>';
+}
+
+function expandAvatarCard() {
+  var _card = document.getElementById('profile-avatar-card');
+  if (!_card) return;
+  _card.classList.remove('collapsed');
+  // Scroll into view gently
+  _card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function toggleProfileCompactMode(on) {
+  var _body = document.getElementById('profile-body-wrap');
+  if (!_body) return;
+  try { sessionStorage.setItem('profile_compact_mode', on ? '1' : '0'); } catch(e) {}
+  if (on) {
+    _body.classList.add('compact-mode');
+    // Collapse all collapsible cards
+    _body.querySelectorAll('.section-card.collapsible').forEach(function(c) {
+      c.classList.add('collapsed');
+    });
+  } else {
+    _body.classList.remove('compact-mode');
+    // Restore individual states
+    if (typeof restoreProfileCardStates === 'function') restoreProfileCardStates();
+  }
+}
+
+function applyProfileCompactModeState() {
+  var _body = document.getElementById('profile-body-wrap');
+  var _cb   = document.getElementById('profile-compact-checkbox');
+  var _on   = false;
+  try { _on = sessionStorage.getItem('profile_compact_mode') === '1'; } catch(e) {}
+  if (_cb) _cb.checked = _on;
+  if (_body) {
+    if (_on) _body.classList.add('compact-mode');
+    else     _body.classList.remove('compact-mode');
+  }
+}
+
+function profileEditBio() {
+  var _wrap = document.getElementById('profile-bio-wrap-outer');
+  if (!_wrap) return;
+  var _bio = (typeof S !== 'undefined' && S.profile_bio) ? S.profile_bio : '';
+  _wrap.innerHTML =
+    '<div class="profile-bio-wrap">' +
+      '<textarea class="profile-bio-textarea" id="profile-bio-input" rows="2" maxlength="140" placeholder="Add a short bio or note..." aria-label="Profile bio">' +
+        _bio.replace(/</g, '&lt;').replace(/>/g, '&gt;') +
+      '</textarea>' +
+      '<button class="profile-bio-save-btn" onclick="profileSaveBio()">Save</button>' +
+    '</div>';
+  var _ta = document.getElementById('profile-bio-input');
+  if (_ta) { _ta.focus(); _ta.selectionStart = _ta.value.length; }
+  _ta.onkeydown = function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); profileSaveBio(); }
+    if (e.key === 'Escape') { renderProfileBio(); }
+  };
+}
+
+function profileSaveBio() {
+  var _inp = document.getElementById('profile-bio-input');
+  if (!_inp) return;
+  var _val = _inp.value.trim().substring(0, 140);
+  if (typeof save === 'function') save('profile_bio', _val);
+  else if (typeof S !== 'undefined') { S.profile_bio = _val; }
+  renderProfileBio();
+}
+
+function renderProfileBio() {
+  var _wrap = document.getElementById('profile-bio-wrap-outer');
+  if (!_wrap) return;
+  var _bio = (typeof S !== 'undefined' && S.profile_bio) ? (S.profile_bio || '').trim() : '';
+  var _isPlaceholder = !_bio;
+  var _display = _isPlaceholder ? 'Add a short bio...' : _bio.replace(/</g, '&lt;');
+  _wrap.innerHTML =
+    '<div class="profile-bio-wrap">' +
+      '<span class="profile-bio-text' + (_isPlaceholder ? ' placeholder' : '') + '" onclick="profileEditBio()" title="Click to edit bio">' +
+        _display +
+      '</span>' +
+      '<button class="profile-bio-edit-btn" onclick="profileEditBio()" title="Edit bio" aria-label="Edit bio">' +
+        '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3L21 7L8 20L3 21L4 16Z"/><line x1="14" y1="6" x2="18" y2="10"/></svg>' +
+      '</button>' +
+    '</div>';
+}
+
+// ---- profile-37: Collapsible card toggle ----
+function toggleProfileCard(headerEl) {
+  var card = headerEl.closest('.section-card');
+  if (!card) return;
+  var isCollapsed = card.classList.toggle('collapsed');
+  // Persist state in sessionStorage so re-renders keep the state
+  var cardId = card.id || '';
+  if (cardId) {
+    try { sessionStorage.setItem('pcard_' + cardId, isCollapsed ? '1' : '0'); } catch(e) {}
+  }
+}
+function restoreProfileCardStates() {
+  document.querySelectorAll('#view-profile .section-card.collapsible').forEach(function(card) {
+    var cardId = card.id || '';
+    if (!cardId) return;
+    try {
+      var stored = sessionStorage.getItem('pcard_' + cardId);
+      if (stored === '0') card.classList.remove('collapsed');
+      // '1' or null (default) -> stay collapsed
+    } catch(e) {}
+  });
+}
 
 // ── Glossary helpers ──────────────────────────────────────
 function saveToGlossary(term, definition, source) {
@@ -37105,8 +38047,7 @@ function confirmReset() {
   _m18.innerHTML =
     '<div style="background:var(--white,#fff);border-radius:20px;padding:24px;max-width:340px;width:100%;box-shadow:0 8px 40px rgba(0,0,0,0.3);">'
     + '<div style="font-size:18px;font-weight:900;color:var(--text,#3c3c3c);margin-bottom:8px;">\u26A0\uFE0F Delete all my progress?</div>'
-    + '<div style="font-size:14px;font-weight:600;color:var(--gray4,#777);line-height:1.6;margin-bottom:12px;">This will permanently delete:<ul style="margin:8px 0 0 16px;font-size:13px;"><li>All completed lessons</li><li>Your XP, level, and day streak</li><li>All practice history</li><li>Your notes and saved words</li><li>All achievements earned</li></ul></div>'
-    + '<div style="font-size:13px;font-weight:700;color:#dc2626;background:#fff0f0;border-radius:10px;padding:10px 14px;margin-bottom:20px;">This cannot be undone. You will start from the beginning.</div>'
+    + '<div style="font-size:14px;font-weight:600;color:var(--gray4,#777);line-height:1.6;margin-bottom:20px;">This will permanently delete all your progress. This cannot be undone.</div>'
     + '<div style="display:flex;flex-direction:column;gap:10px;">'
     + '<button id="_clari_reset_yes" style="background:#ef4444;color:white;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:800;cursor:pointer;">\ud83d\uddd1\uFE0F Yes, delete everything and start over</button>'
     + '<button style="background:var(--gray1,#f0f0f0);color:var(--text,#3c3c3c);border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:800;cursor:pointer;" onclick="document.getElementById(\'_clari_reset_modal\').remove();">\u{1F519} No, keep my progress</button>'
