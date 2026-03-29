@@ -490,11 +490,7 @@ body.text-xl     { --text-scale: 1.3; }
 
 /* Custom icon wrapper — replaces all emoji site-wide */
 .ico {
-  display: inline-flex;
-  align-items: center;
-  vertical-align: middle;
-  line-height: 1;
-  flex-shrink: 0;
+  display: contents;
 }
 
 /* ============================================================
@@ -519,7 +515,7 @@ body.text-xl     { --text-scale: 1.3; }
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
-  height: 52px;
+  height: 48px;
   background: var(--white);
   border-bottom: 2px solid var(--gray2);
   flex-shrink: 0;
@@ -640,7 +636,7 @@ body.text-xl     { --text-scale: 1.3; }
 #bottom-nav {
   display: none;
   align-items: stretch;
-  height: calc(76px + env(safe-area-inset-bottom));
+  height: calc(62px + env(safe-area-inset-bottom));
   padding-bottom: env(safe-area-inset-bottom);
   background: var(--white);
   box-shadow: 0 -1px 0 var(--gray1), 0 -4px 12px rgba(0,0,0,0.04);
@@ -667,14 +663,14 @@ body.text-xl     { --text-scale: 1.3; }
   color: var(--gray3);
   padding: 10px 4px;
   transition: color 0.15s;
-  min-height: 76px;
+  min-height: 62px;
   position: relative;
 }
 .nav-tab.active { color: var(--blue); }
 
 .nav-pill {
-  width: 56px; height: 32px;
-  border-radius: 16px;
+  width: 52px; height: 28px;
+  border-radius: 14px;
   display: flex; align-items: center; justify-content: center;
   transition: background 0.2s;
 }
@@ -683,7 +679,7 @@ body.text-xl     { --text-scale: 1.3; }
 }
 
 .nav-tab svg {
-  width: 26px; height: 26px;
+  width: 24px; height: 24px;
   transition: transform 0.15s;
   flex-shrink: 0;
 }
@@ -2162,25 +2158,6 @@ mark.search-hl {
 .lesson-history-when { font-size: 11px; color: var(--gray3); flex-shrink: 0; }
 .lesson-history-done-tick { color: var(--green); font-size: 12px; flex-shrink: 0; }
 
-/* ============================================================
-   learn-39: Study time total chip
-   ============================================================ */
-.study-time-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: var(--gray1);
-  border: 1.5px solid var(--gray2);
-  border-radius: 20px;
-  padding: 5px 12px;
-  font-size: 12px; font-weight: 800;
-  color: var(--gray4);
-  margin: 0 12px 10px;
-  width: fit-content;
-  letter-spacing: 0.01em;
-}
-.study-time-chip svg { flex-shrink: 0; }
-:root[data-theme="dark"] .study-time-chip { background: var(--gray2); border-color: var(--gray3); }
 /* learn-22: XP boost active badge on incomplete lesson cards */
 .lc-xp-boost-badge {
   display: inline-flex; align-items: center; gap: 3px;
@@ -3164,9 +3141,6 @@ mark.search-hl {
 }
 #tb-lesson-streak.visible { display: flex; }
 .tb-streak-reminder { display:none; align-items:center; justify-content:center; background:#ff9600; color:#fff; font-size:11px; font-weight:800; padding:3px 10px; border-radius:20px; white-space:nowrap; flex-shrink:0; }
-.dyk-card { display:flex; flex-direction:column; gap:4px; background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:12px; padding:12px 14px; margin-bottom:12px; }
-:root[data-theme="dark"] .dyk-card { background:#052e16; border-color:#166534; }
-.dyk-label { font-size:11px; font-weight:800; color:#16a34a; text-transform:uppercase; letter-spacing:.04em; }
 /* Lesson tag pills on lesson cards */
 .lesson-tags-row { display:flex; flex-wrap:wrap; gap:4px; margin-top:4px; }
 .lesson-tag-pill { font-size:10px; font-weight:700; background:var(--gray1); color:var(--gray4); padding:1px 7px; border-radius:20px; letter-spacing:.02em; text-transform:lowercase; }
@@ -5260,7 +5234,7 @@ mark.search-hl {
 
 /* dc-01: hide placeholder section-cards that JS has not filled yet */
 .section-card:empty { display: none !important; }
-.section-title { font-size: 15px; font-weight: 900; color: var(--text); margin-bottom: 14px; }
+.section-title { font-size: 13px; font-weight: 900; color: var(--text); margin-bottom: 14px; }
 .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .stat-cell {
   background: var(--bg); border-radius: 12px;
@@ -8777,10 +8751,6 @@ mark.search-hl {
 /* ============================================================
    RECOMMENDED STRIP
    ============================================================ */
-.rec-strip-label {
-  font-size: 13px; font-weight: 700; color: var(--text-secondary);
-  margin-bottom: 10px; text-transform: uppercase; letter-spacing: .5px;
-}
 .rec-strip {
   display: flex; gap: 10px; overflow-x: auto;
   padding-bottom: 6px; scrollbar-width: none;
@@ -9792,7 +9762,6 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#777" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
         </button>
         <div style="display:flex;flex-direction:column;flex:1;gap:3px;">
-          <div id="slide-counter" style="font-size:11px;font-weight:800;color:var(--gray4);text-align:center;"></div>
           <div class="lesson-progress-bar-wrap"><div class="lesson-progress-bar" id="lesson-progress-bar" style="width:0%"></div></div>
         </div>
         <div class="lesson-hearts" id="lesson-hearts"></div>
@@ -10024,7 +9993,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
     <div class="section-card collapsible collapsed" id="profile-habits-card"></div>
     <div class="section-card collapsible collapsed" id="profile-goal-card"></div>
     <div class="section-card collapsible collapsed" id="profile-username-card"></div>
-    <div class="section-card collapsible collapsed" id="profile-balance-card"></div>
+    <div class="section-card collapsible collapsed" id="profile-balance-card" style="display:none" aria-hidden="true"></div>
     <div class="section-card collapsible collapsed" id="profile-answer-streak-card" style="display:none" aria-hidden="true"></div>
     <div class="section-card collapsible collapsed" id="profile-total-q-card"></div>
     <div class="section-card collapsible collapsed" id="profile-fav-topic-card"></div>
@@ -22121,8 +22090,7 @@ function renderLearnTab() {
     </div>`;
   }
 
-  // learn-34: Continue where you left off banner (before goal bar)
-  html += renderCWYLOFBanner();
+  // learn-34: CWYLOF banner removed (learn-r2): continue-card above already covers this
 
   // Goal bar — directly below continue card
   html += '<div class="goal-strip' + (goalMet ? ' goal-complete' : '') + '" style="margin:0 12px 8px;">' +
@@ -22227,13 +22195,7 @@ function renderLearnTab() {
     }
   }
 
-  html += `<div class="clari-banner" id="clari-welcome-banner">
-  <div class="clari-banner-avatar">${clariSVG(_clariWelcomeState, 52)}</div>
-  <div class="clari-banner-bubble">
-    <div class="clari-banner-name">${_tod.emoji} ${_tod.greeting}${_name}!</div>
-    <div class="clari-banner-text">${getClariDailyMessage()}</div>
-  </div>
-</div>`;
+  // clari-banner removed (learn-r2): greeting noise on every visit
 
   
   // Recently completed lesson recap card (learn-04)
@@ -22967,7 +22929,7 @@ function openLessonPreview(id, event) {
   var _mins = (typeof estimateLessonMinutes === 'function') ? estimateLessonMinutes(lesson) : '?';
   var _slides = (lesson.slides || []).length;
   var _xp = lesson.xp || 0;
-  document.getElementById('lpm-meta').innerHTML = '~' + _mins + ' min &bull; ' + _slides + ' slide' + (_slides !== 1 ? 's' : '') + ' &bull; +' + _xp + ' XP';
+  document.getElementById('lpm-meta').innerHTML = '~' + _mins + ' min &bull; ' + _slides + ' slide' + (_slides !== 1 ? 's' : '');
   // First slide content
   var _firstSlide = (lesson.slides || [])[0] || {};
   var _slideTitle = _firstSlide.title || lesson.title || '';
@@ -27227,20 +27189,6 @@ function renderLessonSlide() {
   if (_readBar) _readBar.style.width = (totalSlides > 1 ? ((idx + 1) / totalSlides) * 100 : 100) + '%';
   document.getElementById('lesson-hearts').innerHTML = renderHearts(lessonState.hearts, 5);
 
-  // Slide counter with breadcrumb
-  const counterEl = document.getElementById('slide-counter');
-  if (counterEl) {
-    const _bcUnit = COURSE.find(u => u.lessons.some(l => l.id === lessonState.lessonId));
-    const _bcLessonNum = _bcUnit ? _bcUnit.lessons.findIndex(l => l.id === lessonState.lessonId) + 1 : null;
-    const _bcLessonTotal = _bcUnit ? _bcUnit.lessons.length : null;
-    if (!lessonState.practiceMode && _bcUnit && _bcLessonNum) {
-      counterEl.innerHTML = `<span class="lesson-breadcrumb">Unit ${_bcUnit.num} &bull; Lesson ${_bcLessonNum} of ${_bcLessonTotal}</span>` +
-        `<span class="lesson-slide-count">Slide ${idx + 1}/${totalSlides}</span>`;
-    } else {
-      counterEl.textContent = (idx + 1) + ' of ' + totalSlides;
-    }
-  }
-
   if (idx >= totalSlides) {
     renderLessonComplete();
     return;
@@ -28471,7 +28419,7 @@ function renderSlideQuickFire(slide) {
         qfState.bonusXp += 20;
         // Show combo animation
         const comboEl = document.getElementById('qf-combo');
-        if (comboEl) { comboEl.style.display = 'block'; comboEl.innerHTML = "<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><path d='M12 22c5 0 8-3 8-7 0-2.5-1.5-4.5-3-6 .5 2-1 3.5-2 4 .5-2-1-4-3-5.5 0 3-2 4.5-3 7-.5-1-.5-2.5.5-4C7.5 12 5 14.5 5 17c0 3 3 5 7 5z' fill='#f97316'/></svg></span> " + qfState.combo + 'x Combo! +20 XP'; }
+        if (comboEl) { comboEl.style.display = 'block'; comboEl.innerHTML = "<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><path d='M12 22c5 0 8-3 8-7 0-2.5-1.5-4.5-3-6 .5 2-1 3.5-2 4 .5-2-1-4-3-5.5 0 3-2 4.5-3 7-.5-1-.5-2.5.5-4C7.5 12 5 14.5 5 17c0 3 3 5 7 5z' fill='#f97316'/></svg></span> " + qfState.combo + 'x Combo!'; }
       }
     } else {
       qfState.combo = 0;
@@ -28498,7 +28446,7 @@ function renderSlideQuickFire(slide) {
             <div class="qf-end-clari">${clariSVG(perfect ? 'celebrating' : 'default', 80)}</div>
             <div class="qf-end-score">${qfState.correct} / ${slide.questions.length}</div>
             <div class="qf-end-label">${perfect ? "<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><path d='M13 2L4 14h7l-1 8 9-12h-7z' fill='#fbbf24'/></svg></span> Perfect!" : qfState.correct >= Math.ceil(slide.questions.length * 0.6) ? 'Great job!' : 'Keep practising!'}</div>
-            ${qfState.bonusXp > 0 ? '<div class="qf-end-bonus">+' + qfState.bonusXp + ' Bonus XP from combos!</div>' : ''}
+
           </div>`;
         const totalSlides = getSessionSlides().length || 1;
         const isLast = lessonState.slideIdx >= totalSlides - 1;
@@ -28878,10 +28826,6 @@ function renderLessonComplete() {
     </div>
     ${shareBar}
     ${certBtn}
-    <button class="share-win-btn" onclick="showShareWinCard(${JSON.stringify(lesson ? lesson.title : 'Lesson')}, ${lessonState.xpEarned}, ${lessonState.wrongThisLesson || 0}, ${getSessionSlides().filter(function(s){return s.type==='quiz';}).length}, ${typeof _isNewPb !== 'undefined' ? _isNewPb : false})">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-      Share your win
-    </button>
     ${quoteHtml}
     ${vocabHtml}
     ${notesHtml}
@@ -30915,17 +30859,6 @@ function selectPracticeOption(el, idx, correct) {
       lessonState.practiceMaxStreak = lessonState.correctStreak;
     }
     addXP(5);
-    // practice-46: XP float from feedback area
-    (function() {
-      var _fb = document.getElementById('quiz-feedback');
-      if (!_fb) return;
-      var _xpEl = document.createElement('span');
-      _xpEl.className = 'practice-xp-rise';
-      _xpEl.textContent = '+5 XP';
-      _fb.style.position = 'relative';
-      _fb.appendChild(_xpEl);
-      setTimeout(function() { if (_xpEl.parentNode) _xpEl.parentNode.removeChild(_xpEl); }, 1200);
-    })();
     SoundManager.playCorrect();
     // Practice-specific ascending sweep (200hz -> 400hz, 100ms)
     if (S.practice_sounds !== false) {
@@ -31654,32 +31587,13 @@ function finishPractice() {
     + '<button id="practice-session-note-btn" class="practice-session-note-save" onclick="savePracticeSessionNote()">Save Note</button>'
     + '<div id="practice-session-note-saved" class="practice-session-note-saved">&#x2713; Note saved!</div>'
     + '</div>';
-  // practice-38: build motivational quote card html for footer
-  var _pqQuotes = (typeof MOTIVATIONAL_QUOTES !== 'undefined' && MOTIVATIONAL_QUOTES.length)
-    ? MOTIVATIONAL_QUOTES
-    : ['"The secret of getting ahead is getting started." — Mark Twain',
-       '"An investment in knowledge pays the best interest." — Benjamin Franklin'];
-  var _pqQuote = _pqQuotes[Math.floor(Math.random() * _pqQuotes.length)];
-  var _pqHtml = '<div class="practice-quote-card" id="practice-quote-card">'
-    + '<div class="practice-quote-text">' + _pqQuote + '</div>'
-    + '<button class="practice-quote-share" onclick="sharePracticeQuote(' + JSON.stringify(_pqQuote) + ',' + _accuracy + ')">'
-    + '&#x1F4E4; Share Quote</button>'
-    + '</div>';
-
   document.getElementById('lesson-footer').innerHTML =
     _reviewBtn
     + `<button class="btn btn-blue btn-full" style="margin-bottom:10px;" onclick="doCloseLesson();setTimeout(()=>startPractice(&apos;${_practiceAgainType}&apos;),80);">Practice Again</button>`
     + `<button class="btn-share-progress" onclick="shareSessionProgress()">📤 Share Progress</button>`
-    + _pqHtml
     + _noteHtml
     + `<div style="margin-bottom:10px;"></div>`
     + `<button class="btn btn-green btn-full" onclick="doCloseLesson()">Back to Practice →</button>`;
-
-  // Animate quote card in after XP breakdown settles
-  setTimeout(function() {
-    var _qCard = document.getElementById('practice-quote-card');
-    if (_qCard) _qCard.classList.add('visible');
-  }, 900);
   // practice-59b: auto-focus note textarea
   setTimeout(function() {
     var _nt59 = document.getElementById('practice-session-note-ta');
@@ -32788,7 +32702,7 @@ function renderPlanTab() {
       '<div class="plan-lesson-card" onclick="' + onclickFn + '">' +
         '<div class="lesson-icon" style="background:' + unit.color + '22;">' + lessonIconSVG(unit.color) + '</div>' +
         '<div style="flex:1;">' +
-          '<div style="font-size:14px;font-weight:800;color:var(--text);">' + lesson.title + '</div>' +
+          '<div style="font-size:14px;font-weight:800;color:var(--text);">' + (lesson.title.length > 40 ? lesson.title.slice(0, 37) + '…' : lesson.title) + '</div>' +
           '<div style="font-size:12px;font-weight:600;color:var(--gray4);">Unit ' + unit.num + ' &bull; +' + lesson.xp + ' XP</div>' +
         '</div>' +
         badge +
@@ -34034,20 +33948,8 @@ function renderPlanTab() {
       + "for(var i=0;i<ar.length;i++){if(ar[i].dataset.arr){ar[i].textContent=open?'\u25b8':'\u25be';}}"
       + "})(this)";
     var _radarCountLbl22 = _visible22.length + ' track' + (_visible22.length !== 1 ? 's' : '');
-    html +=
-      '<div class="plan-radar-collapsible">' +
-        '<button class="plan-radar-toggle" onclick="' + _radarOc22 + '">' +
-          '<span class="plan-radar-toggle-label">Topic Strength</span>' +
-          '<span class="plan-radar-toggle-right">' +
-            '<span>' + _radarCountLbl22 + '</span>' +
-            '<span data-arr="1">&#9656;</span>' +
-          '</span>' +
-        '</button>' +
-        '<div class="plan-radar-body" id="' + _radarId22 + '">' +
-          _rowsHtml22 +
-          _footHtml22 +
-        '</div>' +
-      '</div>';
+    // plan-r2-02: Topic Strength Radar suppressed — rarely accurate for new users
+    void _radarOc22; void _radarId22; void _rowsHtml22; void _footHtml22; void _radarCountLbl22;
   })();
 
   // --- Weekly Digest Widget (plan-23) ---
@@ -34111,33 +34013,8 @@ function renderPlanTab() {
       + "b.classList.toggle('open',!open);"
       + "btn.querySelector('.plan-digest-toggle-arrow').textContent=open?'\u25b8':'\u25be';"
       + "})(this)";
-    html +=
-      '<div class="plan-digest-wrap">' +
-        '<button class="plan-digest-toggle" onclick="' + _digestOc23 + '">' +
-          '<span class="plan-digest-toggle-title">Weekly Digest</span>' +
-          '<span class="plan-digest-toggle-right">' +
-            '<span class="plan-digest-toggle-pill">This Week</span>' +
-            '<span class="plan-digest-toggle-arrow">&#9656;</span>' +
-          '</span>' +
-        '</button>' +
-        '<div class="plan-digest-body" id="' + _digestId23 + '">' +
-          '<div class="plan-digest-kpi-row">' +
-            '<div class="plan-digest-kpi">' +
-              '<div class="plan-digest-kpi-val">' + _wLsn23 + '</div>' +
-              '<div class="plan-digest-kpi-lbl">Lessons</div>' +
-            '</div>' +
-            '<div class="plan-digest-kpi">' +
-              '<div class="plan-digest-kpi-val">' + _wXp23 + '</div>' +
-              '<div class="plan-digest-kpi-lbl">XP Earned</div>' +
-            '</div>' +
-            '<div class="plan-digest-kpi">' +
-              '<div class="plan-digest-kpi-val">' + _streak23 + '</div>' +
-              '<div class="plan-digest-kpi-lbl">Streak</div>' +
-            '</div>' +
-          '</div>' +
-          _achHtml23 +
-        '</div>' +
-      '</div>';
+    // plan-r2-01: Weekly Digest suppressed — duplicate of stat pills + heatmap
+    void _digestOc23; void _achHtml23; void _digestId23;
   })();
 
   // --- Smart Study Time Insights (plan-32) ---
@@ -34870,15 +34747,8 @@ function renderPlanTab() {
       ? 'Tap days to mark your study plan'
       : (_schedOnCount38 + ' day' + (_schedOnCount38 !== 1 ? 's' : '') + ' planned this week');
 
-    html +=
-      '<div class="plan-sched-wrap">' +
-        '<div class="plan-sched-title">' +
-          'Weekly Schedule' +
-          '<span class="plan-sched-title-hint">tap to toggle</span>' +
-        '</div>' +
-        '<div class="plan-sched-grid">' + _cellsHtml38 + '</div>' +
-        '<div class="plan-sched-hint-row">' + _hintTxt38 + '</div>' +
-      '</div>';
+    // plan-r2-03: Weekly Schedule grid suppressed — complex UI adds noise
+    void _cellsHtml38; void _hintTxt38;
   })();
 
   document.getElementById('plan-content').innerHTML = html;
@@ -36264,11 +36134,9 @@ function renderProfileTab() {
     }
 
     if (!_targetDate) {
-      _dgEl.innerHTML =
-        '<div class="section-title">Days Until Goal</div>' +
-        '<div class="days-goal-no-date">' +
-          'Set a target completion date in the Goals card above to see your countdown.' +
-        '</div>';
+      // No goal date set — leave card empty so it stays hidden via profile-card-empty-hidden logic
+      _dgEl.innerHTML = '';
+      _dgEl.classList.add('profile-card-empty-hidden');
       return;
     }
 
@@ -36408,26 +36276,6 @@ function renderProfileTab() {
     };
     var _icon = _icons[_favTitle] || '📚';
 
-    // Build mini bar chart for all units (up to 4)
-    var _allUnitIds = Object.keys(_unitCounts).sort(function(a, b) {
-      return (_unitCounts[b] || 0) - (_unitCounts[a] || 0);
-    }).slice(0, 4);
-    var _maxCount = Math.max.apply(null, _allUnitIds.map(function(uid) { return _unitCounts[uid] || 0; }));
-
-    var _unitBarsHtml = _allUnitIds.map(function(uid) {
-      var _meta = _unitMeta[uid] || { title: uid, color: 'var(--green,#58cc02)' };
-      var _cnt  = _unitCounts[uid] || 0;
-      var _pct  = _maxCount > 0 ? Math.round((_cnt / _maxCount) * 100) : 0;
-      var _shortTitle = _meta.title.length > 10 ? _meta.title.slice(0, 10) + '…' : _meta.title;
-      return '<div class="fav-topic-unit-row">' +
-        '<div class="fav-topic-unit-name">' + _shortTitle + '</div>' +
-        '<div class="fav-topic-unit-track">' +
-          '<div class="fav-topic-unit-fill" style="width:' + _pct + '%;background:' + _meta.color + ';"></div>' +
-        '</div>' +
-        '<div class="fav-topic-unit-count">' + _cnt + '</div>' +
-      '</div>';
-    }).join('');
-
     var _pctDone = _favTotal > 0 ? Math.round((_favCount / _favTotal) * 100) : 0;
 
     _ftEl.style.setProperty('--fav-color', _favColor);
@@ -36449,9 +36297,6 @@ function renderProfileTab() {
             '<div class="fav-topic-stat-lbl">of unit</div>' +
           '</div>' +
         '</div>' +
-        (_allUnitIds.length > 1
-          ? '<div class="fav-topic-all">' + _unitBarsHtml + '</div>'
-          : '') +
       '</div>';
   })();
 
@@ -36529,8 +36374,9 @@ function renderProfileTab() {
 
   // profile-24: merged into profile-30 Personal Records (profile-39)
 
-  // profile-23: Practice vs Learn Balance Chart
+  // profile-23: Practice vs Learn Balance Chart (removed — too granular)
   (function() {
+    return; // balance chart suppressed
     var _bcEl = document.getElementById('profile-balance-card');
     if (!_bcEl) return;
 
