@@ -1063,6 +1063,7 @@ body.text-xl     { --text-scale: 1.3; }
 #clari-streak-overlay.milestone-7 { background: linear-gradient(135deg, #ff9a3c 0%, #ff6b35 100%); }
 #clari-streak-overlay.milestone-14 { background: linear-gradient(135deg, #e040fb 0%, #7c4dff 100%); }
 #clari-streak-overlay.milestone-30 { background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%); }
+#clari-streak-overlay.milestone-60 { background: linear-gradient(135deg, #f43f5e 0%, #ec4899 50%, #a855f7 100%); }
 #clari-streak-overlay.milestone-100 { background: linear-gradient(135deg, #00c9ff 0%, #92fe9d 100%); }
 
 /* ============================================================
@@ -2375,11 +2376,259 @@ mark.search-hl {
 .lesson-content {
   flex: 1; min-height: 0; overflow-y: auto;
   padding: 20px 20px 24px;
+  position: relative;
 }
 .lesson-footer {
   padding: 16px 20px calc(24px + env(safe-area-inset-bottom));
   flex-shrink: 0;
 }
+
+/* ============================================================
+   LESSON NOTES FAB + SLIDE-UP PANEL + BOOKMARK
+   ============================================================ */
+.lesson-notes-fab {
+  position: fixed;
+  left: 16px;
+  bottom: calc(90px + env(safe-area-inset-bottom));
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--clari-blue);
+  color: #fff;
+  border: none;
+  box-shadow: 0 3px 12px rgba(91,192,248,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 900;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.lesson-notes-fab:hover { transform: scale(1.08); box-shadow: 0 4px 18px rgba(91,192,248,0.55); }
+.lesson-notes-fab:active { transform: scale(0.95); }
+.lesson-notes-fab .notes-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  background: var(--coral);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.lesson-notes-panel {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 300px;
+  background: var(--white);
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.12);
+  z-index: 950;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(.34,1.04,.64,1);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+.lesson-notes-panel.open {
+  transform: translateY(0);
+}
+.lesson-notes-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px 0;
+  flex-shrink: 0;
+}
+.lesson-notes-panel-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text);
+}
+.lesson-notes-panel-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--gray1);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray4);
+  transition: background 0.15s;
+}
+.lesson-notes-panel-close:hover { background: var(--gray2); }
+.lesson-notes-panel-body {
+  flex: 1;
+  min-height: 0;
+  padding: 10px 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+.lesson-notes-textarea {
+  width: 100%;
+  min-height: 120px;
+  flex: 1;
+  border: none;
+  outline: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--gray1);
+  border-radius: 12px;
+  padding: 12px 14px;
+  resize: none;
+  line-height: 1.5;
+}
+.lesson-notes-textarea::placeholder {
+  color: var(--gray3);
+  font-weight: 600;
+}
+.lesson-notes-textarea:focus {
+  background: var(--bg);
+  box-shadow: inset 0 0 0 2px var(--clari-blue);
+}
+.lesson-notes-autosave {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--green);
+  opacity: 0;
+  transition: opacity 0.3s;
+  text-align: right;
+}
+.lesson-notes-autosave.visible { opacity: 1; }
+.lesson-notes-bookmarks-label {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--gray4);
+  margin-top: 4px;
+}
+.lesson-notes-bookmark-item {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  padding: 4px 0;
+  border-bottom: 1px solid var(--gray1);
+}
+.lesson-notes-bookmark-item:last-child { border-bottom: none; }
+
+/* Slide bookmark button — top-right corner of lesson-content */
+.slide-bookmark-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  color: var(--gray3);
+  transition: color 0.2s, transform 0.2s;
+}
+.slide-bookmark-btn:hover { color: var(--yellow); transform: scale(1.12); }
+.slide-bookmark-btn.bookmarked { color: var(--yellow); }
+.slide-bookmark-btn.bookmarked svg { fill: var(--yellow); stroke: var(--yellow); }
+@keyframes bookmarkPop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+.slide-bookmark-btn.bookmark-pop { animation: bookmarkPop 0.3s ease; }
+
+/* Profile — My Notes section with bookmarks */
+.profile-notes-unit-group {
+  margin-bottom: 10px;
+}
+.profile-notes-unit-label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--gray3);
+  margin-bottom: 6px;
+  padding-left: 2px;
+}
+.profile-note-entry {
+  background: var(--yellow-5);
+  border: 1.5px solid var(--yellow-light);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.profile-note-entry:hover { background: var(--amber-5); }
+.profile-note-entry-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--yellow-dark);
+  margin-bottom: 2px;
+}
+.profile-note-entry-preview {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  opacity: 0.75;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.profile-note-entry-full {
+  display: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--yellow-light);
+}
+.profile-note-entry.expanded .profile-note-entry-preview { display: none; }
+.profile-note-entry.expanded .profile-note-entry-full { display: block; }
+.profile-note-bookmarks-list {
+  margin-top: 4px;
+  padding-left: 8px;
+}
+.profile-note-bookmark {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray4);
+  padding: 2px 0;
+}
+
+/* Dark mode — notes panel & bookmarks */
+:root[data-theme="dark"] .lesson-notes-panel { background: var(--dm-card); box-shadow: 0 -4px 24px rgba(0,0,0,0.4); }
+:root[data-theme="dark"] .lesson-notes-textarea { background: var(--bg); color: var(--text); }
+:root[data-theme="dark"] .lesson-notes-textarea:focus { background: #1e1e1e; }
+:root[data-theme="dark"] .lesson-notes-panel-close { background: var(--gray2); color: var(--gray3); }
+:root[data-theme="dark"] .slide-bookmark-btn { color: var(--gray3); }
+:root[data-theme="dark"] .slide-bookmark-btn:hover { color: var(--yellow-light); }
+:root[data-theme="dark"] .slide-bookmark-btn.bookmarked { color: var(--yellow-light); }
+:root[data-theme="dark"] .slide-bookmark-btn.bookmarked svg { fill: var(--yellow-light); stroke: var(--yellow-light); }
+:root[data-theme="dark"] .profile-note-entry { background: var(--dm-amber-bg); border-color: var(--amber-20); }
+:root[data-theme="dark"] .profile-note-entry:hover { background: var(--amber-10); }
+:root[data-theme="dark"] .profile-note-entry-title { color: var(--amber-text); }
+
 /* Unit complete banner */
 .unit-complete-banner {
   margin: 8px 0 4px;
@@ -7744,6 +7993,28 @@ mark.search-hl {
   font-size: 11px; font-weight: 800; color: var(--blue); margin-top: 10px;
 }
 
+/* ---- Weekly Streak Calendar ---- */
+.streak-week-calendar { display: flex; gap: 8px; justify-content: center; padding: 12px 0; }
+.streak-week-day { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.streak-week-day-label { font-size: 11px; font-weight: 700; color: var(--gray4); }
+.streak-week-dot {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; transition: transform 0.15s;
+}
+.streak-week-dot:hover { transform: scale(1.15); }
+.streak-week-dot.done { background: var(--green); color: white; }
+.streak-week-dot.frozen { background: var(--clari-blue); color: white; }
+.streak-week-dot.missed { background: var(--gray1); }
+.streak-week-dot.today { border: 2px solid var(--clari-blue); animation: streakTodayPulse 2s ease infinite; }
+@keyframes streakTodayPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(91,192,248,0.4); }
+  50% { box-shadow: 0 0 0 5px rgba(91,192,248,0); }
+}
+:root[data-theme="dark"] .streak-week-dot.missed { background: var(--gray1); }
+:root[data-theme="dark"] .streak-week-dot.done { background: var(--green2); }
+:root[data-theme="dark"] .streak-week-dot.frozen { background: var(--clari-dark); }
+
 /* ---- profile-09: Recent Activity Timeline ---- */
 .profile-activity-list {
   display: flex; flex-direction: column; gap: 0;
@@ -10375,6 +10646,129 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
   color: var(--clari-blue);
   font-weight: 700;
 }
+
+/* ======== DAILY TIPS CAROUSEL ======== */
+.daily-tips-carousel {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+.daily-tips-carousel::-webkit-scrollbar { display: none; }
+
+.dtc-carousel-card {
+  min-width: 280px;
+  max-width: 85vw;
+  scroll-snap-align: start;
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex-shrink: 0;
+  border: 1.5px solid transparent;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.dtc-carousel-card:active {
+  transform: scale(0.98);
+}
+.dtc-carousel-card[data-category="tip"] {
+  background: var(--clari-blue-10);
+  border-color: color-mix(in srgb, var(--clari-blue) 30%, transparent);
+}
+.dtc-carousel-card[data-category="safety"] {
+  background: var(--green-10);
+  border-color: color-mix(in srgb, var(--green) 30%, transparent);
+}
+.dtc-carousel-card[data-category="tool"] {
+  background: var(--purple-10);
+  border-color: color-mix(in srgb, var(--purple) 30%, transparent);
+}
+.dtc-carousel-card[data-category="fact"] {
+  background: var(--yellow-5);
+  border-color: color-mix(in srgb, var(--yellow) 30%, transparent);
+}
+.dtc-carousel-card[data-category="hack"] {
+  background: color-mix(in srgb, var(--coral) 10%, var(--white));
+  border-color: color-mix(in srgb, var(--coral) 30%, transparent);
+}
+:root[data-theme="dark"] .dtc-carousel-card[data-category="tip"] {
+  background: #1a2e3a; border-color: #2a4a5a;
+}
+:root[data-theme="dark"] .dtc-carousel-card[data-category="safety"] {
+  background: #1a2e1f; border-color: #2a4a30;
+}
+:root[data-theme="dark"] .dtc-carousel-card[data-category="tool"] {
+  background: #251a35; border-color: #3a2a50;
+}
+:root[data-theme="dark"] .dtc-carousel-card[data-category="fact"] {
+  background: #2e2a1a; border-color: #4a4530;
+}
+:root[data-theme="dark"] .dtc-carousel-card[data-category="hack"] {
+  background: #2e1a22; border-color: #4a2a35;
+}
+
+.dtc-carousel-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.6);
+}
+:root[data-theme="dark"] .dtc-carousel-icon {
+  background: rgba(255,255,255,0.08);
+}
+.dtc-carousel-body {
+  flex: 1;
+  min-width: 0;
+}
+.dtc-carousel-title {
+  font-size: calc(11px * var(--text-scale, 1));
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 3px;
+  line-height: 1.3;
+}
+.dtc-carousel-card[data-category="tip"] .dtc-carousel-title { color: var(--clari-blue); }
+.dtc-carousel-card[data-category="safety"] .dtc-carousel-title { color: var(--green); }
+.dtc-carousel-card[data-category="tool"] .dtc-carousel-title { color: var(--purple); }
+.dtc-carousel-card[data-category="fact"] .dtc-carousel-title { color: var(--yellow-dark); }
+.dtc-carousel-card[data-category="hack"] .dtc-carousel-title { color: var(--coral); }
+:root[data-theme="dark"] .dtc-carousel-card[data-category="fact"] .dtc-carousel-title { color: var(--yellow-light); }
+
+.dtc-carousel-text {
+  font-size: calc(13px * var(--text-scale, 1));
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+.daily-tips-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 4px 12px 8px;
+}
+.daily-tips-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gray2);
+  transition: background 0.3s, transform 0.3s;
+}
+.daily-tips-dot.active {
+  background: var(--clari-blue);
+  transform: scale(1.3);
+}
 </style>
 
 <script>
@@ -10603,6 +10997,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
           <span id="hearts-refilled-badge" style="display:none;align-items:center;gap:3px;font-size:11px;font-weight:800;color:var(--red);background:rgba(255,107,107,0.1);border-radius:8px;padding:2px 8px;">&#x2764;&#xFE0F; Hearts refilled!</span>
         </div>
       </div>
+      <div id="daily-tips-carousel-wrap"></div>
       <div id="weekly-challenge-banner" style="margin:0 12px 8px;"></div>
       <div id="units-container"></div>
       <div id="lp-tooltip"><div class="lp-tip-title" id="lp-tip-title"></div><div class="lp-tip-body" id="lp-tip-body"></div><div class="lp-tip-hint">Tap to open lesson</div></div>
@@ -10631,6 +11026,24 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
       <div class="lesson-content" id="lesson-content"></div>
       <div class="practice-session-prog-wrap" id="practice-session-prog-wrap"><span class="practice-sess-prog-label" id="psp-label">Q 1 of 1</span><div class="practice-sess-prog-track"><div class="practice-sess-prog-fill" id="psp-fill" style="width:0%;"></div></div><span class="practice-sess-prog-pct" id="psp-pct">0%</span></div>
       <div class="lesson-footer" id="lesson-footer"></div>
+      <!-- Notes FAB (bottom-left during lessons) -->
+      <button class="lesson-notes-fab" id="lesson-notes-fab" onclick="toggleLessonNotesPanel()" style="display:none;" aria-label="Open notes">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3L21 7L8 20L3 21L4 16Z"/><line x1="14" y1="6" x2="18" y2="10"/></svg>
+      </button>
+      <!-- Notes slide-up panel -->
+      <div class="lesson-notes-panel" id="lesson-notes-panel">
+        <div class="lesson-notes-panel-header">
+          <span class="lesson-notes-panel-title">Lesson Notes</span>
+          <button class="lesson-notes-panel-close" onclick="closeLessonNotesPanel()" aria-label="Close notes">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div class="lesson-notes-panel-body">
+          <textarea class="lesson-notes-textarea" id="lesson-notes-textarea" placeholder="Type your notes here..."></textarea>
+          <span class="lesson-notes-autosave" id="lesson-notes-autosave">Saved</span>
+          <div id="lesson-notes-bookmarks-section"></div>
+        </div>
+      </div>
     </div>
 
     <!-- ======== PRACTICE TAB ======== -->
@@ -10843,15 +11256,20 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
     <div class="section-card collapsible collapsed" id="profile-dna-card"></div>
     <div class="section-card collapsible collapsed" id="profile-commitment-card"></div>
     <div class="section-card" id="profile-export-card" style="display:none" aria-hidden="true"></div>
-    <div class="section-card">
-      <div class="section-title" style="display:flex;align-items:center;justify-content:space-between;">
-        <span>My Notes</span>
-        <button class="export-notes-btn" onclick="exportAllNotes()" id="export-notes-btn" style="display:none;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          Export
-        </button>
+    <div class="section-card collapsible collapsed" id="profile-notes-card">
+      <div class="section-card-header" onclick="toggleProfileCard(this)" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
+        <div class="section-title" style="margin-bottom:0;display:flex;align-items:center;gap:8px;">
+          <span>My Notes</span>
+          <button class="export-notes-btn" onclick="event.stopPropagation();exportAllNotes()" id="export-notes-btn" style="display:none;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Export
+          </button>
+        </div>
+        <svg class="section-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
-      <div id="profile-notes-list"></div>
+      <div class="section-card-body">
+        <div id="profile-notes-list"></div>
+      </div>
     </div>
     <div class="section-card">
       <div class="section-title">Settings</div>
@@ -23566,6 +23984,897 @@ const COURSE = [
       ]
     }
   ]
+},
+
+{
+  id: 'unit23', title: 'AI for Travel & Adventure', color: '#ff7043', num: 23,
+  lessons: [
+    {
+      id: 'u23l1', title: 'Planning Your Dream Trip with AI', unit: 23, free: true, xp: 60, gems: 12,
+      tags: ['travel', 'planning', 'beginner'],
+      slides: [
+        {
+          type: 'info',
+          title: 'Your AI Travel Agent Never Sleeps',
+          text: 'Planning a trip used to mean hours of Googling, scrolling forums, and comparing dozens of tabs. AI changes that. You can describe your dream vacation in plain language — budget, interests, travel dates, dietary needs — and get a personalized itinerary in seconds. ChatGPT, Claude, and Gemini can research destinations, compare costs, suggest hidden gems, and even help you learn key phrases before you go.',
+          bullets: [
+            '[map] Describe your ideal trip in plain words — AI builds the plan',
+            '[clock] Get a day-by-day itinerary in under a minute',
+            '[star] Ask for hidden gems, local favorites, and off-the-beaten-path spots',
+            '[coin] Compare costs across destinations before you commit'
+          ],
+          tip: 'Think of AI as a knowledgeable travel-obsessed friend who has read every guidebook ever written — but always verify visa and safety info with official sources.'
+        },
+        {
+          type: 'info',
+          title: 'Meet Our Travelers',
+          text: 'Lucia is 32 and about to take her first solo trip — two weeks in Japan. She is anxious but excited, and she has never planned an international trip alone. Tom and Sarah are a mid-40s couple planning their 20th anniversary trip to Italy on a tight budget. Aiden is 22, backpacking Southeast Asia with a laptop and a shoestring budget — tech-savvy but watching every dollar. Their stories will guide us through this unit.',
+          bullets: [
+            '[user] Lucia: "I\'ve dreamed about Japan for years but I don\'t even know where to start."',
+            '[heart] Tom & Sarah: "We want romance and great food without breaking the bank."',
+            '[bag] Aiden: "I\'ve got three months, a backpack, and $4,000. Let\'s make it work."',
+            '[shield] Remember: AI travel advice is a starting point — always verify visa requirements, safety advisories, and booking details with official sources'
+          ]
+        },
+        {
+          type: 'quiz',
+          question: 'Lucia asks ChatGPT: "Plan my Japan trip." She gets a very generic response. What went wrong?',
+          options: [
+            'ChatGPT can\'t help with travel planning',
+            'Her prompt lacked context — she didn\'t mention dates, budget, interests, dietary needs, or travel style',
+            'She needs to pay for the premium version to get travel advice',
+            'AI only works for domestic travel'
+          ],
+          correct: 1,
+          hint: 'Think about what makes a prompt specific and useful — the more context, the better the response.',
+          explanation: 'AI travel planning works best with specific context: your dates, budget, interests, dietary requirements, mobility needs, and travel style. "Plan my Japan trip" is too vague. "Plan a 14-day solo trip to Japan in October, budget $3,000, I love food markets and temples, I\'m vegetarian" gives AI everything it needs.'
+        },
+        {
+          type: 'sim_chat',
+          setup: 'Lucia tries a detailed prompt for her Japan trip planning.',
+          messages: [
+            { role: 'user', text: 'I\'m planning my first solo trip to Japan for 14 days in October. Budget is about $3,000 not including flights. I love street food, temples, nature hikes, and photography. I\'m vegetarian and a little anxious about navigating alone. Can you create a day-by-day itinerary?' },
+            { role: 'ai', text: 'What an exciting trip! Here\'s a 14-day itinerary tailored to you:\n\nDays 1-4: Tokyo — Meiji Shrine, Shibuya Crossing (great photos at sunset), Tsukiji Outer Market (vegetarian options at the tamagoyaki stalls), Shinjuku Gyoen garden, day trip to Kamakura.\n\nDays 5-7: Hakone/Fuji area — nature hikes, hot springs, views of Mt. Fuji from Lake Ashi.\n\nDays 8-11: Kyoto — Fushimi Inari at sunrise (fewer crowds, magical photos), Arashiyama bamboo grove, temple-hopping in Higashiyama. Kyoto has excellent vegetarian Buddhist cuisine called "shojin ryori."\n\nDays 12-14: Osaka — street food capital (ask for "yasai" versions), Osaka Castle, Dotonbori at night.\n\nSolo travel tip: Google Maps works perfectly in Japan, and convenience stores (konbini) are your best friend for cheap, safe vegetarian onigiri.' },
+            { role: 'user', text: 'This is amazing! But how do I get between cities?' },
+            { role: 'ai', text: 'Great question! A 14-day Japan Rail Pass (about $380 USD) covers virtually all your intercity travel — bullet trains between Tokyo, Kyoto, and Osaka included. Buy it before you leave home from an authorized vendor. For city travel, get a Suica or Pasmo IC card at any station — tap-and-go for trains, buses, and even vending machines. Japan\'s rail system is famously punctual and well-signed in English.' }
+          ],
+          prompt: 'What made Lucia\'s second prompt so much more effective than "plan my Japan trip"?',
+          options: [
+            'She used a more expensive AI model',
+            'She provided specific details: duration, budget, interests, dietary needs, solo travel concern, and the exact format she wanted',
+            'She asked in Japanese',
+            'She typed more words — length is what matters'
+          ],
+          correct: 1
+        },
+        {
+          type: 'quiz',
+          question: 'Tom and Sarah ask AI: "Find us hidden gems in Italy that tourists don\'t know about." What should they keep in mind about AI\'s response?',
+          options: [
+            'AI knows every secret spot in Italy — trust it completely',
+            'AI suggestions are based on training data and may include places that are now closed, overcrowded, or inaccurate — always cross-check with recent reviews',
+            'AI only recommends popular tourist destinations',
+            'AI hidden gems are always better than guidebook recommendations'
+          ],
+          correct: 1,
+          explanation: 'AI can suggest wonderful off-the-beaten-path destinations, but its knowledge has a cutoff date. Restaurants close, trails get rerouted, and "hidden gems" become crowded once enough people discover them. Always verify with recent Google reviews, TripAdvisor, or local tourism sites.'
+        },
+        {
+          type: 'scenario',
+          situation: 'Aiden is planning his Southeast Asia backpacking route. He asks AI to create a 3-month itinerary covering Thailand, Vietnam, Cambodia, and Laos. AI suggests an exciting route but includes a border crossing that requires a visa Aiden doesn\'t have.',
+          question: 'What should Aiden do?',
+          choices: [
+            { text: 'Trust the AI itinerary completely — AI wouldn\'t suggest it if it wasn\'t possible', points: 0, result: 'Aiden arrives at the border and is turned away. He wastes two days and $200 rerouting. AI doesn\'t check your passport or visa status.' },
+            { text: 'Use the AI itinerary as a starting framework but verify every border crossing, visa requirement, and entry rule on official government websites', points: 10, result: 'Aiden catches the visa issue before leaving, applies online, and crosses the border smoothly. The AI route was great — he just needed to fact-check the logistics.' },
+            { text: 'Abandon AI planning entirely and only use guidebooks', points: 3, result: 'Aiden misses out on AI\'s ability to customize routes to his interests and budget. Guidebooks are helpful but often outdated too. The best approach combines both.' }
+          ],
+          correct: 1,
+          lesson: 'AI creates excellent travel frameworks, but it cannot check your actual visa status, verify current border rules, or know about recent policy changes. Always verify logistics with official government travel advisory sites.'
+        },
+        {
+          type: 'tap_correct',
+          question: 'Tap everything AI can help you with when planning a trip.',
+          items: [
+            { text: 'Creating a day-by-day itinerary based on your interests', correct: true },
+            { text: 'Guaranteeing current visa requirements for your passport', correct: false },
+            { text: 'Suggesting restaurants that match your dietary needs', correct: true },
+            { text: 'Booking flights and processing payments', correct: false },
+            { text: 'Comparing costs between different destinations', correct: true },
+            { text: 'Recommending the best times of year to visit a destination', correct: true },
+            { text: 'Confirming that a specific hotel is still open today', correct: false }
+          ]
+        },
+        {
+          type: 'fill_blank',
+          sentence: 'AI can create personalized travel [___], but you should always verify visa and safety information with [___] sources.',
+          answer: 'itineraries',
+          bank: ['itineraries', 'official', 'cheap', 'online'],
+          correct: 'itineraries'
+        },
+        {
+          type: 'quiz',
+          question: 'Which prompt would give Lucia the BEST packing advice from AI?',
+          options: [
+            '"What should I pack?"',
+            '"I\'m going to Japan for 14 days in October, mostly city walking and temple visits with a few nature hikes. I have carry-on luggage only. What should I pack?"',
+            '"Pack list Japan"',
+            '"Tell me everything about packing"'
+          ],
+          correct: 1,
+          hint: 'Context is king — AI needs to know where, when, how long, and what activities.',
+          explanation: 'The detailed prompt includes destination, duration, season, activities, and luggage constraints. This allows AI to suggest weather-appropriate clothing, temple-visit requirements (covered shoulders), hiking gear, and carry-on-friendly packing strategies.'
+        },
+        {
+          type: 'scenario',
+          situation: 'Tom and Sarah use AI to compare the cost of living in five Italian cities for their anniversary trip. AI says Naples is much cheaper than Rome or Florence. They\'re tempted to spend all 10 days there.',
+          question: 'How should they use this information?',
+          choices: [
+            { text: 'Book everything in Naples immediately based on AI\'s cost comparison', points: 2, result: 'They enjoy Naples but miss the Tuscan countryside and Roman history they\'d dreamed about. AI\'s cost data was helpful but shouldn\'t be the only factor.' },
+            { text: 'Use AI\'s cost comparison as one factor, then ask AI to create a mixed itinerary — more days in cheaper cities, fewer in expensive ones — balancing budget with their must-see list', points: 10, result: 'They spend 4 days in Naples, 3 in Rome, and 3 in a small Tuscan town. The budget works and they see everything on their dream list.' },
+            { text: 'Ignore the cost data and just go wherever looks nicest on Instagram', points: 1, result: 'They overspend in the first week and have to cut the trip short. Beautiful photos, empty wallet.' }
+          ],
+          correct: 1,
+          lesson: 'AI cost comparisons are great for budgeting, but the best trips balance budget with your actual priorities. Use AI to optimize — not to make the decision for you.'
+        },
+        {
+          type: 'type_answer',
+          question: 'What is the most important thing to verify with official government sources before any international trip?',
+          placeholder: 'Type your answer...',
+          answers: ['visa', 'visa requirements', 'visas', 'visa requirement'],
+          accept: ['visa', 'visa requirements', 'visas', 'visa requirement', 'entry requirements'],
+          hint: 'It\'s a document or requirement that determines whether you can legally enter a country...'
+        },
+        {
+          type: 'sim_chat',
+          setup: 'Aiden asks AI to help him find cheap but safe accommodation in Bangkok.',
+          messages: [
+            { role: 'user', text: 'I\'m a solo backpacker, 22, in Bangkok for 5 days. Budget is $15-25/night. I want somewhere safe, social, and near public transit. Recommendations?' },
+            { role: 'ai', text: 'For your budget and style, hostels in the Khao San Road area or Silom are great options. Look for places with:\n\n- 8.0+ rating on Hostelworld or Booking.com\n- Reviews mentioning safety, clean beds, and social common areas\n- Walking distance to BTS Skytrain or MRT stations\n\nSome well-reviewed options to research: NapPark Hostel (Khao San area, ~$12/night, highly rated), Lub d Silom (~$20/night, modern with rooftop bar).\n\nSafety tips: Always read the most recent reviews (not just the highest rated), check Google Maps Street View for the neighborhood, and book directly through major platforms for buyer protection.' },
+            { role: 'user', text: 'Are those hostels still open? How do I know AI isn\'t making them up?' },
+            { role: 'ai', text: 'Great instinct! I\'m suggesting these based on my training data, but I can\'t confirm they\'re still open today. Here\'s what to do:\n\n1. Search each name on Booking.com or Hostelworld right now\n2. Check Google Maps for current photos and reviews\n3. Look at reviews from the last 3 months specifically\n\nIf a place I mentioned doesn\'t exist or has closed, use the criteria I gave you (rating, location, price) to find similar options on those platforms.' }
+          ],
+          prompt: 'What did the AI do well in its second response?',
+          options: [
+            'It guaranteed the hostels were still open',
+            'It honestly acknowledged its limitations and gave Aiden concrete steps to verify the information himself',
+            'It refused to help with accommodation',
+            'It booked the hostel for Aiden automatically'
+          ],
+          correct: 1
+        },
+        {
+          type: 'info',
+          title: 'Safety First: AI Travel Planning Rules',
+          text: 'AI is a phenomenal trip-planning companion, but there are some things it simply cannot do — and some information you should never share with it.',
+          bullets: [
+            '[shield] Never share passport numbers, credit card details, or personal ID with AI chatbots',
+            '[alert] Always verify visa requirements on official government websites — AI\'s info may be outdated',
+            '[search] Cross-check AI-recommended "deals" on official booking sites before paying',
+            '[heart] AI cannot replace travel insurance — always get coverage for international trips',
+            '[clock] AI\'s knowledge has a cutoff date — it doesn\'t know about recent closures, strikes, or safety warnings'
+          ]
+        },
+        {
+          type: 'clari_react',
+          msg: 'You\'ve just unlocked your AI travel agent! Remember: AI builds the dream itinerary, but you verify the details. Never share passport or credit card info with chatbots, and always check visa rules on official sites. Now go plan that adventure!',
+          mood: 'excited'
+        }
+      ]
+    },
+    {
+      id: 'u23l2', title: 'AI Translation & Communication Abroad', unit: 23, free: false, xp: 60, gems: 12,
+      tags: ['travel', 'translation', 'communication', 'language'],
+      slides: [
+        {
+          type: 'info',
+          title: 'Breaking the Language Barrier',
+          text: 'One of the biggest fears about traveling abroad is not being able to communicate. AI has transformed this completely. Real-time translation apps, AI-powered phrasebooks, and cultural etiquette guides mean you can navigate foreign countries with confidence — even if you don\'t speak a word of the local language. From ordering food to handling medical emergencies, AI is your pocket translator.',
+          bullets: [
+            '[chat] Google Translate, Apple Translate, and ChatGPT can all translate in real time',
+            '[camera] Camera translation — point your phone at a menu or sign and see it in English instantly',
+            '[brain] AI can teach you key phrases with pronunciation guides before your trip',
+            '[heart] Learning even a few local words shows respect and opens doors that translation apps can\'t'
+          ],
+          tip: 'Pro tip: Download offline translation packs before you travel — you won\'t always have internet.'
+        },
+        {
+          type: 'sim_chat',
+          setup: 'Lucia wants to learn essential Japanese phrases before her trip. She asks AI for help.',
+          messages: [
+            { role: 'user', text: 'I\'m going to Japan in 3 weeks. I don\'t speak any Japanese. Can you teach me the 10 most important phrases I\'ll need, with pronunciation?' },
+            { role: 'ai', text: 'Absolutely! Here are your survival phrases with pronunciation:\n\n1. Sumimasen (soo-mee-mah-sen) — Excuse me / Sorry / Thank you (most useful word in Japan!)\n2. Arigatou gozaimasu (ah-ree-gah-toh go-zai-mas) — Thank you very much\n3. Kore o kudasai (ko-reh oh koo-dah-sai) — This one, please (point at menu item)\n4. Eigo o hanasemasu ka? (ay-go oh hah-nah-seh-mas kah) — Do you speak English?\n5. Ikura desu ka? (ee-koo-rah des kah) — How much is it?\n6. Toire wa doko desu ka? (toy-reh wah doh-koh des kah) — Where is the toilet?\n7. Hai (hai) — Yes\n8. Iie (ee-eh) — No\n9. Tasukete! (tah-soo-keh-teh) — Help!\n10. Watashi wa bejitarian desu (wah-tah-shee wah beh-jee-tah-ree-an des) — I am vegetarian\n\nPractice tip: Say each one 5 times out loud today. Japanese people appreciate any effort to speak their language!' },
+            { role: 'user', text: 'How do I pronounce the "r" sound in Japanese? It doesn\'t sound like English "r".' },
+            { role: 'ai', text: 'Great catch! The Japanese "r" is one of the trickiest sounds. It\'s somewhere between an English "r", "l", and "d". Try this:\n\nPut your tongue where you\'d say "d" (behind your top teeth), then flick it quickly — like a soft, quick "d" with a hint of "l". So "arigatou" sounds closer to "ah-dee-gah-toh" than "ah-ree-gah-toh" to English ears.\n\nDon\'t stress about perfection — Japanese speakers will understand you even with an accent. The effort matters more than the pronunciation!' }
+          ],
+          prompt: 'Why is this a particularly useful way to learn phrases for travel?',
+          options: [
+            'AI gave a dictionary-style translation list with no context',
+            'AI provided practical phrases ranked by usefulness, with phonetic pronunciation, and personalized to Lucia\'s vegetarian needs',
+            'AI taught grammar rules first',
+            'AI recommended a language course instead'
+          ],
+          correct: 1
+        },
+        {
+          type: 'quiz',
+          question: 'Aiden is in a Vietnamese restaurant. The menu is only in Vietnamese. What is the fastest way to understand it?',
+          options: [
+            'Ask the waiter to translate every item verbally',
+            'Use Google Translate\'s camera feature to point at the menu and see it in English instantly',
+            'Leave and find an English-language restaurant',
+            'Order randomly and hope for the best'
+          ],
+          correct: 1,
+          hint: 'Modern translation apps have a feature that uses your phone\'s camera...',
+          explanation: 'Google Translate\'s camera mode can instantly translate text in images — just point your phone at the menu. It works for signs, menus, medicine labels, and even handwritten notes. Download the Vietnamese language pack offline before your trip in case you don\'t have signal.'
+        },
+        {
+          type: 'quiz',
+          question: 'Tom and Sarah want to ask their Italian hotel about a room upgrade. Which approach will get the best result?',
+          options: [
+            'Speak loudly in English — everyone understands English eventually',
+            'Use AI to translate their request into polite Italian, including a cultural note about proper greetings, then read it from their phone',
+            'Just point and gesture',
+            'Write it in English and hand it to the front desk'
+          ],
+          correct: 1,
+          explanation: 'Using AI to craft a polite request in the local language shows respect and often gets better results. AI can also advise on cultural norms — like greeting with "Buongiorno" first, which Italians appreciate. Reading a prepared translation from your phone is perfectly acceptable and appreciated.'
+        },
+        {
+          type: 'scenario',
+          situation: 'Lucia feels sick at her hotel in Kyoto. She has stomach pain and a fever. The front desk staff speaks limited English. She needs to communicate her symptoms and ask for help finding a doctor.',
+          question: 'What is the safest way for Lucia to handle this?',
+          choices: [
+            { text: 'Use AI to translate her symptoms into Japanese, show the translation to the front desk, and ask them to call a doctor or direct her to the nearest hospital', points: 10, result: 'The front desk understands immediately, calls an English-speaking medical clinic nearby, and even writes down directions. Lucia gets help within an hour.' },
+            { text: 'Try to explain symptoms using hand gestures only', points: 3, result: 'There\'s some confusion, but the staff eventually understands she\'s unwell. They bring water but aren\'t sure how to help further. It takes much longer to get medical attention.' },
+            { text: 'Stay in her room and hope it passes — she\'s too embarrassed to ask for help in a foreign language', points: 0, result: 'Lucia\'s fever worsens overnight. By morning she needs emergency care, which is more expensive and stressful than a clinic visit would have been.' }
+          ],
+          correct: 0,
+          lesson: 'In medical situations abroad, AI translation can be a lifesaver. Translate your symptoms, the name of your medication (if any), and key phrases like "I need a doctor" before you travel. Your health is more important than language embarrassment.'
+        },
+        {
+          type: 'tap_correct',
+          question: 'Tap all the ways AI can help with communication abroad.',
+          items: [
+            { text: 'Translating menu items using camera mode', correct: true },
+            { text: 'Replacing the need to learn any local phrases', correct: false },
+            { text: 'Teaching cultural etiquette for specific countries', correct: true },
+            { text: 'Providing real-time spoken translation in any language perfectly', correct: false },
+            { text: 'Translating emergency medical symptoms for doctors', correct: true },
+            { text: 'Explaining local customs like tipping and greetings', correct: true }
+          ]
+        },
+        {
+          type: 'fill_blank',
+          sentence: 'Before traveling to a foreign country, download offline [___] packs so you can translate even without internet [___].',
+          answer: 'language',
+          bank: ['language', 'access', 'travel', 'data'],
+          correct: 'language'
+        },
+        {
+          type: 'info',
+          title: 'Cultural Etiquette: Let AI Be Your Guide',
+          text: 'Translation is only half the battle. Knowing the local customs can be the difference between a warm welcome and an awkward misunderstanding. AI is surprisingly good at explaining cultural norms — just ask.',
+          bullets: [
+            '[bow] Japan: Bowing is standard for greetings. Remove shoes indoors. Tipping is considered rude.',
+            '[food] Italy: Never order cappuccino after 11 a.m. — locals consider it a breakfast drink only.',
+            '[hand] Thailand: Don\'t touch someone\'s head or point your feet at people — both are disrespectful.',
+            '[chat] Ask AI: "What are 5 cultural mistakes tourists make in [country]?" — you\'ll be surprised what you learn.'
+          ]
+        },
+        {
+          type: 'quiz',
+          question: 'Aiden uses Google Translate to ask for directions in Cambodia. The translation seems off and the local looks confused. What should Aiden do?',
+          options: [
+            'Repeat the same translation louder',
+            'Try rephrasing in simpler English, use the translation app to show the written text, and combine with pointing at a map',
+            'Give up on that direction entirely',
+            'Switch to a completely different translation app mid-conversation'
+          ],
+          correct: 1,
+          explanation: 'AI translation isn\'t perfect, especially with complex sentences or regional dialects. When a translation fails, simplify your English (use shorter sentences), show the written translation on your screen, and combine with visual aids like maps. Multiple communication methods together work better than relying on one.'
+        },
+        {
+          type: 'scenario',
+          situation: 'Tom and Sarah are at a formal dinner in Italy hosted by a local family they met through a food tour. Sarah wants to compliment the meal. She uses AI to translate "This meal is sick!" (meaning amazing in her slang).',
+          question: 'What will likely happen?',
+          choices: [
+            { text: 'The AI will translate the slang perfectly and the family will be delighted', points: 2, result: 'Some AI tools handle slang well, but many translate literally. "This meal is sick" could become "This meal is ill/diseased" in Italian — mortifying at a formal dinner.' },
+            { text: 'Sarah should rephrase to clear, simple English like "This meal is delicious — thank you for your hospitality" before translating, because AI struggles with slang and idioms', points: 10, result: 'The translation comes out perfectly: "Questo pasto e delizioso — grazie per la vostra ospitalita." The family beams with pride.' },
+            { text: 'Slang always translates better than formal language', points: 0, result: 'This is the opposite of how translation works. Simple, clear language almost always translates more accurately than slang, idioms, or cultural expressions.' }
+          ],
+          correct: 1,
+          lesson: 'When using AI for translation, always use clear, simple, literal language. Avoid slang, idioms, sarcasm, and cultural expressions — they often translate incorrectly or offensively. "This food is amazing" translates better than "This food slaps."'
+        },
+        {
+          type: 'type_answer',
+          question: 'Before traveling to a country where you don\'t speak the language, you should download offline translation _____ to your phone.',
+          placeholder: 'Type the word...',
+          answers: ['packs', 'packages', 'pack'],
+          accept: ['packs', 'packages', 'pack', 'language packs', 'language pack'],
+          hint: 'They\'re downloadable language data files — starts with P...'
+        },
+        {
+          type: 'info',
+          title: 'Emergency Phrases: Prepare Before You Go',
+          text: 'The most important translations are the ones you need in an emergency — and those are the worst moments to be fumbling with an app. Prepare these before you leave home.',
+          bullets: [
+            '[alert] Translate and screenshot: "I need a doctor," "I am allergic to ___," "Please call an ambulance"',
+            '[pill] List your medications in the local language — pharmacies abroad may not recognize brand names',
+            '[phone] Save your embassy\'s local phone number and address in your contacts',
+            '[shield] Keep a card in your wallet with your blood type, allergies, and emergency contact — in both English and the local language'
+          ]
+        },
+        {
+          type: 'quiz',
+          question: 'Why should you prepare emergency translations BEFORE your trip rather than relying on real-time translation during an emergency?',
+          options: [
+            'Translation apps are expensive in emergencies',
+            'In a stressful situation you may not have internet, your phone may be dead, or your hands may be shaking too much to type — pre-translated screenshots and wallet cards work even when technology fails',
+            'Emergency phrases are too complex for AI to translate',
+            'Hospitals only accept printed translations'
+          ],
+          correct: 1,
+          explanation: 'Emergencies are high-stress, low-resource moments. Your phone might be dead, you might not have signal, or panic may make it hard to type. Pre-translated screenshots, wallet cards, and saved phrases are your safety net when technology fails.'
+        },
+        {
+          type: 'sim_chat',
+          setup: 'Aiden asks AI to help him understand a cultural custom he encountered in Thailand.',
+          messages: [
+            { role: 'user', text: 'I was at a temple in Chiang Mai and everyone was taking off their shoes. Then a local person seemed upset when I pointed at a Buddha statue with my foot while sitting down. What did I do wrong?' },
+            { role: 'ai', text: 'In Thai culture, feet are considered the lowest and dirtiest part of the body. Pointing your feet at a Buddha statue (or any person) is deeply disrespectful. Here\'s what to know:\n\n1. Always remove shoes before entering temples and many homes\n2. Never point your feet at people, religious objects, or food\n3. When sitting in a temple, tuck your feet behind you or sit cross-legged with feet pointing away from the altar\n4. The head is the most sacred part — never touch anyone\'s head, even a child\'s\n\nDon\'t feel terrible — most Thais understand that tourists don\'t know these customs. But knowing them shows respect and makes your interactions much warmer.' },
+            { role: 'user', text: 'Are there other customs I should know about in Thailand?' },
+            { role: 'ai', text: 'Absolutely! Key Thai customs for travelers:\n\n- The "wai" greeting: press palms together at chest level and bow slightly. Use it to say hello, thank you, and goodbye\n- Never touch or disrespect images of the King — lese majeste laws are strictly enforced\n- Don\'t hand things with your left hand (considered unclean)\n- Dress modestly at temples: cover shoulders and knees\n- Stay calm in disagreements — Thais value "keeping face" and public anger is considered very rude\n\nA simple "sawadee khrap" (male) or "sawadee kha" (female) with a wai goes a long way!' }
+          ],
+          prompt: 'Why is asking AI about cultural customs BEFORE they become mistakes a better strategy?',
+          options: [
+            'AI cultural information is always wrong',
+            'Learning customs proactively prevents embarrassing or offensive situations, and shows locals that you respect their culture',
+            'Cultural customs don\'t matter when traveling',
+            'AI can undo cultural mistakes'
+          ],
+          correct: 1
+        },
+        {
+          type: 'clari_react',
+          msg: 'You\'re now ready to communicate anywhere in the world! AI translation is incredibly powerful, but remember: use simple, clear language for best results, download offline packs, and learning even a few local words earns more respect than any app ever could. Safe travels!',
+          mood: 'proud'
+        }
+      ]
+    },
+    {
+      id: 'u23l3', title: 'Smart Booking & Budget Travel with AI', unit: 23, free: false, xp: 60, gems: 12,
+      tags: ['travel', 'booking', 'budget', 'deals'],
+      slides: [
+        {
+          type: 'info',
+          title: 'Outsmart the System — Ethically',
+          text: 'Airline prices fluctuate wildly. Hotels use dynamic pricing. Reward points are a maze. AI can help you navigate all of it — comparing prices across platforms, predicting when fares will drop, optimizing reward points, and spotting scam listings. You don\'t need to be a travel hacker. You just need to know what to ask.',
+          bullets: [
+            '[coin] AI can compare flight and hotel prices across multiple booking platforms for you',
+            '[chart] Price prediction tools use AI to suggest the best time to book',
+            '[star] Reward point optimization — AI can help you get more value from credit card and airline points',
+            '[shield] AI can teach you how to spot fake listings and booking scams'
+          ],
+          tip: 'AI can\'t actually book for you or access live prices directly — but it can teach you exactly where to look and what strategies to use.'
+        },
+        {
+          type: 'sim_chat',
+          setup: 'Tom and Sarah ask AI to help them find affordable flights to Italy for their anniversary.',
+          messages: [
+            { role: 'user', text: 'We need to fly from Chicago to Rome in September. Our budget is $800 per person round trip. Any strategies to find the best deal?' },
+            { role: 'ai', text: 'Great budget — definitely achievable for September! Here\'s your strategy:\n\n1. **Flexible dates**: Use Google Flights\' "date grid" or "price graph" — shifting by 2-3 days can save $200+\n2. **Nearby airports**: Check Milan (MXP) too — sometimes cheaper than Rome, and a $30 train gets you to Rome\n3. **Book timing**: For September travel, book 6-8 weeks in advance (sweet spot for transatlantic fares)\n4. **Set alerts**: Google Flights and Hopper both send alerts when prices drop on your route\n5. **Tuesday myth**: The "book on Tuesday" advice is mostly outdated — but mid-week flights (Tue-Thu) ARE often cheaper than weekends\n\nBonus: Check Norwegian, TAP Portugal, and Aer Lingus — they often undercut the big US carriers on transatlantic routes.' },
+            { role: 'user', text: 'Someone on Facebook said they got Rome flights for $200 round trip. Is that real?' },
+            { role: 'ai', text: 'That\'s almost certainly an error fare or a scam. Here\'s how to tell:\n\n- **Error fares** do exist (airlines accidentally post wrong prices) — but they\'re extremely rare, gone within hours, and airlines sometimes cancel them\n- **Scam signs**: Prices dramatically below market rate, booking through unfamiliar websites, requiring wire transfers or gift cards, pressure to "book now before it expires"\n- **Real deal range**: Chicago to Rome in September typically runs $500-900 round trip. Under $400 is unusually cheap. Under $200 is almost certainly fake.\n\nAlways book through the airline\'s official website or major trusted platforms (Google Flights, Kayak, Expedia). If a deal seems too good to be true, it probably is.' }
+          ],
+          prompt: 'What did AI do well when Tom asked about the suspiciously cheap flight?',
+          options: [
+            'It told Tom to book it immediately',
+            'It explained the realistic price range, described how to identify scams, and recommended trusted booking platforms',
+            'It refused to help with booking questions',
+            'It said all Facebook travel deals are scams'
+          ],
+          correct: 1
+        },
+        {
+          type: 'quiz',
+          question: 'Aiden finds a hostel on an unfamiliar booking website for $3 per night in Bangkok. AI warns him it might be a scam. Which of these is NOT a red flag?',
+          options: [
+            'The website has no HTTPS security lock in the browser',
+            'The hostel has dozens of recent, verified reviews on Hostelworld',
+            'The website requires payment via cryptocurrency or wire transfer only',
+            'The price is 80% below every other listing for the same area'
+          ],
+          correct: 1,
+          hint: 'Which option suggests the place is legitimate rather than suspicious?',
+          explanation: 'Many verified reviews on a trusted platform (Hostelworld, Booking.com) is a sign of legitimacy. Red flags include: no HTTPS, unusual payment methods (crypto, wire transfer, gift cards), prices dramatically below market rate, and no presence on established booking platforms.'
+        },
+        {
+          type: 'quiz',
+          question: 'Tom and Sarah have 80,000 airline miles. They ask AI how to maximize their value. What context should they provide?',
+          options: [
+            'Just say "use my miles"',
+            'Their airline loyalty program, destination, travel dates, flexibility on dates, and whether they prefer business or economy class',
+            'Their credit card number so AI can check their account',
+            'Nothing — AI automatically knows their miles balance'
+          ],
+          correct: 1,
+          explanation: 'AI can give excellent advice on maximizing rewards points — but only with context. It needs to know which loyalty program, your destination, flexibility, and class preference. NEVER share your account login, password, or credit card details with AI.'
+        },
+        {
+          type: 'scenario',
+          situation: 'Aiden finds two budget options for his Bangkok-to-Siem Reap travel: a $12 bus ticket on a no-name company he found on a travel forum, or a $35 ticket on a well-reviewed company available through Bookaway (a trusted platform). He asks AI for advice.',
+          question: 'What should Aiden do?',
+          choices: [
+            { text: 'Book the $12 bus — saving money is the whole point of backpacking', points: 2, result: 'The bus has no AC, breaks down twice, and crosses the border at an unofficial checkpoint. Aiden gets overcharged $20 for a "special visa fee" by the bus staff. Total cost: $32 plus 16 hours of stress.' },
+            { text: 'Book the $35 ticket on the trusted platform — the $23 difference buys safety, reliability, and legitimate border crossing assistance', points: 10, result: 'The bus is comfortable, crosses at the official border checkpoint, and arrives on time. Aiden avoids the unofficial visa scam that hits budget travelers on sketchy buses.' },
+            { text: 'Skip Cambodia entirely because the bus situation seems complicated', points: 0, result: 'Aiden misses Angkor Wat — one of the most incredible sights in Southeast Asia — because he was intimidated by a problem that was easily solved.' }
+          ],
+          correct: 1,
+          lesson: 'Budget travel doesn\'t mean choosing the cheapest option at all costs. AI can help you evaluate whether a deal is genuinely good value or a false economy. Sometimes spending a little more saves you from scams, breakdowns, and unsafe situations.'
+        },
+        {
+          type: 'tap_correct',
+          question: 'Tap all the signs that a travel deal might be a SCAM.',
+          items: [
+            { text: 'Price is 80% below every other listing for the same route', correct: true },
+            { text: 'The booking is available on Google Flights or Kayak', correct: false },
+            { text: 'Payment must be made via wire transfer or cryptocurrency', correct: true },
+            { text: 'The website has no customer service phone number or email', correct: true },
+            { text: 'The airline has a Wikipedia page and official website', correct: false },
+            { text: 'A Facebook ad says "last chance — book in the next 10 minutes"', correct: true }
+          ]
+        },
+        {
+          type: 'fill_blank',
+          sentence: 'Always book flights and hotels through [___] platforms or directly through the airline\'s official website to avoid travel [___].',
+          answer: 'trusted',
+          bank: ['trusted', 'scams', 'cheap', 'foreign'],
+          correct: 'trusted'
+        },
+        {
+          type: 'info',
+          title: 'AI Budget Tracking on the Road',
+          text: 'Once you\'re traveling, AI can help you track spending in real time — so you don\'t blow your budget in week one and survive on instant noodles for the rest of the trip.',
+          bullets: [
+            '[coin] Ask AI to create a daily spending template in your destination\'s currency',
+            '[chart] Tell AI your total budget and trip length — it calculates your daily allowance',
+            '[food] AI can suggest budget-friendly alternatives: street food vs. restaurants, free walking tours vs. paid',
+            '[alert] If you\'re overspending, AI can help you find ways to cut back without ruining the trip'
+          ]
+        },
+        {
+          type: 'quiz',
+          question: 'Aiden asks AI: "I have $4,000 for 90 days in Southeast Asia. Create a daily budget breakdown." Why is this a great use of AI?',
+          options: [
+            'AI will manage his bank account',
+            'AI can calculate a realistic daily budget ($44/day), break it into categories (accommodation, food, transport, activities), and adjust for cheaper vs. expensive countries',
+            'AI will find him free accommodation',
+            'AI automatically converts currency in real time'
+          ],
+          correct: 1,
+          explanation: 'AI excels at budget math and planning. It can break $4,000 across 90 days, allocate by category, and adjust for the fact that Laos is cheaper than Thailand. It\'s like having a financial planner who knows travel costs across the region.'
+        },
+        {
+          type: 'scenario',
+          situation: 'Sarah finds a luxury hotel deal on an unfamiliar website: a 5-star Rome hotel for $45/night (normally $350). The site looks professional but she\'s never heard of it. She asks AI for advice.',
+          question: 'What should AI recommend?',
+          choices: [
+            { text: 'Book it immediately — the website looks professional so it must be legitimate', points: 0, result: 'Sarah enters her credit card details on a phishing site. Her card is charged $800 for services that don\'t exist. There is no hotel reservation.' },
+            { text: 'Search for the hotel name on Booking.com, TripAdvisor, and the hotel\'s own website to verify it exists, compare prices, and book through a trusted platform instead', points: 10, result: 'Sarah discovers the hotel is real but the deal site is fake. She books through Booking.com for $290/night — expensive, but legitimate and refundable.' },
+            { text: 'Share the deal link with friends to get their opinion before booking', points: 4, result: 'Sarah\'s friends say it looks fine, but none of them are security experts. Peer approval doesn\'t validate a website. Cross-checking on established platforms is the only reliable test.' }
+          ],
+          correct: 1,
+          lesson: 'If a travel deal seems too good to be true, verify the property on multiple trusted platforms before entering any payment information. Never share credit card details on unfamiliar websites, no matter how professional they look.'
+        },
+        {
+          type: 'type_answer',
+          question: 'What type of insurance should you always purchase before an international trip, which AI cannot replace?',
+          placeholder: 'Type your answer...',
+          answers: ['travel insurance', 'travel'],
+          accept: ['travel insurance', 'travel', 'insurance'],
+          hint: 'It covers medical emergencies, trip cancellations, and lost luggage abroad...'
+        },
+        {
+          type: 'quiz',
+          question: 'Tom asks AI: "Is this a good deal?" and shares a screenshot of a flight price. Why can\'t AI answer this well?',
+          options: [
+            'AI doesn\'t understand numbers',
+            'AI cannot see screenshots in most interfaces, and even when it can, it doesn\'t have access to live pricing data to compare against current market rates',
+            'AI only helps with hotel deals, not flights',
+            'Flight deals are always good'
+          ],
+          correct: 1,
+          explanation: 'AI cannot access live flight prices or check current market rates. Instead, ask AI: "What is a typical price range for Chicago to Rome round trip in September?" Then YOU compare that range to the deal you found. AI provides context; you make the decision.'
+        },
+        {
+          type: 'sim_chat',
+          setup: 'Aiden asks AI to help him track his spending during his backpacking trip.',
+          messages: [
+            { role: 'user', text: 'I\'m on day 15 of my 90-day Southeast Asia trip. Budget is $4,000 total. I\'ve spent $850 so far. Am I on track?' },
+            { role: 'ai', text: 'Let\'s do the math!\n\nTotal budget: $4,000 for 90 days = $44.44/day\nDays elapsed: 15\nExpected spending at this point: $667\nActual spending: $850\n\nYou\'re $183 over budget — about 27% ahead of pace. At this rate, you\'d spend $5,100 over 90 days, which is $1,100 over budget.\n\nDon\'t panic! Here\'s how to course-correct:\n\n1. **Next 10 days**: Try to stay under $35/day to get back on track\n2. **Quick wins**: Switch to street food ($1-2/meal vs. $5-8 at restaurants), take local buses instead of taxis, and book hostels with kitchens\n3. **Country strategy**: If you\'re in Thailand now, Laos and Cambodia are 30-40% cheaper — your budget will stretch further soon\n\nWant me to create a revised daily budget for the remaining 75 days?' },
+            { role: 'user', text: 'Yes! And what are my biggest spending categories?' },
+            { role: 'ai', text: 'I don\'t have your detailed spending data, but based on typical backpacker patterns in Southeast Asia, here\'s a template:\n\n**Revised daily budget for remaining 75 days: $42/day**\n\n- Accommodation: $12 (hostel dorm)\n- Food: $10 (mostly street food, one restaurant meal every few days)\n- Transport: $8 (local buses, shared minivans)\n- Activities: $7 (temples, tours, entrance fees)\n- Buffer: $5 (emergencies, treats, laundry)\n\nTracking tip: At the end of each day, text me what you spent and I\'ll help you see patterns. Most backpackers overspend on three things: alcohol, taxis, and spontaneous island-hopping boats.' }
+          ],
+          prompt: 'Why was AI helpful even though it couldn\'t access Aiden\'s bank account?',
+          options: [
+            'AI accessed his banking app directly',
+            'AI used the numbers Aiden provided to calculate his pace, identify the problem, suggest specific cost-cutting strategies, and create a revised budget template',
+            'AI wasn\'t helpful at all',
+            'AI paid his bills for him'
+          ],
+          correct: 1
+        },
+        {
+          type: 'clari_react',
+          msg: 'You\'re now a budget travel pro! AI is your secret weapon for finding deals, avoiding scams, and tracking spending — but remember: never share credit card or passport details with AI, always book through trusted platforms, and if a deal seems too good to be true, it probably is. Happy budgeting!',
+          mood: 'happy'
+        }
+      ]
+    },
+    {
+      id: 'u23l4', title: 'AI as Your On-the-Go Guide', unit: 23, free: false, xp: 60, gems: 12,
+      tags: ['travel', 'navigation', 'recommendations', 'on-the-go'],
+      slides: [
+        {
+          type: 'info',
+          title: 'Your Pocket Concierge',
+          text: 'You\'re standing in a foreign city. It\'s raining. You\'re hungry. The museum you planned to visit is closed on Tuesdays. Now what? This is where AI shines as your on-the-go travel companion. It can suggest indoor alternatives based on weather, find nearby restaurants matching your dietary needs, recommend the fastest route using local transit, and even tell you the best photo spots nearby.',
+          bullets: [
+            '[map] AI can suggest alternative activities based on weather, time of day, and your interests',
+            '[food] Find restaurants near you with dietary accommodations — vegetarian, halal, gluten-free',
+            '[camera] Ask AI for "best photo spots near [your location]" — it knows the Instagram-worthy views',
+            '[clock] Real-time replanning: when things go wrong, AI helps you pivot fast'
+          ],
+          tip: 'For location-specific recommendations, always include your exact area or neighborhood in your prompt — "near Shibuya" is much better than "in Tokyo."'
+        },
+        {
+          type: 'sim_chat',
+          setup: 'Lucia is in Kyoto and it\'s pouring rain. Her plan was to hike the Fushimi Inari trail, but it\'s too wet and slippery.',
+          messages: [
+            { role: 'user', text: 'I\'m in Kyoto near Fushimi station. It\'s raining hard and I can\'t do my planned hike. I have 5 hours free. I like temples, traditional culture, and food. What should I do instead?' },
+            { role: 'ai', text: 'Rain in Kyoto is actually magical — the temples look even more beautiful! Here are rainy-day alternatives near you:\n\n1. **Tofuku-ji Temple** (10 min from Fushimi) — stunning covered corridors over a maple garden, gorgeous in rain\n2. **Nishiki Market** (20 min by train) — Kyoto\'s "kitchen street," a covered market with 100+ food stalls. Try yuba (tofu skin) — it\'s a local vegetarian specialty\n3. **Tea ceremony experience** — Several places near Gion offer 45-minute sessions (~$20). Indoor, cultural, and unforgettable\n4. **Kyoto Railway Museum** (if you want something unexpected) — surprisingly fun, mostly indoor, great architecture\n\nRainy day food tip: Look for "kissaten" (traditional Japanese coffee shops) — they\'re cozy, serve excellent coffee and light meals, and are perfect for people-watching during rain.' },
+            { role: 'user', text: 'The tea ceremony sounds perfect. But how do I book one without speaking Japanese?' },
+            { role: 'ai', text: 'Many tea ceremony experiences in Kyoto cater to English-speaking tourists. Here\'s how to find one:\n\n1. Search "English tea ceremony Kyoto Gion" on Google Maps — look for 4.5+ star ratings\n2. Many offer walk-in spots, but booking on their website is safer\n3. Use this Japanese phrase at the door: "Yoyaku nashi demo daijoubu desu ka?" (Is it okay without a reservation?)\n\nEtiquette tip: Wear socks (no bare feet), kneel on the tatami mat (sitting on your heels), and accept the tea bowl with both hands and a small bow. Don\'t worry about mistakes — hosts are used to teaching visitors!' }
+          ],
+          prompt: 'What made AI particularly helpful in this rainy-day scenario?',
+          options: [
+            'It told Lucia to stay in her hotel until the rain stopped',
+            'It provided location-specific alternatives that matched her interests, included practical tips like transit times and food recommendations, and even taught her a useful Japanese phrase',
+            'It booked the tea ceremony for her automatically',
+            'It checked the live weather forecast'
+          ],
+          correct: 1
+        },
+        {
+          type: 'quiz',
+          question: 'Aiden is in Chiang Mai, Thailand, and asks AI: "Where should I eat?" What\'s wrong with this prompt?',
+          options: [
+            'Nothing — it\'s a perfectly good prompt',
+            'It\'s too vague — he should include his location within the city, budget, cuisine preferences, dietary restrictions, and whether he wants street food or a restaurant',
+            'AI can\'t recommend restaurants',
+            'He should only use Yelp for restaurant recommendations'
+          ],
+          correct: 1,
+          hint: 'A better prompt gives AI enough context to make a truly personalized recommendation.',
+          explanation: '"Where should I eat in Chiang Mai near the Old City, budget $3-5 per meal, I love spicy Thai food, and I prefer street food stalls with outdoor seating" will give Aiden infinitely better results than "where should I eat."'
+        },
+        {
+          type: 'quiz',
+          question: 'Tom and Sarah are in Rome and want the best gelato. AI recommends a specific shop. What should they do before walking 30 minutes to get there?',
+          options: [
+            'Trust AI completely and start walking',
+            'Check Google Maps for current opening hours, recent reviews, and verify it still exists — then walk',
+            'Ask AI to deliver the gelato',
+            'Only eat gelato from places their hotel recommends'
+          ],
+          correct: 1,
+          explanation: 'AI\'s recommendations are based on training data, not live information. The gelato shop might have closed, moved, or changed hours since AI last learned about it. A quick Google Maps check takes 30 seconds and saves you from a wasted 30-minute walk.'
+        },
+        {
+          type: 'scenario',
+          situation: 'Lucia is trying to navigate the Tokyo subway system. She\'s at Shinjuku Station (the world\'s busiest) and needs to get to Asakusa to visit Senso-ji Temple. She\'s overwhelmed by the dozens of train lines and exits.',
+          question: 'How should Lucia use AI to help?',
+          choices: [
+            { text: 'Ask AI for step-by-step instructions: "I\'m at Shinjuku Station on the JR platform. How do I get to Senso-ji Temple in Asakusa? Include which line, which platform, which direction, and which exit at Asakusa station."', points: 10, result: 'AI gives clear directions: Take the Tokyo Metro Marunouchi Line from Shinjuku to Ginza, transfer to the Ginza Line to Asakusa. Exit 1. Walk 5 minutes north. Lucia arrives stress-free.' },
+            { text: 'Just follow the crowd and hope they\'re going to Asakusa', points: 0, result: 'Lucia ends up on an express train to the suburbs. She loses 45 minutes backtracking. Shinjuku has 200+ exits — following random people is never a good strategy.' },
+            { text: 'Ask AI: "How do I use the subway?" without specifying her location or destination', points: 2, result: 'AI gives a generic overview of Tokyo\'s subway system, which is informative but doesn\'t solve her immediate problem of getting from Point A to Point B.' }
+          ],
+          correct: 0,
+          lesson: 'When using AI for navigation help, be as specific as possible about where you ARE and where you WANT TO GO. Include station names, line names, and ask for step-by-step directions including transfers, platform numbers, and exit numbers.'
+        },
+        {
+          type: 'tap_correct',
+          question: 'Tap all the things AI can help with DURING a trip.',
+          items: [
+            { text: 'Suggesting rainy-day alternatives near your location', correct: true },
+            { text: 'Checking live transit delays in real time', correct: false },
+            { text: 'Recommending restaurants based on dietary needs and budget', correct: true },
+            { text: 'Finding the best photo spots near a landmark', correct: true },
+            { text: 'Automatically rebooking your cancelled flight', correct: false },
+            { text: 'Explaining local customs you encounter unexpectedly', correct: true }
+          ]
+        },
+        {
+          type: 'fill_blank',
+          sentence: 'For the best AI travel recommendations, always include your specific [___] and your personal preferences like budget and dietary [___].',
+          answer: 'location',
+          bank: ['location', 'needs', 'country', 'interests'],
+          correct: 'location'
+        },
+        {
+          type: 'info',
+          title: 'Weather-Based Replanning',
+          text: 'Weather can make or break a travel day. AI is brilliant at pivoting your plans based on conditions — if you tell it what\'s happening.',
+          bullets: [
+            '[sun] "It\'s 38 degrees in Rome. What indoor activities are near the Colosseum?"',
+            '[rain] "It\'s raining in Bali. What can I do near Ubud that\'s covered?"',
+            '[snow] "There\'s a snowstorm in Tokyo. Should I still go to Hakone?"',
+            '[star] AI can\'t check live weather — tell it the conditions and ask it to replan. Pair AI with a weather app for best results.'
+          ]
+        },
+        {
+          type: 'scenario',
+          situation: 'Aiden is in Hanoi, Vietnam, and has one free evening. He asks AI: "What\'s the best thing to do in Hanoi tonight?" AI recommends a water puppet show and the night market. But Aiden already did both yesterday.',
+          question: 'How should Aiden refine his request?',
+          choices: [
+            { text: 'Tell AI what he\'s already done and ask for alternatives: "I\'ve already done the water puppet show and night market. I like live music, local food, and meeting other travelers. What else can I do in the Old Quarter tonight?"', points: 10, result: 'AI suggests Bia Hoi Corner (cheap local beer with travelers), a jazz bar on Ma May Street, and the Dong Xuan night food stalls. Aiden has an amazing night.' },
+            { text: 'Accept AI\'s suggestion and go to the water puppet show again', points: 1, result: 'It\'s the same show. Aiden is bored. AI gave a reasonable default suggestion — the problem was his prompt, not the AI.' },
+            { text: 'Complain that AI gives bad recommendations and stop using it', points: 0, result: 'AI only knows what you tell it. Without knowing what you\'ve already done, it suggests the most popular options. Better prompts get better recommendations.' }
+          ],
+          correct: 0,
+          lesson: 'AI doesn\'t remember what you did yesterday unless you tell it. For on-the-go recommendations, always mention what you\'ve already done, what you\'re in the mood for, and any constraints (time, budget, energy level).'
+        },
+        {
+          type: 'quiz',
+          question: 'Why should you always verify AI restaurant and attraction recommendations with Google Maps before going?',
+          options: [
+            'Google Maps has better AI',
+            'AI recommendations are based on training data and may be outdated — the place might have closed, moved, or changed hours since AI learned about it',
+            'Google Maps gives you free food',
+            'AI always recommends the most expensive options'
+          ],
+          correct: 1,
+          explanation: 'AI\'s knowledge has a cutoff date. Restaurants close, museums change hours, attractions get renovated. A 30-second check on Google Maps for current hours, recent reviews, and photos can save you from a wasted trip to a place that no longer exists.'
+        },
+        {
+          type: 'type_answer',
+          question: 'When asking AI for travel recommendations during your trip, what should you always include to get the most useful response?',
+          placeholder: 'Type your answer...',
+          answers: ['location', 'my location', 'specific location', 'where I am'],
+          accept: ['location', 'my location', 'specific location', 'where I am', 'current location'],
+          hint: 'AI needs to know WHERE you are — not just the city, but the specific area...'
+        },
+        {
+          type: 'info',
+          title: 'The AI + Maps Power Combo',
+          text: 'Here\'s the travel hack that makes everything work: use AI for ideas, and Google Maps for verification. Together they\'re unstoppable.',
+          bullets: [
+            '[brain] AI knows: "The best viewpoint near Fushimi Inari is the summit clearing at the top of the south trail"',
+            '[map] Google Maps knows: "That trail is 2.1 km uphill, currently open, and 25 minutes from your location"',
+            '[star] AI suggests WHAT to do; Maps tells you HOW to get there and IF it\'s open',
+            '[clock] Save time: ask AI for 3 options, then check all three on Google Maps before deciding'
+          ]
+        },
+        {
+          type: 'quiz',
+          question: 'Sarah asks AI for a quiet lunch spot near the Pantheon in Rome. AI suggests a trattoria. What should Sarah check BEFORE walking there?',
+          options: [
+            'Whether the restaurant has a Michelin star',
+            'Google Maps for: current opening hours, recent reviews from the last few months, and walking distance from her current location',
+            'Whether the restaurant has a social media page',
+            'Nothing — AI recommendations are always current and accurate'
+          ],
+          correct: 1,
+          explanation: 'Three things to always check on Google Maps before following an AI recommendation: (1) Is it open right now? (2) What do recent reviews say? (3) How far is it from where I am? This 30-second check prevents frustrating wasted walks.'
+        },
+        {
+          type: 'sim_chat',
+          setup: 'Tom and Sarah are in Florence and want to see the David sculpture at the Accademia Gallery. They ask AI for help.',
+          messages: [
+            { role: 'user', text: 'We\'re in Florence near the Duomo and want to see the David statue today. Any tips?' },
+            { role: 'ai', text: 'The David by Michelangelo is at the Galleria dell\'Accademia, about an 8-minute walk from the Duomo. Here are my tips:\n\n1. **Lines can be 2-3 hours long** — especially in peak season. Book timed-entry tickets online if possible\n2. **If tickets are sold out**: Try the official website for cancellations, or go right when it opens at 8:15 a.m.\n3. **Free alternative**: There\'s a bronze copy of the David in Piazzale Michelangelo (with an incredible panoramic view of Florence) — completely free, no lines, beautiful at sunset\n4. **Combine it**: The San Lorenzo Market is right next to the Accademia — great leather goods and street food after your visit\n\nImportant: I can\'t check if tickets are available today. Check the official Galleria dell\'Accademia website or try booking through the official museum platform.' },
+            { role: 'user', text: 'Tickets are sold out today. What now?' },
+            { role: 'ai', text: 'No worries! Here\'s your Plan B:\n\n1. **Go tomorrow**: Set an alarm and book tickets tonight for the first slot\n2. **Today instead**: Head to Piazzale Michelangelo for the bronze David copy + the best sunset view in Florence (free!). Take bus 12 or 13 from near the Duomo\n3. **Other museums**: The Uffizi Gallery, Bargello Museum, or Palazzo Pitti might have same-day availability and are world-class in their own right\n\nSometimes the sold-out Plan A leads to the unexpected Plan B that becomes your favorite memory.' }
+          ],
+          prompt: 'What did AI do well when tickets were unavailable?',
+          options: [
+            'It booked tickets from a third-party scalper',
+            'It immediately offered practical alternatives — a free option with great views, a strategy for tomorrow, and other museum suggestions — turning a disappointment into an opportunity',
+            'It told them to give up on Florence',
+            'It complained about the museum\'s ticket system'
+          ],
+          correct: 1
+        },
+        {
+          type: 'clari_react',
+          msg: 'Now you know how to use AI as your personal on-the-go travel guide! Remember: be specific about your location, mention what you\'ve already done, and always verify recommendations before trekking across town. AI is your pocket concierge — but Google Maps is your fact-checker!',
+          mood: 'proud'
+        }
+      ]
+    },
+    {
+      id: 'u23l5', title: 'Documenting & Sharing Your Adventures', unit: 23, free: false, xp: 60, gems: 12,
+      tags: ['travel', 'content', 'journaling', 'social-media'],
+      slides: [
+        {
+          type: 'info',
+          title: 'From Memories to Stories',
+          text: 'You took 2,000 photos, ate incredible food, and had life-changing experiences. Now you\'re home and all you have is a camera roll and fading memories. AI can help you turn those raw experiences into beautiful travel journals, social media posts, blog articles, photo captions, and even video scripts — so your adventures live forever.',
+          bullets: [
+            '[book] AI can structure your scattered notes and memories into a polished travel journal',
+            '[camera] Generate Instagram captions, hashtags, and photo descriptions from your images',
+            '[video] Create YouTube or TikTok scripts from your trip highlights',
+            '[star] Trip summary generation — AI turns your daily notes into a shareable story'
+          ],
+          tip: 'The best time to journal is during the trip, while details are fresh. Ask AI to give you a 5-question daily prompt each evening.'
+        },
+        {
+          type: 'sim_chat',
+          setup: 'Lucia wants to start a travel journal during her Japan trip but doesn\'t know what to write.',
+          messages: [
+            { role: 'user', text: 'I want to journal about my trip to Japan but I never know what to write. Can you give me prompts for tonight? I visited Fushimi Inari today.' },
+            { role: 'ai', text: 'Here are 5 journaling prompts for your Fushimi Inari day:\n\n1. **The moment**: What was the single image from today that you want to remember in 20 years? Describe it like a photograph — colors, light, sounds.\n2. **The surprise**: What happened today that you didn\'t expect? How did it make you feel?\n3. **The senses**: Describe one thing you tasted, one thing you heard, and one thing you touched today.\n4. **The connection**: Did you talk to anyone — a local, another traveler, a shopkeeper? What did you learn from them?\n5. **The solo moment**: What was it like experiencing Fushimi Inari alone? Was there a moment when being solo felt special (or hard)?\n\nBonuses: What did you eat today? What would you tell your best friend about this place?' },
+            { role: 'user', text: 'Okay here are my notes: Orange gates everywhere, thousands of them going up the mountain. Quiet at the top, barely anyone there. A stray cat followed me for 10 minutes. I ate an amazing rice ball from a stall at the bottom. I cried a little at the summit because I actually did this alone and it was beautiful.' },
+            { role: 'ai', text: 'Lucia, that\'s already beautiful writing. Here\'s a polished journal entry draft from your notes:\n\n---\n\n**Day 5 — Fushimi Inari, Kyoto**\n\nThousands of vermillion torii gates wound up the mountainside like a tunnel through another world. At the bottom, the crowds buzzed. But I kept climbing. By the halfway point, the tourists thinned. By the top, it was just me, the trees, and the silence.\n\nA stray cat decided I was worth following for ten minutes. We walked together through the gates as if it had appointed itself my guide. I didn\'t need to speak Japanese to communicate with that cat.\n\nAt the summit, I sat on a bench and looked out over Kyoto. Then I cried — not from sadness, but from the realization that I was here, alone, on the other side of the world, and it was the most beautiful thing I\'d ever done.\n\nOn the way down, I bought a rice ball from a stall near the entrance. It was perfect.\n\n---\n\nShall I keep this tone for the rest of your trip? I can give you prompts every evening.' }
+          ],
+          prompt: 'What made AI effective as a journaling partner here?',
+          options: [
+            'It wrote the journal entry without any input from Lucia',
+            'It gave Lucia structured prompts to capture her raw thoughts, then polished her notes into a beautiful entry while preserving her voice and emotions',
+            'It told Lucia her writing was bad',
+            'It summarized the Wikipedia article about Fushimi Inari'
+          ],
+          correct: 1
+        },
+        {
+          type: 'quiz',
+          question: 'Aiden wants to create an Instagram caption for his sunset photo at Angkor Wat. Which prompt will get the best AI result?',
+          options: [
+            '"Write a caption"',
+            '"Write an Instagram caption for a sunset photo at Angkor Wat, Cambodia. Tone: reflective and awe-inspired but not cheesy. Include 2-3 relevant hashtags. I\'m a 22-year-old solo backpacker."',
+            '"Angkor Wat caption Instagram"',
+            '"Make it go viral"'
+          ],
+          correct: 1,
+          hint: 'AI captions get better when you specify the photo subject, tone, platform, and audience.',
+          explanation: 'The detailed prompt gives AI everything it needs: the subject (sunset at Angkor Wat), tone (reflective, not cheesy), platform (Instagram), context (solo backpacker), and format (caption + hashtags). This produces content that sounds like Aiden, not like a generic travel account.'
+        },
+        {
+          type: 'quiz',
+          question: 'Tom and Sarah want to create a shared anniversary trip blog. They have messy notes from 10 days. How should they use AI?',
+          options: [
+            'Ask AI to write the entire blog from scratch — it knows what Italy is like',
+            'Share their daily notes, photos descriptions, and favorite moments with AI and ask it to structure them into a coherent blog with an introduction, day-by-day entries, and a reflection conclusion',
+            'Let AI generate fictional experiences to make the blog more interesting',
+            'Copy a travel blogger\'s format and fill in their names'
+          ],
+          correct: 1,
+          explanation: 'The best AI-assisted content starts with YOUR real experiences. Share your raw notes, funny moments, restaurant names, and emotions — let AI organize and polish, not invent. Authentic travel content always resonates more than AI-generated filler.'
+        },
+        {
+          type: 'scenario',
+          situation: 'Aiden has been posting about his Southeast Asia trip on Instagram. He considers asking AI to write all his captions because it\'s faster. But his followers start commenting: "This doesn\'t sound like you" and "Are you using ChatGPT?"',
+          question: 'What should Aiden adjust?',
+          choices: [
+            { text: 'Stop using AI entirely and go back to writing everything himself', points: 3, result: 'Aiden\'s captions sound like him again, but he falls behind on posting because writing takes so long. He misses sharing some great moments.' },
+            { text: 'Use AI as a writing partner — jot down his raw thoughts and feelings first, then ask AI to help polish and structure them while keeping his voice and slang', points: 10, result: 'Aiden\'s captions sound authentically like him again — just more polished and consistently posted. His followers reengage because the content is real but well-crafted.' },
+            { text: 'Ignore the feedback and keep using fully AI-generated captions', points: 0, result: 'More followers call it out. Aiden\'s engagement drops because AI-generated travel content lacks the personal touch that makes travel posts compelling.' }
+          ],
+          correct: 1,
+          lesson: 'The best AI-assisted content is a collaboration: YOUR raw thoughts, experiences, and voice + AI\'s structure, polish, and consistency. Fully AI-generated content often feels generic. Fully self-written content can be inconsistent. The sweet spot is in between.'
+        },
+        {
+          type: 'tap_correct',
+          question: 'Tap all the ways AI can help document and share travel experiences.',
+          items: [
+            { text: 'Generating daily journaling prompts to capture fresh memories', correct: true },
+            { text: 'Writing Instagram captions that match your tone and voice', correct: true },
+            { text: 'Taking photos for you at popular landmarks', correct: false },
+            { text: 'Turning messy trip notes into a structured travel blog', correct: true },
+            { text: 'Creating video scripts from your trip highlights', correct: true },
+            { text: 'Automatically posting to your social media accounts', correct: false }
+          ]
+        },
+        {
+          type: 'fill_blank',
+          sentence: 'The most authentic AI-assisted travel content starts with your real [___] and lets AI help with structure and [___].',
+          answer: 'experiences',
+          bank: ['experiences', 'polish', 'fiction', 'hashtags'],
+          correct: 'experiences'
+        },
+        {
+          type: 'info',
+          title: 'Trip Summary Generation',
+          text: 'One of AI\'s best tricks: turning your entire trip into a shareable summary. Whether it\'s for family, friends, or your own memory, AI can create different formats from the same raw material.',
+          bullets: [
+            '[book] "Summarize my 14-day Japan trip into a 500-word story for my family"',
+            '[chat] "Turn my trip notes into a casual email to my friends with funny highlights"',
+            '[list] "Create a bullet-point trip report: places visited, money spent, top 5 moments"',
+            '[video] "Write a 60-second TikTok voiceover script about the highlights of my Italy trip"',
+            '[star] Same raw notes, completely different outputs — just change the format in your prompt'
+          ]
+        },
+        {
+          type: 'scenario',
+          situation: 'Lucia wants to create a photo caption for a picture of the stray cat that followed her at Fushimi Inari. She asks AI to write it. AI produces: "A beautiful feline companion graced my spiritual journey through the ancient torii gates of Fushimi Inari. #blessed #travelgram #japan"',
+          question: 'What\'s wrong with this caption?',
+          choices: [
+            { text: 'Nothing — it\'s perfect as-is', points: 0, result: 'The caption is generic, overly formal, and doesn\'t sound like something a 32-year-old solo traveler would write. It could describe anyone\'s photo.' },
+            { text: 'It\'s generic and doesn\'t sound like Lucia. She should tell AI her actual tone ("Write this like I\'m texting my best friend") and include her real feelings: "This random cat followed me up a mountain in Japan. I think I peaked."', points: 10, result: 'The new caption sounds like Lucia, makes her friends laugh, and gets triple the engagement. Authentic voice + real experience = great content.' },
+            { text: 'AI should never write captions — they should always be 100% handwritten', points: 3, result: 'Hand-written is fine, but AI can help you capture the right tone faster. The key is feeding it YOUR voice and YOUR story, not accepting generic output.' }
+          ],
+          correct: 1,
+          lesson: 'AI defaults to a polished, generic tone. To get content that sounds like YOU, tell AI your style: "casual and funny," "like texting my best friend," or "dry humor." Share your actual reaction, not just the facts.'
+        },
+        {
+          type: 'quiz',
+          question: 'Tom and Sarah want to share trip highlights with family members who aren\'t on social media. What format should they ask AI to create?',
+          options: [
+            'A TikTok video with trending audio',
+            'A warm, personal email or printed letter with their favorite stories, restaurant recommendations, and a few photos — formatted for people who prefer reading over scrolling',
+            'An Instagram Reel',
+            'A professional travel blog optimized for SEO'
+          ],
+          correct: 1,
+          explanation: 'Know your audience! Tom and Sarah\'s family members who aren\'t on social media would appreciate a personal email or printed letter — the kind of communication they actually enjoy. AI can format the same trip highlights into any medium. Always match the format to the audience.'
+        },
+        {
+          type: 'type_answer',
+          question: 'When asking AI to write in your voice, what should you describe to AI so it doesn\'t sound generic?',
+          placeholder: 'Type your answer...',
+          answers: ['tone', 'my tone', 'voice', 'my voice', 'style', 'my style'],
+          accept: ['tone', 'my tone', 'voice', 'my voice', 'style', 'my style', 'writing style', 'my writing style'],
+          hint: 'It\'s the word for how your writing sounds and feels — casual, formal, funny...'
+        },
+        {
+          type: 'sim_chat',
+          setup: 'Aiden asks AI to help him create a trip summary for his parents after his 3-month Southeast Asia backpacking trip.',
+          messages: [
+            { role: 'user', text: 'I\'m back from 90 days backpacking Southeast Asia. My parents want to know about my trip but they\'re not on Instagram. Can you help me write a summary email? Highlights: Angkor Wat sunrise, riding a motorbike in Vietnam, cooking class in Chiang Mai, getting food poisoning in Laos (I\'m fine now), meeting my now-best-friend Jake from New Zealand in a hostel in Cambodia.' },
+            { role: 'ai', text: 'Here\'s a warm email for your parents:\n\n---\n\nSubject: I\'m back! 90 days, 4 countries, 1 very full heart\n\nHi Mom and Dad,\n\nI\'m home safe and sound (and a few kilograms lighter, but we\'ll get to that).\n\nThree months, four countries, and more experiences than I thought possible at 22. Here are the highlights:\n\nThe moment I\'ll never forget: Watching the sun rise over Angkor Wat in Cambodia. I woke up at 4:30 a.m. and sat in the dark with strangers, waiting. When the sun hit those ancient towers, nobody spoke. It was the most beautiful thing I\'ve ever seen.\n\nThe adventure: I rented a motorbike in northern Vietnam and drove the Ha Giang Loop — three days through mountains, rice terraces, and villages where kids waved at me from the roadside. Terrifying and life-changing in equal measure.\n\nThe new skill: I took a cooking class in Chiang Mai and can now make pad thai and green curry from scratch. Dinner\'s on me when I visit.\n\nThe story I\'ll laugh about later: I got food poisoning in Laos. Spent two days in a basic hostel bathroom questioning every life choice. I\'m completely fine now — and I have a much stronger stomach.\n\nThe friend: I met a guy named Jake from New Zealand in a hostel in Cambodia. We traveled together for three weeks and he\'s become one of my closest friends. You\'d like him.\n\nI spent about $4,100 total (including the motorbike rental that I know will worry you — I wore a helmet, I promise). I have so many stories to tell you in person.\n\nLove,\nAiden\n\n---\n\nWant me to adjust the tone or add anything?' }
+          ],
+          prompt: 'Why is this a great example of AI-assisted travel content?',
+          options: [
+            'AI made up the experiences to sound more interesting',
+            'AI took Aiden\'s real highlights and structured them into a warm, personal email that sounds like him — complete with humor, reassurance for worried parents, and genuine emotion',
+            'AI wrote a formal report about Southeast Asia',
+            'AI just listed the countries in order'
+          ],
+          correct: 1
+        },
+        {
+          type: 'quiz',
+          question: 'Why is it important to edit AI-polished travel content before posting, even if the draft looks good?',
+          options: [
+            'AI always makes spelling mistakes',
+            'AI may add details you didn\'t mention, misinterpret your tone, or smooth out the quirky imperfections that make your writing feel authentic — your final review ensures accuracy and voice',
+            'Editing wastes time — always post AI drafts immediately',
+            'AI content is illegal to post without editing'
+          ],
+          correct: 1,
+          explanation: 'AI sometimes adds plausible-sounding details that didn\'t happen, smooths out charming imperfections, or uses a tone that\'s not quite yours. A final read-through catches these issues and ensures every word is genuinely your story, told your way.'
+        },
+        {
+          type: 'info',
+          title: 'Your Travel Content Toolkit',
+          text: 'Here is a cheat sheet of AI prompts you can copy and use for any future trip. Save these for when you need them.',
+          bullets: [
+            '[book] Daily journal: "Give me 5 journaling prompts for today — I visited [place] and felt [emotion]"',
+            '[camera] Photo caption: "Write an Instagram caption for [description]. My tone is [casual/funny/reflective]. Include 3 hashtags."',
+            '[mail] Trip email: "Turn these notes into a warm email for my family about my [trip]. Include [highlights]."',
+            '[video] Video script: "Write a 60-second TikTok voiceover about [destination]. Tone: [energetic/chill/storytelling]."',
+            '[star] Trip summary: "Summarize my [X]-day trip to [place] in 500 words. Focus on [moments/food/people/culture]."'
+          ]
+        },
+        {
+          type: 'clari_react',
+          msg: 'You\'ve completed the entire AI for Travel & Adventure unit! You now know how to plan trips, communicate abroad, travel on a budget, navigate like a local, and document your adventures beautifully. Remember: AI is your co-pilot, not your autopilot. The best adventures happen when YOU drive and AI navigates. Bon voyage!',
+          mood: 'celebrating'
+        }
+      ]
+    }
+  ]
 }
 
 ];
@@ -23728,10 +25037,11 @@ const ACHIEVEMENTS = [
   { id: 'all_unit20',   label: 'Golden Learner',     desc: 'Complete all Seniors & Retirement lessons', icon: 'perfect' },
   { id: 'all_unit21',   label: 'Content King',       desc: 'Complete all Content Creator AI lessons',  icon: 'fire' },
   { id: 'all_unit22',   label: 'Inner Peace',        desc: 'Complete all Mental Health & Wellbeing lessons', icon: 'perfect' },
+  { id: 'all_unit23',   label: 'Globetrotter',       desc: 'Complete all Travel & Adventure lessons',  icon: 'star' },
   { id: 'lessons_10',   label: 'Getting Started',    desc: 'Complete 10 lessons',                     icon: 'fire' },
   { id: 'lessons_25',   label: 'Committed Learner',  desc: 'Complete 25 lessons',                     icon: 'book' },
   { id: 'lessons_50',   label: 'Halfway Hero',       desc: 'Complete 50 lessons',                     icon: 'trophy' },
-  { id: 'all_lessons',  label: 'AI Master',          desc: 'Complete all 98 lessons',                 icon: 'perfect' },
+  { id: 'all_lessons',  label: 'AI Master',          desc: 'Complete all 103 lessons',                 icon: 'perfect' },
   { id: 'streak_14',    label: 'Two-Week Warrior',   desc: '14-day streak',                           icon: 'fire' },
   { id: 'streak_30',    label: 'Monthly Champion',   desc: '30-day streak',                           icon: 'trophy' }
 ];
@@ -23761,7 +25071,8 @@ const UNIT_CERTS = {
   unit19: { title: 'AI for Job Seekers',        description: 'Demonstrates the ability to use AI for resume writing, cover letters, interview preparation, LinkedIn optimization, and salary negotiation.',                      level: 'Intermediate' },
   unit20: { title: 'AI for Seniors',            description: 'Demonstrates the ability to confidently use AI for staying connected, managing health, protecting against scams, and exploring hobbies in retirement.',             level: 'Beginner'     },
   unit21: { title: 'AI for Content Creators',   description: 'Demonstrates the ability to use AI as a creative co-pilot for scripting, visual content, audience growth, and monetization across social platforms.',              level: 'Advanced'     },
-  unit22: { title: 'AI for Mental Health',      description: 'Demonstrates the ability to use AI thoughtfully for wellness journaling, stress management, habit building, and mindfulness — while knowing when to seek professional help.', level: 'Intermediate' }
+  unit22: { title: 'AI for Mental Health',      description: 'Demonstrates the ability to use AI thoughtfully for wellness journaling, stress management, habit building, and mindfulness — while knowing when to seek professional help.', level: 'Intermediate' },
+  unit23: { title: 'AI for Travel & Adventure', description: 'Demonstrates the ability to use AI for trip planning, real-time translation, budget travel booking, on-the-go navigation, and documenting adventures.', level: 'Intermediate' }
 };
 
 function generateUnitCertificateHTML(unitId, userName) {
@@ -23948,6 +25259,32 @@ function advanceDailyTip(delta) {
   const c = document.getElementById('daily-tip-card');
   if (c) renderDailyTipCard(c);
 }
+/* ======== DAILY TIPS CAROUSEL ======== */
+var DAILY_TIPS_CAROUSEL=[{category:'tip',title:'Prompt Pro Tip',text:'Start your prompt with a role: "You are a helpful writing tutor." This gives the AI context and improves answers.'},{category:'tip',title:'Be Specific',text:'Instead of "write a story," try "write a 200-word mystery story set in a library." Details get better results.'},{category:'tip',title:'Step-by-Step Works',text:'Add "explain step by step" to your prompt. AI gives clearer, more organized answers when asked to break things down.'},{category:'tip',title:'Give Examples',text:'Show the AI what you want by including an example in your prompt. "Format it like this: Name - Role - Department."'},{category:'tip',title:'Ask for Revisions',text:'Not happy with the first answer? Say "make it shorter" or "use simpler words." You can iterate until it is right.'},{category:'tip',title:'Set the Tone',text:'Tell the AI what tone you need: "Write this in a friendly, casual tone" or "Keep it professional and concise."'},{category:'safety',title:'Verify Everything',text:'AI can sound very confident even when wrong. Always double-check important facts, dates, and statistics.'},{category:'safety',title:'Protect Your Data',text:'Never paste passwords, credit card numbers, or sensitive personal info into AI chatbots.'},{category:'safety',title:'AI Has No Memory',text:'Most AI chats do not remember previous conversations. Each session starts fresh unless the tool says otherwise.'},{category:'safety',title:'Watch for Bias',text:'AI learns from internet data, which contains biases. Question outputs that seem one-sided or stereotypical.'},{category:'safety',title:'Not a Doctor',text:'AI can share health info but is not a medical professional. Always consult a real doctor for health decisions.'},{category:'safety',title:'Copyright Matters',text:'AI-generated text and images may resemble copyrighted works. Check before using AI content commercially.'},{category:'tool',title:'Try Voice Input',text:'Most AI apps support voice. Speaking your prompt can be faster and more natural than typing.'},{category:'tool',title:'Use AI for Summaries',text:'Paste a long article or email into ChatGPT and ask for a 3-bullet summary. Great time saver.'},{category:'tool',title:'Image Generation',text:'Tools like DALL-E and Midjourney create images from text. Try "a cozy coffee shop in watercolor style."'},{category:'tool',title:'Browser Extensions',text:'AI browser extensions can summarize web pages, translate content, and draft replies right where you work.'},{category:'tool',title:'Spreadsheet Helper',text:'Ask AI to write spreadsheet formulas for you. Describe what you need in plain English and paste the formula.'},{category:'tool',title:'Code Companion',text:'Even non-programmers can ask AI to write simple scripts, like renaming files or converting data formats.'},{category:'fact',title:'Did You Know?',text:'GPT-4 was trained on hundreds of billions of words from books, websites, and articles.'},{category:'fact',title:'AI History',text:'The term "Artificial Intelligence" was coined in 1956 at a Dartmouth College workshop.'},{category:'fact',title:'How LLMs Work',text:'Large Language Models predict the next word in a sequence. They do not actually "understand" meaning like humans do.'},{category:'fact',title:'AI and Chess',text:"In 1997, IBM's Deep Blue beat world chess champion Garry Kasparov. It could evaluate 200 million positions per second."},{category:'fact',title:'Tokens, Not Words',text:'AI models process "tokens," not words. The word "hamburger" becomes three tokens: "ham," "bur," and "ger."'},{category:'fact',title:'Training Cost',text:'Training a large AI model can cost millions of dollars in computing power and electricity.'},{category:'hack',title:'Email Drafts',text:'Paste bullet points into AI and ask it to write a professional email. Edit the result and send in minutes.'},{category:'hack',title:'Meeting Notes',text:'After a meeting, type your rough notes into AI and ask for a clean summary with action items.'},{category:'hack',title:'Learn Anything',text:'Ask AI to "explain [topic] like I am 10 years old." It is a great way to quickly understand new concepts.'},{category:'hack',title:'Brainstorm Partner',text:'Stuck on ideas? Ask AI for 10 creative suggestions. Even bad ideas can spark your own great ones.'},{category:'hack',title:'Proofread Fast',text:'Paste your writing and ask AI to check grammar, tone, and clarity. It catches things spell-check misses.'},{category:'hack',title:'Travel Planning',text:'Tell AI your destination, budget, and interests. It can create a day-by-day itinerary in seconds.'},{category:'hack',title:'Recipe Helper',text:'Tell AI what ingredients you have and it will suggest recipes. Add dietary restrictions for tailored results.'}];
+var _dtcCarouselAutoTimer=null,_dtcCarouselPaused=false;
+function _dtcCarouselDateHash(){var d=new Date(),s=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(),h=0;for(var i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h=h&h;}return Math.abs(h);}
+function _dtcSelectDailyTips(n){var h=_dtcCarouselDateHash(),t=DAILY_TIPS_CAROUSEL.length,sel=[],used=[];for(var i=0;i<n;i++){var idx=(h+i*7+i*i*3)%t,a=0;while(used.indexOf(idx)!==-1&&a<t){idx=(idx+1)%t;a++;}used.push(idx);sel.push(DAILY_TIPS_CAROUSEL[idx]);}return sel;}
+function _dtcCategoryIcon(c){switch(c){case 'tip':return '\uD83D\uDCA1';case 'safety':return '\uD83D\uDEE1\uFE0F';case 'tool':return '\uD83D\uDD27';case 'fact':return '\uD83E\uDDE0';case 'hack':return '\u26A1';default:return '\uD83D\uDCA1';}}
+function renderDailyTipCarousel(){
+  var wrap=document.getElementById('daily-tips-carousel-wrap');
+  if(!wrap)return;
+  var tips=_dtcSelectDailyTips(3);
+  if(tips.length===0){wrap.innerHTML='';return;}
+  var ch=tips.map(function(t){return '<div class="dtc-carousel-card" data-category="'+t.category+'"><div class="dtc-carousel-icon">'+_dtcCategoryIcon(t.category)+'</div><div class="dtc-carousel-body"><div class="dtc-carousel-title">'+escHtml(t.title)+'</div><div class="dtc-carousel-text">'+escHtml(t.text)+'</div></div></div>';}).join('');
+  var dh=tips.map(function(_,i){return '<span class="daily-tips-dot'+(i===0?' active':'')+'" data-idx="'+i+'"></span>';}).join('');
+  wrap.innerHTML='<div class="daily-tips-carousel" id="daily-tips-carousel">'+ch+'</div><div class="daily-tips-dots" id="daily-tips-dots">'+dh+'</div>';
+  var car=document.getElementById('daily-tips-carousel');
+  if(!car)return;
+  var upd=function(){var cs=car.querySelectorAll('.dtc-carousel-card');if(cs.length===0)return;var sl=car.scrollLeft,cw=cs[0].offsetWidth+10,ai=Math.round(sl/cw);ai=Math.max(0,Math.min(ai,cs.length-1));var ds=document.querySelectorAll('#daily-tips-dots .daily-tips-dot');ds.forEach(function(d,i){if(i===ai)d.classList.add('active');else d.classList.remove('active');});};
+  car.addEventListener('scroll',upd,{passive:true});
+  _dtcCarouselStartAuto(car);
+  var pause=function(){_dtcCarouselPaused=true;_dtcCarouselStopAuto();clearTimeout(car._dtcRT);car._dtcRT=setTimeout(function(){_dtcCarouselPaused=false;_dtcCarouselStartAuto(car);},10000);};
+  car.addEventListener('touchstart',pause,{passive:true});
+  car.addEventListener('mousedown',pause,{passive:true});
+  car.addEventListener('wheel',pause,{passive:true});
+}
+function _dtcCarouselStartAuto(c){_dtcCarouselStopAuto();if(_dtcCarouselPaused)return;_dtcCarouselAutoTimer=setInterval(function(){if(!c||!c.parentNode){_dtcCarouselStopAuto();return;}var cs=c.querySelectorAll('.dtc-carousel-card');if(cs.length===0)return;var cw=cs[0].offsetWidth+10,mx=c.scrollWidth-c.clientWidth,nx=c.scrollLeft+cw;if(nx>mx+5)c.scrollTo({left:0,behavior:'smooth'});else c.scrollTo({left:nx,behavior:'smooth'});},5000);}
+function _dtcCarouselStopAuto(){if(_dtcCarouselAutoTimer){clearInterval(_dtcCarouselAutoTimer);_dtcCarouselAutoTimer=null;}}
 
 function renderWeeklyChallengeBanner() {
   checkWeekReset();
@@ -24027,7 +25364,7 @@ function loadState() {
     dark_mode: false, sound_enabled: true,
     resume_lesson: null,
     clari_theme: 'default', xp_boost_active: false, streak_freeze: false,
-    day_off_until: 0, hint_tokens: 0, streak_before_reset: 0, double_gems_active: false, profile_frame: null,
+    day_off_until: 0, hint_tokens: 0, streak_before_reset: 0, double_gems_active: false, profile_frame: null, freeze_used_dates: [],
     user_profile: null, scenario_correct: 0, quickfire_perfect: 0,
     // lesson_reviews removed — using sr_schedule only
     weekly_xp: 0, weekly_week: '', weekly_best: 0,
@@ -24064,6 +25401,7 @@ function loadState() {
     unit_completed: {},            // tracks shown unit completion animations
     last_completed_at: 0,          // timestamp of last completion
     lesson_notes: {},              // user's lesson notes
+    slide_bookmarks: {},           // {lessonId: [slideIdx, ...]} bookmarked slides
     premium_pending: false,        // payment flow state
     practice_sounds: true,         // practice sound preference
     practice_favorites: [],        // favorited practice items
@@ -25436,22 +26774,32 @@ const STREAK_MILESTONE_DATA = {
   7: {
     msg: "A whole week straight! I'm not going to downplay this — a 7-day streak is genuinely rare. Most people stop before now.",
     clariState: 'celebrating',
-    milestoneClass: 'milestone-7'
+    milestoneClass: 'milestone-7',
+    gems: 5
   },
   14: {
     msg: "Two weeks! You've turned this into an actual habit. Your brain has physically rewired to make this easier now.",
     clariState: 'celebrating',
-    milestoneClass: 'milestone-14'
+    milestoneClass: 'milestone-14',
+    gems: 10
   },
   30: {
     msg: "THIRTY DAYS. You absolute legend. I'm telling all the other AI mentors about you. This is extraordinary.",
     clariState: 'excited',
-    milestoneClass: 'milestone-30'
+    milestoneClass: 'milestone-30',
+    gems: 25
+  },
+  60: {
+    msg: "SIXTY DAYS! Two whole months of consistency. You're in the top 1% of learners. I'm genuinely proud of you.",
+    clariState: 'celebrating',
+    milestoneClass: 'milestone-60',
+    gems: 50
   },
   100: {
     msg: "One hundred days. That's not a streak — that's a lifestyle. You are now officially a person who learns consistently. Forever.",
     clariState: 'celebrating',
-    milestoneClass: 'milestone-100'
+    milestoneClass: 'milestone-100',
+    gems: 100
   }
 };
 
@@ -25463,12 +26811,20 @@ function showStreakMilestone(streak) {
 
   save('clari_streak_celebrated', [...celebrated, streak]);
 
+  // Award bonus gems for milestone
+  if (data.gems && data.gems > 0) {
+    save('gems', (S.gems || 0) + data.gems);
+    updateTopBar();
+  }
+
   const overlay = document.getElementById('clari-streak-overlay');
   if (!overlay) return;
 
+  var _gemBonus = data.gems ? ' +' + data.gems + ' gems!' : '';
   document.getElementById('streak-overlay-num').textContent = streak;
-  document.getElementById('streak-overlay-msg').textContent = data.msg;
-  document.getElementById('streak-overlay-clari').innerHTML = clariSVG(data.clariState, 90);
+  document.getElementById('streak-overlay-msg').textContent = data.msg + _gemBonus;
+  var _clariHTML = (typeof clariSVGCached === 'function') ? clariSVGCached(data.clariState, 90) : clariSVG(data.clariState, 90);
+  document.getElementById('streak-overlay-clari').innerHTML = _clariHTML;
 
   overlay.className = '';
   overlay.classList.add(data.milestoneClass);
@@ -25498,7 +26854,17 @@ function showStreakMilestone(streak) {
 
 function closeStreakOverlay() {
   const overlay = document.getElementById('clari-streak-overlay');
-  if (overlay) overlay.classList.remove('open');
+  if (!overlay) return;
+  // Check if there was a gem bonus to toast about
+  var _numText = document.getElementById('streak-overlay-num');
+  var _streakVal = _numText ? parseInt(_numText.textContent, 10) : 0;
+  var _milestoneData = STREAK_MILESTONE_DATA[_streakVal];
+  overlay.classList.remove('open');
+  if (_milestoneData && _milestoneData.gems) {
+    setTimeout(function() {
+      showToast('Milestone bonus: +' + _milestoneData.gems + ' gems earned!', 'success', 3000);
+    }, 400);
+  }
 }
 
 // ============================================================
@@ -25726,20 +27092,33 @@ function updateTopBar() {
   }
   const tbStreak = document.querySelector('.tb-streak');
   if (tbStreak) {
-    tbStreak.classList.toggle('freeze-active', !!(S.streak_freeze));
+    var _hasFreezeActive = !!(S.streak_freeze);
+    var _hasDayOff = !!(S.day_off_until && Date.now() < S.day_off_until);
+    var _isProtected = _hasFreezeActive || _hasDayOff;
+    tbStreak.classList.toggle('freeze-active', _isProtected);
     let fbadge = document.getElementById('tb-freeze-badge');
-    if (S.streak_freeze) {
+    if (_isProtected) {
       if (!fbadge) {
         fbadge = document.createElement('div');
         fbadge.id = 'tb-freeze-badge';
         fbadge.className = 'tb-streak-freeze-badge';
-        fbadge.innerHTML = '&#10052;';
-        fbadge.title = 'Streak Freeze active';
         tbStreak.style.position = 'relative';
         tbStreak.appendChild(fbadge);
       }
+      if (_hasDayOff) {
+        fbadge.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--clari-blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>';
+        fbadge.title = 'Your streak is protected today (Day Off Pass active)';
+      } else {
+        fbadge.innerHTML = '&#10052;';
+        fbadge.title = 'Your streak is protected today (Streak Freeze active)';
+      }
     } else {
       if (fbadge) fbadge.remove();
+    }
+    if (_isProtected) {
+      tbStreak.title = 'Your streak is protected today! ' + (_hasDayOff ? 'Day Off Pass active.' : 'Streak Freeze active — if you miss a day, your streak is safe.');
+    } else {
+      tbStreak.title = 'Your day streak! This counts how many days in a row you\'ve done at least one lesson. Miss a day and it resets to zero — try to keep it going!';
     }
   }
   if (tbh) tbh.innerHTML = renderHearts(S.hearts, 5);
@@ -27549,6 +28928,7 @@ ${_playHint}<button class="lesson-bookmark-btn ${(S.bookmarks||[]).includes(less
 
   const dtcEl = document.getElementById('daily-tip-card');
   if (dtcEl) renderDailyTipCard(dtcEl);
+  renderDailyTipCarousel();
   renderWeeklyChallengeBanner();
 
   // learn-37: long-press to pin/unpin lesson rows
@@ -37176,6 +38556,228 @@ u22l5: [
   { type: 'quiz', question: 'Which statement about AI and crisis situations is correct?', options: ['AI can handle crisis situations as well as a trained professional', 'AI cannot assess whether someone is in danger, cannot call for help, and cannot provide crisis intervention — in emergencies, call 988 or 911', 'AI should be the first point of contact in any crisis', 'AI can predict when someone will have a mental health crisis'], correct: 1, explanation: 'In crisis situations, AI is fundamentally inadequate. It cannot assess physical danger, call emergency services, create safety plans, or provide the human judgment needed in critical moments. Call or text 988 (Suicide & Crisis Lifeline) or 911 for emergencies.' },
   { type: 'fill_blank', sentence: 'The Crisis Text Line is available by texting [___] to 741741 — another resource AI can tell you about but cannot replace.', blanks: ['HOME'], wordBank: ['HOME', 'HELP', 'SOS', 'CRISIS'] },
   { type: 'scenario', title: 'Devon sets boundaries', prompt: 'Devon realizes he\'s been spending 3 hours nightly talking to AI instead of socializing. He wants to fix this without losing the benefit of AI journaling. What\'s the best approach?', options: ['Quit AI entirely, cold turkey', 'Set a 15-minute timer for AI journaling, then redirect the remaining time to real-world activities: calling a friend, going for a walk, cooking dinner', 'Keep the 3-hour sessions but feel guilty about them', 'Replace AI with a different app that does the same thing'], correct: 1, explanation: 'The healthiest approach is boundaries, not elimination. A focused 15-minute AI journaling session is often more productive than a 3-hour open-ended conversation. The freed-up time should go toward human connection and real-world activities that AI cannot provide.' }
+],
+
+u23l1: [
+  { type: 'quiz', question: 'Lucia asks AI: "Plan my trip." She gets a vague, generic response. What went wrong?', options: ['AI can\'t help with travel', 'Her prompt lacked essential context — dates, budget, interests, dietary needs, and travel style', 'She needs a premium AI subscription for travel advice', 'AI only helps with domestic travel'], correct: 1, explanation: 'AI travel planning works best with specific context. "Plan a 14-day solo trip to Japan in October, $3,000 budget, vegetarian, love temples and photography" gives AI everything it needs to create a personalized itinerary.' },
+  { type: 'quiz', question: 'Tom and Sarah ask AI to compare costs between five Italian cities. What should they remember about AI\'s cost data?', options: ['AI has live access to current hotel and flight prices', 'AI\'s cost comparisons are based on training data and may not reflect current prices — always verify on booking sites', 'AI\'s prices are always higher than reality', 'AI cost data is only accurate for US cities'], correct: 1, explanation: 'AI can provide useful general cost comparisons between destinations, but its data comes from training — not live price feeds. Always verify specific prices on current booking platforms like Google Flights, Booking.com, or Kayak.' },
+  { type: 'quiz', question: 'Aiden wants AI to suggest hidden gems in Thailand. What is the biggest risk with AI\'s "hidden gem" recommendations?', options: ['AI only knows about popular tourist spots', 'AI\'s suggestions are based on training data — places may have closed, become overcrowded, or changed since AI learned about them', 'AI makes up fake places to seem helpful', 'Hidden gems don\'t exist in Thailand'], correct: 1, explanation: 'AI can suggest wonderful off-the-beaten-path spots, but its knowledge has a cutoff date. Always cross-check recommendations with recent Google reviews, TripAdvisor, or local tourism websites to confirm the place still exists and matches the description.' },
+  { type: 'quiz', question: 'Which of these should you NEVER share with an AI chatbot when planning a trip?', options: ['Your travel dates and destination preferences', 'Your passport number, credit card details, or personal identification information', 'Your dietary restrictions and accessibility needs', 'Your budget range and accommodation preferences'], correct: 1, explanation: 'Never share sensitive personal information like passport numbers, credit card details, social security numbers, or government IDs with AI chatbots. These conversations may be stored, reviewed, or used for training, and the data is not protected the way financial institutions protect your information.' },
+  { type: 'fill_blank', sentence: 'AI creates excellent travel [___], but you should always verify border crossings and entry rules on official government [___].', blanks: ['itineraries', 'websites'], wordBank: ['itineraries', 'websites', 'blogs', 'packages', 'forums'] },
+  { type: 'fill_blank', sentence: 'The more [___] you provide in your travel planning prompt, the more [___] AI\'s recommendations will be.', blanks: ['context', 'personalized'], wordBank: ['context', 'personalized', 'words', 'expensive', 'generic'] },
+  { type: 'tap_correct', question: 'Tap everything AI can help with when planning an international trip.', items: [
+    { text: 'Creating a day-by-day itinerary based on your interests and budget', correct: true },
+    { text: 'Guaranteeing that your visa application will be approved', correct: false },
+    { text: 'Suggesting packing lists based on destination, weather, and activities', correct: true },
+    { text: 'Processing your passport renewal application', correct: false },
+    { text: 'Comparing costs of living between destinations', correct: true },
+    { text: 'Recommending the best time of year to visit a country', correct: true },
+    { text: 'Booking flights and hotels directly', correct: false }
+  ]},
+  { type: 'tap_correct', question: 'Tap all the things you should VERIFY with official sources after getting AI travel advice.', items: [
+    { text: 'Visa requirements for your specific passport', correct: true },
+    { text: 'Whether AI recommends visiting temples or beaches', correct: false },
+    { text: 'Current travel safety advisories for your destination', correct: true },
+    { text: 'Vaccination requirements for entry', correct: true },
+    { text: 'The general climate and weather patterns of a region', correct: false },
+    { text: 'Whether a specific border crossing is currently open', correct: true }
+  ]},
+  { type: 'scenario', title: 'Lucia\'s visa surprise', prompt: 'Lucia asks AI whether she needs a visa for Japan. AI says "Most Western passport holders can enter Japan visa-free for up to 90 days." Lucia has a Brazilian passport. What should she do?', options: ['Trust AI — it said she doesn\'t need a visa', 'Check the official Japanese embassy website for Brazil-specific visa requirements, since AI gave a general answer that may not apply to her passport', 'Skip Japan and go somewhere easier'], correct: 1, explanation: 'AI often gives general answers about visa requirements. "Most Western passport holders" doesn\'t necessarily include every country. Always check the specific embassy or consulate website for requirements based on YOUR nationality.' },
+  { type: 'scenario', title: 'Tom\'s itinerary conflict', prompt: 'Tom asks AI to plan 10 days in Italy visiting Rome, Florence, Venice, Amalfi Coast, Sicily, and Milan. AI creates the itinerary but it requires 6 intercity train trips in 10 days. What\'s the problem?', options: ['Nothing — more cities means a better trip', 'The itinerary is too ambitious — spending most of the trip on trains means less time actually experiencing each destination. AI should be asked to prioritize fewer cities for deeper experiences.', 'AI can\'t plan Italy trips'], correct: 1, explanation: 'AI will try to accommodate everything you ask for, even if it\'s unrealistic. A good follow-up prompt: "Narrow this to the 3 best cities for food-loving couples who want to relax, not rush. We have 10 days."' },
+  { type: 'type_answer', question: 'What document determines whether you can legally enter a foreign country, and should always be verified on official government websites rather than trusting AI alone?', placeholder: 'Type your answer...', answers: ['visa', 'visa requirements', 'visas'], hint: 'It\'s a travel document or permit that grants entry to a country — starts with V...' },
+  { type: 'quiz', question: 'Which travel planning prompt would give the BEST AI response?', options: ['"Plan my trip"', '"I want to go somewhere nice"', '"Plan a 10-day anniversary trip to Italy for a couple in their 40s. Budget: $5,000 total. We love food, wine, history, and relaxing. We prefer boutique hotels over hostels. We\'re flying from Chicago."', '"Italy trip cheap"'], correct: 2, explanation: 'The third prompt includes every detail AI needs: duration, occasion, destination, age/relationship, budget, interests, accommodation style, and departure city. This produces a truly personalized itinerary instead of generic advice.' },
+  { type: 'fill_blank', sentence: 'AI travel advice is a great starting [___], but it cannot replace travel [___] for protecting yourself against medical emergencies and cancellations abroad.', blanks: ['point', 'insurance'], wordBank: ['point', 'insurance', 'guide', 'agency', 'app'] },
+  { type: 'tap_correct', question: 'Tap all the information you should include in a trip planning AI prompt for the best results.', items: [
+    { text: 'Your travel dates and duration', correct: true },
+    { text: 'Your credit card number for price checking', correct: false },
+    { text: 'Your budget range per person', correct: true },
+    { text: 'Your interests and hobbies', correct: true },
+    { text: 'Your social security number', correct: false },
+    { text: 'Dietary restrictions or accessibility needs', correct: true },
+    { text: 'Your preferred travel style (luxury, budget, adventure)', correct: true }
+  ]},
+  { type: 'quiz', question: 'Aiden asks AI to create a 3-month backpacking route. AI includes a country that currently has a Level 4 "Do Not Travel" advisory. What should Aiden do?', options: ['Go anyway — AI wouldn\'t recommend it if it were dangerous', 'Check the official government travel advisory website for every country in his route, since AI\'s training data may predate current safety situations', 'Remove all countries from the itinerary to be safe', 'Ask AI if the country is dangerous'], correct: 1, explanation: 'AI\'s training data has a cutoff date and cannot reflect current political situations, natural disasters, or conflict zones. Always check your government\'s official travel advisory page (e.g., travel.state.gov for US citizens) for real-time safety information.' },
+  { type: 'scenario', title: 'Sarah\'s packing dilemma', prompt: 'Sarah asks AI what to pack for Italy in September. AI says "light summer clothes." But she\'s also visiting the Dolomite mountains where temperatures drop to 5 degrees Celsius at night. What happened?', options: ['AI is wrong about Italian weather', 'Sarah\'s prompt was too vague — she didn\'t mention mountain hiking. AI optimized for typical city tourism. A better prompt would include ALL planned activities and locations.', 'AI can\'t help with packing'], correct: 1, explanation: 'AI responds to what you tell it. "Pack for Italy in September" assumes typical tourism. "Pack for Italy in September — visiting Rome, Florence, AND hiking in the Dolomites at altitude" gets a much more accurate and comprehensive packing list.' },
+  { type: 'type_answer', question: 'AI\'s knowledge stops at a specific date. What is this date called, which means AI may not know about recent closures, policy changes, or travel warnings?', placeholder: 'Type your answer...', answers: ['cutoff date', 'cutoff', 'knowledge cutoff', 'training cutoff'], hint: 'It\'s the last date AI was trained on — a _____ date...' },
+  { type: 'fill_blank', sentence: 'Never share [___] numbers or credit card details with AI chatbots, even when planning travel — your data may not be [___].', blanks: ['passport', 'secure'], wordBank: ['passport', 'secure', 'flight', 'available', 'phone'] },
+  { type: 'quiz', question: 'What is the MOST important safety rule when using AI for travel planning?', options: ['Always use the most expensive AI model', 'Verify all critical information (visas, safety advisories, booking legitimacy) with official sources — AI is a starting point, not the final authority', 'Never use AI for travel planning', 'AI travel advice is always 100% accurate and up-to-date'], correct: 1, explanation: 'AI is a phenomenal travel planning tool, but it cannot access live data, verify your specific visa status, or know about events after its training cutoff. Use AI for inspiration and structure, then verify critical logistics with official sources.' }
+],
+
+u23l2: [
+  { type: 'quiz', question: 'What is the FASTEST way to read a foreign-language menu at a restaurant?', options: ['Ask the waiter to translate every item one by one', 'Use Google Translate\'s camera feature to point at the menu and see it in your language instantly', 'Leave and find an English-language restaurant', 'Order randomly and hope for the best'], correct: 1, explanation: 'Google Translate\'s camera mode can instantly translate text in images — point your phone at the menu, sign, or label. Download the language pack offline before traveling in case you lose signal.' },
+  { type: 'quiz', question: 'Lucia wants to learn key Japanese phrases before her trip. What approach will help her most?', options: ['Memorize the entire Japanese dictionary', 'Ask AI for the 10-15 most useful travel phrases with phonetic pronunciation guides, then practice saying them out loud', 'Only learn "hello" and "goodbye" — that\'s all you need', 'Don\'t bother learning any phrases — translation apps handle everything'], correct: 1, explanation: 'AI is excellent at curating the most practical travel phrases ranked by usefulness. Phonetic pronunciation guides help you practice before the trip. Even a few phrases in the local language shows respect and often leads to warmer interactions.' },
+  { type: 'quiz', question: 'Tom uses AI to translate "I\'d kill for a coffee right now" into Italian for a cafe owner. Why might this be a problem?', options: ['Italians don\'t drink coffee', 'AI may translate the idiom literally, producing a threatening sentence instead of a casual request. Always use simple, literal language when translating.', 'AI can\'t translate to Italian', 'The cafe owner will appreciate the humor'], correct: 1, explanation: 'Idioms, slang, and figurative expressions often translate incorrectly or offensively. "I\'d kill for a coffee" translated literally could be alarming! Always rephrase to simple, clear language: "I would really love a coffee" translates accurately in any language.' },
+  { type: 'quiz', question: 'What should you always download before traveling to a country where you don\'t speak the language?', options: ['Every app in the app store', 'Offline translation language packs — so you can translate even without internet connection', 'A VPN for every country you\'ll visit', 'The country\'s national anthem'], correct: 1, explanation: 'Internet access is not guaranteed everywhere — especially in rural areas, underground transit, or countries with restricted connectivity. Downloading offline translation packs (Google Translate, Apple Translate) ensures you can communicate even without Wi-Fi or cell signal.' },
+  { type: 'fill_blank', sentence: 'When using AI for translation, always use simple, [___] language instead of slang or idioms to get the most accurate [___].', blanks: ['literal', 'translation'], wordBank: ['literal', 'translation', 'funny', 'response', 'complex'] },
+  { type: 'fill_blank', sentence: 'Learning even a few [___] in the local language shows respect and often leads to warmer interactions than relying entirely on translation [___].', blanks: ['phrases', 'apps'], wordBank: ['phrases', 'apps', 'songs', 'tools', 'words'] },
+  { type: 'tap_correct', question: 'Tap all the ways AI can help with communication in a foreign country.', items: [
+    { text: 'Translating written text using camera mode', correct: true },
+    { text: 'Providing 100% perfect spoken translation in every dialect', correct: false },
+    { text: 'Teaching cultural etiquette and customs', correct: true },
+    { text: 'Replacing the need to learn any local language', correct: false },
+    { text: 'Creating a phrasebook with pronunciation guides', correct: true },
+    { text: 'Translating medical symptoms in an emergency', correct: true },
+    { text: 'Understanding sarcasm and humor perfectly across all languages', correct: false }
+  ]},
+  { type: 'tap_correct', question: 'Tap all statements that are TRUE about AI translation tools.', items: [
+    { text: 'They work better with simple, clear sentences than with slang', correct: true },
+    { text: 'They are 100% accurate in every language and dialect', correct: false },
+    { text: 'Offline packs allow translation without internet', correct: true },
+    { text: 'They can translate text in images using camera mode', correct: true },
+    { text: 'They perfectly capture cultural nuance and tone in every translation', correct: false },
+    { text: 'They can help you learn pronunciation of key phrases', correct: true }
+  ]},
+  { type: 'scenario', title: 'Aiden\'s medical emergency', prompt: 'Aiden twists his ankle badly while hiking in rural Vietnam. The nearest clinic has no English-speaking staff. He needs to explain his injury and ask about treatment. What should he do?', options: ['Try to mime the injury using gestures only', 'Use AI to translate his symptoms, medical allergies, and questions into Vietnamese — then show the written translation on his phone screen to the medical staff', 'Wait until he finds an English-speaking doctor in the next city'], correct: 1, explanation: 'In medical emergencies abroad, AI translation can be critical. Translate your specific symptoms, any medication allergies, and key questions. Showing written text is often clearer than audio translation in a busy clinic. Pre-translate medical information before trips to be prepared.' },
+  { type: 'scenario', title: 'Sarah\'s cultural mistake', prompt: 'Sarah is in Japan and tips the waiter 20% at a restaurant, as she would in the US. The waiter looks confused and tries to return the money. What should Sarah have done?', options: ['Insist the waiter keep the tip — it\'s rude to refuse money', 'Ask AI about tipping customs in Japan beforehand — tipping is considered rude in Japan and can cause confusion or offense', 'Never eat at restaurants in Japan to avoid the issue'], correct: 1, explanation: 'Cultural customs vary enormously between countries. Tipping is standard in the US but considered rude in Japan. AI is excellent at explaining these cultural differences — just ask "What are the top 5 cultural mistakes tourists make in Japan?" before your trip.' },
+  { type: 'type_answer', question: 'When a translation from AI seems confusing to a local, what should you do with your English sentence to improve the translation?', placeholder: 'Type your answer...', answers: ['simplify', 'simplify it', 'make it simpler', 'rephrase', 'use simpler words'], hint: 'Make the sentence more basic and clear — remove slang and complex words...' },
+  { type: 'quiz', question: 'Lucia is at a Japanese temple and wants to ask if photography is allowed. Which phrase will translate most accurately?', options: ['"Can I snap some pics here or nah?"', '"Is photography permitted in this area?"', '"Yo, is it cool to take photos?"', '"Mind if I shoot?"'], correct: 1, explanation: 'Clear, formal English translates far more accurately than slang. "Is photography permitted in this area?" will produce a correct Japanese translation. "Can I snap some pics or nah?" will confuse the translation engine and possibly produce nonsense.' },
+  { type: 'fill_blank', sentence: 'Before traveling to a new country, ask AI: "What are the top cultural [___] tourists make in [country]?" to avoid accidentally causing [___].', blanks: ['mistakes', 'offense'], wordBank: ['mistakes', 'offense', 'photos', 'problems', 'delays'] },
+  { type: 'quiz', question: 'What makes AI-powered pronunciation guides especially useful for travelers?', options: ['They teach you to speak like a native in one day', 'They provide phonetic breakdowns of essential phrases, helping you approximate correct pronunciation even without formal language study', 'They replace the need to interact with locals', 'They work without any internet connection by default'], correct: 1, explanation: 'AI pronunciation guides break down foreign words into sounds you already know. While they won\'t make you fluent, they help you pronounce key travel phrases well enough to be understood — and locals almost always appreciate the effort.' },
+  { type: 'tap_correct', question: 'Tap all the things you should translate and have saved on your phone BEFORE traveling.', items: [
+    { text: 'Your name and emergency contact information', correct: true },
+    { text: 'Common food allergens and dietary restrictions', correct: true },
+    { text: 'Your entire life story', correct: false },
+    { text: '"I need help" and "Please call an ambulance"', correct: true },
+    { text: 'Your hotel name and address', correct: true },
+    { text: 'Every word in the local dictionary', correct: false }
+  ]},
+  { type: 'scenario', title: 'Tom\'s compliment gone wrong', prompt: 'Tom asks AI to translate "Your wine is the bomb!" into Italian as a compliment to a vineyard owner. What is the likely result?', options: ['The vineyard owner will be flattered', 'AI may translate the slang literally, producing something like "Your wine is an explosive device" — Tom should rephrase to clear language like "Your wine is excellent"', 'The translation will be perfect because AI understands all English slang'], correct: 1, explanation: 'Slang expressions like "the bomb," "fire," "sick," and "killer" can translate into alarming or nonsensical phrases. Always rephrase to simple, literal language before translating: "excellent," "delicious," "wonderful" translate correctly in every language.' },
+  { type: 'type_answer', question: 'What should you download to your phone before traveling so you can translate even in areas without internet?', placeholder: 'Type your answer...', answers: ['offline packs', 'offline language packs', 'language packs', 'offline translation'], hint: 'Downloadable data files for translation apps that work without Wi-Fi...' },
+  { type: 'fill_blank', sentence: 'AI translation tools work well for written text and basic [___], but they may struggle with regional dialects and cultural [___].', blanks: ['phrases', 'nuance'], wordBank: ['phrases', 'nuance', 'accents', 'food', 'travel'] },
+  { type: 'quiz', question: 'A local in Cambodia looks confused after Aiden shows them a Google Translate result. What should Aiden try next?', options: ['Repeat the same translation louder', 'Rephrase using simpler English, show the written translation on screen, point to a map, and use basic gestures — combining multiple communication methods', 'Give up and walk away', 'Switch to a completely different language'], correct: 1, explanation: 'When one translation attempt fails, use multiple communication methods together: simpler rephrased text, showing the written translation, pointing at maps or photos, and basic universal gestures. Communication is more than just words.' }
+],
+
+u23l3: [
+  { type: 'quiz', question: 'Tom finds a flight deal on an unfamiliar website for 70% below market price. What is the most likely explanation?', options: ['It\'s a legitimate error fare that will be honored', 'It\'s likely a scam — prices dramatically below market rate on unknown websites are a major red flag', 'All discount flights are scams', 'The airline is going bankrupt and selling cheap seats'], correct: 1, explanation: 'While legitimate deals and error fares do exist, they\'re rare and usually found on known platforms. A 70% discount on an unfamiliar website, especially combined with pressure to book immediately, is a classic travel scam. Always verify deals on official airline sites or trusted aggregators.' },
+  { type: 'quiz', question: 'Aiden asks AI for budget tips in Southeast Asia. Which AI suggestion would be most actionable?', options: ['"Spend less money"', '"In Thailand, street food averages $1-3 per meal. Eat at markets and stalls instead of tourist restaurants near temples. For accommodation, hostels in Chiang Mai average $8-12/night vs. $25+ on islands like Koh Samui."', '"Just be frugal"', '"Don\'t eat out"'], correct: 1, explanation: 'The most useful AI budget advice includes specific numbers, local context, and actionable comparisons. Vague advice like "spend less" isn\'t helpful. Specific regional price comparisons help travelers make informed decisions about where to spend and where to save.' },
+  { type: 'quiz', question: 'Sarah wants to maximize her airline reward miles for their Italy trip. What information should she give AI?', options: ['Just say "use my miles"', 'Her loyalty program, destination, travel dates, date flexibility, class preference, and number of travelers', 'Her account login and password so AI can check her balance', 'Nothing — AI can see her miles balance automatically'], correct: 1, explanation: 'AI can give expert-level advice on reward point optimization — but only with context. It needs to know which program, your destination, dates, flexibility, and class preference. NEVER share account logins, passwords, or credit card numbers with AI.' },
+  { type: 'quiz', question: 'Which of these is NOT a red flag for a travel booking scam?', options: ['The website requires payment via wire transfer or cryptocurrency', 'The booking is available on Google Flights and has verified reviews', 'The price is 80% below every other listing for the same hotel', 'The website has no customer service contact information'], correct: 1, explanation: 'Availability on established platforms like Google Flights with verified reviews is a sign of legitimacy. Red flags include: unusual payment methods (crypto, wire transfers), prices far below market rate, no customer service, pressure to book immediately, and no HTTPS.' },
+  { type: 'fill_blank', sentence: 'Always book travel through [___] platforms or official airline websites, and be suspicious of deals that seem too good to be [___].', blanks: ['trusted', 'true'], wordBank: ['trusted', 'true', 'cheap', 'fast', 'new'] },
+  { type: 'fill_blank', sentence: 'AI can help you create a daily [___] breakdown for your trip, but it cannot access live prices or process [___] for you.', blanks: ['budget', 'payments'], wordBank: ['budget', 'payments', 'travel', 'bookings', 'plans'] },
+  { type: 'tap_correct', question: 'Tap all the red flags that suggest a travel deal might be a SCAM.', items: [
+    { text: 'Price is dramatically below market rate', correct: true },
+    { text: 'The deal is listed on Kayak and Google Flights', correct: false },
+    { text: 'Website requires payment via gift cards', correct: true },
+    { text: 'A pop-up says "Only 1 room left! Book in 3 minutes!"', correct: true },
+    { text: 'The airline has an official website with customer service', correct: false },
+    { text: 'The website URL is misspelled (e.g., "bookking.com")', correct: true },
+    { text: 'The hotel has hundreds of verified reviews on TripAdvisor', correct: false }
+  ]},
+  { type: 'tap_correct', question: 'Tap all the things AI can help you with for budget travel.', items: [
+    { text: 'Calculating your daily spending allowance from your total budget', correct: true },
+    { text: 'Actually booking flights and processing credit card payments', correct: false },
+    { text: 'Suggesting cheaper alternatives — street food vs. restaurants, free vs. paid activities', correct: true },
+    { text: 'Comparing average costs between different destinations', correct: true },
+    { text: 'Guaranteeing the lowest price on a specific flight', correct: false },
+    { text: 'Creating a spending tracker template in local currency', correct: true }
+  ]},
+  { type: 'scenario', title: 'Aiden\'s too-good bus deal', prompt: 'Aiden finds a $5 overnight bus from Bangkok to Siem Reap on a travel forum. The regular price on trusted platforms is $30. A commenter says it was "fine." What should Aiden do?', options: ['Book the $5 bus — one positive comment is enough proof', 'Research the bus company on trusted platforms, check for safety reviews, and compare with established operators. A $25 savings isn\'t worth risking safety on an unverified overnight bus.', 'Never take buses in Southeast Asia'], correct: 1, explanation: 'A single positive forum comment doesn\'t verify safety. Overnight buses on unknown operators can have serious safety issues. Research the specific company, check for recent reviews on trusted travel sites, and consider whether the savings is worth the risk.' },
+  { type: 'scenario', title: 'Sarah\'s hotel deal', prompt: 'Sarah finds a 5-star Rome hotel for $50/night on a website she\'s never heard of (normally $400). The site looks professional with nice photos. What should she do?', options: ['Book immediately — the photos look great', 'Search for the hotel name on Booking.com, TripAdvisor, and the hotel\'s own website to verify it exists. Never enter payment information on unfamiliar websites.', 'Share the deal on social media to get friends\' opinions'], correct: 1, explanation: 'Professional-looking websites are easy to create. Scam sites often copy real hotel photos and descriptions. Always verify the property exists on established platforms and book through those trusted platforms instead, even if the price is higher.' },
+  { type: 'type_answer', question: 'What type of insurance should you always purchase before international travel, which protects against medical emergencies, cancellations, and lost luggage?', placeholder: 'Type your answer...', answers: ['travel insurance', 'travel'], hint: 'It\'s a specific type of insurance designed for trips abroad...' },
+  { type: 'quiz', question: 'Aiden\'s total budget is $4,000 for 90 days. AI calculates his daily allowance as $44. This is a great use of AI because:', options: ['AI can manage his bank account remotely', 'AI can break the budget into daily amounts, allocate by category (food, accommodation, transport), and adjust for cheaper vs. expensive countries along the route', 'AI will prevent him from overspending automatically', 'AI can exchange currency for him'], correct: 1, explanation: 'AI excels at budget math and planning. It can calculate daily allowances, break them into categories, adjust for regional cost differences (Laos is cheaper than Thailand), and suggest reallocation strategies when you overspend in one area.' },
+  { type: 'fill_blank', sentence: 'If a travel deal seems too good to be [___], verify the property or flight on multiple [___] platforms before entering any payment information.', blanks: ['true', 'trusted'], wordBank: ['true', 'trusted', 'cheap', 'unknown', 'new'] },
+  { type: 'quiz', question: 'Which strategy does AI recommend for finding cheaper international flights?', options: ['Always book on the first website you check', 'Use flexible dates, check nearby airports, set price alerts, and compare across multiple trusted platforms', 'Only fly on Tuesdays — that\'s when flights are cheapest', 'Wait until the day before to get last-minute deals on international flights'], correct: 1, explanation: 'AI flight-finding strategies include: using Google Flights date grids, checking nearby airports, booking 6-8 weeks ahead for transatlantic flights, setting price alerts, and comparing across platforms. The "book on Tuesday" rule is mostly a myth.' },
+  { type: 'tap_correct', question: 'Tap the payment methods that are SAFE for booking travel.', items: [
+    { text: 'Credit card through official airline website', correct: true },
+    { text: 'Wire transfer to an individual\'s bank account', correct: false },
+    { text: 'Payment through Booking.com or Expedia', correct: true },
+    { text: 'Cryptocurrency sent to an anonymous wallet', correct: false },
+    { text: 'Credit card through Google Flights link to airline', correct: true },
+    { text: 'Gift cards mailed to a PO box', correct: false }
+  ]},
+  { type: 'scenario', title: 'Tom\'s miles strategy', prompt: 'Tom has 80,000 airline miles and asks AI how to use them. AI says he could get two economy tickets to Rome OR one business class ticket. What additional information should Tom provide for better advice?', options: ['His credit card number so AI can check his account', 'His travel dates, flexibility, loyalty program name, whether he values comfort or saving miles, and any upcoming promotions or partner airline options', 'Nothing else — AI gave a complete answer'], correct: 1, explanation: 'Reward point optimization depends on many factors: specific loyalty program rules, travel dates, availability, partner airlines, upcoming promotions, and personal priorities. The more context you give AI, the more strategic its advice becomes.' },
+  { type: 'type_answer', question: 'What should you always look for in your browser\'s address bar before entering payment information on any travel booking website?', placeholder: 'Type your answer...', answers: ['https', 'lock', 'lock icon', 'padlock', 'ssl', 'secure'], hint: 'It\'s a security indicator that shows the website encrypts your data...' },
+  { type: 'fill_blank', sentence: 'Budget travel doesn\'t mean choosing the [___] option at all costs — AI can help you evaluate whether a deal is genuinely good [___] or a false economy.', blanks: ['cheapest', 'value'], wordBank: ['cheapest', 'value', 'fastest', 'price', 'best'] },
+  { type: 'quiz', question: 'What is the MOST important rule when using AI for travel booking advice?', options: ['Always book the cheapest option AI finds', 'Never share credit card or passport details with AI, always verify deals on official sites, and book through trusted platforms only', 'AI booking advice is always 100% accurate', 'Only use AI for domestic travel bookings'], correct: 1, explanation: 'AI is a powerful tool for finding strategies and comparing options, but it cannot process payments, access live prices, or verify website legitimacy. Protect your financial information, verify deals independently, and always book through trusted platforms.' }
+],
+
+u23l4: [
+  { type: 'quiz', question: 'Lucia is in Kyoto and it starts raining. She asks AI for indoor alternatives. What should she include in her prompt for the best suggestions?', options: ['"It\'s raining, what do I do?"', '"I\'m near Fushimi station in Kyoto, it\'s raining, I have 5 hours, and I love temples, traditional culture, and food. What indoor activities are nearby?"', '"Rain activities Japan"', '"Help me"'], correct: 1, explanation: 'Location-specific prompts with context (area, available time, interests) produce far better recommendations than vague requests. "Near Fushimi station" is much more useful than "in Kyoto" because AI can suggest things within walking distance.' },
+  { type: 'quiz', question: 'Aiden asks AI: "Where should I eat?" while in Chiang Mai. What\'s the biggest problem with this prompt?', options: ['AI can\'t recommend restaurants', 'It\'s too vague — he should include his specific neighborhood, budget, cuisine preferences, and whether he wants street food or a sit-down restaurant', 'He should only use Yelp', 'The question is fine as-is'], correct: 1, explanation: 'A better prompt: "I\'m near the Old City in Chiang Mai, budget $3-5 per meal, I love spicy food, prefer street stalls with outdoor seating." This gives AI everything it needs for a personalized recommendation.' },
+  { type: 'quiz', question: 'Tom and Sarah ask AI to recommend the best gelato shop in Rome. Before walking 30 minutes to get there, they should:', options: ['Trust AI completely and start walking', 'Check Google Maps for current opening hours, recent reviews, and verify the shop still exists', 'Ask AI for a guaranteed refund if the shop is closed', 'Only eat gelato at their hotel'], correct: 1, explanation: 'AI recommendations come from training data, not live information. A 30-second Google Maps check for current hours, recent reviews, and photos prevents a wasted 30-minute walk to a place that may have closed since AI learned about it.' },
+  { type: 'quiz', question: 'Why should you always include your specific neighborhood or area when asking AI for on-the-go recommendations?', options: ['AI charges more for specific locations', 'AI cannot provide useful recommendations without geographic specificity — "near Shibuya" gets much better results than "in Tokyo" because it can suggest things within walking distance', 'It doesn\'t matter — AI knows where you are automatically', 'Specific locations make AI slower'], correct: 1, explanation: 'AI has no GPS. It doesn\'t know where you are unless you tell it. "Near Shibuya Station" lets AI suggest places within 10-15 minutes of your actual location, rather than generic city-wide recommendations that could be an hour away.' },
+  { type: 'fill_blank', sentence: 'AI can suggest alternative activities based on [___], but it cannot check live conditions — pair it with a weather [___] for best results.', blanks: ['weather', 'app'], wordBank: ['weather', 'app', 'location', 'website', 'map'] },
+  { type: 'fill_blank', sentence: 'Before following AI restaurant recommendations, verify the place is still open by checking [___] Maps for current hours and recent [___].', blanks: ['Google', 'reviews'], wordBank: ['Google', 'reviews', 'Apple', 'photos', 'prices'] },
+  { type: 'tap_correct', question: 'Tap all the information you should include in on-the-go AI travel prompts.', items: [
+    { text: 'Your specific location within the city (neighborhood or landmark)', correct: true },
+    { text: 'Your room number and hotel name for delivery', correct: false },
+    { text: 'What you\'ve already done or seen', correct: true },
+    { text: 'Current weather conditions', correct: true },
+    { text: 'Your budget for the activity or meal', correct: true },
+    { text: 'Your credit card number for booking', correct: false },
+    { text: 'Your time constraints (how many hours you have)', correct: true }
+  ]},
+  { type: 'tap_correct', question: 'Tap everything AI can help with DURING a trip.', items: [
+    { text: 'Suggesting alternative plans when weather changes', correct: true },
+    { text: 'Providing live traffic and transit delay updates', correct: false },
+    { text: 'Recommending restaurants matching dietary needs and budget', correct: true },
+    { text: 'Automatically rebooking cancelled flights', correct: false },
+    { text: 'Suggesting photo spots near a specific landmark', correct: true },
+    { text: 'Explaining unfamiliar cultural customs you encounter', correct: true },
+    { text: 'Navigating you turn-by-turn with live GPS', correct: false }
+  ]},
+  { type: 'scenario', title: 'Lucia lost in Shinjuku', prompt: 'Lucia is overwhelmed in Shinjuku Station (the world\'s busiest) and needs to get to Asakusa. She opens ChatGPT. What prompt will help her most?', options: ['Ask: "How do I use Japanese trains?"', 'Ask: "I\'m at Shinjuku Station on the JR platform. How do I get to Senso-ji Temple in Asakusa? Include which line, direction, transfers, and which exit at Asakusa station."', 'Ask: "Take me to Asakusa" — AI will navigate her automatically'], correct: 1, explanation: 'Specific navigation requests get specific, actionable answers. Including your current location (platform level), destination (exact attraction), and requesting specific details (line, direction, transfers, exit number) gives AI everything it needs for step-by-step guidance.' },
+  { type: 'scenario', title: 'Aiden\'s repeated recommendations', prompt: 'Aiden asks AI what to do in Hanoi tonight. AI suggests the water puppet show and night market — but he did both yesterday. Why is AI repeating itself?', options: ['AI is broken and giving bad recommendations', 'AI doesn\'t remember what he did yesterday unless he tells it. He should mention what he\'s already done and specify what he\'s in the mood for tonight.', 'AI has no other suggestions for Hanoi'], correct: 1, explanation: 'AI suggests the most popular options by default because it has no memory of previous conversations. Always tell AI what you\'ve already done, what you\'re in the mood for (live music? street food? meeting travelers?), and any constraints.' },
+  { type: 'type_answer', question: 'What should you always check on Google Maps before following an AI restaurant or attraction recommendation to avoid a wasted trip?', placeholder: 'Type your answer...', answers: ['opening hours', 'hours', 'open', 'if it is open', 'whether it is open'], hint: 'You want to make sure the place is currently operating — check its...' },
+  { type: 'quiz', question: 'Lucia asks AI for "the best photo spots near Fushimi Inari." AI suggests several. How should she verify these?', options: ['Trust AI completely — it knows all the best spots', 'Search for recent Instagram or Google Images photos tagged at those locations to confirm they match AI\'s description and are actually accessible', 'Only take photos at officially designated photo spots', 'Photography recommendations from AI are always wrong'], correct: 1, explanation: 'AI can suggest great photo spots, but checking recent photos from other visitors confirms the spot still looks as described, is accessible, and hasn\'t been fenced off or obscured by construction. A quick image search takes seconds.' },
+  { type: 'fill_blank', sentence: 'AI doesn\'t [___] what you did on previous days unless you tell it — always mention what you\'ve already [___] for better recommendations.', blanks: ['remember', 'done'], wordBank: ['remember', 'done', 'know', 'seen', 'like'] },
+  { type: 'quiz', question: 'Tom and Sarah are exhausted after a long day of sightseeing in Rome. They ask AI for dinner suggestions. Which additional detail would help most?', options: ['Their social media handles', 'That they\'re tired, want somewhere within walking distance of their hotel near the Pantheon, and prefer a quiet trattoria over a busy tourist restaurant', 'The number of steps they walked today', 'Their blood type for food allergy purposes'], correct: 1, explanation: 'Context about your current state (tired, wanting proximity, preferring quiet atmosphere) dramatically improves AI recommendations. AI can factor in distance, ambiance, and tourist-crowd levels when you tell it what you need in the moment.' },
+  { type: 'tap_correct', question: 'Tap the things you should VERIFY before following AI\'s on-the-go recommendation.', items: [
+    { text: 'Current opening hours on Google Maps', correct: true },
+    { text: 'Whether AI used the correct font in its response', correct: false },
+    { text: 'Recent reviews from the last 3 months', correct: true },
+    { text: 'That the place still exists and hasn\'t permanently closed', correct: true },
+    { text: 'Whether the recommendation matches your horoscope', correct: false },
+    { text: 'Walking distance and route from your current location', correct: true }
+  ]},
+  { type: 'scenario', title: 'Sarah\'s weather pivot', prompt: 'Sarah planned an outdoor wine tasting in Tuscany, but it\'s 38 degrees Celsius (100 F) and dangerously hot. She asks AI for alternatives. What context should she give?', options: ['Just say "it\'s hot"', 'Tell AI: "I\'m in the Chianti region, it\'s 38 degrees, we had an outdoor wine tasting planned. We love wine and Italian food. What indoor or shaded alternatives are within 30 minutes of Greve in Chianti?"', 'Cancel the entire day and stay in the hotel'], correct: 1, explanation: 'Great weather-pivot prompts include: current conditions, your location, what you had planned, your interests, and how far you\'re willing to travel. AI can then suggest wine cellars with underground tastings, covered restaurants, or museums — all aligned with your interests.' },
+  { type: 'type_answer', question: 'AI does not have this technology built in, so it cannot detect your physical position. What is it called?', placeholder: 'Type your answer...', answers: ['GPS', 'gps', 'location services', 'geolocation'], hint: 'It\'s the satellite-based system in your phone that detects where you are on a map...' },
+  { type: 'fill_blank', sentence: 'For the best on-the-go recommendations, pair AI with [___] Maps — AI provides ideas and Google provides live [___] and directions.', blanks: ['Google', 'hours'], wordBank: ['Google', 'hours', 'Apple', 'prices', 'reviews'] },
+  { type: 'quiz', question: 'What is the BEST approach when AI recommends an attraction that turns out to be closed when you arrive?', options: ['Complain that AI is useless', 'Ask AI for alternatives near your current location, specifying what you liked about the original plan — this turns a setback into a discovery', 'Give up on sightseeing for the day', 'Only use guidebooks from now on'], correct: 1, explanation: 'Closed attractions happen to every traveler. AI is excellent at on-the-spot replanning. Tell it where you are, what you liked about the original plan, and ask for nearby alternatives. Some of the best travel moments come from unexpected detours.' }
+],
+
+u23l5: [
+  { type: 'quiz', question: 'Lucia wants to start a travel journal but doesn\'t know what to write. How should she use AI?', options: ['Ask AI to write her journal entries for her', 'Ask AI for daily journaling prompts tailored to her trip — specific questions about her experiences, emotions, and sensory memories', 'Journaling doesn\'t work with AI', 'Just take photos instead of journaling'], correct: 1, explanation: 'AI-generated journaling prompts are incredibly effective because they ask specific questions you wouldn\'t think of yourself: "What surprised you today? What did you taste, hear, and feel? What would you tell your best friend about this moment?" These prompts capture memories that photos alone miss.' },
+  { type: 'quiz', question: 'Aiden wants to create an Instagram caption for his Angkor Wat sunset photo. Which prompt will produce content that sounds like HIM?', options: ['"Write a caption"', '"Write an Instagram caption for my sunset photo at Angkor Wat. Tone: reflective but not cheesy, like I\'m texting my best friend. I\'m a 22-year-old backpacker. Include 2-3 hashtags."', '"Make it go viral"', '"Angkor Wat caption"'], correct: 1, explanation: 'AI defaults to a generic, polished tone. Specifying your voice ("like texting my best friend"), age, context (backpacker), tone (reflective, not cheesy), and platform (Instagram + hashtags) produces content that actually sounds like you.' },
+  { type: 'quiz', question: 'Tom and Sarah have messy notes from 10 days in Italy. How should they use AI to create a trip blog?', options: ['Ask AI to write an Italy blog from scratch', 'Share their daily notes, favorite restaurants, funny moments, and emotions with AI, then ask it to organize and polish while preserving their authentic voice', 'Copy another travel blogger\'s format', 'Don\'t make a blog — just post photos'], correct: 1, explanation: 'The best AI-assisted travel content starts with YOUR real experiences. Feed AI your raw notes, specific memories, restaurant names, and genuine emotions. AI organizes and polishes — but your story stays authentically yours.' },
+  { type: 'quiz', question: 'Aiden\'s followers comment: "This doesn\'t sound like you. Are you using ChatGPT?" What went wrong?', options: ['His followers are jealous of his captions', 'He used fully AI-generated captions without adding his own voice — AI defaulted to a generic tone that his audience immediately noticed', 'Instagram is detecting AI content', 'Nothing went wrong — AI captions are always perfect'], correct: 1, explanation: 'Audiences can often detect fully AI-written content because it lacks personal quirks, inside jokes, and authentic voice. The fix: write your raw thoughts first, then ask AI to polish while keeping your voice. Collaboration, not delegation.' },
+  { type: 'fill_blank', sentence: 'The most authentic AI-assisted travel content starts with your real [___] and lets AI help with structure and [___].', blanks: ['experiences', 'polish'], wordBank: ['experiences', 'polish', 'photos', 'hashtags', 'fiction'] },
+  { type: 'fill_blank', sentence: 'To get AI to write in your voice, describe your [___] — casual, funny, reflective — so it doesn\'t default to generic, polished [___].', blanks: ['tone', 'language'], wordBank: ['tone', 'language', 'accent', 'grammar', 'style'] },
+  { type: 'tap_correct', question: 'Tap all the ways AI can help document travel experiences.', items: [
+    { text: 'Generating evening journaling prompts for fresh memories', correct: true },
+    { text: 'Taking photos automatically at landmarks', correct: false },
+    { text: 'Turning messy trip notes into a structured blog or story', correct: true },
+    { text: 'Writing Instagram captions that match your tone', correct: true },
+    { text: 'Posting directly to your social media accounts', correct: false },
+    { text: 'Creating different formats (email, blog, TikTok script) from the same raw notes', correct: true },
+    { text: 'Editing your photos with filters', correct: false }
+  ]},
+  { type: 'tap_correct', question: 'Tap all the tips for making AI-generated travel content sound more authentic.', items: [
+    { text: 'Describe your writing tone (casual, funny, heartfelt)', correct: true },
+    { text: 'Let AI write everything without your input', correct: false },
+    { text: 'Include your real emotions and reactions in the raw notes', correct: true },
+    { text: 'Accept AI\'s first draft without any editing', correct: false },
+    { text: 'Reference specific personal details and inside jokes', correct: true },
+    { text: 'Tell AI to "write like I\'m texting my best friend"', correct: true }
+  ]},
+  { type: 'scenario', title: 'Lucia\'s caption dilemma', prompt: 'AI writes this Instagram caption for Lucia\'s cat photo at Fushimi Inari: "A beautiful feline companion graced my spiritual journey through the ancient torii gates. #blessed #travelgram" Lucia thinks it sounds nothing like her. What should she do?', options: ['Post it anyway — AI knows best', 'Tell AI her actual voice and feelings: "Rewrite this casually, like I\'m texting my best friend. My real reaction was: this random cat followed me up a mountain in Japan and I think I peaked."', 'Stop using AI for captions entirely'], correct: 1, explanation: 'AI defaults to formal, polished language. Giving it your actual reaction and specifying your voice produces content that sounds like you. "This random cat followed me up a mountain in Japan. I think I peaked." is infinitely more engaging than generic travel prose.' },
+  { type: 'scenario', title: 'Tom\'s audience mismatch', prompt: 'Tom wants to share Italy trip highlights with his elderly mother who isn\'t on social media. He asks AI to create an Instagram Reel script. What\'s the problem?', options: ['Nothing — Instagram Reels are universally enjoyed', 'He\'s creating content in a format his audience doesn\'t use. He should ask AI for a warm personal email or printed letter — matching the format to the recipient.', 'Elderly people can\'t appreciate travel stories'], correct: 1, explanation: 'The best content matches its format to the audience. Tom\'s mother would appreciate a warm email or printed letter with stories and a few photos — not a TikTok script with trending audio. AI can create the same content in any format; just specify who it\'s for.' },
+  { type: 'type_answer', question: 'What should you write first, BEFORE asking AI to polish your travel content, to ensure it sounds authentic?', placeholder: 'Type your answer...', answers: ['raw notes', 'notes', 'my notes', 'raw thoughts', 'my thoughts'], hint: 'Your unpolished, unedited personal memories and reactions...' },
+  { type: 'quiz', question: 'What is the BEST time to journal about your travel experiences with AI prompts?', options: ['After you return home from the entire trip', 'During the trip — ideally each evening while details, emotions, and sensory memories are still fresh', 'Before the trip starts', 'Only on travel days, not rest days'], correct: 1, explanation: 'Memories fade quickly. Journaling each evening captures specific details — the taste of that street food, the sound of the temple bells, the feeling of climbing those stairs — that you\'ll forget within days. AI\'s daily prompts help you capture what matters before it fades.' },
+  { type: 'fill_blank', sentence: 'AI can create different [___] from the same raw notes — a blog for friends, an email for family, or a TikTok script for social [___].', blanks: ['formats', 'media'], wordBank: ['formats', 'media', 'stories', 'platforms', 'posts'] },
+  { type: 'quiz', question: 'Which of these is the BEST example of using AI as a travel content collaborator (not a replacer)?', options: ['Asking AI to invent a travel story about Japan', 'Writing your raw thoughts and emotions first, then asking AI to organize them into a polished blog post while preserving your voice and real experiences', 'Copying AI\'s first draft word-for-word without reading it', 'Never using AI and writing everything yourself, even if it means never finishing the blog'], correct: 1, explanation: 'The sweet spot is collaboration: YOUR raw, authentic experiences and emotions + AI\'s structure, polish, and consistency. This produces content that\'s both high-quality and genuinely personal — something neither AI alone nor most people alone could achieve.' },
+  { type: 'tap_correct', question: 'Tap all things you should include in your raw notes BEFORE asking AI to write your travel content.', items: [
+    { text: 'Specific sensory details — what you tasted, heard, smelled', correct: true },
+    { text: 'Your emotional reactions and surprises', correct: true },
+    { text: 'Names of places, restaurants, and people you met', correct: true },
+    { text: 'Your social media password for auto-posting', correct: false },
+    { text: 'Funny moments or mishaps', correct: true },
+    { text: 'SEO keywords for search engine optimization', correct: false }
+  ]},
+  { type: 'scenario', title: 'Aiden\'s trip summary', prompt: 'Aiden is home from 90 days in Southeast Asia. His parents want to hear about the trip but they\'re not on social media. What format should he ask AI to create?', options: ['A TikTok compilation with trending music', 'A warm, personal email that tells the story of his trip with highlights, funny moments, and reassurance that he\'s safe — written in a tone his parents will enjoy', 'A formal academic report on Southeast Asian tourism'], correct: 1, explanation: 'Know your audience! Parents who aren\'t on social media want a personal, warm communication in a format they enjoy — an email or even a printed letter. AI can take the same raw highlights and create completely different formats for different audiences.' },
+  { type: 'type_answer', question: 'What word describes the personal quality in your writing — casual, funny, formal — that you should specify when asking AI to write in your style?', placeholder: 'Type your answer...', answers: ['tone', 'voice', 'style'], hint: 'It describes HOW your writing sounds — your writing ____...' },
+  { type: 'fill_blank', sentence: 'Journal during the trip while details are [___], not after you return home when memories have [___].', blanks: ['fresh', 'faded'], wordBank: ['fresh', 'faded', 'old', 'clear', 'gone'] },
+  { type: 'quiz', question: 'What is the single most important principle for creating authentic AI-assisted travel content?', options: ['Use the most expensive AI model available', 'Start with your real experiences, emotions, and voice — then let AI organize, polish, and format. Never let AI invent experiences or replace your authentic perspective.', 'Always accept AI\'s first draft without changes', 'Fully AI-generated content is always better than human-written content'], correct: 1, explanation: 'Authenticity is the foundation. AI is brilliant at organizing, polishing, and formatting — but your real experiences, genuine emotions, and personal voice are what make travel content compelling. Use AI as a collaborator, not a ghostwriter.' }
 ]
 };
 
@@ -37286,6 +38888,9 @@ function startLesson(id) {
   attachSwipeListeners();
   _showSwipeHint();
 
+  // Show notes FAB
+  showLessonNotesFab();
+
   // Lesson elapsed timer
   (function() {
     var _timerEl = document.getElementById('lesson-timer');
@@ -37384,6 +38989,8 @@ function doCloseLesson() {
   if (lessonState.lessonTimerInterval) clearInterval(lessonState.lessonTimerInterval);
   _teardownPracticeKeyboardShortcuts();
   detachSwipeListeners();
+  hideLessonNotesFab();
+  closeLessonNotesPanel();
   showMainUI();
 
   var _lessonView = document.getElementById('view-lesson');
@@ -37532,9 +39139,13 @@ function renderLessonSlide() {
 
   const lc = document.getElementById('lesson-content');
   lc.innerHTML = contentHtml;
+  // Inject slide bookmark button
+  injectSlideBookmarkBtn(lc);
   lc.scrollTop = 0;
   triggerSlideEnter(lc);
   document.getElementById('lesson-footer').innerHTML = footerHtml;
+  // Update notes FAB badge
+  updateNotesFabBadge();
 }
 
 function advanceSlide() {
@@ -37671,8 +39282,12 @@ function renderSlideInfo(slide) {
     '<div class="slide-title">' + (slide.title || '') + '</div>' +
     mainText +
     (body ? '<div class="info-rich-body">' + body + '</div>' : '');
+  // Inject slide bookmark button
+  injectSlideBookmarkBtn(infoContent);
   infoContent.scrollTop = 0;
   triggerSlideEnter(infoContent);
+  // Update notes FAB badge
+  updateNotesFabBadge();
   // Reading progress bar
   infoContent.insertAdjacentHTML('beforeend', '<div class="read-progress-bar-wrap"><div class="read-progress-bar-fill" id="read-prog-fill"></div></div>');
   let infoFooter = '<button class="btn btn-green btn-full" onclick="advanceSlide()">Got it!</button>';
@@ -39917,6 +41532,61 @@ function renderStreakCalendar() {
   '</div>';
 }
 
+// ============================================================
+// WEEKLY STREAK CALENDAR (profile widget)
+// ============================================================
+function renderWeeklyStreakCalendar() {
+  var _activeDays = S.active_days || [];
+  var _freezeDates = S.freeze_used_dates || [];
+  var _today = new Date();
+  var _todayStr = _today.toISOString().split('T')[0];
+  var _dayLabels = ['S','M','T','W','T','F','S'];
+  var _days = [];
+  for (var i = 6; i >= 0; i--) {
+    var _d = new Date(_today); _d.setDate(_d.getDate() - i);
+    var _ds = _d.toISOString().split('T')[0];
+    _days.push({
+      label: _dayLabels[_d.getDay()],
+      date: _ds,
+      active: _activeDays.indexOf(_ds) !== -1,
+      frozen: _freezeDates.indexOf(_ds) !== -1,
+      isToday: i === 0
+    });
+  }
+  var _html = _days.map(function(day) {
+    var _cls = 'streak-week-dot';
+    var _content = '';
+    var _tooltip = day.date;
+    if (day.isToday) {
+      _cls += ' today';
+      if (day.active) {
+        _cls += ' done';
+        _content = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 12 10 16 18 8"/></svg>';
+        _tooltip += ' (today - completed)';
+      } else {
+        _content = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--clari-blue)" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="4" fill="var(--clari-blue)"/></svg>';
+        _tooltip += ' (today)';
+      }
+    } else if (day.frozen) {
+      _cls += ' frozen';
+      _content = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>';
+      _tooltip += ' (freeze used)';
+    } else if (day.active) {
+      _cls += ' done';
+      _content = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 12 10 16 18 8"/></svg>';
+      _tooltip += ' (completed)';
+    } else {
+      _cls += ' missed';
+      _tooltip += ' (no activity)';
+    }
+    return '<div class="streak-week-day">' +
+      '<div class="streak-week-day-label">' + day.label + '</div>' +
+      '<div class="' + _cls + '" title="' + _tooltip + '">' + _content + '</div>' +
+    '</div>';
+  }).join('');
+  return '<div class="streak-week-calendar">' + _html + '</div>';
+}
+
 function loseHeart() {
   lessonState.wrongThisLesson++;
   lessonState.hearts = Math.max(0, lessonState.hearts - 1);
@@ -40097,6 +41767,10 @@ function updateStreak() {
     // Streak freeze protects exactly one missed day (yesterday only)
     save('streak_freeze', false);
     save('streak', (S.streak || 0) + 1);
+    // Track which date the freeze was used on (yesterday)
+    var _freezeUsedDates = (S.freeze_used_dates || []).slice();
+    _freezeUsedDates.push(yStr);
+    save('freeze_used_dates', _freezeUsedDates);
     showToast("Streak Freeze used — your streak is protected! <span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><line x1='12' y1='2' x2='12' y2='22'/><line x1='2' y1='12' x2='22' y2='12'/><line x1='4.9' y1='4.9' x2='19.1' y2='19.1'/><line x1='19.1' y1='4.9' x2='4.9' y2='19.1'/><line x1='12' y1='6' x2='10' y2='4'/><line x1='12' y1='6' x2='14' y2='4'/><line x1='12' y1='18' x2='10' y2='20'/><line x1='12' y1='18' x2='14' y2='20'/></svg></span>️", 'info', 3000);
   } else {
     // Save current streak before reset for Streak Repair shop item
@@ -40107,7 +41781,7 @@ function updateStreak() {
   updateTopBar();
 
   // Streak milestone celebrations
-  const majorMilestones = [7, 14, 30, 100];
+  const majorMilestones = [7, 14, 30, 60, 100];
   if (majorMilestones.includes(S.streak)) setTimeout(() => showStreakMilestone(S.streak), 1200);
   if (S.streak === 3) setTimeout(() => showClariTip('streak_milestone_3'), 1500);
   if (S.streak === 7) setTimeout(() => showClariTip('streak_milestone_7'), 1500);
@@ -44468,6 +46142,177 @@ function saveCompleteLessonNote() {
   }
 }
 
+// ============================================================
+// LESSON NOTES PANEL (FAB + slide-up + auto-save)
+// ============================================================
+var _notesAutoSaveTimer = null;
+
+function showLessonNotesFab() {
+  var fab = document.getElementById('lesson-notes-fab');
+  if (fab) {
+    fab.style.display = '';
+    updateNotesFabBadge();
+  }
+}
+
+function hideLessonNotesFab() {
+  var fab = document.getElementById('lesson-notes-fab');
+  if (fab) fab.style.display = 'none';
+}
+
+function updateNotesFabBadge() {
+  var fab = document.getElementById('lesson-notes-fab');
+  if (!fab || !lessonState.lessonId) return;
+  var noteText = (S.lesson_notes || {})[lessonState.lessonId] || '';
+  var bookmarks = (S.slide_bookmarks || {})[lessonState.lessonId] || [];
+  var count = 0;
+  if (noteText.trim()) count++;
+  count += bookmarks.length;
+  // Remove existing badge
+  var oldBadge = fab.querySelector('.notes-badge');
+  if (oldBadge) oldBadge.remove();
+  if (count > 0) {
+    var badge = document.createElement('span');
+    badge.className = 'notes-badge';
+    badge.textContent = count;
+    fab.appendChild(badge);
+  }
+}
+
+function toggleLessonNotesPanel() {
+  var panel = document.getElementById('lesson-notes-panel');
+  if (!panel) return;
+  if (panel.classList.contains('open')) {
+    closeLessonNotesPanel();
+  } else {
+    openLessonNotesPanel();
+  }
+}
+
+function openLessonNotesPanel() {
+  var panel = document.getElementById('lesson-notes-panel');
+  var textarea = document.getElementById('lesson-notes-textarea');
+  if (!panel || !textarea || !lessonState.lessonId) return;
+  // Load existing note
+  var noteText = (S.lesson_notes || {})[lessonState.lessonId] || '';
+  textarea.value = noteText;
+  // Show bookmarked slides
+  renderNotesPanelBookmarks();
+  panel.classList.add('open');
+  textarea.focus();
+  // Set up auto-save on input
+  textarea.oninput = function() {
+    if (_notesAutoSaveTimer) clearTimeout(_notesAutoSaveTimer);
+    _notesAutoSaveTimer = setTimeout(function() {
+      autoSaveLessonNote();
+    }, 800);
+  };
+}
+
+function closeLessonNotesPanel() {
+  var panel = document.getElementById('lesson-notes-panel');
+  if (!panel) return;
+  // Save before closing
+  autoSaveLessonNote();
+  panel.classList.remove('open');
+  if (_notesAutoSaveTimer) { clearTimeout(_notesAutoSaveTimer); _notesAutoSaveTimer = null; }
+}
+
+function autoSaveLessonNote() {
+  var textarea = document.getElementById('lesson-notes-textarea');
+  if (!textarea || !lessonState.lessonId) return;
+  var notes = Object.assign({}, S.lesson_notes || {});
+  var val = textarea.value.trim();
+  if (val) {
+    notes[lessonState.lessonId] = val;
+  } else {
+    delete notes[lessonState.lessonId];
+  }
+  save('lesson_notes', notes);
+  // Flash autosave indicator
+  var ind = document.getElementById('lesson-notes-autosave');
+  if (ind) {
+    ind.classList.add('visible');
+    setTimeout(function() { ind.classList.remove('visible'); }, 1500);
+  }
+  updateNotesFabBadge();
+}
+
+function renderNotesPanelBookmarks() {
+  var section = document.getElementById('lesson-notes-bookmarks-section');
+  if (!section || !lessonState.lessonId) return;
+  var bookmarks = (S.slide_bookmarks || {})[lessonState.lessonId] || [];
+  if (bookmarks.length === 0) {
+    section.innerHTML = '';
+    return;
+  }
+  var slides = getSessionSlides();
+  var html = '<div class="lesson-notes-bookmarks-label">Bookmarked Slides</div>';
+  bookmarks.forEach(function(slideIdx) {
+    var slide = slides[slideIdx];
+    if (!slide) return;
+    var label = slide.title || slide.text || slide.question || '';
+    if (label.length > 30) label = label.substring(0, 30) + '...';
+    html += '<div class="lesson-notes-bookmark-item">Slide ' + (slideIdx + 1) + ': ' + escHtml(label) + '</div>';
+  });
+  section.innerHTML = html;
+}
+
+// ============================================================
+// SLIDE BOOKMARK (top-right icon per slide)
+// ============================================================
+function injectSlideBookmarkBtn(container) {
+  if (!container || !lessonState.lessonId) return;
+  var idx = lessonState.slideIdx;
+  var bookmarks = (S.slide_bookmarks || {})[lessonState.lessonId] || [];
+  var isBookmarked = bookmarks.indexOf(idx) !== -1;
+  var btn = document.createElement('button');
+  btn.className = 'slide-bookmark-btn' + (isBookmarked ? ' bookmarked' : '');
+  btn.setAttribute('aria-label', isBookmarked ? 'Remove bookmark' : 'Bookmark this slide');
+  btn.setAttribute('title', isBookmarked ? 'Bookmarked' : 'Bookmark this slide');
+  btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="' + (isBookmarked ? 'currentColor' : 'none') + '" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
+  btn.onclick = function() { toggleSlideBookmark(btn); };
+  container.appendChild(btn);
+}
+
+function toggleSlideBookmark(btnEl) {
+  if (!lessonState.lessonId) return;
+  var idx = lessonState.slideIdx;
+  var allBookmarks = Object.assign({}, S.slide_bookmarks || {});
+  var lessonBookmarks = (allBookmarks[lessonState.lessonId] || []).slice();
+  var pos = lessonBookmarks.indexOf(idx);
+  if (pos !== -1) {
+    // Remove bookmark
+    lessonBookmarks.splice(pos, 1);
+    if (btnEl) {
+      btnEl.classList.remove('bookmarked');
+      btnEl.querySelector('svg').setAttribute('fill', 'none');
+      btnEl.setAttribute('aria-label', 'Bookmark this slide');
+      btnEl.setAttribute('title', 'Bookmark this slide');
+    }
+    showToast('Bookmark removed', 'info', 1200);
+  } else {
+    // Add bookmark
+    lessonBookmarks.push(idx);
+    lessonBookmarks.sort(function(a, b) { return a - b; });
+    if (btnEl) {
+      btnEl.classList.add('bookmarked');
+      btnEl.querySelector('svg').setAttribute('fill', 'currentColor');
+      btnEl.setAttribute('aria-label', 'Remove bookmark');
+      btnEl.setAttribute('title', 'Bookmarked');
+      btnEl.classList.remove('bookmark-pop');
+      void btnEl.offsetWidth;
+      btnEl.classList.add('bookmark-pop');
+    }
+    showToast('Slide bookmarked', 'success', 1200);
+  }
+  allBookmarks[lessonState.lessonId] = lessonBookmarks;
+  save('slide_bookmarks', allBookmarks);
+  updateNotesFabBadge();
+  // Update bookmarks in notes panel if open
+  renderNotesPanelBookmarks();
+}
+
 function toggleFocusMode() {
   var lessonView = document.getElementById('view-lesson');
   var btn = document.getElementById('focus-mode-btn');
@@ -44855,10 +46700,13 @@ function renderProfileTab() {
 // Stats card hidden (quality-04 — data duplicated in stat-strip + summary-card)
   // animateStatNumbers still called via summary-card path if needed
 
-  // Streak calendar heatmap
+  // Streak calendar heatmap + weekly streak calendar
   (function() {
     var _calCard = document.getElementById('profile-streak-cal-card');
-    if (_calCard) _calCard.innerHTML = renderStreakCalendar();
+    if (_calCard) {
+      var _weeklyTitle = '<div style="font-size:13px;font-weight:800;color:var(--text-primary);margin-top:14px;margin-bottom:2px;text-align:center;">This Week</div>';
+      _calCard.innerHTML = renderStreakCalendar() + _weeklyTitle + renderWeeklyStreakCalendar();
+    }
   })();
 
   // Achievements
@@ -47227,7 +49075,7 @@ function confirmReset() {
       'goal_weekly_lessons','goal_target_date','font_size_idx','bookmarks',
       'personal_bests','notes','lesson_notes','lesson_ratings','certificates_earned',
       'accessibility_mode','onboarding_done','activity_log',
-      'day_off_until','hint_tokens','streak_before_reset','double_gems_active','profile_frame'];
+      'day_off_until','hint_tokens','streak_before_reset','double_gems_active','profile_frame','freeze_used_dates'];
     keys.forEach(function(k) { localStorage.removeItem('clariai_' + k); });
     location.reload();
   });
@@ -47266,23 +49114,82 @@ function saveLessonNote(lessonId) {
 function renderProfileNotes() {
   const el = document.getElementById('profile-notes-list');
   if (!el) return;
-  const notes = S.notes || {};
+  const infoNotes = S.notes || {};
   const lessonNotes = S.lesson_notes || {};
-  const keys = Object.keys(notes);
-  // Show/hide export button based on whether any notes exist in either store
-  const hasAnyNotes = keys.length > 0 || Object.keys(lessonNotes).some(function(k) { return lessonNotes[k] && lessonNotes[k].trim(); });
+  const slideBookmarks = S.slide_bookmarks || {};
+
+  // Merge all lesson IDs that have any content
+  var allIds = {};
+  Object.keys(infoNotes).forEach(function(id) { if (infoNotes[id] && infoNotes[id].trim()) allIds[id] = true; });
+  Object.keys(lessonNotes).forEach(function(id) { if (lessonNotes[id] && lessonNotes[id].trim()) allIds[id] = true; });
+  Object.keys(slideBookmarks).forEach(function(id) { if (slideBookmarks[id] && slideBookmarks[id].length) allIds[id] = true; });
+
+  var keys = Object.keys(allIds);
   const exportBtn = document.getElementById('export-notes-btn');
-  if (exportBtn) exportBtn.style.display = hasAnyNotes ? '' : 'none';
+  if (exportBtn) exportBtn.style.display = keys.length > 0 ? '' : 'none';
+
   if (keys.length === 0) {
-    el.innerHTML = '<div class="notes-empty" style="text-align:center;padding:16px 0;">' + clariSVGCached('thinking', 60) + '<div style="margin-top:8px;">No notes yet — tap "Add Note" on any info slide to jot something down.</div></div>';
+    el.innerHTML = '<div class="notes-empty" style="text-align:center;padding:16px 0;">' + clariSVGCached('thinking', 60) + '<div style="margin-top:8px;">No notes yet. Use the pencil button during lessons to jot something down.</div></div>';
     return;
   }
-  el.innerHTML = keys.map(lessonId => {
-    const lesson = findLesson(lessonId);
-    const title = lesson ? lesson.title : lessonId;
-    const text = escHtml(notes[lessonId]);
-    return '<div class="note-item"><span class="note-item-del" onclick="deleteLessonNote(\'' + lessonId + '\')">\u{1F5D1} Delete</span><div class="note-item-title">' + escHtml(title) + '</div><div class="note-item-text">' + text + '</div></div>';
-  }).join('');
+
+  // Group by unit
+  var unitGroups = {};
+  keys.forEach(function(lessonId) {
+    var unitTitle = 'Other';
+    for (var u = 0; u < COURSE.length; u++) {
+      for (var l = 0; l < COURSE[u].lessons.length; l++) {
+        if (COURSE[u].lessons[l].id === lessonId) {
+          unitTitle = 'Unit ' + COURSE[u].num + ': ' + COURSE[u].title;
+          break;
+        }
+      }
+    }
+    if (!unitGroups[unitTitle]) unitGroups[unitTitle] = [];
+    unitGroups[unitTitle].push(lessonId);
+  });
+
+  var html = '';
+  Object.keys(unitGroups).forEach(function(unitTitle) {
+    html += '<div class="profile-notes-unit-group">';
+    html += '<div class="profile-notes-unit-label">' + escHtml(unitTitle) + '</div>';
+    unitGroups[unitTitle].forEach(function(lessonId) {
+      var lesson = findLesson(lessonId);
+      var title = lesson ? lesson.title : lessonId;
+      // Combine notes from both stores
+      var textParts = [];
+      if (infoNotes[lessonId] && infoNotes[lessonId].trim()) textParts.push(infoNotes[lessonId].trim());
+      if (lessonNotes[lessonId] && lessonNotes[lessonId].trim()) textParts.push(lessonNotes[lessonId].trim());
+      var fullText = textParts.join('\n\n');
+      var preview = fullText.substring(0, 50) + (fullText.length > 50 ? '...' : '');
+      // Bookmarks for this lesson
+      var bm = slideBookmarks[lessonId] || [];
+      var bmHtml = '';
+      if (bm.length > 0) {
+        bmHtml = '<div class="profile-note-bookmarks-list">';
+        bm.forEach(function(slideIdx) {
+          var slides = lesson ? (lesson.slides || []) : [];
+          var slide = slides[slideIdx];
+          var label = slide ? (slide.title || slide.text || slide.question || '') : '';
+          if (label.length > 30) label = label.substring(0, 30) + '...';
+          bmHtml += '<div class="profile-note-bookmark">Slide ' + (slideIdx + 1) + (label ? ': ' + escHtml(label) : '') + '</div>';
+        });
+        bmHtml += '</div>';
+      }
+      html += '<div class="profile-note-entry" onclick="this.classList.toggle(\'expanded\')">';
+      html += '<div class="profile-note-entry-title">' + escHtml(title) + '</div>';
+      if (fullText) {
+        html += '<div class="profile-note-entry-preview">' + escHtml(preview) + '</div>';
+        html += '<div class="profile-note-entry-full">' + escHtml(fullText) + bmHtml + '</div>';
+      } else if (bm.length > 0) {
+        html += '<div class="profile-note-entry-preview">' + bm.length + ' bookmarked slide' + (bm.length > 1 ? 's' : '') + '</div>';
+        html += '<div class="profile-note-entry-full">' + bmHtml + '</div>';
+      }
+      html += '</div>';
+    });
+    html += '</div>';
+  });
+  el.innerHTML = html;
 }
 
 function deleteLessonNote(lessonId) {
@@ -47300,6 +49207,7 @@ function exportAllNotes() {
   var merged = {};
   var infoNotes = S.notes || {};
   var lessonNotes = S.lesson_notes || {};
+  var slideBookmarks = S.slide_bookmarks || {};
   Object.keys(infoNotes).forEach(function(id) {
     if (infoNotes[id] && infoNotes[id].trim()) merged[id] = { text: infoNotes[id].trim(), source: 'info' };
   });
@@ -47314,6 +49222,12 @@ function exportAllNotes() {
       }
     } else {
       merged[id] = { text: text, source: 'lesson' };
+    }
+  });
+  // Include lessons with only bookmarks
+  Object.keys(slideBookmarks).forEach(function(id) {
+    if (slideBookmarks[id] && slideBookmarks[id].length && !merged[id]) {
+      merged[id] = { text: '', source: 'bookmarks' };
     }
   });
 
@@ -47336,7 +49250,20 @@ function exportAllNotes() {
     var title = lesson ? lesson.title : lessonId;
     lines.push(title);
     lines.push('----------------------------------------');
-    lines.push(merged[lessonId].text);
+    if (merged[lessonId].text) lines.push(merged[lessonId].text);
+    // Include bookmarked slides
+    var bm = slideBookmarks[lessonId] || [];
+    if (bm.length > 0) {
+      lines.push('');
+      lines.push('Bookmarked slides:');
+      bm.forEach(function(slideIdx) {
+        var slides = lesson ? (lesson.slides || []) : [];
+        var slide = slides[slideIdx];
+        var label = slide ? (slide.title || slide.text || slide.question || '') : '';
+        if (label.length > 30) label = label.substring(0, 30) + '...';
+        lines.push('  - Slide ' + (slideIdx + 1) + (label ? ': ' + label : ''));
+      });
+    }
     lines.push('');
   });
 
