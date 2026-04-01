@@ -63,6 +63,11 @@
   --red:         #FF6B6B;
   --purple:      #a560f8;
   --purple2:     #8b3fe8;
+  --orange:      #f97316;
+  --amber:       #fbbf24;
+  --blue-light:  #60a5fa;
+  --purple-light:#a78bfa;
+  --green-light: #c6efce;
   --bg:          #FAFAF8;
   --white:       #ffffff;
   --gray1:       #f0f0f0;
@@ -83,6 +88,27 @@
   --text-muted:     #afafaf;
   --bg-hover:       #f0faff;
   --clari-blue-10:  #e8f4ff;
+  --green-10:       #dcfce7;
+  --purple-10:      #f3e8ff;
+}
+/* ============================================================
+   SKIP-TO-CONTENT LINK (accessibility)
+   ============================================================ */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--clari-blue);
+  color: white;
+  padding: 8px 16px;
+  z-index: 100000;
+  font-weight: 700;
+  border-radius: 0 0 8px 0;
+  transition: top 0.2s;
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 0;
 }
 /* ============================================================
    DARK MODE
@@ -108,6 +134,9 @@
   --lcf-border1: #22c55e;
   --lcf-border2: #4ade80;
   --lcf-fade:    #1a3a2a;
+  --green-light: #2d5a3a;
+  --green-10:    #1a3a2a;
+  --purple-10:   #2a1a3a;
 }
 :root[data-theme="dark"] #top-bar,
 :root[data-theme="dark"] #bottom-nav { border-color: var(--gray2); }
@@ -3074,7 +3103,7 @@ mark.search-hl {
 .lesson-rating-label { font-size:14px; font-weight:700; color:var(--gray4); }
 .lesson-rating-stars { display:flex; gap:4px; }
 .lesson-rating-star { background:none; border:none; font-size:28px; color:var(--gray2); cursor:pointer; transition:color 0.15s,transform 0.1s; padding:0; line-height:1; }
-.lesson-rating-star:hover, .lesson-rating-star.filled { color:#fbbf24; transform:scale(1.15); }
+.lesson-rating-star:hover, .lesson-rating-star.filled { color:var(--amber); transform:scale(1.15); }
 .comeback-card { display:flex; align-items:center; gap:14px; background:linear-gradient(135deg,#fff7ed,#ffedd5); border:2px solid #fed7aa; border-radius:16px; padding:14px 16px; margin-bottom:12px; }
 :root[data-theme="dark"] .comeback-card { background:linear-gradient(135deg,#2d1500,#1c0f00); border-color:#92400e; }
 .comeback-emoji { font-size:32px; flex-shrink:0; }
@@ -3092,7 +3121,7 @@ mark.search-hl {
 .hint-btn { display:inline-flex; align-items:center; gap:5px; background:transparent; border:1.5px solid #fbbf24; color:#d97706; border-radius:20px; padding:5px 14px; font-size:14px; font-weight:700; cursor:pointer; margin-top:8px; transition:all 0.15s; }
 .hint-btn:hover { background:#fef3c7; }
 .hint-btn.hint-used { border-color:#10b981; color:#059669; }
-:root[data-theme="dark"] .hint-btn { border-color:#92400e; color:#fbbf24; }
+:root[data-theme="dark"] .hint-btn { border-color:#92400e; color:var(--amber); }
 :root[data-theme="dark"] .hint-btn:hover { background:#1c1407; }
 .hint-box { display:none; background:#fffbeb; border:1.5px solid #fde68a; border-radius:10px; padding:10px 14px; font-size:14px; color:#78350f; margin-top:6px; line-height:1.5; }
 .hint-box.visible { display:block; animation:fadeIn 0.2s ease; }
@@ -4041,6 +4070,15 @@ mark.search-hl {
 .practice-why-wrong-body.open { display: block; }
 :root[data-theme="dark"] .practice-why-wrong-btn { color: #fca5a5; border-color: #7f1d1d; }
 :root[data-theme="dark"] .practice-why-wrong-body { background: #2d0a0a; border-color: #7f1d1d; color: #fca5a5; }
+
+/* lesson-mode: collapsible "Why?" explanation on wrong answers */
+.feedback-why { margin-top: 8px; cursor: pointer; border-top: 1px solid rgba(0,0,0,0.08); padding-top: 8px; }
+.feedback-why-label { font-weight: 700; font-size: 13px; color: var(--clari-blue, #4a90d9); }
+.feedback-why-text { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; font-size: 13px; color: var(--text, #333); line-height: 1.4; margin-top: 4px; }
+.feedback-why.open .feedback-why-text { max-height: 200px; }
+:root[data-theme="dark"] .feedback-why { border-top-color: rgba(255,255,255,0.1); }
+:root[data-theme="dark"] .feedback-why-label { color: #7cb8f2; }
+:root[data-theme="dark"] .feedback-why-text { color: var(--text, #e0e0e0); }
 
 /* practice-52: practice summary share card */
 .practice-summary-card {
@@ -6130,6 +6168,29 @@ mark.search-hl {
   border: none;
   box-shadow: 0 0 0 4px rgba(255,255,255,0.35), 0 0 0 8px rgba(255,255,255,0.15);
   margin: 0 auto 14px;
+}
+/* ---- Profile Frame: Gold (shop item) ---- */
+@keyframes profile-frame-gold-shimmer {
+  0%,100% { box-shadow: 0 0 0 4px #fbbf24, 0 0 12px 2px rgba(251,191,36,0.4), 0 0 0 8px rgba(251,191,36,0.15); }
+  50%     { box-shadow: 0 0 0 4px #f59e0b, 0 0 20px 4px rgba(245,158,11,0.5), 0 0 0 10px rgba(245,158,11,0.25); }
+}
+.profile-avatar-ring-animated.frame-gold {
+  border: 3px solid #fbbf24 !important;
+  animation: profile-frame-gold-shimmer 2.5s ease-in-out infinite, profile-pulse-ring 2.8s ease-in-out infinite;
+}
+/* ---- Profile Frame: Rainbow (shop item) ---- */
+@keyframes profile-frame-rainbow-rotate {
+  0%   { border-color: #ef4444; box-shadow: 0 0 0 4px #ef4444, 0 0 14px 2px rgba(239,68,68,0.35); }
+  16%  { border-color: #f59e0b; box-shadow: 0 0 0 4px #f59e0b, 0 0 14px 2px rgba(245,158,11,0.35); }
+  33%  { border-color: #22c55e; box-shadow: 0 0 0 4px #22c55e, 0 0 14px 2px rgba(34,197,94,0.35); }
+  50%  { border-color: #3b82f6; box-shadow: 0 0 0 4px #3b82f6, 0 0 14px 2px rgba(59,130,246,0.35); }
+  66%  { border-color: #a855f7; box-shadow: 0 0 0 4px #a855f7, 0 0 14px 2px rgba(168,85,247,0.35); }
+  83%  { border-color: #ec4899; box-shadow: 0 0 0 4px #ec4899, 0 0 14px 2px rgba(236,72,153,0.35); }
+  100% { border-color: #ef4444; box-shadow: 0 0 0 4px #ef4444, 0 0 14px 2px rgba(239,68,68,0.35); }
+}
+.profile-avatar-ring-animated.frame-rainbow {
+  border: 3px solid #ef4444 !important;
+  animation: profile-frame-rainbow-rotate 4s linear infinite, profile-pulse-ring 2.8s ease-in-out infinite;
 }
 .profile-level-chip {
   display: inline-flex;
@@ -10178,6 +10239,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 </script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Skip to content</a>
 <div id="splash-screen">
   <div id="splash-mascot"></div>
   <div id="splash-wordmark"></div>
@@ -10504,15 +10566,15 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
           <div class="diff-card-sub" id="diff-card-sub-text">Filter questions by lesson level</div>
           <div class="diff-btn-row">
             <button class="diff-btn" onclick="confirmDifficulty(&apos;easy&apos;)">
-              <div class="diff-icon" style="background:#dcfce7;">&#x1F331;</div>
+              <div class="diff-icon" style="background:var(--green-10);">&#x1F331;</div>
               <div class="diff-label">Easy<div class="diff-sub">Beginner lessons only</div></div>
             </button>
             <button class="diff-btn" onclick="confirmDifficulty(&apos;mixed&apos;)">
-              <div class="diff-icon" style="background:#e0f9ff;">&#x1F4DA;</div>
+              <div class="diff-icon" style="background:var(--clari-blue-10);">&#x1F4DA;</div>
               <div class="diff-label">Mixed<div class="diff-sub">All completed lessons</div></div>
             </button>
             <button class="diff-btn" onclick="confirmDifficulty(&apos;hard&apos;)">
-              <div class="diff-icon" style="background:#f3e8ff;">&#x1F525;</div>
+              <div class="diff-icon" style="background:var(--purple-10);">&#x1F525;</div>
               <div class="diff-label">Hard<div class="diff-sub">Advanced lessons only</div></div>
             </button>
           </div>
@@ -10838,6 +10900,17 @@ function openBadgeDetail(name,icon,desc,progress,status){var m=document.getEleme
 /* ============================================================
    CLARI AI — COMPLETE JAVASCRIPT
    ============================================================ */
+
+window.onerror = function(msg, src, line, col, err) {
+  console.error('ClariAI error:', msg, src, line);
+  if (typeof showToast === 'function') {
+    showToast('Something went wrong. Your progress is safe.', 'error', 3000);
+  }
+  return true;
+};
+window.addEventListener('unhandledrejection', function(e) {
+  console.error('ClariAI promise error:', e.reason);
+});
 
 // ============================================================
 // COURSE DATA
@@ -19900,11 +19973,11 @@ function renderWeeklyChallengeBanner() {
   const fin = S.weekly_completed;
   const dayOfWeek = new Date().getDay();
   const daysLeft = dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
-  el.innerHTML = `<div style="background:linear-gradient(135deg,#e8f4ff,#f0e8ff);border:2px solid var(--blue);border-radius:16px;padding:14px 16px;">
+  el.innerHTML = `<div style="background:linear-gradient(135deg,var(--clari-blue-10),var(--purple-10));border:2px solid var(--blue);border-radius:16px;padding:14px 16px;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
       <div style="font-size:11px;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:1px;">This Week's Challenge</div>
       ${fin
-        ? `<div style="font-size:11px;font-weight:900;color:var(--green2);background:#edfde0;padding:2px 8px;border-radius:20px;">DONE <span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='4,13 9,18 20,6'/></svg></span></div>`
+        ? `<div style="font-size:11px;font-weight:900;color:var(--green2);background:var(--green-10);padding:2px 8px;border-radius:20px;">DONE <span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='4,13 9,18 20,6'/></svg></span></div>`
         : `<div style="font-size:11px;font-weight:700;color:var(--gray4);">${daysLeft}d left</div>`}
     </div>
     <div style="font-size:15px;font-weight:800;color:var(--text);margin-bottom:4px;">${c.title}</div>
@@ -19962,8 +20035,9 @@ function loadState() {
     dark_mode: false, sound_enabled: true,
     resume_lesson: null,
     clari_theme: 'default', xp_boost_active: false, streak_freeze: false,
+    day_off_until: 0, hint_tokens: 0, streak_before_reset: 0, double_gems_active: false, profile_frame: null,
     user_profile: null, scenario_correct: 0, quickfire_perfect: 0,
-    lesson_reviews: {},
+    // lesson_reviews removed — using sr_schedule only
     weekly_xp: 0, weekly_week: '', weekly_best: 0,
     weekly_completed: false, weekly_lessons_done: [], weekly_perfect_count: 0,
     tts_enabled: false, tts_rate: 1.0,
@@ -20041,7 +20115,14 @@ function loadState() {
 
 function save(key, val) {
   S[key] = val;
-  localStorage.setItem('clariai_' + key, JSON.stringify(val));
+  try {
+    localStorage.setItem('clariai_' + key, JSON.stringify(val));
+  } catch(e) {
+    console.warn('localStorage write failed:', key, e.message);
+    if (typeof showToast === 'function') {
+      showToast('Storage is full — some data may not save.', 'warning', 4000);
+    }
+  }
 }
 /* Study Session Timer */
 var _studyTimerStart = null;
@@ -20103,32 +20184,15 @@ function dateAddDays(dateStr, n) {
 // ============================================================
 // SPACED REPETITION ENGINE
 // ============================================================
-const REVIEW_INTERVALS = [1, 3, 7, 14, 30]; // days per stage
+const _OLD_REVIEW_INTERVALS_REMOVED = null; // old SR removed
 const SR_INTERVALS=[1,3,7,14,30,60];function getReviewSchedule(){var schedule=S.sr_schedule||{};var today=todayStr();var due=[];for(var lid in schedule){if(!schedule.hasOwnProperty(lid))continue;var entry=schedule[lid];if(entry.nextReview&&entry.nextReview<=today){var lesson=findLesson(lid);if(lesson)due.push({lessonId:lid,level:entry.level||0,nextReview:entry.nextReview,lastScore:entry.lastScore||0,lesson:lesson});}}due.sort(function(a,b){if(a.nextReview!==b.nextReview)return a.nextReview<b.nextReview?-1:1;return a.level-b.level;});return due;}function scheduleReview(lessonId,score){var schedule=Object.assign({},S.sr_schedule||{});var entry=schedule[lessonId]||{level:0,nextReview:'',lastScore:0};var newLevel;if(score>=80){newLevel=Math.min((entry.level||0)+1,SR_INTERVALS.length-1);}else if(score>=60){newLevel=entry.level||0;}else{newLevel=0;}entry.level=newLevel;entry.nextReview=dateAddDays(todayStr(),SR_INTERVALS[newLevel]);entry.lastScore=score;schedule[lessonId]=entry;save('sr_schedule',schedule);}function renderReviewDueCard(){var dueItems=getReviewSchedule();if(dueItems.length===0)return'';var today=todayStr();var firstId=dueItems[0].lessonId;var listHtml='';var shown=Math.min(dueItems.length,5);for(var i=0;i<shown;i++){var item=dueItems[i];var isOverdue=item.nextReview<today;var urgencyClass=isOverdue?'urgency-overdue':'urgency-today';var urgencyLabel=isOverdue?'Overdue':'Today';listHtml+='<div class="sr-review-due-item" onclick="event.stopPropagation();startReview(\''+item.lessonId+'\')">'+'<span class="sr-review-due-item-name">'+escHtml(item.lesson.title)+'</span>'+'<span class="sr-review-due-item-urgency '+urgencyClass+'">'+urgencyLabel+'</span>'+'</div>';}if(dueItems.length>shown){listHtml+='<div style="font-size:12px;color:var(--gray4);text-align:center;padding:4px;">+'+(dueItems.length-shown)+' more</div>';}return'<div class="sr-review-due-card" onclick="startReview(\''+escHtml(firstId)+'\')">'+'<div class="sr-review-due-icon">&#128336;</div>'+'<div class="sr-review-due-body">'+'<div class="sr-review-due-title">Reviews Due <span class="sr-review-due-count">'+dueItems.length+'</span></div>'+'</div>'+'<button class="sr-review-due-btn" onclick="event.stopPropagation();startReview(\''+escHtml(firstId)+'\')">Start Review</button>'+'</div>'+'<div class="sr-review-due-list">'+listHtml+'</div>';}function startReview(lessonId){var lesson=findLesson(lessonId);if(!lesson)return;window._srReviewLessonId=lessonId;startLesson(lessonId);}function initSrScheduleForCompleted(){var schedule=Object.assign({},S.sr_schedule||{});var completed=S.completed||[];var changed=false;for(var i=0;i<completed.length;i++){if(!schedule[completed[i]]){schedule[completed[i]]={level:0,nextReview:dateAddDays(todayStr(),1),lastScore:0};changed=true;}}if(changed)save('sr_schedule',schedule);}function computeLessonScore(){var wrong=lessonState.wrongThisLesson||0;var slides=getSessionSlides();var interactiveCount=0;for(var si=0;si<slides.length;si++){var t=slides[si].type;if(t!=='info'&&t!=='summary'&&t!=='tip')interactiveCount++;}if(interactiveCount===0)return 100;var penaltyPer=Math.min(40,100/Math.max(1,interactiveCount));return Math.max(0,Math.round(100-(wrong*penaltyPer)));}
 
-function getReviewsDue() {
-  const reviews = S.lesson_reviews || {};
-  const today = todayStr();
-  return Object.entries(reviews)
-    .filter(([id, r]) => r.nextDue <= today)
-    .map(([id]) => id);
-}
+// getReviewsDue() removed — replaced by getReviewSchedule() from sr_schedule system
 
-function updateReviewStage(lessonId, passed) {
-  const reviews = S.lesson_reviews || {};
-  const r = reviews[lessonId] || { stage: 0 };
-  if (passed) {
-    r.stage = Math.min(r.stage + 1, REVIEW_INTERVALS.length - 1);
-  } else {
-    r.stage = 0;
-  }
-  r.nextDue = dateAddDays(todayStr(), REVIEW_INTERVALS[r.stage]);
-  reviews[lessonId] = r;
-  save('lesson_reviews', reviews);
-}
+// updateReviewStage() removed — replaced by scheduleReview() from sr_schedule system
 
 function updateNavBadges() {
-  const due = getReviewsDue().length;
+  const due = getReviewSchedule().length;
   const tab = document.getElementById('nav-practice');
   if (!tab) return;
   let dot = tab.querySelector('.nav-dot');
@@ -22140,7 +22204,7 @@ function renderSurveyQuestion() {
   }).join('');
 
   const hintHtml = q.hint
-    ? `<div style="margin-top:12px;padding:10px 14px;background:var(--clari-blue-10);border-left:3px solid var(--clari-blue);border-radius:8px;font-size:13px;color:#4a8fa8;line-height:1.5;">ℹ️ ${q.hint}</div>`
+    ? `<div style="margin-top:12px;padding:10px 14px;background:var(--clari-blue-10);border-left:3px solid var(--clari-blue);border-radius:8px;font-size:13px;color:var(--blue2);line-height:1.5;">ℹ️ ${q.hint}</div>`
     : '';
   document.getElementById('survey-question-wrap').innerHTML = `
     <div class="survey-q-label">${q.label}</div>
@@ -22250,7 +22314,7 @@ function finishSurvey() {
   // Pre-render results silently in background
   renderObResults();
 
-  // Show personalised processing screen for ~12 seconds
+  // Show personalised processing screen for ~5 seconds
   obShowScreen('ob-loading');
   startObLoadingSequence();
 }
@@ -22268,11 +22332,11 @@ function startObLoadingSequence() {
 
   const steps = [
     { id: 'ob-lstep-0', delay: 0,     pct: 8,   msg: introMsg,                                              mascot: 'think'       },
-    { id: 'ob-lstep-0', delay: 1200,  pct: 22,  msg: 'Figuring out your learning style…',              mascot: 'think'       },
-    { id: 'ob-lstep-1', delay: 3500,  pct: 44,  msg: 'Picking your first lessons…',                    mascot: 'happy'       },
-    { id: 'ob-lstep-2', delay: 6200,  pct: 66,  msg: 'Matching you with the best AI tools…',           mascot: 'happy'       },
-    { id: 'ob-lstep-3', delay: 8800,  pct: 86,  msg: 'Building your personal plan…',                   mascot: 'excited'     },
-    { id: null,         delay: 11000, pct: 100, msg: name ? ('Almost done, ' + name + '!') : 'Almost done!', mascot: 'celebrating' }
+    { id: 'ob-lstep-0', delay: 500,   pct: 22,  msg: 'Figuring out your learning style…',              mascot: 'think'       },
+    { id: 'ob-lstep-1', delay: 1400,  pct: 44,  msg: 'Picking your first lessons…',                    mascot: 'happy'       },
+    { id: 'ob-lstep-2', delay: 2500,  pct: 66,  msg: 'Matching you with the best AI tools…',           mascot: 'happy'       },
+    { id: 'ob-lstep-3', delay: 3500,  pct: 86,  msg: 'Building your personal plan…',                   mascot: 'excited'     },
+    { id: null,         delay: 4400,  pct: 100, msg: name ? ('Almost done, ' + name + '!') : 'Almost done!', mascot: 'celebrating' }
   ];
 
   steps.forEach(function(step, idx) {
@@ -22303,7 +22367,7 @@ function startObLoadingSequence() {
   });
 
   // Reveal results after 12 seconds
-  setTimeout(function() { obShowScreen('ob-results'); }, 12000);
+  setTimeout(function() { obShowScreen('ob-results'); }, 5000);
 }
 
 // ============================================================
@@ -23032,7 +23096,7 @@ function renderLearnTab() {
   // Streak warning — urgency after goal
   if (streakAtRisk) {
     html += '<div class="streak-warning" style="margin:0 12px 16px;">' +
-      '<span style="color:#e67e22;">' + ICONS.fire + '</span>' +
+      '<span style="color:var(--orange);">' + ICONS.fire + '</span>' +
       '<div class="streak-warning-text">Your ' + S.streak + '-day streak is at risk! Do a lesson today to keep it alive.</div>' +
       '</div>';
   }
@@ -23293,8 +23357,8 @@ function renderLearnTab() {
         var _isPinned37 = (S.pinned_lessons || []).indexOf(lesson.id) > -1;
         var _pinBadge37 = _isPinned37 ? '<span class="lesson-pin-badge">📌 Pinned</span>' : '';
 
-        const _reviewEntry = (S.lesson_reviews || {})[lesson.id];
-        const _reviewDue = _reviewEntry && _reviewEntry.nextDue <= todayStr();
+        const _reviewEntry = (S.sr_schedule || {})[lesson.id];
+        const _reviewDue = _reviewEntry && _reviewEntry.nextReview && _reviewEntry.nextReview <= todayStr();
 
         // Note indicator
         const _noteText = (S.lesson_notes || {})[lesson.id] || '';
@@ -23687,6 +23751,7 @@ function openLessonPreview(id, event) {
   var modal = document.getElementById('lesson-preview-modal');
   modal.classList.add('open');
   document.body.style.overflow = 'hidden';
+  _activateTrap('lesson-preview-modal');
 }
 
 function closeLessonPreview() {
@@ -29312,7 +29377,7 @@ function renderSlideInfo(slide) {
 
   // tip
   if (slide.tip) {
-    body += '<div class="info-tip"><div class="info-tip-icon" style="color:#9a7000;">' + ICONS.bulb + '</div><div class="info-tip-text">' + slide.tip + '</div></div>';
+    body += '<div class="info-tip"><div class="info-tip-icon" style="color:var(--amber);">' + ICONS.bulb + '</div><div class="info-tip-text">' + slide.tip + '</div></div>';
   }
 
   const mainText = slide.text
@@ -29404,7 +29469,7 @@ function renderSlideQuiz(slide) {
     <div class="slide-mascot-wrap" style="margin-bottom:8px;">${clariSVG('think', 70)}</div>
     <div class="slide-quiz-title">${slide.question}</div>
     <div class="quiz-options">${opts}</div>
-    <div id="quiz-feedback"></div>
+    <div id="quiz-feedback" aria-live="polite"></div>
     ${slide.hint ? '<button class="hint-btn" id="quiz-hint-btn" onclick="toggleQuizHint()" aria-expanded="false">💡 Hint</button><div class="hint-box" id="quiz-hint-box">' + slide.hint + '</div>' : ''}
     ${kbHint}
   </div>`;
@@ -29500,7 +29565,8 @@ function selectQuizOption(el, idx, correct) {
         setTimeout(function() { showClariPopupImportant('encouraging', 'clari-bounce', 'You can do it!', 1500); }, 600);
       }
     }
-    showFeedback(false, getWrongMsg(), allOpts[correct].textContent.trim());
+    var _currentSlide = getSessionSlides()[lessonState.slideIdx];
+    showFeedback(false, getWrongMsg(), allOpts[correct].textContent.trim(), _currentSlide && _currentSlide.explanation);
     lessonState.correctStreak = 0;
 
   }
@@ -29509,7 +29575,7 @@ function selectQuizOption(el, idx, correct) {
   if (btn) btn.disabled = false;
 }
 
-function showFeedback(correct, msg, correctAnswerText) {
+function showFeedback(correct, msg, correctAnswerText, explanation) {
   const fb = document.getElementById('quiz-feedback') ||
              document.getElementById('tap-feedback') ||
              document.getElementById('fill-feedback');
@@ -29518,13 +29584,20 @@ function showFeedback(correct, msg, correctAnswerText) {
     ? `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>`
     : `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
   const correctLine = (!correct && correctAnswerText)
-    ? `<div style="margin-top:6px;font-size:13px;font-weight:700;color:#444;border-top:1px solid rgba(0,0,0,0.08);padding-top:6px;">
-        Correct answer: <span style="color:#2a9d00;font-weight:900;">${correctAnswerText}</span>
+    ? `<div style="margin-top:6px;font-size:13px;font-weight:700;color:var(--text);border-top:1px solid var(--border);padding-top:6px;">
+        Correct answer: <span style="color:var(--green2);font-weight:900;">${correctAnswerText}</span>
        </div>`
+    : '';
+  const whySection = (!correct && explanation)
+    ? `<div class="feedback-why" onclick="this.classList.toggle('open')">
+        <span class="feedback-why-label">\u{1F4A1} Why?</span>
+        <div class="feedback-why-text">${explanation.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>
+      </div>`
     : '';
   fb.innerHTML = `<div class="feedback-banner ${correct ? 'correct' : 'wrong'}">
     <div style="display:flex;align-items:flex-start;gap:8px;">${icon}<div>${msg}</div></div>
     ${correctLine}
+    ${whySection}
   </div>`;
 }
 
@@ -29564,7 +29637,7 @@ function renderSlideFillBlank(slide) {
     <div class="fill-blank-sentence" id="fill-sentence">${partsHtml}</div>
     <div class="order-pool-label">Word bank — tap to place:</div>
     <div class="word-bank">${bankHtml}</div>
-    <div id="fill-feedback"></div>
+    <div id="fill-feedback" aria-live="polite"></div>
   </div>`;
 }
 
@@ -29680,7 +29753,7 @@ function renderSlideTapCorrect(slide) {
     <div class="tap-correct-title">${slide.question}</div>
     <div class="tap-correct-sub">Tap all that apply, then press Check.</div>
     <div class="tap-items">${itemsHtml}</div>
-    <div id="tap-feedback"></div>
+    <div id="tap-feedback" aria-live="polite"></div>
   </div>`;
 }
 
@@ -29776,7 +29849,7 @@ function renderSlideSimChat(slide) {
     <div class="sim-chat-box">${chatHtml}</div>
     <div class="sim-prompt">${slide.prompt}</div>
     <div class="quiz-options">${optsHtml}</div>
-    <div id="quiz-feedback"></div>
+    <div id="quiz-feedback" aria-live="polite"></div>
   </div>`;
 }
 
@@ -29801,7 +29874,8 @@ function selectSimOption(el, idx, correct) {
     allOpts[correct].classList.add('show-correct');
     loseHeart();
     SoundManager.playIncorrect();
-    showFeedback(false, getWrongMsg(), allOpts[correct].textContent.trim());
+    var _currentSlide = getSessionSlides()[lessonState.slideIdx];
+    showFeedback(false, getWrongMsg(), allOpts[correct].textContent.trim(), _currentSlide && _currentSlide.explanation);
   }
   const btn = document.getElementById('lesson-next-btn');
   if (btn) btn.disabled = false;
@@ -29834,7 +29908,7 @@ function renderSlideMatchPairs(slide) {
     <div class="match-cols" id="match-left">${leftHtml}</div>
     <div style="height:8px;"></div>
     <div class="match-cols" id="match-right">${rightHtml}</div>
-    <div id="match-feedback"></div>
+    <div id="match-feedback" aria-live="polite"></div>
   </div>`;
 }
 
@@ -29926,7 +30000,7 @@ function renderSlideOrderSteps(slide) {
     <div class="order-pool" id="order-pool">${poolHtml}</div>
     <div class="order-rail-label">Your sequence:</div>
     <div class="order-rail" id="order-rail">${railHtml}</div>
-    <div id="order-feedback"></div>
+    <div id="order-feedback" aria-live="polite"></div>
   </div>`;
 }
 
@@ -30064,7 +30138,7 @@ function renderSlideTypeAnswer(slide) {
       ${hintBtn}
     </div>
     ${hintDiv}
-    <div id="type-feedback"></div>
+    <div id="type-feedback" aria-live="polite"></div>
   </div>`;
 }
 
@@ -30144,7 +30218,7 @@ function renderSlideDragCategory(slide) {
     <div class="dc-items-label">Tap a chip then tap a bucket:</div>
     <div class="dc-items" id="dc-items">${chipsHtml}</div>
     <div class="dc-buckets">${bucketsHtml}</div>
-    <div id="dc-feedback"></div>
+    <div id="dc-feedback" aria-live="polite"></div>
   </div>`;
 }
 
@@ -30599,9 +30673,10 @@ function renderLessonComplete() {
   SoundManager.playLessonComplete();
   const lesson = findLesson(lessonState.lessonId);
   const lessonXP = S.xp_boost_active ? 100 : 50;
-  const lessonGems = 10;
+  const lessonGems = S.double_gems_active ? 20 : 10;
   const _levelBefore = xpToLevel(S.xp || 0); // capture before addXP calls
   if (S.xp_boost_active) save('xp_boost_active', false);
+  if (S.double_gems_active) save('double_gems_active', false);
   addXP(lessonXP);
   addGems(lessonGems);
   lessonState.gemsEarned += lessonGems;
@@ -30620,15 +30695,8 @@ function renderLessonComplete() {
   }
 
   // Schedule first spaced repetition review (due tomorrow)
-  const _sr_reviews = S.lesson_reviews || {};
-  if (!_sr_reviews[lessonState.lessonId]) {
-    _sr_reviews[lessonState.lessonId] = {
-      stage: 0,
-      nextDue: dateAddDays(todayStr(), REVIEW_INTERVALS[0]),
-      completedAt: todayStr()
-    };
-    save('lesson_reviews', _sr_reviews);
-  }
+  var _sr_reviews_SKIP = true; // old system removed
+  // (old lesson_reviews if-block removed)
   // SM-2 spaced repetition scheduler: compute score and schedule review
   var _srScore = computeLessonScore();
   scheduleReview(lessonState.lessonId, _srScore);
@@ -31050,6 +31118,7 @@ function showUnitCertificate(unitNum, unitTitle) {
   if (!modal) return;
   document.getElementById('cert-unit-name').textContent = 'Unit ' + unitNum + ': ' + unitTitle;
   modal.classList.add('open');
+  _activateTrap('unit-cert-modal');
 }
 
 function closeUnitCertModal() {
@@ -31540,9 +31609,9 @@ function renderStreakCalendar() {
     '<div class="streak-cal-legend">' +
       '<span>Less</span>' +
       '<div class="streak-cal-legend-swatch" style="background:var(--gray2)"></div>' +
-      '<div class="streak-cal-legend-swatch" style="background:#c6efce"></div>' +
-      '<div class="streak-cal-legend-swatch" style="background:#58cc02"></div>' +
-      '<div class="streak-cal-legend-swatch" style="background:#46a302"></div>' +
+      '<div class="streak-cal-legend-swatch" style="background:var(--green-light)"></div>' +
+      '<div class="streak-cal-legend-swatch" style="background:var(--green)"></div>' +
+      '<div class="streak-cal-legend-swatch" style="background:var(--green2)"></div>' +
       '<span>More</span>' +
     '</div>' +
   '</div>';
@@ -31577,6 +31646,7 @@ function showHeartsDepleted() {
   if (refillBtn) { var ca = (S.gems||0) >= 30; refillBtn.disabled = !ca; refillBtn.style.opacity = ca ? '1' : '0.5'; }
   _startHeartsDepletedTimer();
   modal.classList.add('open');
+  _activateTrap('hearts-depleted-modal');
 }
 function _startHeartsDepletedTimer() {
   if (_heartsDepletedTimerInterval) clearInterval(_heartsDepletedTimerInterval);
@@ -31710,6 +31780,8 @@ function recordWrongAnswer(lessonId, question, idx) {
 }
 
 function updateStreak() {
+  // Day Off Pass: skip streak reset if active
+  if (S.day_off_until && Date.now() < S.day_off_until) return;
   const today = todayStr();
   const lastDate = S.streak_date;
   if (lastDate === today) return;
@@ -31727,6 +31799,8 @@ function updateStreak() {
     save('streak', (S.streak || 0) + 1);
     showToast("Streak Freeze used — your streak is protected! <span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><line x1='12' y1='2' x2='12' y2='22'/><line x1='2' y1='12' x2='22' y2='12'/><line x1='4.9' y1='4.9' x2='19.1' y2='19.1'/><line x1='19.1' y1='4.9' x2='4.9' y2='19.1'/><line x1='12' y1='6' x2='10' y2='4'/><line x1='12' y1='6' x2='14' y2='4'/><line x1='12' y1='18' x2='10' y2='20'/><line x1='12' y1='18' x2='14' y2='20'/></svg></span>️", 'info', 3000);
   } else {
+    // Save current streak before reset for Streak Repair shop item
+    if ((S.streak || 0) > 1) save('streak_before_reset', S.streak);
     save('streak', 1);
   }
   save('streak_date', today);
@@ -31916,10 +31990,61 @@ function openPremiumModal() {
     <div class="feature-row">${checkSVG}<span class="feature-text">Unlimited practice sessions</span></div>
     <div class="feature-row">${checkSVG}<span class="feature-text">Cancel anytime — no contract</span></div>`;
   modal.classList.add('open');
+  _activateTrap('premium-modal');
 }
 
 function closeModal(id) {
-  document.getElementById(id).classList.remove('open');
+  var el = document.getElementById(id);
+  if (el) {
+    el.classList.remove('open');
+    if (el._prevFocus) { try { el._prevFocus.focus(); } catch(e){} el._prevFocus = null; }
+  }
+}
+
+// ============================================================
+// ACCESSIBILITY: Focus trap + Escape key for modals
+// ============================================================
+function trapFocus(modal) {
+  var focusable = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+  if (!focusable.length) return;
+  var first = focusable[0], last = focusable[focusable.length - 1];
+  // Remove any previous trap listener to avoid stacking
+  if (modal._trapKeydown) modal.removeEventListener('keydown', modal._trapKeydown);
+  modal._trapKeydown = function(e) {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      if (modal.id === 'gem-shop-modal') { closeModal('gem-shop-modal'); }
+      else if (modal.id === 'hearts-depleted-modal') { closeModal('hearts-depleted-modal'); }
+      else if (modal.id === 'premium-modal') { closeModal('premium-modal'); }
+      else if (modal.id === 'export-notes-modal') { if (typeof closeExportNotes === 'function') closeExportNotes(); }
+      else if (modal.id === 'unit-cert-modal') { if (typeof closeUnitCertModal === 'function') closeUnitCertModal(); }
+      else if (modal.id === 'lesson-preview-modal') { if (typeof closeLessonPreview === 'function') closeLessonPreview(); }
+      else if (modal.id === 'unit1-cert-modal-overlay') { if (typeof closeUnit1CertModal === 'function') closeUnit1CertModal(null, true); }
+      else if (modal.id === 'certificate-overlay') { if (typeof closeCertificate === 'function') closeCertificate(); }
+      else if (modal.id === 'profile-modal-overlay') { if (typeof closeProfileModal === 'function') closeProfileModal(); }
+      else { modal.classList.remove('open'); }
+      return;
+    }
+    if (e.key !== 'Tab') return;
+    // Re-query in case buttons were added/removed dynamically
+    var _focusable = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    if (!_focusable.length) return;
+    var _first = _focusable[0], _last = _focusable[_focusable.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === _first) { e.preventDefault(); _last.focus(); }
+    } else {
+      if (document.activeElement === _last) { e.preventDefault(); _first.focus(); }
+    }
+  };
+  modal.addEventListener('keydown', modal._trapKeydown);
+  first.focus();
+}
+
+function _activateTrap(modalId) {
+  var modal = document.getElementById(modalId);
+  if (!modal) return;
+  modal._prevFocus = document.activeElement;
+  setTimeout(function() { trapFocus(modal); }, 50);
 }
 
 // Stripe Payment Links — replace these URLs after creating them in your Stripe Dashboard
@@ -32027,7 +32152,7 @@ function renderPracticeTab() {
   // Reviews-due banner
   const _dueBanner = document.getElementById('reviews-due-banner');
   if (_dueBanner) {
-    const _dueIds = getReviewsDue();
+    const _dueIds = getReviewSchedule();
     if (_dueIds.length > 0) {
       _dueBanner.innerHTML = `<div class="reviews-due-card" onclick="startPractice(&apos;review&apos;)">
         <div style="flex:1;">
@@ -32527,7 +32652,7 @@ function startPractice(type, difficulty) {
 
   } else if (type === 'review') {
     // Spaced repetition: pick quiz questions from due lessons
-    const dueIds = getReviewsDue();
+    const dueIds = getReviewSchedule().map(function(item) { return item.lessonId; });
     const reviewLessonIds = dueIds.length > 0 ? dueIds : S.completed.slice(-3);
     reviewLessonIds.forEach(id => {
       const lesson = findLesson(id);
@@ -32884,7 +33009,7 @@ function renderPracticeQuestion() {
     <div class="slide-mascot-wrap" style="margin-bottom:8px;">${clariSVG('think', 60)}</div>
     <div class="slide-quiz-title">${q.question}</div>
     <div class="quiz-options">${opts}</div>
-    <div id="quiz-feedback"></div>
+    <div id="quiz-feedback" aria-live="polite"></div>
     <div id="practice-hint-wrap" style="text-align:center;">${lessonState.practiceType !== 'timed' ? ('<button class="practice-hint-btn" id="practice-hint-btn" onclick="showPracticeHint()" aria-label="Hint">&#x1F4A1; Hint (-2 XP)</button><div class="practice-hint-box" id="practice-hint-box"></div>') : ''}</div>` + _kbHintHtml;
 
   document.getElementById('lesson-footer').innerHTML =
@@ -33395,7 +33520,7 @@ function finishPractice() {
   if (isReview) {
     const passed = score / Math.max(total, 1) >= 0.8;
     const reviewedLessonIds = [...new Set(lessonState.practiceQuestions.map(q => q.lessonId))];
-    reviewedLessonIds.forEach(id => updateReviewStage(id, passed));
+    reviewedLessonIds.forEach(id => scheduleReview(id, passed ? 80 : 0));
     updateNavBadges();
   }
 
@@ -34000,7 +34125,7 @@ function renderSessionTimeline() {
       + 'Mode: ' + _modeLabel(h.type) + '<br>'
       + 'Score: ' + _qRatio + ' (' + _pct + '%)<br>'
       + 'Date: ' + (h.date || 'Unknown')
-      + (_pct >= 80 ? '<br><span style="color:var(--green2);font-weight:800;">✅ Great result!</span>' : _pct < 50 ? '<br><span style="color:#dc2626;font-weight:700;">💪 Keep practising!</span>' : '')
+      + (_pct >= 80 ? '<br><span style="color:var(--green2);font-weight:800;">✅ Great result!</span>' : _pct < 50 ? '<br><span style="color:var(--red);font-weight:700;">💪 Keep practising!</span>' : '')
       + '</div>'
       + '</div>'
       + '</div>';
@@ -34466,12 +34591,12 @@ function renderPlanTab() {
     var _oc13a = _nextId13 ? ("startLesson('" + _nextId13 + "')") : "switchTab('learn')";
 
     // Button 2: Review Due — count spaced-repetition reviews due today
-    var _reviews13 = S.lesson_reviews || {};
+    var _reviews13 = S.sr_schedule || {};
     var _today13   = todayStr();
     var _dueCnt13  = 0;
     var _firstDue13 = null;
     for (var _rid13 in _reviews13) {
-      if (_reviews13.hasOwnProperty(_rid13) && _reviews13[_rid13].nextDue <= _today13) {
+      if (_reviews13.hasOwnProperty(_rid13) && _reviews13[_rid13].nextReview && _reviews13[_rid13].nextReview <= _today13) {
         _dueCnt13++;
         if (!_firstDue13) _firstDue13 = _rid13;
       }
@@ -34499,13 +34624,13 @@ function renderPlanTab() {
     // Find the single best "do this next" lesson:
     // Priority: (1) spaced-rep review due today, (2) next incomplete new lesson
     var _today14   = todayStr();
-    var _reviews14 = S.lesson_reviews || {};
+    var _reviews14 = S.sr_schedule || {};
     var _pick14    = null;   // { id, tag }
     var _unit14    = null;
 
     // Check reviews due
     for (var _rid14 in _reviews14) {
-      if (_reviews14.hasOwnProperty(_rid14) && _reviews14[_rid14].nextDue <= _today14) {
+      if (_reviews14.hasOwnProperty(_rid14) && _reviews14[_rid14].nextReview && _reviews14[_rid14].nextReview <= _today14) {
         _pick14 = { id: _rid14, tag: 'review' }; break;
       }
     }
@@ -34603,9 +34728,9 @@ function renderPlanTab() {
 
   // Mobile tip strip for phone users
   if (sa.q3 === 'Phone') {
-    html += '<div style="display:flex;align-items:flex-start;gap:10px;background:#fff8e0;border:1.5px solid #ffe066;border-radius:14px;padding:12px 14px;margin-bottom:16px;">' +
+    html += '<div style="display:flex;align-items:flex-start;gap:10px;background:var(--clari-blue-10);border:1.5px solid var(--yellow);border-radius:14px;padding:12px 14px;margin-bottom:16px;">' +
       '<span style="font-size:18px;"><span class=\'ico\' aria-hidden=\'true\'><svg width=\'18\' height=\'18\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><rect x=\'7\' y=\'2\' width=\'10\' height=\'20\' rx=\'3\'/><circle cx=\'12\' cy=\'18\' r=\'1\' fill=\'currentColor\' stroke=\'none\'/></svg></span></span>' +
-      '<div style="font-size:13px;font-weight:700;color:#7a5c00;line-height:1.4;"><strong>Phone Tip:</strong> Try voice input &mdash; just tap the microphone in your keyboard and speak your prompts. It\'s faster than typing and works great with AI!</div>' +
+      '<div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.4;"><strong>Phone Tip:</strong> Try voice input &mdash; just tap the microphone in your keyboard and speak your prompts. It\'s faster than typing and works great with AI!</div>' +
     '</div>';
   }
 
@@ -34667,10 +34792,10 @@ function renderPlanTab() {
     var _goalRem9  = Math.max(0, _goalTgt9 - _goalDone9);
 
     // Reviews due today from spaced-repetition engine
-    var _reviews9    = S.lesson_reviews || {};
+    var _reviews9    = S.sr_schedule || {};
     var _dueLessons9 = [];
     for (var _rid9 in _reviews9) {
-      if (_reviews9.hasOwnProperty(_rid9) && _reviews9[_rid9].nextDue <= _today9) {
+      if (_reviews9.hasOwnProperty(_rid9) && _reviews9[_rid9].nextReview <= _today9) {
         _dueLessons9.push(_rid9);
       }
     }
@@ -34743,7 +34868,7 @@ function renderPlanTab() {
     }
 
     var _warnRow9 = _streakRisk9
-      ? '<div style="font-size:11px;font-weight:800;color:#b45309;margin-bottom:8px;">'
+      ? '<div style="font-size:11px;font-weight:800;color:var(--orange);margin-bottom:8px;">'
         + '\u26a0\ufe0f Streak at risk \u2014 do at least one lesson today!</div>'
       : '';
 
@@ -34940,7 +35065,7 @@ function renderPlanTab() {
 
   // --- Upcoming Reviews Timeline (plan-18) ---
   (function() {
-    var _reviews18 = S.lesson_reviews || {};
+    var _reviews18 = S.sr_schedule || {};
     var _today18   = todayStr();
 
     // Compute dates for next 7 days
@@ -34956,7 +35081,7 @@ function renderPlanTab() {
     for (var _rid18 in _reviews18) {
       if (!_reviews18.hasOwnProperty(_rid18)) continue;
       var _r18 = _reviews18[_rid18];
-      var _due18 = _r18.nextDue || '';
+      var _due18 = _r18.nextReview || '';
       if (_due18 >= _today18 && _due18 <= _maxDate18) {
         _upcoming18.push({ id: _rid18, due: _due18 });
       }
@@ -35118,7 +35243,7 @@ function renderPlanTab() {
 
     var _extra22 = _unitData22.length - _visible22.length;
     var _footHtml22 = _extra22 > 0
-      ? '<div style="font-size:10px;font-weight:600;color:#9ca3af;margin-top:4px;text-align:right;">+' + _extra22 + ' more unit' + (_extra22 > 1 ? 's' : '') + '</div>'
+      ? '<div style="font-size:10px;font-weight:600;color:var(--gray3);margin-top:4px;text-align:right;">+' + _extra22 + ' more unit' + (_extra22 > 1 ? 's' : '') + '</div>'
       : '';
 
     var _radarId22 = 'plan-radar-body-22';
@@ -35643,11 +35768,11 @@ function renderPlanTab() {
         '<div class="plan-timeline-track">' + _trackHtml27 + '</div>' +
         '<div class="plan-timeline-legend">' +
           '<div class="plan-timeline-legend-item">' +
-            '<div class="ptli-dot" style="background:#58CC02;"></div>' +
+            '<div class="ptli-dot" style="background:var(--green);"></div>' +
             'Complete' +
           '</div>' +
           '<div class="plan-timeline-legend-item">' +
-            '<div class="ptli-dot" style="background:#5BC0F8;"></div>' +
+            '<div class="ptli-dot" style="background:var(--blue);"></div>' +
             'In progress' +
           '</div>' +
           '<div class="plan-timeline-legend-item">' +
@@ -35661,13 +35786,13 @@ function renderPlanTab() {
 
   // --- Overdue Review Alert Banner (plan-26) ---
   (function() {
-    var _reviews26 = S.lesson_reviews || {};
+    var _reviews26 = S.sr_schedule || {};
     var _today26   = todayStr();
     var _overdue26 = [];
     var _due26     = [];
     for (var _rid26 in _reviews26) {
       if (!_reviews26.hasOwnProperty(_rid26)) continue;
-      var _nr26 = _reviews26[_rid26].nextDue || '';
+      var _nr26 = _reviews26[_rid26].nextReview || '';
       if (_nr26 < _today26) {
         _overdue26.push(_rid26);
       } else if (_nr26 === _today26) {
@@ -35684,7 +35809,7 @@ function renderPlanTab() {
 
     if (_totalOverdue26 > 0) {
       var _oldest26 = _overdue26[0];
-      var _msDiff26 = new Date(_today26).getTime() - new Date(_reviews26[_oldest26].nextDue + 'T12:00:00').getTime();
+      var _msDiff26 = new Date(_today26).getTime() - new Date(_reviews26[_oldest26].nextReview + 'T12:00:00').getTime();
       var _daysDiff26 = Math.round(_msDiff26 / 86400000);
       _icon26   = '⏰';
       _title26  = _totalOverdue26 + ' review' + (_totalOverdue26 !== 1 ? 's' : '') + ' overdue!';
@@ -36126,7 +36251,7 @@ function renderProfileTab() {
           '<circle class="profile-xp-ring-track" cx="52" cy="52" r="45"/>' +
           '<circle class="profile-xp-ring-fill" cx="52" cy="52" r="45" style="stroke-dashoffset:' + _offset.toFixed(1) + '"/>' +
         '</svg>' +
-        '<div class="profile-avatar-ring-animated">' +
+        '<div class="profile-avatar-ring-animated' + (S.profile_frame === 'gold' ? ' frame-gold' : S.profile_frame === 'rainbow' ? ' frame-rainbow' : '') + '">' +
           avatarSVG(S.avatar_custom ? null : (S.avatar || 0), 82, S.avatar_custom || undefined) +
         '</div>';
     }
@@ -36285,7 +36410,7 @@ function renderProfileTab() {
         '</div>' +
         '<div class="summary-stat">' +
           '<div class="summary-stat-icon"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 22c5 0 8-3 8-7 0-2.5-1.5-4.5-3-6 .5 2-1 3.5-2 4 .5-2-1-4-3-5.5 0 3-2 4.5-3 7-.5-1-.5-2.5.5-4C7.5 12 5 14.5 5 17c0 3 3 5 7 5z" fill="#f97316"/></svg></div>' +
-          '<div class="summary-stat-val" style="color:#f97316">' + _bestStreak + ' days</div>' +
+          '<div class="summary-stat-val" style="color:var(--orange)">' + _bestStreak + ' days</div>' +
           '<div class="summary-stat-label">Best Streak</div>' +
         '</div>' +
         '<div class="summary-stat">' +
@@ -36295,7 +36420,7 @@ function renderProfileTab() {
         '</div>' +
         '<div class="summary-stat full-width">' +
           '<div class="summary-stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2.2" stroke-linecap="round"><path d="M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z"/></svg></div>' +
-          '<div class="summary-stat-val" style="color:#60a5fa">' + _avgPerDay + ' / day</div>' +
+          '<div class="summary-stat-val" style="color:var(--blue-light)">' + _avgPerDay + ' / day</div>' +
           '<div class="summary-stat-label">Avg Lessons Per Day</div>' +
         '</div>' +
       '</div>';
@@ -36412,7 +36537,7 @@ function renderProfileTab() {
             '<div class="weekly-trend ' + _xpTrendClass + '">' + _xpTrendText + '</div>' +
           '</div>' +
           '<div class="weekly-stat">' +
-            '<div class="weekly-stat-value" style="color:#f97316">' + _streak + '</div>' +
+            '<div class="weekly-stat-value" style="color:var(--orange)">' + _streak + '</div>' +
             '<div class="weekly-stat-label">Day Streak</div>' +
           '</div>' +
           '<div class="weekly-stat">' +
@@ -36703,11 +36828,11 @@ function renderProfileTab() {
       '<div class="section-title">Streak Stats</div>' +
       '<div class="streak-stats-grid">' +
         '<div class="streak-stat-box">' +
-          '<div class="streak-stat-box-val" style="color:#f97316;">' + _curStreak + '</div>' +
+          '<div class="streak-stat-box-val" style="color:var(--orange);">' + _curStreak + '</div>' +
           '<div class="streak-stat-box-label">Current</div>' +
         '</div>' +
         '<div class="streak-stat-box">' +
-          '<div class="streak-stat-box-val" style="color:#fbbf24;">' + _bestStreak + '</div>' +
+          '<div class="streak-stat-box-val" style="color:var(--amber);">' + _bestStreak + '</div>' +
           '<div class="streak-stat-box-label">Best Ever</div>' +
         '</div>' +
         '<div class="streak-stat-box">' +
@@ -38795,7 +38920,8 @@ function confirmReset() {
       'lesson_log_dates','milestones_achieved','profile_bio','accent_color',
       'goal_weekly_lessons','goal_target_date','font_size_idx','bookmarks',
       'personal_bests','notes','lesson_notes','lesson_ratings','certificates_earned',
-      'accessibility_mode','onboarding_done','activity_log'];
+      'accessibility_mode','onboarding_done','activity_log',
+      'day_off_until','hint_tokens','streak_before_reset','double_gems_active','profile_frame'];
     keys.forEach(function(k) { localStorage.removeItem('clariai_' + k); });
     location.reload();
   });
@@ -38916,12 +39042,16 @@ function exportAllNotes() {
   if (modal && textarea) {
     textarea.value = formatted;
     modal.classList.add('open');
+    _activateTrap('export-notes-modal');
   }
 }
 
 function closeExportNotes() {
   var modal = document.getElementById('export-notes-modal');
-  if (modal) modal.classList.remove('open');
+  if (modal) {
+    modal.classList.remove('open');
+    if (modal._prevFocus) { try { modal._prevFocus.focus(); } catch(e){} modal._prevFocus = null; }
+  }
 }
 
 function copyNotesToClipboard() {
@@ -38972,6 +39102,8 @@ function showToast(msg, level, duration) {
   if (!toast) {
     toast = document.createElement('div');
     toast.id = 'clari-toast';
+    toast.setAttribute('aria-live', 'assertive');
+    toast.setAttribute('role', 'alert');
     toast.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(80px);z-index:9999;background:var(--white);border-radius:14px;padding:11px 16px 11px 14px;box-shadow:0 8px 24px rgba(0,0,0,0.2);font-size:14px;font-weight:700;color:var(--text);min-width:220px;max-width:340px;text-align:left;transition:transform 0.3s,opacity 0.3s;opacity:0;display:flex;align-items:center;gap:10px;';
     document.body.appendChild(toast);
   }
@@ -39017,7 +39149,13 @@ const SHOP_ITEMS = [
   { id: 'xp_boost',      name: 'XP Boost (1 lesson)', desc: 'Double XP on your next lesson',    cost: 30, icon: "<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><path d='M13 2L4 14h7l-1 8 9-12h-7z' fill='#fbbf24'/></svg></span>" },
   { id: 'theme_coral',   name: 'Clari Theme: Coral',  desc: 'Give Clari a coral gradient',       cost: 50, icon: "<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><circle cx='12' cy='12' r='3' fill='#fde8f0' stroke='#f472b6' stroke-width='1.5'/><ellipse cx='12' cy='6' rx='2.5' ry='4' fill='#fda4af' stroke='#f472b6' stroke-width='1' opacity='0.9'/><ellipse cx='18' cy='9' rx='2.5' ry='4' fill='#fda4af' stroke='#f472b6' stroke-width='1' opacity='0.9' transform='rotate(60 18 9)'/><ellipse cx='18' cy='15' rx='2.5' ry='4' fill='#fda4af' stroke='#f472b6' stroke-width='1' opacity='0.9' transform='rotate(120 18 15)'/><ellipse cx='12' cy='18' rx='2.5' ry='4' fill='#fda4af' stroke='#f472b6' stroke-width='1' opacity='0.9' transform='rotate(180 12 18)'/><ellipse cx='6' cy='15' rx='2.5' ry='4' fill='#fda4af' stroke='#f472b6' stroke-width='1' opacity='0.9' transform='rotate(240 6 15)'/><ellipse cx='6' cy='9' rx='2.5' ry='4' fill='#fda4af' stroke='#f472b6' stroke-width='1' opacity='0.9' transform='rotate(300 6 9)'/></svg></span>" },
   { id: 'theme_purple',  name: 'Clari Theme: Purple', desc: 'Give Clari a purple gradient',      cost: 50, icon: "<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><path d='M12 21C12 21 3 14 3 8a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6-9 13-9 13z' fill='var(--purple)' stroke='var(--purple2)' stroke-width='1.5'/></svg></span>" },
-  { id: 'theme_gold',    name: 'Clari Theme: Gold',   desc: 'Give Clari a gold gradient',        cost: 75, icon: "<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='#fbbf24'><path d='M12 3l1.2 5.8L19 10l-5.8 1.2L12 17l-1.2-5.8L5 10l5.8-1.2L12 3z'/><path d='M19 2l.6 2.4L22 5l-2.4.6L19 8l-.6-2.4L16 5l2.4-.6L19 2z'/><path d='M5 17l.6 2.4L8 20l-2.4.6L5 23l-.6-2.4L2 20l2.4-.6L5 17z'/></svg></span>" }
+  { id: 'theme_gold',    name: 'Clari Theme: Gold',   desc: 'Give Clari a gold gradient',        cost: 75, icon: "<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='#fbbf24'><path d='M12 3l1.2 5.8L19 10l-5.8 1.2L12 17l-1.2-5.8L5 10l5.8-1.2L12 3z'/><path d='M19 2l.6 2.4L22 5l-2.4.6L19 8l-.6-2.4L16 5l2.4-.6L19 2z'/><path d='M5 17l.6 2.4L8 20l-2.4.6L5 23l-.6-2.4L2 20l2.4-.6L5 17z'/></svg></span>" },
+  { id: 'day_off_pass',  name: 'Day Off Pass',           desc: 'Take a day off without losing your streak. Valid for 24 hours.', cost: 25, icon: "<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='18' rx='2'/><line x1='16' y1='2' x2='16' y2='6'/><line x1='8' y1='2' x2='8' y2='6'/><line x1='3' y1='10' x2='21' y2='10'/><path d='M9 16l2 2 4-4' stroke='#58cc02' stroke-width='2.5'/></svg></span>" },
+  { id: 'hint_tokens',   name: 'Hint Token (3-pack)',    desc: 'Eliminates one wrong answer on quiz questions. 3 uses.', cost: 35, icon: "<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#fbbf24' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'/><circle cx='12' cy='17' r='0.5' fill='#fbbf24'/></svg></span>" },
+  { id: 'streak_repair', name: 'Streak Repair',          desc: 'Fix a broken streak - restores it to what it was before it reset.', cost: 50, icon: "<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='#f97316' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 22c5 0 8-3 8-7 0-2.5-1.5-4.5-3-6 .5 2-1 3.5-2 4 .5-2-1-4-3-5.5 0 3-2 4.5-3 7-.5-1-.5-2.5.5-4C7.5 12 5 14.5 5 17c0 3 3 5 7 5z'/><path d='M8 17l2-3 2 2 4-5' stroke='#58cc02' stroke-width='2'/></svg></span>" },
+  { id: 'double_gems',   name: 'Double Gems (1 lesson)', desc: 'Earn double gems on your next completed lesson.', cost: 40, icon: "<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><path d='M6 2h12l4 7-10 13L2 9z' fill='#a78bfa'/><path d='M10 4h8l2.5 5-7 9L6 9z' fill='#c4b5fd' opacity='0.6'/></svg></span>" },
+  { id: 'frame_gold',    name: 'Profile Frame: Gold',    desc: 'A golden frame around your profile avatar.', cost: 80, icon: "<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><circle cx='12' cy='12' r='9' fill='none' stroke='#fbbf24' stroke-width='3'/><circle cx='12' cy='12' r='5' fill='#fef3c7' stroke='#f59e0b' stroke-width='1.5'/></svg></span>" },
+  { id: 'frame_rainbow', name: 'Profile Frame: Rainbow', desc: 'An animated rainbow frame around your profile avatar.', cost: 100, icon: "<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><defs><linearGradient id='rainbow-ico' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='#ef4444'/><stop offset='25%' stop-color='#f59e0b'/><stop offset='50%' stop-color='#22c55e'/><stop offset='75%' stop-color='#3b82f6'/><stop offset='100%' stop-color='#a855f7'/></linearGradient></defs><circle cx='12' cy='12' r='9' fill='none' stroke='url(#rainbow-ico)' stroke-width='3'/><circle cx='12' cy='12' r='5' fill='#faf5ff' stroke='#a855f7' stroke-width='1.5'/></svg></span>" }
 ];
 
 function openGemShop() {
@@ -39043,6 +39181,7 @@ function openGemShop() {
     </div>`;
   }).join('');
   modal.classList.add('open');
+  _activateTrap('gem-shop-modal');
 }
 
 function buyShopItem(itemId, cost) {
@@ -39058,6 +39197,21 @@ function buyShopItem(itemId, cost) {
     case 'theme_coral':   save('clari_theme', 'coral');  showToast("Clari theme changed to Coral! <span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><circle cx='12' cy='12' r='3' fill='#fde8f0' stroke='#f472b6' stroke-width='1.5'/><ellipse cx='12' cy='6' rx='2.5' ry='4' fill='#fda4af' stroke='#f472b6' stroke-width='1' opacity='0.9'/><ellipse cx='18' cy='9' rx='2.5' ry='4' fill='#fda4af' stroke='#f472b6' stroke-width='1' opacity='0.9' transform='rotate(60 18 9)'/><ellipse cx='18' cy='15' rx='2.5' ry='4' fill='#fda4af' stroke='#f472b6' stroke-width='1' opacity='0.9' transform='rotate(120 18 15)'/><ellipse cx='12' cy='18' rx='2.5' ry='4' fill='#fda4af' stroke='#f472b6' stroke-width='1' opacity='0.9' transform='rotate(180 12 18)'/><ellipse cx='6' cy='15' rx='2.5' ry='4' fill='#fda4af' stroke='#f472b6' stroke-width='1' opacity='0.9' transform='rotate(240 6 15)'/><ellipse cx='6' cy='9' rx='2.5' ry='4' fill='#fda4af' stroke='#f472b6' stroke-width='1' opacity='0.9' transform='rotate(300 6 9)'/></svg></span>", 'success'); break;
     case 'theme_purple':  save('clari_theme', 'purple'); showToast("Clari theme changed to Purple! <span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><path d='M12 21C12 21 3 14 3 8a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6-9 13-9 13z' fill='var(--purple)' stroke='var(--purple2)' stroke-width='1.5'/></svg></span>", 'success'); break;
     case 'theme_gold':    save('clari_theme', 'gold');   showToast("Clari theme changed to Gold! <span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='#fbbf24'><path d='M12 3l1.2 5.8L19 10l-5.8 1.2L12 17l-1.2-5.8L5 10l5.8-1.2L12 3z'/><path d='M19 2l.6 2.4L22 5l-2.4.6L19 8l-.6-2.4L16 5l2.4-.6L19 2z'/><path d='M5 17l.6 2.4L8 20l-2.4.6L5 23l-.6-2.4L2 20l2.4-.6L5 17z'/></svg></span>", 'success'); break;
+    case 'day_off_pass':  save('day_off_until', Date.now() + 86400000); showToast("Day Off Pass activated! Your streak is protected for 24 hours.", 'success'); break;
+    case 'hint_tokens':   save('hint_tokens', (S.hint_tokens || 0) + 3); showToast("3 Hint Tokens added! You now have " + ((S.hint_tokens || 0)) + " tokens.", 'success'); break;
+    case 'streak_repair':
+      if (S.streak_before_reset && S.streak_before_reset > 0) {
+        save('streak', S.streak_before_reset);
+        save('streak_before_reset', 0);
+        showToast("Streak repaired! Your " + S.streak + "-day streak is back!", 'success');
+      } else {
+        save('gems', (S.gems || 0) + cost); // refund
+        showToast("No broken streak to repair!", 'warning');
+      }
+      break;
+    case 'double_gems':   save('double_gems_active', true); showToast("Double Gems ready! Next lesson = 2x gems!", 'success'); break;
+    case 'frame_gold':    save('profile_frame', 'gold'); showToast("Gold frame equipped! Check your profile.", 'success'); break;
+    case 'frame_rainbow': save('profile_frame', 'rainbow'); showToast("Rainbow frame equipped! Check your profile.", 'success'); break;
   }
   updateTopBar();
   openGemShop(); // Refresh shop to show updated gem count
@@ -39363,6 +39517,7 @@ function openUnit1CertModal() {
   if (_dateEl) _dateEl.textContent = new Date().toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
   _overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
+  _activateTrap('unit1-cert-modal-overlay');
 }
 
 function closeUnit1CertModal(evt, force) {
@@ -40053,7 +40208,7 @@ document.addEventListener('DOMContentLoaded', init);
 <script>
 /* ---- Shareable Progress Card (profile) ---- */
 (function(){var s=document.createElement('style');s.textContent='.share-card-overlay{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:shareCardOverlayIn .25s ease-out}@keyframes shareCardOverlayIn{from{opacity:0}to{opacity:1}}.share-card{max-width:340px;width:90%;border-radius:24px;overflow:hidden;background:var(--bg-card,#fff);box-shadow:0 20px 60px rgba(0,0,0,.3),0 0 0 1px rgba(255,255,255,.1);animation:shareCardIn .35s cubic-bezier(.34,1.56,.64,1)}@keyframes shareCardIn{from{opacity:0;transform:scale(.85) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}.share-card-header{background:linear-gradient(135deg,var(--clari-blue),#8b5cf6);padding:24px 24px 20px;color:#fff;text-align:center;position:relative;overflow:hidden}.share-card-header::before{content:\"\";position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.15),transparent 60%),radial-gradient(circle at 80% 80%,rgba(255,255,255,.08),transparent 50%);pointer-events:none}.share-card-app-name{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;opacity:.85;margin-bottom:6px;position:relative}.share-card-title{font-size:20px;font-weight:900;line-height:1.2;margin-bottom:4px;position:relative}.share-card-subtitle{font-size:12px;font-weight:600;opacity:.8;position:relative}.share-card-streak-flame{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;position:relative}.share-card-streak-flame .flame-emoji{font-size:38px;line-height:1;filter:drop-shadow(0 2px 8px rgba(249,115,22,.5))}.share-card-streak-flame .flame-count{font-size:34px;font-weight:900;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.2)}.share-card-streak-flame .flame-label{font-size:12px;font-weight:700;opacity:.85;text-transform:uppercase;letter-spacing:.5px}.share-card-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border,#e5e5e5)}.share-card-stat{background:var(--bg-card,#fff);padding:16px 12px;text-align:center}.share-card-stat-value{font-size:26px;font-weight:900;line-height:1.1}.share-card-stat-label{font-size:11px;font-weight:700;color:var(--gray3,#888);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}.share-card-footer{padding:14px 20px;text-align:center;font-size:11px;font-weight:700;color:var(--gray3,#888);background:var(--bg-card,#fff);border-top:1px solid var(--border,#e5e5e5)}.share-card-actions{display:flex;gap:10px;padding:16px 0 0;justify-content:center;max-width:340px;width:90%}.share-card-actions button{flex:1;padding:13px 16px;border-radius:14px;border:none;font-size:14px;font-weight:800;cursor:pointer;transition:transform .1s,opacity .15s;display:flex;align-items:center;justify-content:center;gap:6px}.share-card-actions button:active{transform:scale(.96);opacity:.85}.share-card-btn-share{background:linear-gradient(135deg,var(--clari-blue),#8b5cf6);color:#fff;box-shadow:0 3px 0 #6d28d9}.share-card-btn-copy{background:var(--green,#58cc02);color:#fff;box-shadow:0 3px 0 var(--green2,#46a302)}.share-card-btn-copy.copied{background:#8b5cf6;box-shadow:0 3px 0 #6d28d9}.share-card-btn-close{background:var(--gray1,#f0f0f0);color:var(--text,#3c3c3c);box-shadow:0 3px 0 var(--gray2,#e0e0e0);flex:.6}.btn-share-my-progress{background:linear-gradient(135deg,var(--clari-blue),#8b5cf6);color:#fff;border:none;border-radius:12px;padding:11px 20px;font-size:13px;font-weight:800;cursor:pointer;width:100%;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:7px;box-shadow:0 3px 0 #6d28d9;transition:transform .1s,box-shadow .1s}.btn-share-my-progress:active{transform:translateY(2px);box-shadow:0 1px 0 #6d28d9}:root[data-theme=dark] .share-card{box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06)}:root[data-theme=dark] .share-card-stats{background:var(--gray2,#3a3a3a)}:root[data-theme=dark] .share-card-stat{background:var(--bg-card,#252525)}:root[data-theme=dark] .share-card-footer{background:var(--bg-card,#252525);border-top-color:var(--gray2,#3a3a3a)}:root[data-theme=dark] .share-card-btn-close{background:var(--gray2,#3a3a3a);color:var(--text,#e8e8e8);box-shadow:0 3px 0 #1a1a1a}:root[data-theme=dark] .btn-share-my-progress{box-shadow:0 3px 0 #4c1d95}';document.head.appendChild(s);})();
-function showShareCard(){var streak=S.streak||0;var xp=S.xp||0;var gems=S.gems||0;var lc=(S.completed||[]).length;var ad=(S.active_days||[]);var dsf=0;if(ad.length>0){var sorted=ad.slice().sort();var first=new Date(sorted[0]);dsf=Math.max(1,Math.floor((new Date()-first)/86400000));}var un=S.user_name||'Learner';var lv=typeof xpToLevel==='function'?xpToLevel(xp):Math.floor(xp/100)+1;var c='<div class="share-card"><div class="share-card-header"><div class="share-card-app-name">Clari AI</div><div class="share-card-title">My Learning Journey</div><div class="share-card-subtitle">'+un+' \u2022 Level '+lv+(dsf>0?' \u2022 Day '+dsf:'')+'</div>'+(streak>0?'<div class="share-card-streak-flame"><span class="flame-emoji">\uD83D\uDD25</span><div><div class="flame-count">'+streak+'</div><div class="flame-label">day streak</div></div></div>':'')+'</div><div class="share-card-stats"><div class="share-card-stat"><div class="share-card-stat-value" style="color:#f97316">'+streak+'</div><div class="share-card-stat-label">Streak</div></div><div class="share-card-stat"><div class="share-card-stat-value" style="color:#fbbf24">'+xp+'</div><div class="share-card-stat-label">Total XP</div></div><div class="share-card-stat"><div class="share-card-stat-value" style="color:var(--blue)">'+lc+'</div><div class="share-card-stat-label">Lessons</div></div><div class="share-card-stat"><div class="share-card-stat-value" style="color:#a78bfa">'+gems+'</div><div class="share-card-stat-label">Gems</div></div></div><div class="share-card-footer">Learning AI literacy with Clari</div></div>';var a='<div class="share-card-actions">'+(navigator.share?'<button class="share-card-btn-share" onclick="shareProgress()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Share</button>':'')+'<button class="share-card-btn-copy" id="share-card-copy-btn" onclick="copyShareText()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button><button class="share-card-btn-close" onclick="closeShareCard()">Close</button></div>';var o=document.createElement('div');o.className='share-card-overlay';o.id='share-card-overlay';o.onclick=function(e){if(e.target===o)closeShareCard();};o.innerHTML=c+a;document.body.appendChild(o);}
+function showShareCard(){var streak=S.streak||0;var xp=S.xp||0;var gems=S.gems||0;var lc=(S.completed||[]).length;var ad=(S.active_days||[]);var dsf=0;if(ad.length>0){var sorted=ad.slice().sort();var first=new Date(sorted[0]);dsf=Math.max(1,Math.floor((new Date()-first)/86400000));}var un=S.user_name||'Learner';var lv=typeof xpToLevel==='function'?xpToLevel(xp):Math.floor(xp/100)+1;var c='<div class="share-card"><div class="share-card-header"><div class="share-card-app-name">Clari AI</div><div class="share-card-title">My Learning Journey</div><div class="share-card-subtitle">'+un+' \u2022 Level '+lv+(dsf>0?' \u2022 Day '+dsf:'')+'</div>'+(streak>0?'<div class="share-card-streak-flame"><span class="flame-emoji">\uD83D\uDD25</span><div><div class="flame-count">'+streak+'</div><div class="flame-label">day streak</div></div></div>':'')+'</div><div class="share-card-stats"><div class="share-card-stat"><div class="share-card-stat-value" style="color:var(--orange)">'+streak+'</div><div class="share-card-stat-label">Streak</div></div><div class="share-card-stat"><div class="share-card-stat-value" style="color:var(--amber)">'+xp+'</div><div class="share-card-stat-label">Total XP</div></div><div class="share-card-stat"><div class="share-card-stat-value" style="color:var(--blue)">'+lc+'</div><div class="share-card-stat-label">Lessons</div></div><div class="share-card-stat"><div class="share-card-stat-value" style="color:var(--purple-light)">'+gems+'</div><div class="share-card-stat-label">Gems</div></div></div><div class="share-card-footer">Learning AI literacy with Clari</div></div>';var a='<div class="share-card-actions">'+(navigator.share?'<button class="share-card-btn-share" onclick="shareProgress()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Share</button>':'')+'<button class="share-card-btn-copy" id="share-card-copy-btn" onclick="copyShareText()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button><button class="share-card-btn-close" onclick="closeShareCard()">Close</button></div>';var o=document.createElement('div');o.className='share-card-overlay';o.id='share-card-overlay';o.onclick=function(e){if(e.target===o)closeShareCard();};o.innerHTML=c+a;document.body.appendChild(o);}
 function closeShareCard(){var o=document.getElementById('share-card-overlay');if(o){o.style.opacity='0';o.style.transition='opacity 0.2s';setTimeout(function(){if(o.parentNode)o.parentNode.removeChild(o);},200);}}
 function _getShareText(){var s=S.streak||0;var x=S.xp||0;var l=(S.completed||[]).length;var g=S.gems||0;return'\uD83D\uDD25 I\'m on a '+s+'-day streak learning AI with Clari!\n\uD83D\uDCCA Stats: '+x+' XP | '+l+' Lessons | '+g+' Gems\n\uD83C\uDFAF Learning AI literacy one lesson at a time!';}
 function shareProgress(){var t=_getShareText();if(navigator.share){navigator.share({title:'My Clari AI Progress',text:t}).catch(function(){});}else{copyShareText();}}
