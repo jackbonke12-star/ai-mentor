@@ -290,6 +290,50 @@ html, body {
 }
 body.text-large  { --text-scale: 1.15; }
 body.text-xl     { --text-scale: 1.3; }
+
+/* ============================================================
+   BRAND TOUCHES: selection, scrollbar, focus ring
+   ============================================================ */
+::selection {
+  background: rgba(91, 192, 248, 0.22);
+  color: inherit;
+}
+:root[data-theme="dark"] ::selection {
+  background: rgba(91, 192, 248, 0.30);
+}
+
+/* Scrollbar — thin Clari-blue thumb */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(91, 192, 248, 0.35) transparent;
+}
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(91, 192, 248, 0.30);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(91, 192, 248, 0.50);
+}
+:root[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: rgba(91, 192, 248, 0.25);
+}
+:root[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(91, 192, 248, 0.45);
+}
+
+/* Input focus ring: subtle Clari blue glow */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(91, 192, 248, 0.18);
+}
+:root[data-theme="dark"] input:focus,
+:root[data-theme="dark"] textarea:focus,
+:root[data-theme="dark"] select:focus {
+  box-shadow: 0 0 0 3px rgba(91, 192, 248, 0.25);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -798,7 +842,7 @@ body.text-xl     { --text-scale: 1.3; }
 /* Share bar */
 .share-bar {
   display: flex; flex-direction: column; align-items: center; gap: 10px;
-  padding: 16px; background: linear-gradient(135deg, var(--clari-blue-10), #f0e8ff);
+  padding: 16px; background: linear-gradient(135deg, var(--clari-blue-10), var(--purple-10));
   border-radius: var(--radius); margin: 8px 0; width: 100%;
   border: 2px solid var(--clari-blue);
 }
@@ -813,7 +857,7 @@ body.text-xl     { --text-scale: 1.3; }
   cursor: pointer; text-align: center; transition: border-color 0.15s;
   position: relative;
 }
-.plan-option.selected { border-color: var(--purple); background: #f9f0ff; }
+.plan-option.selected { border-color: var(--purple); background: var(--purple-10); }
 .plan-option-price { font-size: 20px; font-weight: 900; color: var(--text); }
 .plan-option-label { font-size: 14px; font-weight: 700; color: var(--gray4); margin-top: 2px; }
 .plan-save-badge {
@@ -1163,7 +1207,7 @@ body.text-xl     { --text-scale: 1.3; }
   border-radius: 14px; padding: 0 12px;
   transition: border-color 0.15s;
 }
-.learn-search-input-row:focus-within { border-color: var(--blue); }
+.learn-search-input-row:focus-within { border-color: var(--clari-blue); }
 .learn-search-icon { color: var(--gray3); flex-shrink: 0; }
 .learn-search-input {
   flex: 1; border: none; outline: none;
@@ -1497,7 +1541,7 @@ body.text-xl     { --text-scale: 1.3; }
   outline: none;
   transition: border-color 0.2s;
 }
-.text-input:focus { border-color: var(--blue); }
+.text-input:focus { border-color: var(--clari-blue); }
 .text-input::placeholder { color: var(--gray3); }
 
 /* ============================================================
@@ -1517,8 +1561,8 @@ body.text-xl     { --text-scale: 1.3; }
   transition: border-color 0.15s, background 0.15s;
   min-height: 72px;
 }
-.ob-card:hover { border-color: var(--blue); background: var(--bg-hover); }
-.ob-card.selected { border-color: var(--blue); background: #e8f7ff; }
+.ob-card:hover { border-color: var(--clari-blue); background: var(--bg-hover); }
+.ob-card.selected { border-color: var(--clari-blue); background: var(--clari-blue-10); }
 .ob-card-icon {
   width: 48px; height: 48px; border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
@@ -1547,10 +1591,10 @@ body.text-xl     { --text-scale: 1.3; }
   transition: border-color 0.15s, background 0.15s;
   min-height: 52px;
 }
-.survey-option:hover   { border-color: var(--blue); background: var(--bg-hover); }
-.survey-option.selected { border-color: var(--blue); background: var(--select-bg); color: var(--blue2); }
+.survey-option:hover   { border-color: var(--clari-blue); background: var(--bg-hover); }
+.survey-option.selected { border-color: var(--clari-blue); background: var(--select-bg); color: var(--clari-dark); }
 .survey-option.multi-selected { border-color: var(--green); background: var(--green-glow); color: var(--green2); }
-.survey-q-label { font-size: 12px; font-weight: 800; color: var(--blue); text-transform: uppercase; letter-spacing: 1px; }
+.survey-q-label { font-size: 12px; font-weight: 800; color: var(--clari-blue); text-transform: uppercase; letter-spacing: 1px; }
 
 /* ============================================================
    OB RESULTS
@@ -1661,7 +1705,7 @@ body.text-xl     { --text-scale: 1.3; }
 .lang-chip-active { border-color:var(--clari-blue) !important; background:var(--clari-blue-10) !important; color:var(--clari-blue) !important; }
 
 /* ==================== PROMPT GRADER ==================== */
-.prompt-grader-card { background:#fff; border:2px solid var(--border); border-radius:16px; padding:20px; margin:0 16px 20px; }
+.prompt-grader-card { background:var(--white); border:2px solid var(--border); border-radius:16px; padding:20px; margin:0 16px 20px; }
 .pg-title { font-size:16px; font-weight:800; color:var(--text); margin-bottom:4px; }
 .pg-sub { font-size:14px; color:var(--gray4); margin-bottom:12px; }
 .pg-input { width:100%; box-sizing:border-box; border:2px solid var(--border); border-radius:10px; padding:12px; font-size:14px; font-family:inherit; resize:none; min-height:80px; outline:none; transition:border-color .2s; }
@@ -1682,7 +1726,7 @@ body.text-xl     { --text-scale: 1.3; }
 
 /* ==================== PROFILE EDIT MODAL ==================== */
 .profile-modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:2000; display:flex; align-items:flex-end; justify-content:center; }
-.profile-modal { background:#fff; border-radius:20px 20px 0 0; padding:24px; width:100%; max-width:480px; max-height:85vh; overflow-y:auto; }
+.profile-modal { background:var(--white); border-radius:20px 20px 0 0; padding:24px; width:100%; max-width:480px; max-height:85vh; overflow-y:auto; }
 .profile-modal-title { font-size:18px; font-weight:800; color:var(--text); margin-bottom:16px; }
 .profile-field { margin-bottom:16px; }
 .profile-field label { font-size:14px; font-weight:700; color:var(--gray4); display:block; margin-bottom:6px; text-transform:uppercase; letter-spacing:.5px; }
@@ -3216,7 +3260,7 @@ mark.search-hl {
   transition: border-color 0.15s;
   font-family: inherit;
 }
-.type-answer-input:focus { border-color: var(--blue); }
+.type-answer-input:focus { border-color: var(--clari-blue); }
 .type-answer-input.correct { border-color: var(--green); background: var(--green-glow); }
 .type-answer-input.wrong   { border-color: var(--red); background: var(--red-5); }
 .type-answer-actions { display: flex; gap: 10px; align-items: center; }
@@ -3251,8 +3295,8 @@ mark.search-hl {
   font-size: 13px; font-weight: 700; color: var(--text);
   cursor: pointer; transition: all 0.15s;
 }
-.dc-chip:hover  { border-color: var(--blue); background: var(--clari-blue-10); color: var(--blue); }
-.dc-chip.selected { border-color: var(--blue); background: #bce4ff; color: var(--blue); transform: scale(1.04); }
+.dc-chip:hover  { border-color: var(--clari-blue); background: var(--clari-blue-10); color: var(--clari-blue); }
+.dc-chip.selected { border-color: var(--clari-blue); background: var(--blue-20); color: var(--clari-blue); transform: scale(1.04); }
 .dc-chip.placed { opacity: 0.25; pointer-events: none; }
 .dc-buckets { display: flex; gap: 10px; flex-wrap: wrap; }
 .dc-bucket { flex: 1; min-width: 140px; }
@@ -3361,10 +3405,10 @@ mark.search-hl {
 .rating-btn { width:48px; height:48px; border-radius:14px; border:2px solid transparent; background:var(--white,#fff); cursor:pointer; font-size:24px; display:flex; align-items:center; justify-content:center; transition:all .18s cubic-bezier(.34,1.56,.64,1); box-shadow:0 1px 4px rgba(0,0,0,.06); padding:0; }
 .rating-btn:hover { transform:scale(1.12); box-shadow:0 3px 10px rgba(0,0,0,.1); }
 .rating-btn:active { transform:scale(0.92); }
-.rating-btn.selected { border-color:var(--clari-blue,#3b82f6); background:var(--blue-5,#eff6ff); box-shadow:0 0 0 3px rgba(59,130,246,.25); }
+.rating-btn.selected { border-color:var(--clari-blue); background:var(--blue-5,#eff6ff); box-shadow:0 0 0 3px rgba(91,192,248,.25); }
 .rating-btn-wrap { display:flex; flex-direction:column; align-items:center; gap:4px; }
 .rating-btn-label { font-size:11px; font-weight:600; color:var(--gray3,#999); white-space:nowrap; }
-.rating-prompt-thanks { font-size:14px; font-weight:600; color:var(--green2,#16a34a); animation:ratingFadeIn .3s ease; }
+.rating-prompt-thanks { font-size:14px; font-weight:600; color:var(--green2); animation:ratingFadeIn .3s ease; }
 @keyframes ratingFadeIn { 0%{opacity:0;transform:translateY(8px)} 100%{opacity:1;transform:translateY(0)} }
 .lesson-badge.badge-community-hard { background:var(--orange-5,#fff7ed); color:var(--orange-dark,#c2410c); border:1.5px solid var(--orange-20,#fed7aa); font-size:11px; font-weight:700; margin-left:4px; }
 .clari-difficulty-msg { position:fixed; bottom:80px; left:50%; transform:translateX(-50%); z-index:5000; background:var(--card,#fff); border:2px solid var(--green,#58cc02); border-radius:18px; padding:16px 20px; max-width:340px; width:90%; box-shadow:0 8px 32px rgba(0,0,0,.15); display:flex; flex-direction:column; align-items:center; gap:10px; text-align:center; animation:clariDiffSlideUp .35s ease; }
@@ -3383,7 +3427,7 @@ mark.search-hl {
 .feedback-bar-chart { display:flex; gap:6px; align-items:flex-end; height:60px; justify-content:center; margin:8px 0 12px; }
 .feedback-bar { width:40px; border-radius:6px 6px 0 0; min-height:4px; transition:height .4s ease; display:flex; align-items:flex-end; justify-content:center; padding-bottom:2px; }
 .feedback-bar.bar-easy { background:var(--green,#58cc02); }
-.feedback-bar.bar-right { background:var(--clari-blue,#3b82f6); }
+.feedback-bar.bar-right { background:var(--clari-blue); }
 .feedback-bar.bar-hard { background:var(--orange,#f97316); }
 .feedback-bar-label { font-size:9px; font-weight:700; color:#fff; }
 .feedback-comfort-zone { margin-top:8px; padding:10px 14px; background:var(--gray-bg,#f8f9fa); border-radius:12px; font-size:13px; color:var(--text2,#555); line-height:1.5; }
@@ -3394,7 +3438,7 @@ mark.search-hl {
 .vocab-glossary-toggle:hover { background:var(--gray1); }
 .vocab-glossary-toggle .vtoggle-arrow { font-size:11px; transition:transform .2s; display:inline-block; }
 .vocab-glossary-toggle.open .vtoggle-arrow { transform:rotate(180deg); }
-.vocab-glossary-list { display:none; padding:6px 0 8px; background:#fff; }
+.vocab-glossary-list { display:none; padding:6px 0 8px; background:var(--white); }
 .vocab-glossary-list.open { display:block; }
 .vocab-glossary-item { display:flex; flex-direction:column; gap:2px; padding:8px 14px; border-top:1px solid var(--gray1); }
 .vocab-glossary-item:first-child { border-top:none; }
@@ -3408,8 +3452,8 @@ mark.search-hl {
 .qref-fab { position:absolute; top:16px; right:60px; width:44px; height:44px; border-radius:50%; border:none; background:var(--green); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(88,204,2,.35); transition:all .2s; z-index:10; flex-shrink:0; padding:0; }
 .qref-fab:hover { transform:scale(1.1); box-shadow:0 4px 14px rgba(88,204,2,.45); }
 .quick-ref-overlay { position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:3000; display:flex; align-items:flex-end; justify-content:center; animation:fadeIn .18s; }
-.quick-ref-panel { background:#fff; border-radius:20px 20px 0 0; width:100%; max-width:560px; max-height:82vh; overflow-y:auto; padding:0 0 32px; }
-.quick-ref-header { display:flex; align-items:center; justify-content:space-between; padding:18px 20px 14px; border-bottom:1px solid var(--gray1); position:sticky; top:0; background:#fff; z-index:1; }
+.quick-ref-panel { background:var(--white); border-radius:20px 20px 0 0; width:100%; max-width:560px; max-height:82vh; overflow-y:auto; padding:0 0 32px; }
+.quick-ref-header { display:flex; align-items:center; justify-content:space-between; padding:18px 20px 14px; border-bottom:1px solid var(--gray1); position:sticky; top:0; background:var(--white); z-index:1; }
 .quick-ref-header span { font-weight:700; font-size:17px; color:var(--text); }
 .quick-ref-close { width:44px; height:44px; border-radius:50%; border:none; background:var(--gray1); cursor:pointer; font-size:18px; line-height:1; display:flex; align-items:center; justify-content:center; color:var(--gray4); }
 .quick-ref-body { padding:16px 20px 0; }
@@ -3422,7 +3466,7 @@ mark.search-hl {
 .qref-tip { font-size:14px; color:var(--text); padding:6px 0; line-height:1.45; }
 /* ---- Keyboard shortcut overlay ---- */
 .kb-overlay { position:fixed; inset:0; z-index:200; background:rgba(0,0,0,.55); display:flex; align-items:center; justify-content:center; animation:fadeIn .15s ease; }
-.kb-overlay-card { background:#fff; border-radius:20px; width:min(92vw,440px); max-height:85vh; overflow-y:auto; padding:24px; box-shadow:0 8px 40px rgba(0,0,0,.28); position:relative; }
+.kb-overlay-card { background:var(--white); border-radius:20px; width:min(92vw,440px); max-height:85vh; overflow-y:auto; padding:24px; box-shadow:0 8px 40px rgba(0,0,0,.28); position:relative; }
 .kb-overlay-title { font-weight:800; font-size:18px; color:var(--text); margin:0 0 18px; }
 .kb-overlay-close { position:absolute; top:16px; right:16px; width:36px; height:36px; border-radius:50%; border:none; background:var(--gray1); cursor:pointer; font-size:18px; line-height:1; display:flex; align-items:center; justify-content:center; color:var(--gray4); transition:background .15s; }
 .kb-overlay-close:hover { background:var(--gray2); }
@@ -3750,10 +3794,10 @@ mark.search-hl {
   font-family: inherit; color: var(--text); background: var(--white);
   resize: vertical; min-height: 72px; outline: none; transition: border-color 0.15s;
 }
-.practice-session-note-textarea:focus { border-color: var(--blue); }
+.practice-session-note-textarea:focus { border-color: var(--clari-blue); }
 .practice-session-note-save {
   margin-top: 8px; width: 100%; padding: 9px; border: none; border-radius: 10px;
-  background: var(--blue, var(--blue-dark)); color: #fff; font-size: 13px;
+  background: var(--clari-blue); color: #fff; font-size: 13px;
   font-weight: 800; cursor: pointer; transition: opacity 0.15s;
 }
 .practice-session-note-save:hover { opacity: 0.88; }
@@ -5442,7 +5486,7 @@ mark.search-hl {
 /* end plan-09 css */
 /* --- Forecast Chart (plan-10) --- */
 .plan-forecast-wrap {
-  background: #fff;
+  background: var(--white);
   border: 1.5px solid var(--gray2, var(--gray-border));
   border-radius: 16px;
   padding: 14px 16px;
@@ -5537,7 +5581,7 @@ mark.search-hl {
   flex: 1; display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   gap: 5px; padding: 10px 6px;
-  background: #fff; border: 1.5px solid var(--gray-border);
+  background: var(--white); border: 1.5px solid var(--gray-border);
   border-radius: 14px; cursor: pointer;
   font-size: 11px; font-weight: 800; color: var(--text);
   text-align: center; line-height: 1.3;
@@ -5608,12 +5652,12 @@ mark.search-hl {
   cursor: pointer;
   transition: background 0.15s, transform 0.1s;
 }
-.plan-rec-start-btn:active { transform: scale(0.96); background: #46a500; }
+.plan-rec-start-btn:active { transform: scale(0.96); background: var(--green2); }
 /* end plan-14 css */
 /* --- Monthly Completion Calendar (plan-15) --- */
 .plan-month-cal {
   margin-bottom: 16px;
-  background: #fff; border: 1.5px solid var(--gray-border);
+  background: var(--white); border: 1.5px solid var(--gray-border);
   border-radius: 16px; padding: 12px 14px;
 }
 .plan-month-cal-header {
@@ -5653,7 +5697,7 @@ mark.search-hl {
   outline: 2px solid var(--clari-blue); outline-offset: 1px;
 }
 .plan-month-cell.mc-future {
-  background: transparent; color: #d1d5db;
+  background: transparent; color: var(--gray3);
 }
 .plan-month-cell.mc-empty {
   background: transparent; color: transparent;
@@ -5661,7 +5705,7 @@ mark.search-hl {
 /* end plan-15 css */
 /* --- Study Pace Indicator (plan-16) --- */
 .plan-pace-wrap {
-  background: #fff; border: 1.5px solid var(--gray-border);
+  background: var(--white); border: 1.5px solid var(--gray-border);
   border-radius: 16px; padding: 14px 16px;
   margin-bottom: 16px;
 }
@@ -5728,7 +5772,7 @@ mark.search-hl {
   display: flex; gap: 8px; margin-bottom: 10px;
 }
 .plan-week-stat {
-  flex: 1; background: #fff;
+  flex: 1; background: var(--white);
   border: 1px solid var(--gray-border); border-radius: 12px;
   padding: 8px 6px; text-align: center;
 }
@@ -5742,12 +5786,12 @@ mark.search-hl {
   margin-top: 2px;
 }
 .plan-week-note {
-  font-size: 11px; font-weight: 600; color: #374151;
+  font-size: 11px; font-weight: 600; color: var(--gray4);
   text-align: center; font-style: italic;
 }
 /* --- Upcoming Reviews Timeline (plan-18) --- */
 .plan-reviews-wrap {
-  background: #fff; border: 1.5px solid var(--gray-border);
+  background: var(--white); border: 1.5px solid var(--gray-border);
   border-radius: 16px; padding: 14px 16px;
   margin-bottom: 16px;
 }
@@ -5797,7 +5841,7 @@ mark.search-hl {
 /* r7: removed dead CSS — .plan-donut-wrap/.plan-donut-* (course completion donut, plan-r6-01) */
 /* --- Learning Velocity Indicator (plan-20) --- */
 .plan-velocity-wrap {
-  background: #fff; border: 1.5px solid var(--gray-border);
+  background: var(--white); border: 1.5px solid var(--gray-border);
   border-radius: 16px; padding: 14px 16px;
   margin-bottom: 16px;
 }
@@ -5909,7 +5953,7 @@ mark.search-hl {
 /* end plan-24 css */
 /* --- Daily XP Progress Bar (plan-25) --- */
 .plan-dxp-wrap {
-  background: #fff;
+  background: var(--white);
   border: 1.5px solid var(--gray2);
   border-radius: 16px;
   padding: 14px 16px;
@@ -6442,7 +6486,7 @@ mark.search-hl {
 }
 .av-preview-circle {
   width: 80px; height: 80px; border-radius: 50%;
-  background: white;
+  background: var(--white);
   box-shadow: 0 0 0 3px var(--clari-blue), 0 6px 20px rgba(91,192,248,0.25);
   display: flex; align-items: center; justify-content: center;
   overflow: hidden; flex-shrink: 0;
@@ -6573,7 +6617,7 @@ mark.search-hl {
 .profile-avatar-ring-animated {
   width: 88px; height: 88px; border-radius: 50%;
   border: none;
-  overflow: hidden; background: white;
+  overflow: hidden; background: var(--white);
   display: flex; align-items: center; justify-content: center;
   animation: profile-pulse-ring 2.8s ease-in-out infinite;
   flex-shrink: 0;
@@ -6610,8 +6654,8 @@ mark.search-hl {
   0%   { border-color: var(--red-bright); box-shadow: 0 0 0 4px var(--red-bright), 0 0 14px 2px rgba(239,68,68,0.35); }
   16%  { border-color: var(--amber-dark); box-shadow: 0 0 0 4px var(--amber-dark), 0 0 14px 2px rgba(245,158,11,0.35); }
   33%  { border-color: var(--green-bright); box-shadow: 0 0 0 4px var(--green-bright), 0 0 14px 2px rgba(34,197,94,0.35); }
-  50%  { border-color: #3b82f6; box-shadow: 0 0 0 4px #3b82f6, 0 0 14px 2px rgba(59,130,246,0.35); }
-  66%  { border-color: #a855f7; box-shadow: 0 0 0 4px #a855f7, 0 0 14px 2px rgba(168,85,247,0.35); }
+  50%  { border-color: var(--clari-blue); box-shadow: 0 0 0 4px var(--clari-blue), 0 0 14px 2px rgba(91,192,248,0.35); }
+  66%  { border-color: var(--purple); box-shadow: 0 0 0 4px var(--purple), 0 0 14px 2px rgba(165,96,248,0.35); }
   83%  { border-color: var(--pink-hot); box-shadow: 0 0 0 4px var(--pink-hot), 0 0 14px 2px rgba(236,72,153,0.35); }
   100% { border-color: var(--red-bright); box-shadow: 0 0 0 4px var(--red-bright), 0 0 14px 2px rgba(239,68,68,0.35); }
 }
@@ -8225,12 +8269,12 @@ mark.search-hl {
   padding: 1px 5px;
   border: 1px solid var(--gray3, #d1d5db);
   border-radius: 4px;
-  background: #fff;
+  background: var(--white);
   font-family: inherit;
   font-size: 10px;
   font-weight: 800;
-  color: var(--text, #111);
-  box-shadow: 0 1px 0 var(--gray3, #d1d5db);
+  color: var(--text);
+  box-shadow: 0 1px 0 var(--gray3);
   line-height: 1.4;
 }
 .practice-kb-hint .kb-sep { color: var(--gray3, #d1d5db); }
@@ -8529,7 +8573,7 @@ mark.search-hl {
   box-sizing: border-box; outline: none;
   transition: border-color 0.15s;
 }
-.glossary-search:focus { border-color: var(--blue); }
+.glossary-search:focus { border-color: var(--clari-blue); }
 .glossary-search-icon {
   position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
   font-size: 16px; pointer-events: none; color: var(--gray3);
@@ -9015,20 +9059,20 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 [data-tip].tip-active::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #333; color: #fff; font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 8px; white-space: nowrap; pointer-events: none; z-index: 9000; box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
 #onboarding-quiz-overlay { display: none; position: fixed; inset: 0; z-index: 10000; background: linear-gradient(160deg, var(--clari-blue-10) 0%, var(--green-5) 100%); overflow-y: auto; }
 #onboarding-quiz-overlay.active { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 32px 20px 40px; }
-.oq-card { background: #fff; border-radius: 24px; box-shadow: 0 4px 24px rgba(91,192,248,0.18); padding: 28px 24px; max-width: 440px; width: 100%; animation: fadeIn 0.4s ease; }
+.oq-card { background: var(--white); border-radius: 24px; box-shadow: 0 4px 24px rgba(91,192,248,0.18); padding: 28px 24px; max-width: 440px; width: 100%; animation: fadeIn 0.4s ease; }
 .oq-step-indicator { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; }
-.oq-step-dot { width: 10px; height: 10px; border-radius: 50%; background: #ddd; transition: background 0.2s; }
+.oq-step-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--gray2); transition: background 0.2s; }
 .oq-step-dot.active { background: var(--clari-blue); }
 .oq-step-dot.done   { background: var(--green); }
 .oq-question { font-size: 18px; font-weight: 800; color: var(--text); text-align: center; margin-bottom: 20px; line-height: 1.4; }
 .oq-options { display: flex; flex-direction: column; gap: 10px; }
-.oq-option-btn { width: 100%; background: #f5f5f5; border: 2px solid var(--gray2); border-radius: 16px; padding: 14px 18px; font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); cursor: pointer; text-align: left; transition: background 0.15s, border-color 0.15s, transform 0.1s; min-height: 52px; display: flex; align-items: center; gap: 10px; }
+.oq-option-btn { width: 100%; background: var(--gray1); border: 2px solid var(--gray2); border-radius: 16px; padding: 14px 18px; font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); cursor: pointer; text-align: left; transition: background 0.15s, border-color 0.15s, transform 0.1s; min-height: 52px; display: flex; align-items: center; gap: 10px; }
 .oq-option-btn:active { transform: scale(0.98); }
-.oq-option-btn.selected { background: var(--clari-blue-10); border-color: var(--clari-blue); color: #1a7ab8; }
-.oq-option-letter { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 2px solid #ddd; font-size: 14px; font-weight: 800; flex-shrink: 0; transition: background 0.15s, border-color 0.15s; }
+.oq-option-btn.selected { background: var(--clari-blue-10); border-color: var(--clari-blue); color: var(--clari-dark); }
+.oq-option-letter { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--white); border: 2px solid var(--gray2); font-size: 14px; font-weight: 800; flex-shrink: 0; transition: background 0.15s, border-color 0.15s; }
 .oq-option-btn.selected .oq-option-letter { background: var(--clari-blue); border-color: var(--clari-blue); color: #fff; }
 .oq-next-btn { width: 100%; margin-top: 20px; background: var(--clari-blue); color: #fff; border: none; border-radius: 16px; padding: 16px; font-family: 'Nunito', sans-serif; font-size: 17px; font-weight: 800; cursor: pointer; transition: background 0.15s, transform 0.1s; min-height: 52px; }
-.oq-next-btn:disabled { background: #ccc; cursor: not-allowed; }
+.oq-next-btn:disabled { background: var(--gray3); cursor: not-allowed; }
 .oq-next-btn:not(:disabled):active { transform: scale(0.98); }
 .oq-skip-link { text-align: center; margin-top: 14px; font-size: 13px; color: var(--gray3); cursor: pointer; text-decoration: underline; min-height: 44px; display: flex; align-items: center; justify-content: center; padding: 10px 16px; }
 .oq-result-icon { text-align: center; font-size: 48px; margin-bottom: 10px; }
@@ -9163,7 +9207,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 :root[data-theme="dark"] .rating-prompt { background: var(--gray1); border-color: var(--gray2); }
 :root[data-theme="dark"] .rating-prompt-label { color: var(--text); }
 :root[data-theme="dark"] .rating-btn { background: var(--gray2); box-shadow: 0 1px 4px rgba(0,0,0,.2); }
-:root[data-theme="dark"] .rating-btn.selected { border-color: var(--blue-dm,#60a5fa); background: rgba(59,130,246,.15); box-shadow: 0 0 0 3px rgba(96,165,250,.25); }
+:root[data-theme="dark"] .rating-btn.selected { border-color: var(--clari-blue); background: rgba(91,192,248,.15); box-shadow: 0 0 0 3px rgba(91,192,248,.25); }
 :root[data-theme="dark"] .rating-btn-label { color: var(--gray4); }
 :root[data-theme="dark"] .rating-prompt-thanks { color: var(--green-bright,#4ade80); }
 :root[data-theme="dark"] .lesson-badge.badge-community-hard { background: #431407; color: #fb923c; border-color: #c2410c; }
@@ -9239,6 +9283,31 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 :root[data-theme="dark"] .oq-result-desc { color: var(--gray4); }
 :root[data-theme="dark"] .oq-skip-link { color: var(--gray3); }
 
+/* ---- Dark mode: prompt grader ---- */
+:root[data-theme="dark"] .prompt-grader-card { background: var(--white); border-color: var(--gray2); }
+:root[data-theme="dark"] .pg-input { background: var(--bg); color: var(--text); border-color: var(--gray2); }
+:root[data-theme="dark"] .pg-input:focus { border-color: var(--green-bright); }
+
+/* ---- Dark mode: profile modal ---- */
+:root[data-theme="dark"] .profile-modal { background: var(--dm-card); }
+:root[data-theme="dark"] .profile-field input, :root[data-theme="dark"] .profile-field select { background: var(--bg); color: var(--text); border-color: var(--gray2); }
+:root[data-theme="dark"] .profile-field input:focus, :root[data-theme="dark"] .profile-field select:focus { border-color: var(--green-bright); }
+
+/* ---- Dark mode: practice keyboard hint ---- */
+:root[data-theme="dark"] .practice-kb-hint kbd { background: var(--gray1); border-color: var(--gray2); color: var(--text); box-shadow: 0 1px 0 var(--gray2); }
+
+/* ---- Dark mode: plan section cards ---- */
+:root[data-theme="dark"] .plan-forecast-wrap,
+:root[data-theme="dark"] .plan-qa-btn,
+:root[data-theme="dark"] .plan-month-cal,
+:root[data-theme="dark"] .plan-pace-wrap,
+:root[data-theme="dark"] .plan-week-stat,
+:root[data-theme="dark"] .plan-reviews-wrap,
+:root[data-theme="dark"] .plan-velocity-wrap { border-color: var(--gray2); }
+:root[data-theme="dark"] .plan-qa-btn:hover { background: var(--gray1); border-color: var(--clari-blue); }
+:root[data-theme="dark"] .plan-week-note { color: var(--gray4); }
+:root[data-theme="dark"] .plan-month-cell.mc-future { color: var(--gray3); }
+
 /* Lesson slide transitions */
 .slide-enter {
   animation: slideEnter 0.3s ease-out forwards;
@@ -9298,6 +9367,89 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
   from { opacity: 1; transform: translateX(-50%) scale(1); }
   to { opacity: 0; transform: translateX(-50%) translateY(-20px) scale(0.9); }
 }
+
+/* ach-overlay-01 */
+.ach-unlock-overlay{position:fixed;inset:0;z-index:10001;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;animation:achOverlayFadeIn .3s ease-out;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);cursor:pointer}
+.ach-unlock-card{background:var(--white);border-radius:24px;padding:32px 28px 24px;text-align:center;max-width:340px;width:90%;box-shadow:0 16px 48px rgba(0,0,0,.2),0 0 0 2px var(--clari-blue);position:relative;overflow:hidden;animation:achCardPop .4s cubic-bezier(.34,1.56,.64,1) .1s both}
+.ach-unlock-confetti-area{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.ach-unlock-confetti-piece{position:absolute;opacity:0;animation:achConfettiFall 1.8s ease-in forwards}
+@keyframes achConfettiFall{0%{opacity:1;transform:translateY(-30px) rotate(0) scale(.4)}15%{opacity:1;transform:translateY(20px) rotate(90deg) scale(1)}100%{opacity:0;transform:translateY(350px) rotate(540deg) scale(.2)}}
+.ach-unlock-clari{position:relative;z-index:1;display:flex;justify-content:center;margin-bottom:8px}
+.ach-unlock-clari .clari-svg{animation:clariExcited .55s ease-in-out infinite}
+.ach-unlock-badge{position:relative;z-index:1;font-size:52px;line-height:1;margin-bottom:6px;animation:achBadgePulse .6s ease-in-out .3s both}
+@keyframes achBadgePulse{0%{transform:scale(.3);opacity:0}60%{transform:scale(1.2);opacity:1}100%{transform:scale(1);opacity:1}}
+.ach-unlock-label{position:relative;z-index:1;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--clari-blue);margin-bottom:4px}
+.ach-unlock-name{position:relative;z-index:1;font-size:22px;font-weight:900;color:var(--text);margin-bottom:4px}
+.ach-unlock-desc{position:relative;z-index:1;font-size:14px;font-weight:600;color:var(--gray4);margin-bottom:16px}
+.ach-unlock-share{position:relative;z-index:1;display:inline-flex;align-items:center;gap:6px;background:var(--clari-blue);color:#fff;border:none;border-radius:12px;padding:10px 20px;font-size:14px;font-weight:800;cursor:pointer}
+.ach-unlock-share:hover{background:var(--clari-dark)}
+.ach-unlock-dismiss{position:relative;z-index:1;display:block;margin:10px auto 0;font-size:12px;font-weight:700;color:var(--gray3);background:none;border:none;cursor:pointer}
+@keyframes achOverlayFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes achCardPop{from{transform:scale(.7) translateY(30px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.ach-unlock-overlay.ach-unlock-exit{animation:achOverlayFadeOut .3s ease-in forwards}
+.ach-unlock-overlay.ach-unlock-exit .ach-unlock-card{animation:achCardShrink .3s ease-in forwards}
+@keyframes achOverlayFadeOut{from{opacity:1}to{opacity:0}}
+@keyframes achCardShrink{from{transform:scale(1);opacity:1}to{transform:scale(.8) translateY(-20px);opacity:0}}
+:root[data-theme="dark"] .ach-unlock-card{background:var(--bg-card);box-shadow:0 16px 48px rgba(0,0,0,.5),0 0 0 2px var(--clari-blue)}
+:root[data-theme="dark"] .ach-unlock-name{color:var(--text)}
+:root[data-theme="dark"] .ach-unlock-desc{color:var(--text-muted)}
+/* ach-cards-01 */
+.badge-card.earned{background:var(--white);border:2px solid var(--clari-blue);box-shadow:0 2px 12px rgba(91,192,248,.2);position:relative}
+.badge-card.earned::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--clari-blue),var(--clari-dark));border-radius:14px 14px 0 0}
+.badge-card.earned .badge-icon{font-size:44px;filter:none}
+.badge-card.earned .badge-name{color:var(--clari-dark)}
+.badge-card .badge-earned-date{font-size:9px;font-weight:700;color:var(--gray4);margin-top:2px;white-space:nowrap}
+.badge-card.earned.badge-recent{animation:badgeRecentGlow 2s ease-in-out infinite alternate}
+@keyframes badgeRecentGlow{from{box-shadow:0 2px 12px rgba(91,192,248,.2)}to{box-shadow:0 4px 20px rgba(91,192,248,.45),0 0 8px rgba(91,192,248,.2)}}
+.badge-card.locked{filter:none;opacity:.65;background:var(--gray1);border:2px dashed var(--gray2)}
+.badge-card.locked .badge-icon{font-size:36px;filter:grayscale(1) opacity(.5)}
+.badge-card.locked .badge-lock-msg{font-size:9px;font-weight:700;color:var(--gray3);margin-top:2px;line-height:1.2;display:flex;align-items:center;gap:3px}
+:root[data-theme="dark"] .badge-card.earned{background:var(--bg-card);border-color:var(--clari-blue);box-shadow:0 2px 12px rgba(91,192,248,.15)}
+:root[data-theme="dark"] .badge-card.earned::before{background:linear-gradient(90deg,var(--clari-blue),var(--blue2))}
+:root[data-theme="dark"] .badge-card.earned .badge-name{color:var(--clari-blue)}
+:root[data-theme="dark"] .badge-card.earned .badge-earned-date{color:var(--text-muted)}
+:root[data-theme="dark"] .badge-card.earned.badge-recent{animation:badgeRecentGlowDark 2s ease-in-out infinite alternate}
+@keyframes badgeRecentGlowDark{from{box-shadow:0 2px 12px rgba(91,192,248,.15)}to{box-shadow:0 4px 20px rgba(91,192,248,.35),0 0 8px rgba(91,192,248,.15)}}
+:root[data-theme="dark"] .badge-card.locked{background:var(--bg-card);border:2px dashed var(--border);opacity:.5}
+:root[data-theme="dark"] .badge-card.locked .badge-lock-msg{color:var(--text-muted)}
+/* milestone-cel-01 */
+.milestone-cel-overlay{position:fixed;inset:0;z-index:10002;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;animation:achOverlayFadeIn .3s ease-out;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);cursor:pointer}
+.milestone-cel-card{background:var(--white);border-radius:28px;padding:36px 28px 28px;text-align:center;max-width:360px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative;overflow:hidden;animation:achCardPop .4s cubic-bezier(.34,1.56,.64,1) .1s both}
+.milestone-cel-confetti-area{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.milestone-cel-confetti-piece{position:absolute;opacity:0;animation:achConfettiFall 2s ease-in forwards}
+.milestone-cel-clari{position:relative;z-index:1;display:flex;justify-content:center;margin-bottom:12px}
+.milestone-cel-clari .clari-svg{animation:clariDance .8s ease-in-out infinite}
+@keyframes clariDance{0%,100%{transform:rotate(0) scale(1)}25%{transform:rotate(-5deg) scale(1.05)}75%{transform:rotate(5deg) scale(1.05)}}
+.clari-dance{animation:clariDance .8s ease-in-out infinite}
+.milestone-cel-icon{position:relative;z-index:1;font-size:48px;line-height:1;margin-bottom:8px}
+.milestone-cel-title{position:relative;z-index:1;font-size:22px;font-weight:900;color:var(--text);margin-bottom:4px}
+.milestone-cel-sub{position:relative;z-index:1;font-size:15px;font-weight:600;color:var(--gray4);margin-bottom:16px;line-height:1.4}
+.milestone-cel-dismiss{position:relative;z-index:1;display:inline-flex;align-items:center;gap:6px;background:var(--clari-blue);color:#fff;border:none;border-radius:12px;padding:10px 24px;font-size:14px;font-weight:800;cursor:pointer}
+.milestone-cel-dismiss:hover{background:var(--clari-dark)}
+:root[data-theme="dark"] .milestone-cel-card{background:var(--bg-card);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+:root[data-theme="dark"] .milestone-cel-title{color:var(--text)}
+:root[data-theme="dark"] .milestone-cel-sub{color:var(--text-muted)}
+/* daily-goal-cel-01 */
+.daily-goal-cel-overlay{position:fixed;inset:0;z-index:10001;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;animation:achOverlayFadeIn .3s ease-out;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);cursor:pointer}
+.daily-goal-cel-card{background:var(--white);border-radius:24px;padding:32px 24px 24px;text-align:center;max-width:320px;width:88%;box-shadow:0 16px 48px rgba(0,0,0,.2);animation:achCardPop .4s cubic-bezier(.34,1.56,.64,1) .1s both;position:relative;overflow:hidden}
+.daily-goal-cel-clari{position:relative;z-index:1;display:flex;justify-content:center;margin-bottom:8px}
+.clari-sparkle{position:relative;display:inline-block}
+.clari-sparkle::before,.clari-sparkle::after{content:'';position:absolute;width:8px;height:8px;background:var(--yellow);border-radius:50%;animation:clariSparkleAnim 1.2s ease-in-out infinite}
+.clari-sparkle::before{top:5px;right:-4px}
+.clari-sparkle::after{bottom:10px;left:-4px;animation-delay:.4s}
+@keyframes clariSparkleAnim{0%,100%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1)}}
+.clari-sparkle-star1,.clari-sparkle-star2,.clari-sparkle-star3{position:absolute;font-size:14px;animation:clariSparkleFloat 1.4s ease-in-out infinite;pointer-events:none}
+.clari-sparkle-star1{top:0;right:-8px}
+.clari-sparkle-star2{top:-6px;left:8px;animation-delay:.3s}
+.clari-sparkle-star3{bottom:4px;right:4px;animation-delay:.7s}
+@keyframes clariSparkleFloat{0%,100%{opacity:0;transform:translateY(0) scale(.5)}50%{opacity:1;transform:translateY(-8px) scale(1.1)}}
+.daily-goal-cel-title{position:relative;z-index:1;font-size:20px;font-weight:900;color:var(--text);margin-bottom:4px}
+.daily-goal-cel-sub{position:relative;z-index:1;font-size:14px;font-weight:600;color:var(--gray4);margin-bottom:16px}
+.daily-goal-cel-dismiss{position:relative;z-index:1;background:var(--green);color:#fff;border:none;border-radius:12px;padding:10px 24px;font-size:14px;font-weight:800;cursor:pointer}
+.daily-goal-cel-dismiss:hover{background:var(--green2)}
+:root[data-theme="dark"] .daily-goal-cel-card{background:var(--bg-card);box-shadow:0 16px 48px rgba(0,0,0,.5)}
+:root[data-theme="dark"] .daily-goal-cel-title{color:var(--text)}
+:root[data-theme="dark"] .daily-goal-cel-sub{color:var(--text-muted)}
 
 /* Lesson time estimate badge */
 .lesson-time-est { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; color: var(--gray4); margin-left: 4px; }
@@ -11166,6 +11318,212 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 :root[data-theme="dark"] .path-node.future { border-color: var(--gray3); }
 :root[data-theme="dark"] .lp-connector-line { stroke: var(--gray2); }
 :root[data-theme="dark"] .lp-node-bar { background: var(--gray2); }
+
+/* ============================================================
+   CLARI BRANDED LOADING / ERROR / EMPTY STATES
+   ============================================================ */
+
+/* --- Clari Loading State --- */
+.clari-loading {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 10px; padding: 24px 16px;
+  text-align: center;
+}
+.clari-loading-mascot {
+  animation: clariLoadingPulse 1.8s ease-in-out infinite;
+}
+@keyframes clariLoadingPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.06); opacity: 0.82; }
+}
+.clari-loading-text {
+  font-size: 14px; font-weight: 700; color: var(--gray4);
+  display: flex; align-items: center; gap: 2px;
+}
+.clari-loading-dots {
+  display: inline-flex; gap: 3px; margin-left: 2px;
+}
+.clari-loading-dots span {
+  display: inline-block; width: 5px; height: 5px;
+  border-radius: 50%; background: var(--clari-blue);
+  animation: clariDotBounce 1.2s ease-in-out infinite;
+}
+.clari-loading-dots span:nth-child(2) { animation-delay: 0.15s; }
+.clari-loading-dots span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes clariDotBounce {
+  0%, 80%, 100% { opacity: 0.3; transform: translateY(0); }
+  40% { opacity: 1; transform: translateY(-4px); }
+}
+
+/* --- Clari Error State --- */
+.clari-error {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 12px; padding: 32px 20px; text-align: center;
+}
+.clari-error-heading {
+  font-size: 16px; font-weight: 800; color: var(--text);
+}
+.clari-error-sub {
+  font-size: 14px; font-weight: 600; color: var(--gray4);
+  line-height: 1.5; max-width: 280px;
+}
+/* .btn-clari — defined earlier in the design system (line ~1452) */
+
+/* --- Clari Empty State (generic) --- */
+.clari-empty {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 10px; padding: 28px 20px; text-align: center;
+}
+.clari-empty-heading {
+  font-size: 15px; font-weight: 800; color: var(--text);
+}
+.clari-empty-sub {
+  font-size: 13px; font-weight: 600; color: var(--gray4);
+  line-height: 1.5; max-width: 260px;
+}
+
+/* --- Clari 404 / Missing Content --- */
+.clari-404 {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 14px; padding: 40px 20px; text-align: center;
+}
+.clari-404-heading {
+  font-size: 17px; font-weight: 900; color: var(--text);
+}
+.clari-404-sub {
+  font-size: 14px; font-weight: 600; color: var(--gray4);
+  line-height: 1.5;
+}
+
+/* --- Clari Welcome Overlay --- */
+#clari-welcome-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 99998; display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.35);
+  animation: clariWelcomeFadeIn 0.3s ease;
+  pointer-events: all;
+}
+#clari-welcome-overlay.clari-welcome-out {
+  animation: clariWelcomeFadeOut 0.4s ease forwards;
+  pointer-events: none;
+}
+@keyframes clariWelcomeFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes clariWelcomeFadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+.clari-welcome-card {
+  background: var(--white); border-radius: 24px;
+  padding: 32px 28px; text-align: center;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+  max-width: 320px; width: 90%;
+  animation: clariWelcomeSlideUp 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes clariWelcomeSlideUp {
+  from { transform: translateY(30px) scale(0.95); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+.clari-welcome-card h2 {
+  font-size: 20px; font-weight: 900; color: var(--text);
+  margin: 14px 0 6px;
+}
+.clari-welcome-card p {
+  font-size: 14px; font-weight: 600; color: var(--gray4);
+  line-height: 1.5; margin: 0;
+}
+
+/* Dark mode overrides for branded states */
+:root[data-theme="dark"] .clari-error-heading,
+:root[data-theme="dark"] .clari-empty-heading,
+:root[data-theme="dark"] .clari-404-heading,
+:root[data-theme="dark"] .clari-welcome-card h2 { color: var(--text); }
+:root[data-theme="dark"] .clari-welcome-card { background: var(--dm-card); }
+
+/* ============================================================
+   CLARI ENCOURAGEMENT CARD -- Learn tab banner
+   ============================================================ */
+.clari-encouragement-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 12px 10px;
+  padding: 10px 14px;
+  background: var(--clari-blue-10);
+  border: 1.5px solid var(--blue-20);
+  border-radius: 14px;
+  animation: clariEncourageFadeIn 0.4s ease-out;
+}
+.clari-encouragement-card .clari-enc-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+.clari-encouragement-card .clari-enc-msg {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+}
+@keyframes clariEncourageFadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+:root[data-theme="dark"] .clari-encouragement-card {
+  background: var(--dm-blue-bg);
+  border-color: var(--blue-20);
+}
+
+/* ============================================================
+   CLARI PRACTICE TIP CARD -- shown before practice starts
+   ============================================================ */
+.clari-practice-tip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0 16px;
+  padding: 11px 14px;
+  background: var(--green-5);
+  border: 1.5px solid var(--green-20);
+  border-radius: 14px;
+  animation: clariEncourageFadeIn 0.35s ease-out;
+}
+.clari-practice-tip .clari-pt-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+.clari-practice-tip .clari-pt-msg {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+}
+:root[data-theme="dark"] .clari-practice-tip {
+  background: var(--dm-green-bg);
+  border-color: var(--green-20);
+}
+
+/* ============================================================
+   CLARI REACTION TOAST -- slightly larger for celebration moments
+   ============================================================ */
+.clari-reaction-toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.clari-reaction-toast .crt-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+.clari-reaction-toast .crt-msg {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+}
 </style>
 
 <script>
@@ -11204,7 +11562,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
       <span id="tb-brand-icon"></span>
       <span class="tb-brand-text">Clari</span>
     </div>
-    <div class="tb-streak" aria-label="Day Streak — how many days in a row you have done a lesson" title="Your day streak! This counts how many days in a row you've done at least one lesson. Miss a day and it resets to zero — try to keep it going!">
+    <div class="tb-streak" aria-label="Day Streak — how many days in a row you have done a lesson" title="Your learning streak! Come back tomorrow to keep it going. This counts how many days in a row you\'ve done at least one lesson. Miss a day and it resets to zero!">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="#ff9600"><path d="M13.5 0.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5 0.67z"/></svg>
       <span id="tb-streak-num">0</span>
     </div>
@@ -11212,9 +11570,9 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
       <span class="tb-review-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></span>
       <span id="tb-review-badge-text">0 due</span>
     </div>
-    <div class="tb-hearts" id="tb-hearts" aria-label="Your lives — answer correctly to keep them" title="These are your lives. If you get too many answers wrong, you lose one. They refill automatically after a short wait, or you can refill them with Gems from the shop."></div>
-    <div class="tb-gems" id="tb-gems" onclick="openGemShop()" aria-label="Gems - open shop" title="Gems are rewards you earn by completing lessons. Spend them in the Gem Shop for bonuses like extra lives or a Day Off Pass!" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}"></div>
-    <div class="tb-xp" id="tb-xp-ring" aria-label="Your level — goes up as you earn Learning Points" title="This is your level. Every lesson earns you Learning Points (XP). Collect enough to level up!"></div>
+    <div class="tb-hearts" id="tb-hearts" aria-label="Your lives — answer correctly to keep them" title="These are your lives! Answer carefully to keep them safe. They refill automatically after a short wait, or you can spend gems in the shop to refill them."></div>
+    <div class="tb-gems" id="tb-gems" onclick="openGemShop()" aria-label="Gems - open shop" title="Your gem collection! You earn these by completing lessons. Spend them wisely in the shop for bonuses like extra lives or a Day Off Pass!" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}"></div>
+    <div class="tb-xp" id="tb-xp-ring" aria-label="Your level — goes up as you earn Learning Points" title="Learning Points — collect these to level up! Every lesson earns you XP. The more you learn, the higher you climb!"></div>
     <span id="tb-course-pct" class="tb-course-pct" aria-label="Course completion percentage"></span>
     <div id="tb-xp-bar-wrap" aria-hidden="true"><div id="tb-xp-bar-fill"></div></div>
     <span id="tb-lesson-streak" aria-label="Lessons completed this session"></span>
@@ -11402,6 +11760,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
         </div>
       </div>
       <div id="daily-tips-carousel-wrap"></div>
+      <div id="clari-encouragement-wrap"></div>
       <div id="weekly-challenge-banner" style="margin:0 12px 8px;"></div>
       <div id="units-container"></div>
       <div id="lp-tooltip"><div class="lp-tip-title" id="lp-tip-title"></div><div class="lp-tip-body" id="lp-tip-body"></div><div class="lp-tip-hint">Tap to open lesson</div></div>
@@ -11903,7 +12262,7 @@ function openBadgeDetail(name,icon,desc,progress,status){var m=document.getEleme
 window.onerror = function(msg, src, line, col, err) {
   console.error('ClariAI error:', msg, src, line);
   if (typeof showToast === 'function') {
-    showToast('Something went wrong. Your progress is safe.', 'error', 3000);
+    showToast('Oops! Something didn\'t work right. Your progress is safe.', 'error', 3000);
   }
   return true;
 };
@@ -11921,6 +12280,39 @@ function debounce(fn, delay, key) {
     clearTimeout(_debounceTimers[key]);
     _debounceTimers[key] = setTimeout(function() { fn.apply(ctx, args); }, delay);
   };
+}
+
+// ============================================================
+// CLARI BRANDED STATE HELPERS
+// ============================================================
+function clariLoadingHTML(msg, size) {
+  msg = msg || 'Clari is thinking';
+  size = size || 48;
+  return '<div class="clari-loading">'
+    + '<div class="clari-loading-mascot">' + clariSVGCached('thinking', size) + '</div>'
+    + '<div class="clari-loading-text">' + msg
+    + '<span class="clari-loading-dots"><span></span><span></span><span></span></span></div>'
+    + '</div>';
+}
+function clariErrorHTML(heading, sub, retryAction) {
+  heading = heading || 'Oops! Something didn\'t work right.';
+  sub = sub || 'Your progress is safe. Try again in a moment.';
+  var retryBtn = retryAction ? '<button class="btn-clari" onclick="' + retryAction + '">Try Again</button>' : '';
+  return '<div class="clari-error">' + clariSVGCached('sad', 56)
+    + '<div class="clari-error-heading">' + heading + '</div>'
+    + '<div class="clari-error-sub">' + sub + '</div>' + retryBtn + '</div>';
+}
+function clariEmptyHTML(emotion, heading, sub, size) {
+  size = size || 56;
+  return '<div class="clari-empty">' + clariSVGCached(emotion || 'default', size)
+    + '<div class="clari-empty-heading">' + (heading || '') + '</div>'
+    + (sub ? '<div class="clari-empty-sub">' + sub + '</div>' : '') + '</div>';
+}
+function clari404HTML() {
+  return '<div class="clari-404">' + clariSVGCached('confused', 64)
+    + '<div class="clari-404-heading">This lesson seems to have wandered off...</div>'
+    + '<div class="clari-404-sub">We couldn\'t find what you\'re looking for. Let\'s head back to the Learn tab.</div>'
+    + '<button class="btn-clari" onclick="switchTab(\'learn\')">Back to Learn</button></div>';
 }
 
 // ============================================================
@@ -26730,6 +27122,7 @@ function loadState() {
     xp_log: [],
     track_collapsed: {},
     last_welcome_date: '',
+    clari_perfect_streak: 0,
     avatar_custom: null,
     lesson_log: {},
     activity_log: {},
@@ -26809,7 +27202,7 @@ function save(key, val) {
   } catch(e) {
     console.warn('localStorage write failed:', key, e.message);
     if (typeof showToast === 'function') {
-      showToast('Storage is full — some data may not save.', 'warning', 4000);
+      showToast('Hmm, storage is getting full. Some data may not save.', 'warning', 4000);
     }
   }
 }
@@ -27578,6 +27971,59 @@ const RETURNING_MSGS = [
   "Back again! This is becoming a thing. I like it.",
   "Hi! Fun fact: most AI can't taste food. Anyway, welcome back."
 ];
+
+// ============================================================
+// CLARI ENCOURAGEMENTS — rotating messages for Learn tab
+// ============================================================
+const CLARI_ENCOURAGEMENTS = [
+  "You're building something amazing, one lesson at a time!",
+  "Every expert was once a beginner. Keep going!",
+  "I believe in you! Let's learn together.",
+  "Small steps lead to big breakthroughs.",
+  "Learning AI is a superpower. And you're getting it!",
+  "The more you learn, the more the world opens up.",
+  "Curiosity is your greatest strength. Never lose it.",
+  "You're not just learning facts — you're changing how you think.",
+  "Consistency beats perfection. Just keep showing up.",
+  "Each lesson plants a seed. Give it time to grow.",
+  "The best learners aren't the fastest — they're the most persistent.",
+  "You're further along than you were yesterday. That matters.",
+  "Fun fact: I'm genuinely proud of you. And I'm a robot.",
+  "Every question you ask makes you smarter. Keep asking!",
+  "AI can be tricky, but you're trickier. Let's go!",
+  "Learning something new takes courage. You've got plenty.",
+  "Remember: understanding beats memorizing, every time.",
+  "Your brain is literally rewiring itself right now. How cool is that?",
+  "One more lesson, one more step forward. You've got this.",
+  "The hardest part is starting. And you already did that!"
+];
+
+// Context-aware Clari encouragements based on user stats
+function getClariEncouragement() {
+  var streak = S.streak || 0;
+  var level = xpToLevel(S.xp || 0);
+  var completed = (S.completed || []).length;
+
+  // Context-aware messages take priority (33% chance if applicable)
+  var contextMsgs = [];
+  if (streak > 7)    contextMsgs.push("Wow, " + streak + " days! You're unstoppable!");
+  if (streak > 30)   contextMsgs.push(streak + "-day streak! That's real dedication.");
+  if (level > 10)    contextMsgs.push("Level " + level + "! You've come so far!");
+  if (level > 20)    contextMsgs.push("Level " + level + " — you're basically an AI expert now.");
+  if (completed > 50) contextMsgs.push("Over 50 lessons done — you're an AI pro!");
+  if (completed > 20 && completed <= 50) contextMsgs.push(completed + " lessons completed. You're really building momentum!");
+  if (completed > 100) contextMsgs.push(completed + " lessons! You've put in some serious work.");
+
+  if (contextMsgs.length > 0 && Math.random() < 0.33) {
+    return contextMsgs[Math.floor(Math.random() * contextMsgs.length)];
+  }
+
+  // Daily rotation from the main pool
+  var dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
+  return CLARI_ENCOURAGEMENTS[dayOfYear % CLARI_ENCOURAGEMENTS.length];
+}
+
+var _clariEncouragementShown = false;
 
 let _usedCorrect = [], _usedWrong = [];
 
@@ -29719,6 +30165,31 @@ function finishOnboarding() {
   document.getElementById('nav-learn').classList.add('active');
   currentTab = 'learn';
   renderLearnTab();
+
+  // Show first-time welcome overlay (only once, after onboarding)
+  if (!S.clari_welcomed) {
+    save('clari_welcomed', true);
+    setTimeout(showClariWelcome, 600);
+  }
+}
+
+function showClariWelcome() {
+  var overlay = document.createElement('div');
+  overlay.id = 'clari-welcome-overlay';
+  overlay.innerHTML = '<div class="clari-welcome-card">'
+    + clariSVGCached('waving', 72)
+    + '<h2>Welcome to ClariAI!</h2>'
+    + '<p>I\'ll be your guide. Let\'s learn something amazing together.</p>'
+    + '</div>';
+  overlay.addEventListener('click', function() { dismissClariWelcome(overlay); });
+  document.body.appendChild(overlay);
+  setTimeout(function() { dismissClariWelcome(overlay); }, 2500);
+}
+
+function dismissClariWelcome(overlay) {
+  if (!overlay || overlay.classList.contains('clari-welcome-out')) return;
+  overlay.classList.add('clari-welcome-out');
+  setTimeout(function() { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 500);
 }
 
 // ============================================================
@@ -29838,6 +30309,19 @@ function renderLearnTab() {
     'Pick up where you left off — no rush.'
   ];
   document.getElementById('learn-sub').textContent = subs[new Date().getDay() % subs.length];
+
+  // Clari encouragement card -- one per session, rotates daily
+  if (!_clariEncouragementShown) {
+    _clariEncouragementShown = true;
+    var _encWrap = document.getElementById('clari-encouragement-wrap');
+    if (_encWrap) {
+      var _encMsg = getClariEncouragement();
+      _encWrap.innerHTML = '<div class="clari-encouragement-card">'
+        + '<span class="clari-enc-icon">' + clariMini('happy') + '</span>'
+        + '<span class="clari-enc-msg">' + _encMsg + '</span>'
+        + '</div>';
+    }
+  }
 
   // Daily goal
   const today = todayStr();
@@ -30395,11 +30879,11 @@ ${_playHint}<button class="lesson-bookmark-btn ${(S.bookmarks||[]).includes(less
   // learn-13: empty state with Clari mascot when search/filter returns zero lessons
   if (activeSearch && totalMatches === 0) {
     html += '<div class="learn-empty-state">'
-      + '<div class="les-mascot">' + clariSVGCached('happy', 60) + '</div>'
-      + '<div class="les-heading">No lessons found</div>'
-      + '<div class="les-sub">Try a different word or clear the filters.</div>'
+      + '<div class="les-mascot">' + clariSVGCached('thinking', 60) + '</div>'
+      + '<div class="les-heading">Hmm, I couldn\'t find that.</div>'
+      + '<div class="les-sub">Try different keywords or clear the filters?</div>'
       + '<button class="les-clear-btn" onclick="clearLearnSearch()">'
-      + 'Try clearing filters'
+      + 'Clear filters'
       + '</button>'
       + '</div>';
   }
@@ -30415,7 +30899,7 @@ ${_playHint}<button class="lesson-bookmark-btn ${(S.bookmarks||[]).includes(less
     for (var _li = _INIT; _li < _allU.length; _li++) { _allU[_li].style.display = 'none'; _hidden.push(_allU[_li]); }
     var _sent = document.createElement('div');
     _sent.className = 'lazy-load-sentinel';
-    _sent.innerHTML = '<div style="text-align:center;padding:16px;color:var(--gray3);font-size:13px;font-weight:600;">Loading more...</div>';
+    _sent.innerHTML = clariLoadingHTML('Loading more lessons');
     document.getElementById('units-container').appendChild(_sent);
     if ('IntersectionObserver' in window) {
       var _obs = new IntersectionObserver(function(e) {
@@ -30678,7 +31162,10 @@ function getRelatedLessons(lesson, unit, maxCount) {
 function openLessonPreview(id, event) {
   if (event) event.stopPropagation();
   var lesson = findLesson(id);
-  if (!lesson) return;
+  if (!lesson) {
+    showToast('Hmm, that lesson seems to have wandered off.', 'error', 3000);
+    return;
+  }
   if (!lesson.free && !S.premium) { openPremiumModal(); return; }
   // Find unit
   var unit = null;
@@ -40565,7 +41052,10 @@ function getSessionSlides() {
 
 function startLesson(id) {
   const lesson = findLesson(id);
-  if (!lesson) return;
+  if (!lesson) {
+    showToast('Oops! That lesson seems to have wandered off.', 'error', 3000);
+    return;
+  }
   if (!lesson.free && !S.premium) { openPremiumModal(); return; }
 
   // Block lesson start if hearts are depleted (check auto-refill first)
@@ -42353,7 +42843,13 @@ function renderLessonComplete() {
   // Daily goal
   const today = todayStr();
   if (S.goal_date !== today) save('goal_date', today), save('goal_today', 0);
-  save('goal_today', (S.goal_today || 0) + 1);
+  var _prevGoalCount = S.goal_today || 0;
+  save('goal_today', _prevGoalCount + 1);
+  // daily-goal-cel-01: check if daily goal just met
+  var _dailyTarget = S.daily_goal || 1;
+  if (_prevGoalCount < _dailyTarget && (_prevGoalCount + 1) >= _dailyTarget) {
+    setTimeout(function() { showDailyGoalCelebration(); }, 1200);
+  }
 
   // Streak
   updateStreak();
@@ -42404,6 +42900,17 @@ function renderLessonComplete() {
   }
   if (S.completed.length === 5) setTimeout(() => showClariTip('five_lessons_done'), 1200);
   if (lessonState.wrongThisLesson === 0) setTimeout(() => showClariTip('perfect_lesson'), 1200);
+  // Clari reaction: track consecutive perfect lessons
+  if (lessonState.wrongThisLesson === 0) {
+    save('clari_perfect_streak', (S.clari_perfect_streak || 0) + 1);
+    if (S.clari_perfect_streak === 3) {
+      setTimeout(function() {
+        showToast('<div class="clari-reaction-toast"><span class="crt-icon">' + clariMini('happy') + '</span><span class="crt-msg">Three perfects in a row! You are on fire!</span></div>', 'success', 3500);
+      }, 2000);
+    }
+  } else {
+    save('clari_perfect_streak', 0);
+  }
   const _cuTips = COURSE.find(u => u.lessons.some(l => l.id === lessonState.lessonId));
   if (_cuTips && !(_cuTips && _cuTips.lessons.every(l => S.completed.includes(l.id)))) {
     const _remaining = _cuTips.lessons.filter(l => !S.completed.includes(l.id)).length;
@@ -43218,7 +43725,17 @@ function addXP(amount) {
 }
 
 function addGems(amount) {
-  save('gems', (S.gems || 0) + amount);
+  var _oldGems = S.gems || 0;
+  var _newGems = _oldGems + amount;
+  save('gems', _newGems);
+  // Clari gem milestone reaction — every 100 gems
+  var _oldHundred = Math.floor(_oldGems / 100);
+  var _newHundred = Math.floor(_newGems / 100);
+  if (_newHundred > _oldHundred && _newGems >= 100) {
+    setTimeout(function() {
+      showToast('<div class="clari-reaction-toast"><span class="crt-icon">' + clariMini('happy') + '</span><span class="crt-msg">You\u2019ve saved ' + _newGems + ' gems! Nice!</span></div>', 'info', 3000);
+    }, 1500);
+  }
 }
 
 // ============================================================
@@ -43418,7 +43935,7 @@ function checkHeartsAutoRefill() {
   if (S.hearts_depleted_at && S.hearts_depleted_at > 0 && S.hearts <= 0) { if (Date.now() - S.hearts_depleted_at >= 30*60*1000) _autoRefillHearts(); }
 }
 function refillHeartsWithGems() {
-  if ((S.gems||0) < 30) { showToast('Not enough gems!', 'error', 3000); return; }
+  if ((S.gems||0) < 30) { showToast('Not enough gems! Earn more by completing lessons.', 'error', 3000); return; }
   save('gems', S.gems - 30); save('hearts', 5); save('hearts_depleted_at', 0);
   if (typeof lessonState !== 'undefined' && lessonState.lessonId) { lessonState.hearts = 5; var el = document.getElementById('lesson-hearts'); if (el) el.innerHTML = renderHearts(5, 5); }
   updateTopBar(); if (_heartsDepletedTimerInterval) { clearInterval(_heartsDepletedTimerInterval); _heartsDepletedTimerInterval = null; }
@@ -43647,16 +44164,86 @@ function checkAchievements() {
   if (newOnes.length > 0) {
     const allEarned = [...earned, ...newOnes];
     save('achievements', allEarned);
-    // Show toast (playAchievement is called inside showAchievementToast)
-    newOnes.forEach((id, i) => setTimeout(() => showAchievementToast(id), i * 2800));
+    // ach-overlay-01: track earned dates
+    var achDates = Object.assign({}, S.achievement_dates || {});
+    var _todayAch = todayStr();
+    newOnes.forEach(function(id) { if (!achDates[id]) achDates[id] = _todayAch; });
+    save('achievement_dates', achDates);
+    // Show overlay (with longer delay between multiple)
+    newOnes.forEach((id, i) => setTimeout(() => showAchievementToast(id), i * 4500));
   }
 }
 
 function showAchievementToast(achId) {
-  const ach = ACHIEVEMENTS.find(a => a.id === achId);
+  var ach = ACHIEVEMENTS.find(function(a) { return a.id === achId; });
   if (!ach) return;
   SoundManager.playAchievement();
-  showToast('Achievement: ' + ach.label, 'success', 2500);
+  // ach-overlay-01: full-screen achievement unlock overlay
+  var existing = document.getElementById('ach-unlock-overlay');
+  if (existing) existing.remove();
+  var emoji = (ACH_ICON_EMOJI || {})[ach.icon] || '\uD83C\uDFC5';
+  var ov = document.createElement('div');
+  ov.id = 'ach-unlock-overlay';
+  ov.className = 'ach-unlock-overlay';
+  ov.setAttribute('role', 'dialog');
+  ov.setAttribute('aria-label', 'Achievement Unlocked');
+  ov.innerHTML = '<div class="ach-unlock-card">' +
+    '<div class="ach-unlock-confetti-area" id="ach-unlock-confetti"></div>' +
+    '<div class="ach-unlock-clari">' + clariSVGCached('star', 80) + '</div>' +
+    '<div class="ach-unlock-badge">' + emoji + '</div>' +
+    '<div class="ach-unlock-label">Achievement Unlocked</div>' +
+    '<div class="ach-unlock-name">' + ach.label + '</div>' +
+    '<div class="ach-unlock-desc">' + ach.desc + '</div>' +
+    '<button class="ach-unlock-share" onclick="shareAchievement(\'' + ach.label.replace(/'/g, "\\'") + '\',\'' + ach.desc.replace(/'/g, "\\'") + '\')">Share</button>' +
+    '<button class="ach-unlock-dismiss" onclick="dismissAchUnlock()">Tap to close</button>' +
+    '</div>';
+  document.body.appendChild(ov);
+  // Confetti burst
+  _fireAchConfetti();
+  // Auto-dismiss after 4s
+  ov._timer = setTimeout(function() { dismissAchUnlock(); }, 4000);
+  // Click overlay to dismiss
+  ov.addEventListener('click', function(e) { if (e.target === ov) dismissAchUnlock(); });
+}
+
+function _fireAchConfetti() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var area = document.getElementById('ach-unlock-confetti');
+  if (!area) return;
+  var colors = ['var(--yellow)', 'var(--clari-blue)', 'var(--coral)', 'var(--purple)', 'var(--green)'];
+  for (var i = 0; i < 20; i++) {
+    var p = document.createElement('div');
+    p.className = 'ach-unlock-confetti-piece';
+    var s = 5 + Math.random() * 8;
+    p.style.width = s + 'px';
+    p.style.height = s + 'px';
+    p.style.left = (5 + Math.random() * 90) + '%';
+    p.style.top = (-5 + Math.random() * 10) + '%';
+    p.style.background = colors[Math.floor(Math.random() * colors.length)];
+    p.style.borderRadius = Math.random() > 0.5 ? '50%' : '3px';
+    p.style.animationDelay = (Math.random() * 0.6) + 's';
+    p.style.animationDuration = (1.2 + Math.random() * 0.8) + 's';
+    area.appendChild(p);
+  }
+}
+
+function dismissAchUnlock() {
+  var ov = document.getElementById('ach-unlock-overlay');
+  if (!ov) return;
+  if (ov._timer) clearTimeout(ov._timer);
+  ov.classList.add('ach-unlock-exit');
+  setTimeout(function() { if (ov.parentNode) ov.remove(); }, 350);
+}
+
+function shareAchievement(label, desc) {
+  var text = 'I just unlocked "' + label + '" on ClariAI! ' + desc;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() {
+      showToast('Achievement copied to clipboard!', 'success', 2000);
+    }).catch(function() { showToast('Could not copy', 'error', 2000); });
+  } else {
+    showToast(text, 'success', 3000);
+  }
 }
 
 // ============================================================
@@ -43670,26 +44257,40 @@ const ACH_ICON_EMOJI = {
 };
 
 function renderAchievementGrid() {
-  const container = document.getElementById('badges-grid-container');
+  var container = document.getElementById('badges-grid-container');
   if (!container) return;
-  const earned = new Set(S.achievements || []);
+  var earned = new Set(S.achievements || []);
+  var achDates = S.achievement_dates || {};
+  var now = Date.now();
+  var _3days = 3 * 24 * 60 * 60 * 1000;
 
   var html = '<div class="badges-grid">';
   ACHIEVEMENTS.forEach(function(ach) {
     var isEarned = earned.has(ach.id);
     var emoji = ACH_ICON_EMOJI[ach.icon] || '\uD83C\uDFC5';
-    html += '<div class="badge-card ' + (isEarned ? 'earned' : 'locked') + '"' +
+    var earnedDate = achDates[ach.id] || '';
+    var isRecent = false;
+    if (isEarned && earnedDate) {
+      try { isRecent = (now - new Date(earnedDate).getTime()) < _3days; } catch(e) {}
+    }
+    var cls = 'badge-card ' + (isEarned ? 'earned' : 'locked') + (isRecent ? ' badge-recent' : '');
+    html += '<div class="' + cls + '"' +
       ' onclick="openBadgeDetail(' +
         "'" + ach.label.replace(/'/g, "\\'") + "'," +
         "'" + emoji + "'," +
         "'" + ach.desc.replace(/'/g, "\\'") + "'," +
         'null,' +
-        (isEarned ? "'Earned!'" : "null") +
+        (isEarned ? "'" + (earnedDate ? 'Earned ' + earnedDate : 'Earned!') + "'" : "null") +
       ')">' +
       '<span class="badge-icon">' + emoji + '</span>' +
-      '<span class="badge-name">' + ach.label + '</span>' +
-      (isEarned ? '' : '<span class="badge-lock-overlay">\uD83D\uDD12</span>') +
-    '</div>';
+      '<span class="badge-name">' + ach.label + '</span>';
+    if (isEarned && earnedDate) {
+      html += '<span class="badge-earned-date">' + earnedDate + '</span>';
+    } else if (!isEarned) {
+      html += '<span class="badge-lock-overlay">\uD83D\uDD12</span>' +
+        '<span class="badge-lock-msg">' + clariSVGCached('think', 14) + ' Keep going!</span>';
+    }
+    html += '</div>';
   });
   html += '</div>';
   container.innerHTML = html;
@@ -43699,15 +44300,126 @@ function renderAchievementGrid() {
 // MILESTONE CELEBRATIONS
 // ============================================================
 const MILESTONES=[{key:'first_lesson',check:function(){return(S.completed||[]).length>=1},title:'First Lesson!',sub:'You started your AI learning journey!',icon:'\uD83C\uDFAF'},{key:'five_lessons',check:function(){return(S.completed||[]).length>=5},title:'5 Lessons Done!',sub:"You're building real AI knowledge!",icon:'\u2B50'},{key:'ten_lessons',check:function(){return(S.completed||[]).length>=10},title:'10 Lessons!',sub:"Double digits \u2014 you're on fire!",icon:'\uD83D\uDD25'},{key:'first_unit',check:function(){return COURSE.some(function(u){return u.lessons.length>0&&u.lessons.every(function(l){return(S.completed||[]).includes(l.id)})})},title:'Unit Complete!',sub:'You finished an entire unit \u2014 huge milestone!',icon:'\uD83C\uDF93'},{key:'streak_3',check:function(){return(S.streak||0)>=3},title:'3-Day Streak!',sub:'Three days of learning \u2014 keep going!',icon:'\uD83D\uDD25'},{key:'streak_7',check:function(){return(S.streak||0)>=7},title:'Week Streak!',sub:'A full week of daily learning!',icon:'\uD83C\uDFC6'},{key:'streak_14',check:function(){return(S.streak||0)>=14},title:'2-Week Streak!',sub:'Two weeks strong \u2014 amazing dedication!',icon:'\uD83D\uDCAA'},{key:'streak_30',check:function(){return(S.streak||0)>=30},title:'Month Streak!',sub:"30 days! You're an AI learning champion!",icon:'\uD83D\uDC51'},{key:'xp_100',check:function(){return(S.xp||0)>=100},title:'100 XP!',sub:'Your first hundred experience points!',icon:'\uD83D\uDCAF'},{key:'xp_500',check:function(){return(S.xp||0)>=500},title:'500 XP!',sub:'Half a thousand XP \u2014 incredible!',icon:'\uD83D\uDE80'}];
-function checkMilestones(){var achieved=S.milestones_achieved||[];for(var i=0;i<MILESTONES.length;i++){var m=MILESTONES[i];if(!achieved.includes(m.key)&&m.check()){achieved.push(m.key);save('milestones_achieved',achieved);(function(ms){setTimeout(function(){showMilestoneToast(ms)},600)})(m);return}}}
-function showMilestoneToast(ms){var e=document.getElementById('milestone-toast');if(e)e.remove();var t=document.createElement('div');t.id='milestone-toast';t.className='milestone-toast';t.innerHTML='<div class="milestone-toast-inner"><div class="milestone-toast-icon">'+ms.icon+'</div><div class="milestone-toast-body"><div class="milestone-toast-title">'+ms.title+'</div><div class="milestone-toast-sub">'+ms.sub+'</div></div></div>';document.body.appendChild(t);if(typeof fireLearnTabConfetti==='function')fireLearnTabConfetti();setTimeout(function(){t.classList.add('milestone-toast-exit');setTimeout(function(){t.remove()},400)},4000)}
+function checkMilestones(){var achieved=S.milestones_achieved||[];for(var i=0;i<MILESTONES.length;i++){var m=MILESTONES[i];if(!achieved.includes(m.key)&&m.check()){achieved.push(m.key);save('milestones_achieved',achieved);(function(ms){setTimeout(function(){showMilestoneToast(ms)},600)})(m);return}}
+// milestone-cel-01: dynamic check for every 10 lessons (20,30,40,...)
+var _lc=(S.completed||[]).length;if(_lc>0&&_lc%10===0&&_lc>=20){var _dk='lessons_'+_lc+'_cel';if(!achieved.includes(_dk)){achieved.push(_dk);save('milestones_achieved',achieved);setTimeout(function(){showMilestoneCelebration({key:_dk,title:_lc+' Lessons!',sub:"You've completed "+_lc+" lessons! Clari is so proud of you!",icon:'\uD83C\uDF89'})},800)}}}
+function showMilestoneToast(ms){var e=document.getElementById('milestone-toast');if(e)e.remove();var isMajor=ms.key==='ten_lessons'||ms.key==='first_unit'||ms.key==='streak_7'||ms.key==='streak_14'||ms.key==='streak_30'||ms.key==='xp_500';if(isMajor){showMilestoneCelebration(ms);return}var t=document.createElement('div');t.id='milestone-toast';t.className='milestone-toast';t.innerHTML='<div class="milestone-toast-inner"><div class="milestone-toast-icon">'+ms.icon+'</div><div class="milestone-toast-body"><div class="milestone-toast-title">'+ms.title+'</div><div class="milestone-toast-sub">'+ms.sub+'</div></div></div>';document.body.appendChild(t);if(typeof fireLearnTabConfetti==='function')fireLearnTabConfetti();setTimeout(function(){t.classList.add('milestone-toast-exit');setTimeout(function(){t.remove()},400)},4000)}
+function showMilestoneCelebration(ms) {
+  SoundManager.playAchievement();
+  var existing = document.getElementById('milestone-cel-overlay');
+  if (existing) existing.remove();
+  var completedCount = (S.completed || []).length;
+  var personalMsg = ms.sub;
+  if (completedCount > 0 && completedCount % 10 === 0) {
+    personalMsg = "You've completed " + completedCount + " lessons! Clari is so proud of you!";
+  }
+  var ov = document.createElement('div');
+  ov.id = 'milestone-cel-overlay';
+  ov.className = 'milestone-cel-overlay';
+  ov.setAttribute('role', 'dialog');
+  ov.innerHTML = '<div class="milestone-cel-card">' +
+    '<div class="milestone-cel-confetti-area" id="milestone-cel-confetti"></div>' +
+    '<div class="milestone-cel-clari">' + clariSVGCached('celebrating', 90) + '</div>' +
+    '<div class="milestone-cel-icon">' + ms.icon + '</div>' +
+    '<div class="milestone-cel-title">' + ms.title + '</div>' +
+    '<div class="milestone-cel-sub">' + personalMsg + '</div>' +
+    '<button class="milestone-cel-dismiss" onclick="dismissMilestoneCel()">Awesome!</button>' +
+    '</div>';
+  document.body.appendChild(ov);
+  _fireMilestoneConfetti();
+  ov._timer = setTimeout(function() { dismissMilestoneCel(); }, 5000);
+  ov.addEventListener('click', function(e) { if (e.target === ov) dismissMilestoneCel(); });
+}
+function _fireMilestoneConfetti() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var area = document.getElementById('milestone-cel-confetti');
+  if (!area) return;
+  var colors = ['var(--yellow)', 'var(--clari-blue)', 'var(--coral)', 'var(--purple)', 'var(--green)', 'var(--orange)'];
+  for (var i = 0; i < 20; i++) {
+    var p = document.createElement('div');
+    p.className = 'milestone-cel-confetti-piece';
+    var s = 6 + Math.random() * 9;
+    p.style.width = s + 'px';
+    p.style.height = s + 'px';
+    p.style.left = (5 + Math.random() * 90) + '%';
+    p.style.top = (-5 + Math.random() * 10) + '%';
+    p.style.background = colors[Math.floor(Math.random() * colors.length)];
+    p.style.borderRadius = Math.random() > 0.5 ? '50%' : '3px';
+    p.style.animationDelay = (Math.random() * 0.8) + 's';
+    p.style.animationDuration = (1.4 + Math.random() * 0.8) + 's';
+    area.appendChild(p);
+  }
+}
+function dismissMilestoneCel() {
+  var ov = document.getElementById('milestone-cel-overlay');
+  if (!ov) return;
+  if (ov._timer) clearTimeout(ov._timer);
+  ov.classList.add('ach-unlock-exit');
+  setTimeout(function() { if (ov.parentNode) ov.remove(); }, 350);
+}
+
+// daily-goal-cel-01: Daily goal completion celebration
+function showDailyGoalCelebration() {
+  // Only show once per day
+  var _dgKey = 'daily_goal_cel_' + todayStr();
+  if (S[_dgKey]) return;
+  save(_dgKey, true);
+  SoundManager.playAchievement();
+  var existing = document.getElementById('daily-goal-cel-overlay');
+  if (existing) existing.remove();
+  var ov = document.createElement('div');
+  ov.id = 'daily-goal-cel-overlay';
+  ov.className = 'daily-goal-cel-overlay';
+  ov.setAttribute('role', 'dialog');
+  ov.innerHTML = '<div class="daily-goal-cel-card">' +
+    '<div class="daily-goal-cel-clari"><div class="clari-sparkle">' +
+      clariSVGCached('star', 80) +
+      '<span class="clari-sparkle-star1">\u2B50</span>' +
+      '<span class="clari-sparkle-star2">\u2B50</span>' +
+      '<span class="clari-sparkle-star3">\u2B50</span>' +
+    '</div></div>' +
+    '<div class="daily-goal-cel-title">Daily goal crushed!</div>' +
+    '<div class="daily-goal-cel-sub">You\'re amazing! Keep this momentum going!</div>' +
+    '<button class="daily-goal-cel-dismiss" onclick="dismissDailyGoalCel()">Thanks, Clari!</button>' +
+    '</div>';
+  document.body.appendChild(ov);
+  ov._timer = setTimeout(function() { dismissDailyGoalCel(); }, 4000);
+  ov.addEventListener('click', function(e) { if (e.target === ov) dismissDailyGoalCel(); });
+}
+function dismissDailyGoalCel() {
+  var ov = document.getElementById('daily-goal-cel-overlay');
+  if (!ov) return;
+  if (ov._timer) clearTimeout(ov._timer);
+  ov.classList.add('ach-unlock-exit');
+  setTimeout(function() { if (ov.parentNode) ov.remove(); }, 350);
+}
 
 // ============================================================
 // LEVEL UP MODAL
 // ============================================================
 function showLevelUp(level) {
   SoundManager.playLevelUp();
-  showToast('Level up! ⬆ Level ' + level, 'success', 2500);
+  // milestone-cel-01: special celebration for every 5 levels
+  if (level > 0 && level % 5 === 0) {
+    setTimeout(function() {
+      showMilestoneCelebration({
+        key: 'level_' + level,
+        title: 'Level ' + level + '!',
+        sub: "You've reached level " + level + "! Clari is so proud of you!",
+        icon: '\uD83C\uDFC6'
+      });
+    }, 400);
+    return;
+  }
+  var _levelMsgs = [
+    "You leveled up! Keep climbing!",
+    "New level unlocked! You're getting stronger!",
+    "Level " + level + " \u2014 I knew you could do it!",
+    "Rising through the ranks! Level " + level + "!",
+    "Another level conquered! Onward and upward!"
+  ];
+  var _lmsg = _levelMsgs[level % _levelMsgs.length];
+  showToast('<div class="clari-reaction-toast"><span class="crt-icon">' + clariMini('happy') + '</span><span class="crt-msg">' + _lmsg + '</span></div>', 'success', 3000);
 }
 
 // ============================================================
@@ -44077,10 +44789,10 @@ function renderPracticeTab() {
   const msgEl = document.getElementById('practice-clari-msg');
   if (msgEl) msgEl.style.display = 'none';
   if (!history.length) {
-    el.innerHTML = `<div class="clari-practice-empty">
-  ${clariSVG('waving', 60)}
-  <div class="clari-practice-empty-msg">No sessions yet — and that"s fine! When you complete your first lesson, I'll have practice questions ready here. It"s how we make things stick.</div>
-</div>`;
+    el.innerHTML = '<div class="clari-practice-empty">'
+      + clariSVGCached('waving', 60)
+      + '<div class="clari-practice-empty-msg">No sessions yet — and that\'s totally fine! When you complete your first lesson, I\'ll have practice questions ready here. It\'s how we make things stick.</div>'
+      + '</div>';
     return;
   }
   const _showAll = el.dataset.showAll === 'true';
@@ -44337,6 +45049,23 @@ function confirmDifficulty(diff) {
   if (_diffSelectorPracticeType) startPractice(_diffSelectorPracticeType, diff);
 }
 
+// ============================================================
+// CLARI PRACTICE TIPS — shown before practice sessions
+// ============================================================
+var CLARI_PRACTICE_TIPS = [
+  "Take your time — accuracy matters more than speed!",
+  "If you're stuck, try eliminating wrong answers first.",
+  "You've got this! Remember what you learned.",
+  "Focus on understanding, not just getting it right.",
+  "Don't rush! Read each question carefully.",
+  "Trust your instincts — your first answer is often correct.",
+  "Think about why each answer is right or wrong.",
+  "Practice isn't about being perfect. It's about getting better.",
+  "Each question is a chance to strengthen what you know.",
+  "Mistakes during practice are the best kind — that's how you learn!"
+];
+var _clariPracticeTipShown = false;
+
 function startPractice(type, difficulty) {
   // practice-44: show "beat your score" motivational toast
   (function() {
@@ -44349,6 +45078,14 @@ function startPractice(type, difficulty) {
       if (typeof showToast === 'function') showToast("🎯 " + _msg, 'info', 3000);
     }
   })();
+  // Clari practice tip -- one per session
+  if (!_clariPracticeTipShown) {
+    _clariPracticeTipShown = true;
+    var _ptip = CLARI_PRACTICE_TIPS[Math.floor(Math.random() * CLARI_PRACTICE_TIPS.length)];
+    setTimeout(function() {
+      showToast('<div class="clari-reaction-toast"><span class="crt-icon">' + clariMini('happy') + '</span><span class="crt-msg">' + _ptip + '</span></div>', 'info', 3500);
+    }, 500);
+  }
   let questions = [];
   const _practiceDiff = difficulty || 'mixed';
   if (typeof lessonState !== 'undefined') lessonState.practiceDifficulty = _practiceDiff;
@@ -45158,7 +45895,7 @@ function renderPracticeSessionNotes() {
   if (!_container) return;
   var _notes = (S.practice_notes || []).slice(-3).reverse();
   if (_notes.length === 0) {
-    _container.innerHTML = '<div style="font-size:13px;color:var(--gray4);padding:8px 0;">No notes yet. Add your first note after a session!</div>';
+    _container.innerHTML = '<div style="text-align:center;font-size:13px;color:var(--gray4);padding:8px 0;">' + clariSVGCached('default', 36) + '<div style="margin-top:4px;">No notes yet. Add your first note after a session!</div></div>';
     return;
   }
   _container.innerHTML = _notes.map(function(n) {
@@ -45873,7 +46610,7 @@ function renderSessionTimeline() {
   if (_hist.length === 0) {
     _wrap.innerHTML = '<div class="psh-timeline-wrap"><div class="psh-empty">'
       + clariSVGCached('thinking', 48)
-      + '<div>No sessions yet — complete a practice to see your history here!</div>'
+      + '<div>Ready to learn something new? Complete a practice to see your history here!</div>'
       + '</div></div>';
     return;
   }
@@ -48621,7 +49358,7 @@ function renderProfileTab() {
     var _keys = Object.keys(_dr);
     var _total = _keys.length;
     if (_total === 0) {
-      _fbEl.innerHTML = '<div style="text-align:center;padding:12px 0;color:var(--gray3);font-size:13px;">No lesson feedback yet. Complete a lesson and rate its difficulty to see your stats here.</div>';
+      _fbEl.innerHTML = '<div style="text-align:center;padding:12px 0;color:var(--gray3);font-size:13px;">' + clariSVGCached('default', 40) + '<div style="margin-top:6px;">No lesson feedback yet. Complete a lesson and rate its difficulty to see your stats here.</div></div>';
       // Hide the card if no feedback
       var _card = document.getElementById('profile-feedback-card');
       if (_card) { _card.style.display = 'none'; _card.setAttribute('aria-hidden', 'true'); }
@@ -49018,7 +49755,7 @@ function renderProfileTab() {
     if (_entries.length === 0) {
       _actCard.innerHTML =
         '<div class="section-title">Recent Activity</div>' +
-        '<div class="profile-activity-empty">' + clariSVGCached('thinking', 50) + '<div style="margin-top:6px;">No lessons completed yet — start learning!</div></div>';
+        '<div class="profile-activity-empty">' + clariSVGCached('waving', 50) + '<div style="margin-top:6px;">Ready to learn something new? Your activity will show up here!</div></div>';
       return;
     }
     var _rows = _entries.map(function(e) {
@@ -49929,8 +50666,8 @@ function renderProfileTab() {
     if (_earned.length === 0) {
       _inner =
         '<div class="cert-showcase-empty">' +
-          clariSVGCached('thinking', 48) +
-          '<div>No certificates yet. Complete all lessons in a unit to earn your first one!</div>' +
+          clariSVGCached('encouraging', 48) +
+          '<div>No certificates yet. Complete all lessons in a unit to earn your first one! You\'ve got this!</div>' +
         '</div>';
     } else {
       _inner = '<div class="cert-showcase-grid">' +
@@ -50145,8 +50882,8 @@ function renderProfileTab() {
       _wsEl.innerHTML =
         '<div class="section-title">Weakness Spotlight</div>' +
         '<div class="weakness-empty">' +
-          clariSVGCached('thinking', 48) +
-          '<div>No weak spots yet! Keep practicing to see which topics need more work.</div>' +
+          clariSVGCached('celebrating', 48) +
+          '<div>No weak spots found. Keep learning to build your review data!</div>' +
         '</div>';
       return;
     }
@@ -50241,7 +50978,7 @@ function renderProfileTab() {
 
     _umEl.innerHTML =
       '<div class="section-title">Unit Mastery</div>' +
-      '<div class="unit-mastery-list">' + (_rows || '<div class="unit-mastery-empty">' + clariSVGCached('thinking', 48) + '<div>No lessons started yet.</div></div>') + '</div>';
+      '<div class="unit-mastery-list">' + (_rows || '<div class="unit-mastery-empty">' + clariSVGCached('thinking', 48) + '<div>Ready to dive in? Start your first lesson to track progress here!</div></div>') + '</div>';
   })();
 
   // profile-31: Accuracy Over Time Chart
@@ -50755,7 +51492,7 @@ function renderGlossary(filter) {
   if (!terms.length) {
     container.innerHTML = `<div class="glossary-empty">
       ${clariSVGCached('thinking', 48)}
-      <div>${q ? 'No terms match "' + q + '"' : 'No terms saved yet. Complete lessons to build your glossary!'}</div>
+      <div>${q ? 'Hmm, no terms match "' + q + '". Try different keywords?' : 'No terms saved yet. Complete lessons to build your glossary!'}</div>
     </div>`;
     return;
   }
@@ -51121,7 +51858,7 @@ function renderProfileNotes() {
   if (exportBtn) exportBtn.style.display = keys.length > 0 ? '' : 'none';
 
   if (keys.length === 0) {
-    el.innerHTML = '<div class="notes-empty" style="text-align:center;padding:16px 0;">' + clariSVGCached('thinking', 60) + '<div style="margin-top:8px;">No notes yet. Use the pencil button during lessons to jot something down.</div></div>';
+    el.innerHTML = '<div class="notes-empty" style="text-align:center;padding:16px 0;">' + clariSVGCached('thinking', 60) + '<div style="margin-top:8px;">Bookmark lessons you want to revisit! Use the pencil button during lessons to jot notes down.</div></div>';
     return;
   }
 
@@ -51301,7 +52038,7 @@ function copyNotesToClipboard() {
 // ============================================================
 function copyPromptText(text, btn) {
   if (!navigator.clipboard) {
-    showToast('Copy not supported in this browser', 'error', 2000);
+    showToast('Hmm, copying isn\'t supported in this browser. Try selecting the text manually.', 'error', 2500);
     return;
   }
   navigator.clipboard.writeText(text).then(function() {
@@ -51315,7 +52052,7 @@ function copyPromptText(text, btn) {
     }
     showToast('Prompt copied to clipboard!', 'success', 2000);
   }).catch(function() {
-    showToast('Could not copy — try selecting it manually', 'error', 2500);
+    showToast('Oops! Couldn\'t copy. Try selecting it manually.', 'error', 2500);
   });
 }
 
@@ -51341,7 +52078,7 @@ function showToast(msg, level, duration) {
     },
     error: {
       color: 'var(--red)',
-      icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" fill="#FF6B6B" stroke="none"/><line x1="8" y1="8" x2="16" y2="16"/><line x1="16" y1="8" x2="8" y2="16"/></svg>'
+      icon: (typeof clariMini === 'function') ? clariMini('sad') : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" fill="#FF6B6B" stroke="none"/><line x1="8" y1="8" x2="16" y2="16"/><line x1="16" y1="8" x2="8" y2="16"/></svg>'
     },
     info: {
       color: 'var(--blue)',
@@ -51974,7 +52711,7 @@ function init() {
     const _hr = new Date().getHours();
     const _timeWord = _hr < 12 ? 'morning' : _hr < 17 ? 'afternoon' : 'evening';
     const _heartsMsg = S.hearts === 5 ? ' Your hearts are fully refilled. ' : ' ';
-    setTimeout(() => showToast('Good ' + _timeWord + '!' + _heartsMsg + S.streak + "-day streak <span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><path d='M12 22c5 0 8-3 8-7 0-2.5-1.5-4.5-3-6 .5 2-1 3.5-2 4 .5-2-1-4-3-5.5 0 3-2 4.5-3 7-.5-1-.5-2.5.5-4C7.5 12 5 14.5 5 17c0 3 3 5 7 5z' fill='#f97316'/></svg></span>", 'success', 3500), 800);
+    setTimeout(function() { showToast('<div class="clari-reaction-toast"><span class="crt-icon">' + clariMini('happy') + '</span><span class="crt-msg">Welcome back! Good ' + _timeWord + '!' + _heartsMsg + S.streak + '-day streak \uD83D\uDD25</span></div>', 'success', 3500); }, 800);
   }
 
   // onboarding-quiz: show tech literacy quiz on very first visit
