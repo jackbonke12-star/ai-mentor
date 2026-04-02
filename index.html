@@ -1522,7 +1522,7 @@ input:focus, textarea:focus, select:focus {
 }
 .btn-full { width: 100%; }
 .btn-sm { padding: 12px 18px; font-size: calc(14px * var(--text-scale)); min-height: 44px; border-radius: 10px; }
-.btn-xs { padding: 10px 14px; font-size: 12px; min-height: 44px; border-radius: 8px; }
+.btn-xs { padding: 10px 14px; font-size: 12px; min-height: 44px; border-radius: 10px; }
 .btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
 
 /* ============================================================
@@ -1601,7 +1601,7 @@ input:focus, textarea:focus, select:focus {
    ============================================================ */
 .results-section { width: 100%; text-align: left; }
 .results-section-title {
-  font-size: 14px; font-weight: 800;
+  font-size: 13px; font-weight: 800;
   text-transform: uppercase; letter-spacing: 1px;
   color: var(--gray4); margin-bottom: 10px;
 }
@@ -1698,6 +1698,133 @@ input:focus, textarea:focus, select:focus {
 .ob-loading-step.done::before { content:'\2713'; font-weight:900; }
 .ob-loading-sub { font-size:14px; color:var(--gray4); text-align:center; }
 
+/* ============================================================
+   ONBOARDING BRANDING — Clari mascot, speech bubbles, progress
+   ============================================================ */
+
+/* --- Speech bubbles from Clari --- */
+.clari-speech-bubble {
+  position: relative;
+  background: var(--clari-blue-10);
+  border: 2px solid var(--clari-blue);
+  border-radius: 16px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  max-width: 280px;
+  margin: 0 auto;
+  line-height: 1.5;
+  text-align: center;
+  animation: obBubbleFadeIn 0.3s ease;
+}
+.clari-speech-bubble::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 14px;
+  height: 14px;
+  background: var(--clari-blue-10);
+  border-left: 2px solid var(--clari-blue);
+  border-top: 2px solid var(--clari-blue);
+}
+@keyframes obBubbleFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Onboarding mascot + bubble wrapper --- */
+.ob-clari-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* --- Onboarding top progress bar --- */
+.ob-top-progress {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 24px 12px;
+  pointer-events: none;
+}
+.ob-top-progress-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--gray2);
+  border: 2px solid var(--gray2);
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ob-top-progress-dot.active {
+  background: var(--clari-blue);
+  border-color: var(--clari-blue);
+  box-shadow: 0 0 8px rgba(91,192,248,0.5);
+  transform: scale(1.15);
+}
+.ob-top-progress-dot.done {
+  background: var(--green);
+  border-color: var(--green2);
+}
+.ob-top-progress-dot.done::after {
+  content: '\2713';
+  font-size: 8px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+}
+.ob-top-progress-line {
+  width: 24px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--gray2);
+  transition: background 0.3s ease;
+}
+.ob-top-progress-line.done {
+  background: var(--green);
+}
+
+/* --- Slide transitions between onboarding screens --- */
+@keyframes obSlideOutLeft {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(-40px); }
+}
+@keyframes obSlideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.ob-screen.ob-slide-out {
+  animation: obSlideOutLeft 0.2s ease forwards;
+}
+.ob-screen.ob-slide-in {
+  animation: obSlideInRight 0.2s ease forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ob-screen.ob-slide-out,
+  .ob-screen.ob-slide-in {
+    animation: none;
+  }
+  .clari-speech-bubble {
+    animation: none;
+  }
+}
+
+/* --- Update existing dots to use Clari blue --- */
+.ob-dot.active { background: var(--clari-blue); box-shadow: 0 0 6px rgba(91,192,248,0.4); }
+
 /* Language picker */
 .lang-chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:4px; }
 .lang-chip { display:inline-flex; align-items:center; gap:6px; padding:7px 14px; border:2px solid var(--gray2); border-radius:20px; background:var(--surface); cursor:pointer; font-size:14px; font-weight:700; color:var(--gray4); transition:all 0.15s; }
@@ -1719,10 +1846,10 @@ input:focus, textarea:focus, select:focus {
 .pg-grade-title { font-size:16px; font-weight:800; }
 .pg-grade-sub { font-size:14px; color:var(--gray4); margin-top:2px; }
 .pg-tips { display:flex; flex-direction:column; gap:6px; margin-top:10px; }
-.pg-tip { font-size:14px; padding:8px 12px; border-radius:8px; }
+.pg-tip { font-size:14px; padding:8px 12px; border-radius:12px; }
 .pg-tip.good { background:var(--green-5); color:var(--green2); }
 .pg-tip.improve { background:var(--orange-5); color:#9a3412; }
-.pg-try-again { margin-top:10px; background:none; border:2px solid var(--border); color:var(--gray4); font-size:14px; padding:10px 16px; border-radius:8px; cursor:pointer; width:100%; min-height:44px; }
+.pg-try-again { margin-top:10px; background:none; border:2px solid var(--border); color:var(--gray4); font-size:14px; padding:10px 16px; border-radius:12px; cursor:pointer; width:100%; min-height:44px; }
 
 /* ==================== PROFILE EDIT MODAL ==================== */
 .profile-modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:2000; display:flex; align-items:flex-end; justify-content:center; }
@@ -1795,6 +1922,137 @@ input:focus, textarea:focus, select:focus {
   font-size: 14px; font-weight: 600;
   color: rgba(255,255,255,0.75); margin-top: 2px;
 }
+
+/* ============================================================
+   brand-05: Branded Tab Headers (Practice, Plan, Profile)
+   ============================================================ */
+.clari-tab-header-watermark {
+  position: absolute;
+  bottom: -10px; right: -10px;
+  width: 120px; height: 120px;
+  opacity: 0.07;
+  pointer-events: none;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.practice-tab-header {
+  background: linear-gradient(135deg, var(--green) 0%, var(--clari-blue) 100%);
+  padding: 20px 16px 18px;
+  margin: -18px -16px 14px -16px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 0 24px 24px;
+}
+.practice-tab-header::before {
+  content: '';
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.07);
+  pointer-events: none;
+}
+.practice-tab-header .clari-tab-header-watermark {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cellipse cx='60' cy='50' rx='38' ry='42' fill='white'/%3E%3Cellipse cx='60' cy='100' rx='22' ry='14' fill='white'/%3E%3Ccircle cx='45' cy='45' r='6' fill='white'/%3E%3Ccircle cx='75' cy='45' r='6' fill='white'/%3E%3Cellipse cx='60' cy='60' rx='5' ry='3' fill='white'/%3E%3Ccircle cx='28' cy='65' r='10' fill='white'/%3E%3Ccircle cx='92' cy='65' r='10' fill='white'/%3E%3C/svg%3E");
+}
+.practice-tab-header-title {
+  font-size: 22px; font-weight: 900; color: white;
+}
+.practice-tab-header-sub {
+  font-size: 14px; font-weight: 600;
+  color: rgba(255,255,255,0.75); margin-top: 2px;
+}
+.plan-tab-header {
+  background: linear-gradient(135deg, var(--clari-blue) 0%, var(--coral) 100%);
+  padding: 20px 16px 18px;
+  margin: -16px -12px 14px -12px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 0 24px 24px;
+}
+.plan-tab-header::before {
+  content: '';
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.07);
+  pointer-events: none;
+}
+.plan-tab-header .clari-tab-header-watermark {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cellipse cx='60' cy='50' rx='38' ry='42' fill='white'/%3E%3Cellipse cx='60' cy='100' rx='22' ry='14' fill='white'/%3E%3Ccircle cx='45' cy='45' r='6' fill='white'/%3E%3Ccircle cx='75' cy='45' r='6' fill='white'/%3E%3Cellipse cx='60' cy='62' rx='4' ry='2.5' fill='white'/%3E%3Crect x='82' y='40' width='16' height='22' rx='3' fill='white'/%3E%3Crect x='85' y='46' width='10' height='2' rx='1' fill='white' opacity='0.5'/%3E%3Crect x='85' y='50' width='8' height='2' rx='1' fill='white' opacity='0.5'/%3E%3Crect x='85' y='54' width='10' height='2' rx='1' fill='white' opacity='0.5'/%3E%3C/svg%3E");
+}
+.plan-tab-header-title {
+  font-size: 22px; font-weight: 900; color: white;
+}
+.plan-tab-header-sub {
+  font-size: 14px; font-weight: 600;
+  color: rgba(255,255,255,0.75); margin-top: 2px;
+}
+.profile-top .clari-tab-header-watermark {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cellipse cx='60' cy='50' rx='38' ry='42' fill='white'/%3E%3Cellipse cx='60' cy='100' rx='22' ry='14' fill='white'/%3E%3Ccircle cx='45' cy='45' r='6' fill='white'/%3E%3Ccircle cx='75' cy='45' r='6' fill='white'/%3E%3Cpath d='M45 65 Q60 75 75 65' stroke='white' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+/* brand-06: Section Dividers */
+.clari-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--clari-blue), transparent);
+  margin: 16px 0;
+  opacity: 0.3;
+  border: none;
+}
+.clari-divider.green { background: linear-gradient(90deg, transparent, var(--green), transparent); }
+.clari-divider.purple { background: linear-gradient(90deg, transparent, var(--purple), transparent); }
+.clari-divider.coral { background: linear-gradient(90deg, transparent, var(--coral), transparent); }
+/* brand-07: Section Headers */
+.clari-section-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text);
+  padding-left: 12px;
+  margin-bottom: 12px;
+  position: relative;
+  border-left: 3px solid var(--clari-blue);
+}
+.clari-section-title::before {
+  content: '';
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--clari-blue);
+  margin-right: 8px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+.clari-section-title.green { border-left-color: var(--green); }
+.clari-section-title.green::before { background: var(--green); }
+.clari-section-title.purple { border-left-color: var(--purple); }
+.clari-section-title.purple::before { background: var(--purple); }
+.clari-section-title.coral { border-left-color: var(--coral); }
+.clari-section-title.coral::before { background: var(--coral); }
+.clari-section-title.blue { border-left-color: var(--clari-blue); }
+.clari-section-title.blue::before { background: var(--clari-blue); }
+/* brand-08: Profile Footer Branding */
+.clari-footer-branding {
+  text-align: center;
+  padding: 24px 16px 32px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.clari-footer-branding:hover { opacity: 0.85; }
+.clari-footer-branding .clari-wordmark { display: block; margin: 0 auto 6px; }
+.clari-footer-love {
+  font-size: 12px; font-weight: 600;
+  color: var(--gray4); margin-top: 4px;
+}
+/* brand dark mode */
+:root[data-theme="dark"] .practice-tab-header,
+:root[data-theme="dark"] .plan-tab-header { box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+:root[data-theme="dark"] .clari-divider { opacity: 0.2; }
+:root[data-theme="dark"] .clari-section-title { color: var(--text); }
+:root[data-theme="dark"] .clari-footer-love { color: var(--gray3); }
+
 .daily-goal-bar-wrap { margin-top: 14px; }
 .daily-goal-label {
   display: flex; justify-content: space-between;
@@ -1827,7 +2085,7 @@ input:focus, textarea:focus, select:focus {
   display: flex; align-items: center; justify-content: center;
   font-size: 15px; font-weight: 900; color: white;
   flex-shrink: 0;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
 .unit-title  { font-size: 15px; font-weight: 900; color: var(--text); }
 .unit-sub    { font-size: 14px; font-weight: 600; color: var(--gray4); margin-top: 1px; }
@@ -1871,7 +2129,7 @@ input:focus, textarea:focus, select:focus {
   width: 50px; height: 50px; border-radius: 14px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 .lesson-info { flex: 1; }
 .lesson-title { font-size: 15px; font-weight: 800; color: var(--text); }
@@ -3120,11 +3378,11 @@ mark.search-hl {
 .info-example-label { font-size:12px; font-weight:800; color:var(--blue); margin-bottom:6px; }
 .info-example-prompt {
   font-size:14px; font-weight:700; color:var(--text);
-  background:var(--white); border-radius:8px; padding:8px 10px; margin-bottom:6px;
+  background:var(--white); border-radius:12px; padding:8px 10px; margin-bottom:6px;
 }
 .info-example-response {
   font-size:14px; font-weight:600; color:var(--gray4);
-  background:var(--white); border-radius:8px; padding:8px 10px;
+  background:var(--white); border-radius:12px; padding:8px 10px;
 }
 .info-tip {
   display:flex; align-items:flex-start; gap:10px;
@@ -3446,7 +3704,7 @@ mark.search-hl {
 .vocab-def { font-size:14px; color:var(--text2,#555); line-height:1.45; }
 .streak-freeze-reminder:hover { background:var(--blue-10); }
 .streak-freeze-reminder .sfr-icon { font-size:18px; flex-shrink:0; }
-.focus-mode-btn { width:44px; height:44px; border-radius:8px; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--gray3); transition:all 0.15s; flex-shrink:0; padding:0; }
+.focus-mode-btn { width:44px; height:44px; border-radius:10px; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--gray3); transition:all 0.15s; flex-shrink:0; padding:0; }
 .focus-mode-btn:hover { background:var(--gray1); color:var(--text); }
 .focus-mode-btn.active { background:var(--amber-10); color:var(--amber-darker); }
 .qref-fab { position:absolute; top:16px; right:60px; width:44px; height:44px; border-radius:50%; border:none; background:var(--green); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(88,204,2,.35); transition:all .2s; z-index:10; flex-shrink:0; padding:0; }
@@ -3483,7 +3741,7 @@ mark.search-hl {
 :root[data-theme="dark"] .kb-overlay-close:hover { background:#444; }
 :root[data-theme="dark"] .kb-key { background:linear-gradient(180deg, var(--gray2) 0%, var(--gray1) 100%); border-color:#555; border-bottom-color:#222; box-shadow:0 1px 2px rgba(0,0,0,.25); }
 :root[data-theme="dark"] .kb-row { border-bottom-color:var(--gray2); }
-.tb-sound-btn { width:44px; height:44px; border-radius:8px; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; flex-shrink:0; padding:0; }
+.tb-sound-btn { width:44px; height:44px; border-radius:10px; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; flex-shrink:0; padding:0; }
 .tb-sound-btn:hover { background:var(--gray1); }
 /* ── Top-bar lesson search ── */
 #tb-search-wrap {
@@ -3678,10 +3936,10 @@ mark.search-hl {
 /* Practice Mode banner */
 .practice-mode-banner {
   position: relative; overflow: hidden;
-  background: linear-gradient(135deg, #1a56db 0%, #6c47ff 60%, var(--purple) 100%);
-  border-radius: 16px; padding: 18px 16px 14px;
-  margin-bottom: 14px; color: #fff;
-  box-shadow: 0 4px 20px rgba(108,71,255,0.25);
+  background: linear-gradient(135deg, var(--green) 0%, var(--clari-blue) 100%);
+  border-radius: 0 0 24px 24px; padding: 20px 16px 18px;
+  margin: -16px -12px 14px -12px; color: #fff;
+  box-shadow: 0 4px 20px rgba(88,204,2,0.18);
 }
 .practice-mode-banner::before {
   content: ''; position: absolute; top: -30px; right: -20px;
@@ -3726,7 +3984,7 @@ mark.search-hl {
 .practice-modes  { display: flex; flex-direction: column; gap: 12px; }
 .practice-card {
   background: var(--white); border-radius: var(--radius);
-  padding: 10px 14px; border: 2px solid var(--gray2);
+  padding: 12px 14px; border: 2px solid var(--gray2);
   display: flex; align-items: center; gap: 14px;
   transition: border-color 0.15s, box-shadow 0.15s;
 }
@@ -3872,7 +4130,8 @@ mark.search-hl {
 }
 .practice-recent-date { font-size: 11px; color: var(--gray4); min-width: 68px; text-align: right; }
 .practice-history { margin-top: 24px; }
-.practice-history-title { font-size: 14px; font-weight: 800; color: var(--gray4); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+.practice-history-title { font-size: 14px; font-weight: 800; color: var(--gray4); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; padding-left: 10px; border-left: 3px solid var(--green); }
+.practice-history-title::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--green); margin-right: 6px; vertical-align: middle; position: relative; top: -1px; }
 .practice-history-item {
   display: flex; align-items: center; justify-content: space-between;
   padding: 10px 14px; background: var(--white);
@@ -3988,7 +4247,7 @@ mark.search-hl {
 .practice-pause-btn {
   background: transparent;
   border: 2px solid var(--gray3, var(--gray-border));
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 7px 12px;
   font-size: 12px;
   font-weight: 800;
@@ -4104,7 +4363,7 @@ mark.search-hl {
 }
 .practice-pb-row {
   display: flex; flex-direction: column;
-  background: var(--bg,#f9fafb); border-radius: 8px;
+  background: var(--bg,#f9fafb); border-radius: 10px;
   padding: 7px 10px; min-width: 0;
 }
 .practice-pb-val {
@@ -4924,7 +5183,7 @@ mark.search-hl {
 .plan-pace-slider { flex: 1; accent-color: var(--blue); }
 .plan-pace-slider-val { font-size: 12px; font-weight: 700; color: var(--gray4,#888); min-width: 72px; text-align: right; }
 .plan-pace-results { display: flex; gap: 10px; }
-.plan-pace-result-card { flex: 1; background: var(--gray1,#f8fafc); border-radius: 10px; padding: 8px 10px; text-align: center; }
+.plan-pace-result-card { flex: 1; background: var(--gray1,#f8fafc); border-radius: 10px; padding: 10px 12px; text-align: center; }
 .plan-pace-result-num { font-size: 17px; font-weight: 900; color: var(--text); }
 .plan-pace-result-lbl { font-size: 10px; font-weight: 700; color: var(--gray4,#999); margin-top: 2px; }
 .plan-pace-hint { font-size: 11px; color: var(--gray4,#aaa); margin-top: 8px; }
@@ -4935,6 +5194,19 @@ mark.search-hl {
 .plan-section-title {
   font-size: 13px; font-weight: 800; color: var(--gray4);
   text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
+  padding-left: 10px;
+  border-left: 3px solid var(--coral);
+}
+.plan-section-title::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--coral);
+  margin-right: 6px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
 }
 .plan-lesson-card {
   background: var(--white); border-radius: var(--radius);
@@ -5068,7 +5340,7 @@ mark.search-hl {
 .profile-name-edit-btn { background: none; border: none; cursor: pointer; font-size: 16px; opacity: 0.5; margin-left: 6px; vertical-align: middle; padding: 10px; min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
 .profile-name-edit-btn:hover { opacity: 1; }
 .profile-name-input { font-size: 22px; font-weight: 900; border: none; border-bottom: 2px solid var(--primary); background: transparent; text-align: center; width: 160px; outline: none; color: var(--text); }
-.profile-name-save-btn { background: var(--primary); color: white; border: none; border-radius: 8px; padding: 10px 14px; font-weight: 700; cursor: pointer; margin-left: 6px; font-size: 14px; min-height: 44px; }
+.profile-name-save-btn { background: var(--primary); color: white; border: none; border-radius: 12px; padding: 10px 14px; font-weight: 700; cursor: pointer; margin-left: 6px; font-size: 14px; min-height: 44px; }
 .profile-body  { padding: 0 12px; }
 /* perf-06: content-visibility for off-screen section cards */
 .section-card  { background: var(--white); border-radius: var(--radius); margin: 8px 0; padding: 12px; border: 2px solid var(--gray2); border-top: 3px solid rgba(91, 192, 248, 0.25); content-visibility: auto; contain-intrinsic-size: 0 80px; }
@@ -5330,7 +5602,31 @@ mark.search-hl {
 
 /* dc-01: hide placeholder section-cards that JS has not filled yet */
 .section-card:empty { display: none !important; }
-.section-title { font-size: 14px; font-weight: 900; color: var(--text); margin-bottom: 14px; }
+/* brand-07: Branded section titles with colored dot + left border */
+.section-title {
+  font-size: 16px; font-weight: 800; color: var(--text);
+  margin-bottom: 14px;
+  padding-left: 10px;
+  border-left: 3px solid var(--clari-blue);
+}
+.section-title::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--clari-blue);
+  margin-right: 6px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+.section-card-header .section-title {
+  border-left: none;
+  padding-left: 0;
+}
+.section-card-header .section-title::before {
+  display: none;
+}
 .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .stat-cell {
   background: var(--bg); border-radius: 16px;
@@ -5358,7 +5654,7 @@ mark.search-hl {
 .ach-progress-bar-bg { height: 4px; border-radius: 2px; background: var(--gray2); overflow: hidden; }
 .ach-progress-bar-fill { height: 100%; border-radius: 2px; background: var(--purple,var(--purple-light)); transition: width 0.4s ease; }
 .ach-progress-pct { font-size: 8px; color: var(--gray4); text-align: center; margin-top: 2px; font-weight: 700; }
-.ach-earned-chip { font-size: 8px; font-weight: 800; color: var(--amber-text); background: var(--amber-10); border-radius: 4px; padding: 1px 4px; margin-top: 2px; }
+.ach-earned-chip { font-size: 8px; font-weight: 800; color: var(--amber-text); background: var(--amber-10); border-radius: 6px; padding: 1px 4px; margin-top: 2px; }
 
 /* r7: removed dead CSS — .plan-wxp-wrap/.plan-wxp-* (weekly XP goal, plan-r5-01) */
 /* --- Achievement Showcase Improvements (plan-04) --- */
@@ -6461,7 +6757,7 @@ mark.search-hl {
   display: flex; align-items: center; gap: 2px;
   font-size: 8px; font-weight: 800;
   color: var(--green2); background: var(--green-10);
-  border-radius: 4px; padding: 1px 5px; margin-top: 2px;
+  border-radius: 6px; padding: 1px 5px; margin-top: 2px;
 }
 .avatar-picker { display: flex; flex-direction: column; gap: 0; }
 .av-preset-strip {
@@ -6555,7 +6851,7 @@ mark.search-hl {
    PROFILE — UPGRADED HEADER + COMPONENTS
    ============================================================ */
 .profile-top {
-  background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%);
+  background: linear-gradient(135deg, var(--purple) 0%, var(--coral) 100%);
   text-align: center; color: white;
   position: relative;
   overflow: hidden;
@@ -8133,7 +8429,7 @@ mark.search-hl {
   width: 44px; height: 44px; border-radius: 50%; cursor: pointer;
   border: 3px solid transparent; transition: transform 0.15s, border-color 0.15s;
   flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 .accent-swatch:hover { transform: scale(1.12); }
 .accent-swatch.selected {
@@ -8406,17 +8702,17 @@ mark.search-hl {
 }
 .rec-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
 .rec-card-unit { font-size: 11px; font-weight: 700; margin-bottom: 4px; text-transform: uppercase; }
-.rec-card-title { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; line-height: 1.3; }
+.rec-card-title { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; line-height: 1.3; }
 .rec-card-meta { font-size: 11px; color: var(--text-muted); }
 .badge-foryou {
   background: #0d948822; color: #0d9488;
   border: 1px solid #0d948840;
-  border-radius: 4px; font-size: 10px; font-weight: 700;
+  border-radius: 6px; font-size: 10px; font-weight: 700;
   padding: 2px 6px;
 }
-.badge-easy   { background: var(--green-5); color: #1a7a4a; border: 1px solid var(--green-20); border-radius: 4px; font-size: 10px; font-weight: 700; padding: 2px 6px; }
-.badge-medium { background: #fff7e0; color: var(--yellow-dark); border: 1px solid var(--yellow-light); border-radius: 4px; font-size: 10px; font-weight: 700; padding: 2px 6px; }
-.badge-hard   { background: var(--red-5); color: #c0392b; border: 1px solid #f5b7b1; border-radius: 4px; font-size: 10px; font-weight: 700; padding: 2px 6px; }
+.badge-easy   { background: var(--green-5); color: #1a7a4a; border: 1px solid var(--green-20); border-radius: 6px; font-size: 10px; font-weight: 700; padding: 2px 6px; }
+.badge-medium { background: #fff7e0; color: var(--yellow-dark); border: 1px solid var(--yellow-light); border-radius: 6px; font-size: 10px; font-weight: 700; padding: 2px 6px; }
+.badge-hard   { background: var(--red-5); color: #c0392b; border: 1px solid #f5b7b1; border-radius: 6px; font-size: 10px; font-weight: 700; padding: 2px 6px; }
 /* learn-r4: removed dead CSS (.diff-filter-row, .diff-chip, .learn-sort-select, dc-* — removed in learn-r3-01) */
 
 .unit-complete-badge {
@@ -9282,6 +9578,15 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 :root[data-theme="dark"] .oq-result-title { color: var(--text); }
 :root[data-theme="dark"] .oq-result-desc { color: var(--gray4); }
 :root[data-theme="dark"] .oq-skip-link { color: var(--gray3); }
+
+/* ---- Dark mode: onboarding branding (speech bubbles, progress) ---- */
+:root[data-theme="dark"] .clari-speech-bubble { background: #0c1f2e; border-color: var(--clari-blue); color: var(--text); }
+:root[data-theme="dark"] .clari-speech-bubble::after { background: #0c1f2e; border-left-color: var(--clari-blue); border-top-color: var(--clari-blue); }
+:root[data-theme="dark"] .ob-top-progress-dot { background: var(--gray2); border-color: var(--gray2); }
+:root[data-theme="dark"] .ob-top-progress-dot.active { background: var(--clari-blue); border-color: var(--clari-blue); box-shadow: 0 0 10px rgba(91,192,248,0.4); }
+:root[data-theme="dark"] .ob-top-progress-dot.done { background: var(--green); border-color: var(--green2); }
+:root[data-theme="dark"] .ob-top-progress-line { background: var(--gray2); }
+:root[data-theme="dark"] .ob-top-progress-line.done { background: var(--green); }
 
 /* ---- Dark mode: prompt grader ---- */
 :root[data-theme="dark"] .prompt-grader-card { background: var(--white); border-color: var(--gray2); }
@@ -10175,9 +10480,9 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
   filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15));
 }
 .certificate-title {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 900;
   color: var(--white);
   text-shadow: 0 1px 3px rgba(0,0,0,0.2);
   letter-spacing: 0.5px;
@@ -10548,7 +10853,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 /* ACHIEVEMENT BADGES */
 .badges-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 8px 0; }
 @media (min-width: 600px) { .badges-grid { grid-template-columns: repeat(4, 1fr); } }
-.badge-card { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; aspect-ratio: 1; border-radius: 16px; padding: 10px 6px; cursor: pointer; transition: transform 0.12s ease, box-shadow 0.15s ease; background: var(--white); border: 2px solid var(--gray2); box-shadow: 0 2px 6px rgba(0,0,0,0.05); user-select: none; -webkit-tap-highlight-color: transparent; }
+.badge-card { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; aspect-ratio: 1; border-radius: 16px; padding: 10px 6px; cursor: pointer; transition: transform 0.12s ease, box-shadow 0.15s ease; background: var(--white); border: 2px solid var(--gray2); box-shadow: 0 2px 8px rgba(0,0,0,0.06); user-select: none; -webkit-tap-highlight-color: transparent; }
 .badge-card:active { transform: scale(0.97); }
 .badge-card.earned { background: linear-gradient(135deg, var(--yellow-5) 0%, var(--amber-20) 40%, var(--amber) 100%); border-color: var(--amber-dark); box-shadow: 0 2px 12px rgba(251,191,36,0.35); }
 .badge-card.locked { filter: grayscale(1); opacity: 0.5; }
@@ -11524,6 +11829,57 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
   font-weight: 700;
   line-height: 1.3;
 }
+
+/* ============================================================
+   CLARI MASCOT ANIMATIONS
+   ============================================================ */
+.clari-alive { animation: clariBreathe 3s ease-in-out infinite; display: inline-block; }
+/* Apply breathing to major Clari appearances via existing wrapper classes */
+.slide-mascot-wrap > svg,
+.clari-complete-avatar > svg,
+.clari-complete-msg .clari-complete-avatar,
+.clari-enc-icon,
+.clari-loading-mascot,
+.lesson-complete > div:first-child { animation: clariBreathe 3s ease-in-out infinite; display: inline-block; }
+.slide-mascot-wrap > svg:hover,
+.clari-complete-avatar > svg:hover,
+.lesson-complete > div:first-child:hover { animation: clariBounce 0.4s ease forwards; }
+@keyframes clariBreathe { 0%,100%{transform:scale(1)} 50%{transform:scale(1.02)} }
+.clari-alive:hover { animation: clariBounce 0.4s ease forwards; }
+@keyframes clariBounce { 0%,100%{transform:translateY(0)} 40%{transform:translateY(-6px)} 60%{transform:translateY(-2px)} }
+.clari-blink circle[fill="#111"],
+.clari-blink circle[fill="white"][opacity],
+.clari-blink ellipse[fill="white"] { opacity:0; transition:opacity 0.08s ease; }
+.clari-blink path[d*="Q"][stroke="#1a2a3a"] { opacity:0; transition:opacity 0.08s ease; }
+.clari-micro-react { position:absolute; top:-4px; right:-4px; display:flex; align-items:center; gap:2px; pointer-events:none; z-index:5; }
+.clari-micro-react.correct { animation: clariMicroCelebrate 1s ease forwards; }
+.clari-micro-react.wrong { animation: clariMicroShake 0.8s ease forwards; }
+@keyframes clariMicroCelebrate { 0%{opacity:0;transform:scale(0.5) translateY(4px)} 20%{opacity:1;transform:scale(1.1) translateY(-4px)} 40%{transform:scale(1) translateY(-6px)} 60%{transform:scale(1.05) translateY(-3px)} 80%{opacity:1;transform:scale(1) translateY(0)} 100%{opacity:0;transform:scale(0.9) translateY(2px)} }
+@keyframes clariMicroShake { 0%{opacity:0;transform:translateX(0)} 15%{opacity:1;transform:translateX(-3px)} 30%{transform:translateX(3px)} 45%{transform:translateX(-2px)} 60%{transform:translateX(2px)} 75%{opacity:1;transform:translateX(0)} 100%{opacity:0;transform:translateX(0)} }
+.clari-sparkle { position:absolute; width:6px; height:6px; border-radius:50%; background:var(--yellow); pointer-events:none; animation:clariSparklePop 0.6s ease forwards; }
+.clari-sparkle:nth-child(2) { background:var(--coral); animation-delay:0.08s; }
+.clari-sparkle:nth-child(3) { background:var(--green); animation-delay:0.15s; }
+@keyframes clariSparklePop { 0%{opacity:1;transform:scale(0) translate(0,0)} 50%{opacity:1;transform:scale(1.2) translate(var(--sx,8px),var(--sy,-10px))} 100%{opacity:0;transform:scale(0.5) translate(var(--sx,8px),var(--sy,-10px))} }
+.clari-wave-wrap { position:absolute; top:6px; right:8px; animation:clariWaveIn 1.2s ease forwards; pointer-events:none; z-index:3; }
+@keyframes clariWaveIn { 0%{opacity:0;transform:translateX(20px) rotate(-10deg)} 20%{opacity:1;transform:translateX(0) rotate(5deg)} 35%{transform:translateX(0) rotate(-5deg)} 50%{transform:translateX(0) rotate(4deg)} 65%{transform:translateX(0) rotate(-2deg)} 80%,100%{opacity:1;transform:translateX(0) rotate(0)} }
+.gem-shop-keeper { display:flex; flex-direction:column; align-items:center; gap:4px; margin:4px 0 8px; }
+.gem-shop-keeper .clari-alive { display:inline-block; }
+.gem-shop-hat { position:relative; display:inline-block; }
+.gem-shop-hat::before { content:''; position:absolute; top:-6px; left:50%; transform:translateX(-50%); width:28px; height:10px; background:linear-gradient(135deg,#a855f7,#7c3aed); border-radius:6px 6px 2px 2px; z-index:2; }
+.gem-shop-hat::after { content:''; position:absolute; top:-2px; left:50%; transform:translateX(-50%); width:40px; height:6px; background:linear-gradient(135deg,#c084fc,#a855f7); border-radius:3px; z-index:1; }
+.gem-shop-speech { background:var(--white); border:2px solid var(--clari-blue); border-radius:14px; padding:6px 12px; font-size:13px; font-weight:700; color:var(--text); position:relative; max-width:240px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+.gem-shop-speech::after { content:''; position:absolute; top:-7px; left:50%; transform:translateX(-50%) rotate(45deg); width:10px; height:10px; background:var(--white); border-left:2px solid var(--clari-blue); border-top:2px solid var(--clari-blue); }
+:root[data-theme="dark"] .gem-shop-speech { background:var(--bg-card); color:var(--text); border-color:var(--clari-blue); }
+:root[data-theme="dark"] .gem-shop-speech::after { background:var(--bg-card); }
+.clari-typing-indicator { display:flex; align-items:center; gap:8px; padding:4px 0; }
+.clari-typing-avatar { width:30px; height:30px; border-radius:50%; background:var(--clari-blue); flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:3px; }
+.clari-typing-bubble { background:var(--white); border-radius:16px; border-bottom-left-radius:4px; padding:10px 16px; box-shadow:var(--shadow); display:flex; align-items:center; gap:4px; }
+.clari-typing-dot { width:7px; height:7px; border-radius:50%; background:var(--gray3); animation:clariTypingBounce 1.4s ease-in-out infinite; }
+.clari-typing-dot:nth-child(2) { animation-delay:0.15s; }
+.clari-typing-dot:nth-child(3) { animation-delay:0.3s; }
+@keyframes clariTypingBounce { 0%,60%,100%{transform:translateY(0);opacity:0.4} 30%{transform:translateY(-5px);opacity:1} }
+:root[data-theme="dark"] .clari-typing-bubble { background:var(--bg-card); box-shadow:0 2px 8px rgba(0,0,0,0.3); }
+:root[data-theme="dark"] .clari-typing-dot { background:var(--gray4); }
 </style>
 
 <script>
@@ -11603,9 +11959,15 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 
     <!-- ======== ONBOARDING VIEWS ======== -->
     <div class="view active" id="view-onboarding">
+      <!-- Top progress indicator -->
+      <div class="ob-top-progress" id="ob-top-progress"></div>
+
       <!-- ob-welcome -->
       <div class="ob-screen" id="ob-welcome">
-        <div class="ob-mascot" id="ob-welcome-mascot"></div>
+        <div class="ob-clari-wrap">
+          <div class="ob-mascot" id="ob-welcome-mascot"></div>
+          <div class="clari-speech-bubble" id="ob-speech-welcome">Hi! I'm Clari, your AI learning buddy! Let's get you set up.</div>
+        </div>
         <div>
           <div class="ob-title">Hey! I'm Clari.</div>
           <div class="ob-sub mt8">I'll help you learn AI — no tech background needed.</div>
@@ -11630,7 +11992,10 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 
       <!-- ob-name -->
       <div class="ob-screen hidden" id="ob-name">
-        <div class="ob-mascot" id="ob-name-mascot"></div>
+        <div class="ob-clari-wrap">
+          <div class="ob-mascot" id="ob-name-mascot"></div>
+          <div class="clari-speech-bubble" id="ob-speech-name">Almost done! Let's personalise your experience.</div>
+        </div>
         <div class="ob-title">What should I call you?</div>
         <input class="text-input" id="name-input" type="text" placeholder="Your first name" maxlength="30" autocomplete="given-name" onkeydown="if(event.key==='Enter')obContinueName()">
         <button class="btn btn-green btn-full" id="name-continue-btn" onclick="obContinueName()">Continue</button>
@@ -11638,6 +12003,10 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 
       <!-- ob-experience -->
       <div class="ob-screen hidden" id="ob-experience">
+        <div class="ob-clari-wrap">
+          <div class="ob-mascot" id="ob-experience-mascot"></div>
+          <div class="clari-speech-bubble" id="ob-speech-experience">How much experience do you have with AI?</div>
+        </div>
         <div class="ob-progress-dots" id="ob-dots-exp"></div>
         <div class="ob-title">Have you ever used AI before?</div>
         <div class="ob-cards">
@@ -11665,6 +12034,10 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 
       <!-- ob-techcomfort -->
       <div class="ob-screen hidden" id="ob-techcomfort">
+        <div class="ob-clari-wrap">
+          <div class="ob-mascot" id="ob-techcomfort-mascot"></div>
+          <div class="clari-speech-bubble" id="ob-speech-techcomfort">What topics interest you most? Pick as many as you like!</div>
+        </div>
         <div class="ob-progress-dots" id="ob-dots-tech"></div>
         <div class="ob-title">How comfortable are you with technology?</div>
         <div class="ob-cards">
@@ -11692,6 +12065,10 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 
       <!-- ob-survey -->
       <div class="ob-screen hidden" id="ob-survey" style="justify-content:flex-start;padding-top:24px;">
+        <div class="ob-clari-wrap" style="margin-bottom:8px;">
+          <div class="ob-mascot" id="ob-survey-mascot"></div>
+          <div class="clari-speech-bubble" id="ob-speech-survey">What topics interest you most? Pick as many as you like!</div>
+        </div>
         <div style="width:100%">
           <div id="ob-survey-progress-wrap" class="ob-survey-progress" style="display:none;">
             <div class="ob-survey-progress-label">
@@ -11721,7 +12098,10 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 
       <!-- ob-results -->
       <div class="ob-screen hidden" id="ob-results" style="justify-content:flex-start;padding-top:20px;gap:16px;">
-        <div id="ob-results-mascot"></div>
+        <div class="ob-clari-wrap">
+          <div id="ob-results-mascot"></div>
+          <div class="clari-speech-bubble" id="ob-speech-results">You're all set! Let's start learning!</div>
+        </div>
         <div class="ob-title">Your perfect AI plan is ready!</div>
         <div class="ob-sub" id="ob-results-name-msg"></div>
         <div id="ob-results-profile-card" style="width:100%;"></div>
@@ -11762,6 +12142,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
       <div id="daily-tips-carousel-wrap"></div>
       <div id="clari-encouragement-wrap"></div>
       <div id="weekly-challenge-banner" style="margin:0 12px 8px;"></div>
+      <div class="clari-divider" style="margin:8px 12px 12px;" aria-hidden="true"></div>
       <div id="units-container"></div>
       <div id="lp-tooltip"><div class="lp-tip-title" id="lp-tip-title"></div><div class="lp-tip-body" id="lp-tip-body"></div><div class="lp-tip-hint">Tap to open lesson</div></div>
     </div>
@@ -11826,6 +12207,8 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
     <!-- ======== PRACTICE TAB ======== -->
     <div class="view" id="view-practice" role="main">
       <div id="practice-mode-banner" class="practice-mode-banner">
+        <!-- brand-05: Clari watermark in practice banner -->
+        <div class="clari-tab-header-watermark" aria-hidden="true" style="background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cellipse cx='60' cy='50' rx='38' ry='42' fill='white'/%3E%3Cellipse cx='60' cy='100' rx='22' ry='14' fill='white'/%3E%3Ccircle cx='45' cy='45' r='6' fill='white'/%3E%3Ccircle cx='75' cy='45' r='6' fill='white'/%3E%3Cellipse cx='60' cy='60' rx='5' ry='3' fill='white'/%3E%3Ccircle cx='28' cy='65' r='10' fill='white'/%3E%3Ccircle cx='92' cy='65' r='10' fill='white'/%3E%3C/svg%3E&quot;)"></div>
         <div class="pmb-top">
           <div>
             <div class="pmb-subtitle" id="pmb-subtitle-text">Sharpen your skills with quick exercises</div>
@@ -11839,6 +12222,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
         </div>
       </div>
       <div id="reviews-due-banner" aria-live="polite"></div>
+      <div class="clari-divider green" aria-hidden="true"></div>
       <div id="practice-daily-goal-bar" style="margin-bottom:12px;"></div>
       <div id="practice-unit-filter-row" style="margin-bottom:10px;"></div>
       <div id="practice-daily-challenge-wrap" style="margin-bottom:0;"></div>
@@ -11901,6 +12285,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
           Focus Mode
         </button>
       </div>
+      <div class="clari-divider green" aria-hidden="true"></div>
       <div id="practice-weak-heatmap"></div>
       <div id="practice-records-row"></div>
       <div id="practice-recent-sessions-wrap"></div>
@@ -11933,6 +12318,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
       </div>
       <div id="practice-lesson-stats-wrap"></div>
       <div id="practice-leaderboard-wrap"></div>
+      <div class="clari-divider green" aria-hidden="true"></div>
       <div class="practice-notes-section" style="margin-top:14px;">
         <button class="practice-notes-toggle" onclick="(function(btn){btn.classList.toggle('open');var b=btn.nextElementSibling;b.classList.toggle('open');if(b.classList.contains(&apos;open&apos;))renderPracticeSessionNotes();})(this)" aria-expanded="false">
           <span>&#x1F4DD; Session Notes</span>
@@ -11954,8 +12340,11 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 
     <!-- ======== MY PLAN TAB ======== -->
     <div class="view" id="view-plan">
-      <div style="padding-bottom:4px;">
-        <div class="plan-header">My Plan</div>
+      <!-- brand-05: Plan branded header -->
+      <div class="plan-tab-header">
+        <div class="plan-tab-header-title">My Plan</div>
+        <div class="plan-tab-header-sub">Your personalized learning journey</div>
+        <div class="clari-tab-header-watermark" aria-hidden="true"></div>
       </div>
       <div id="plan-content"></div>
     </div>
@@ -11963,6 +12352,8 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 <!-- ======== PROFILE TAB ======== -->
 <div class="view" id="view-profile">
   <div class="profile-top">
+    <!-- brand-05: Profile Clari watermark -->
+    <div class="clari-tab-header-watermark" aria-hidden="true"></div>
     <div class="profile-avatar-ring" id="profile-avatar-ring"></div>
     <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
       <div class="profile-name" id="profile-name-text">You</div>
@@ -11996,6 +12387,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
       </div>
     </div>
     <div class="section-card" id="profile-summary-card"></div>
+    <div class="clari-divider coral" aria-hidden="true"></div>
     <div class="section-card" id="profile-streak-cal-card"></div>
     <div id="profile-weekly-report"></div>
     <div class="section-card collapsible collapsed" id="profile-feedback-card">
@@ -12011,6 +12403,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
       <div class="section-title">Your Stats</div>
       <div class="stats-grid" id="stats-grid"></div>
     </div>
+    <div class="clari-divider purple" aria-hidden="true"></div>
     <div class="section-card" id="profile-badges-card">
       <div class="section-title">Achievements</div>
       <div id="ach-progress-label" class="ach-progress-label"></div>
@@ -12057,10 +12450,13 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
         <div id="profile-notes-list"></div>
       </div>
     </div>
+    <div class="clari-divider coral" aria-hidden="true"></div>
     <div class="section-card">
       <div class="section-title">Settings</div>
       <div id="settings-rows"></div>
     </div>
+    <!-- brand-08: Profile footer branding -->
+    <div class="clari-footer-branding" id="clari-footer-branding"></div>
   </div>
 </div>
 
@@ -29267,6 +29663,9 @@ function switchTab(tab) {
   if (tab === 'plan')     renderPlanTab();
   if (tab === 'profile')  renderProfileTab();
 
+  // Clari wave on first learn tab visit per session
+  if (tab === 'learn') setTimeout(_maybeShowClariWave, 400);
+
   // Perform animated transition
   animateViewSwitch(fromView, toView, 'view-transition-enter', 'view-transition-exit', function() {
     // Clari first-visit tips per tab
@@ -29361,16 +29760,89 @@ function setLanguage(lang) {
   renderProfileTab();
 }
 
+// Onboarding screen order and config for progress indicator + mascot emotions
+var OB_SCREEN_ORDER = ['ob-welcome','ob-name','ob-experience','ob-techcomfort','ob-survey','ob-loading','ob-results'];
+var OB_SCREEN_CONFIG = {
+  'ob-welcome':     { step:0, emotion:'waving',     size:64 },
+  'ob-name':        { step:1, emotion:'happy',       size:48 },
+  'ob-experience':  { step:2, emotion:'thinking',    size:48 },
+  'ob-techcomfort': { step:3, emotion:'excited',     size:48 },
+  'ob-survey':      { step:4, emotion:'thinking',    size:48 },
+  'ob-loading':     { step:5, emotion:'think',       size:80 },
+  'ob-results':     { step:6, emotion:'celebrating', size:64 }
+};
+
+function renderObTopProgress(activeScreenId) {
+  var el = document.getElementById('ob-top-progress');
+  if (!el) return;
+  var config = OB_SCREEN_CONFIG[activeScreenId];
+  if (!config) return;
+  var activeStep = config.step;
+  var totalSteps = OB_SCREEN_ORDER.length;
+  var html = '';
+  for (var i = 0; i < totalSteps; i++) {
+    var dotCls = 'ob-top-progress-dot';
+    if (i < activeStep) dotCls += ' done';
+    else if (i === activeStep) dotCls += ' active';
+    html += '<div class="' + dotCls + '"></div>';
+    if (i < totalSteps - 1) {
+      var lineCls = 'ob-top-progress-line';
+      if (i < activeStep) lineCls += ' done';
+      html += '<div class="' + lineCls + '"></div>';
+    }
+  }
+  el.innerHTML = html;
+}
+
+function obSetMascotForScreen(screenId) {
+  var config = OB_SCREEN_CONFIG[screenId];
+  if (!config) return;
+  var mascotMap = {
+    'ob-welcome':'ob-welcome-mascot', 'ob-name':'ob-name-mascot',
+    'ob-experience':'ob-experience-mascot', 'ob-techcomfort':'ob-techcomfort-mascot',
+    'ob-survey':'ob-survey-mascot', 'ob-loading':'ob-loading-mascot',
+    'ob-results':'ob-results-mascot'
+  };
+  var mascotId = mascotMap[screenId];
+  if (mascotId) {
+    var mascotEl = document.getElementById(mascotId);
+    if (mascotEl) mascotEl.innerHTML = clariSVGCached(config.emotion, config.size);
+  }
+}
+
 function obShowScreen(id) {
+  var prevScreen = obState.currentScreen;
   var screens = document.querySelectorAll(".ob-screen");
-  for (var _si = 0; _si < screens.length; _si++) {
-    screens[_si].classList.add("hidden");
+  var nextEl = document.getElementById(id);
+  var useSlide = !_prefersReducedMotion() && prevScreen && prevScreen !== id;
+
+  if (useSlide) {
+    var prevEl = document.getElementById(prevScreen);
+    if (prevEl) {
+      prevEl.classList.add('ob-slide-out');
+      setTimeout(function() {
+        for (var _si = 0; _si < screens.length; _si++) {
+          screens[_si].classList.add("hidden");
+          screens[_si].classList.remove('ob-slide-out', 'ob-slide-in');
+        }
+        if (nextEl) {
+          nextEl.classList.remove("hidden");
+          nextEl.classList.add('ob-slide-in');
+          setTimeout(function() { nextEl.classList.remove('ob-slide-in'); }, 200);
+        }
+      }, 200);
+    } else {
+      for (var _ob1 = 0; _ob1 < screens.length; _ob1++) screens[_ob1].classList.add("hidden");
+      if (nextEl) nextEl.classList.remove("hidden");
+    }
+  } else {
+    for (var _ob2 = 0; _ob2 < screens.length; _ob2++) screens[_ob2].classList.add("hidden");
+    if (nextEl) nextEl.classList.remove("hidden");
   }
-  var el = document.getElementById(id);
-  if (el) {
-    el.classList.remove("hidden");
-  }
+
   obState.currentScreen = id;
+  renderObTopProgress(id);
+  obSetMascotForScreen(id);
 }
 
 function obNext(from) {
@@ -29563,6 +30035,22 @@ function renderSurveyQuestion() {
     if (cnt)  cnt.textContent = curQ + ' of ' + totalQ;
     if (fill) fill.style.width = pct + '%';
   })();
+
+  // Update survey speech bubble with question context
+  var _surveyBubble = document.getElementById('ob-speech-survey');
+  if (_surveyBubble) {
+    var _surveyBubbleMsgs = {
+      'q_profession': 'Tell me about your work!',
+      'q_pain': 'What eats up your time?',
+      'q1': 'What would help you most?',
+      'q_tried': 'What have you tried so far?',
+      'q_worry': 'No silly questions here!',
+      'q3': 'What do you use most?',
+      'q4': 'Every bit of learning counts!',
+      'q_study': 'What do you need help with?'
+    };
+    _surveyBubble.textContent = _surveyBubbleMsgs[q.key] || 'Tell me more about yourself!';
+  }
 
   let optionsHtml = q.options.map((opt, i) => {
     let selected = q.multi
@@ -41736,6 +42224,8 @@ function showFeedback(correct, msg, correctAnswerText, explanation) {
     ${correctLine}
     ${whySection}
   </div>`;
+  // Clari micro-reaction near feedback
+  if (typeof spawnClariReaction === 'function') spawnClariReaction(correct);
 }
 
 // ---- FILL BLANK ----
@@ -41967,27 +42457,45 @@ function checkTapCorrect() {
 
 // ---- SIM CHAT ----
 function renderSlideSimChat(slide) {
-  const chatHtml = slide.messages.map(m => {
+  var _aiIdxs = [];
+  var chatHtml = slide.messages.map(function(m, mi) {
     if (m.role === 'user') {
-      return `<div class="sim-msg user"><div class="sim-bubble">${m.text.replace(/\n/g,'<br>')}</div></div>`;
+      return '<div class="sim-msg user"><div class="sim-bubble">' + m.text.replace(/\n/g,'<br>') + '</div></div>';
     } else {
-      return `<div class="sim-msg ai">
-        <div class="sim-avatar">${clariSVG('happy', 30)}</div>
-        <div class="sim-bubble">${m.text.replace(/\n/g,'<br>')}</div>
-      </div>`;
+      _aiIdxs.push(mi);
+      return '<div class="sim-msg ai" data-ai-idx="' + mi + '" style="opacity:0;transition:opacity 0.3s ease;">' +
+        '<div class="sim-avatar clari-alive">' + clariSVG('happy', 30) + '</div>' +
+        '<div class="sim-bubble">' + m.text.replace(/\n/g,'<br>') + '</div>' +
+      '</div>';
     }
   }).join('');
-
-  const optsHtml = (slide.options || []).map((o, i) =>
-    `<button class="quiz-option" onclick="selectSimOption(this,${i},${slide.correct})">${o}</button>`
-  ).join('');
-
-  return `<div class="slide-sim-chat">
-    <div class="sim-chat-box">${chatHtml}</div>
-    <div class="sim-prompt">${slide.prompt}</div>
-    <div class="quiz-options">${optsHtml}</div>
-    <div id="quiz-feedback" aria-live="polite"></div>
-  </div>`;
+  var typingHtml = _aiIdxs.length > 0
+    ? '<div class="clari-typing-indicator" id="sim-typing-ind">' +
+        '<div class="clari-typing-avatar">' + (typeof clariMini === 'function' ? clariMini('thinking') : '') + '</div>' +
+        '<div class="clari-typing-bubble"><span class="clari-typing-dot"></span><span class="clari-typing-dot"></span><span class="clari-typing-dot"></span></div>' +
+      '</div>'
+    : '';
+  var optsHtml = (slide.options || []).map(function(o, i) {
+    return '<button class="quiz-option" onclick="selectSimOption(this,' + i + ',' + slide.correct + ')">' + o + '</button>';
+  }).join('');
+  if (_aiIdxs.length > 0) {
+    setTimeout(function() {
+      var ind = document.getElementById('sim-typing-ind');
+      if (ind) { ind.style.opacity = '0'; setTimeout(function() { if (ind.parentNode) ind.remove(); }, 300); }
+      _aiIdxs.forEach(function(idx, i) {
+        setTimeout(function() {
+          var el = document.querySelector('[data-ai-idx="' + idx + '"]');
+          if (el) el.style.opacity = '1';
+        }, i * 200);
+      });
+    }, 800);
+  }
+  return '<div class="slide-sim-chat">' +
+    '<div class="sim-chat-box">' + typingHtml + chatHtml + '</div>' +
+    '<div class="sim-prompt">' + slide.prompt + '</div>' +
+    '<div class="quiz-options">' + optsHtml + '</div>' +
+    '<div id="quiz-feedback" aria-live="polite"></div>' +
+  '</div>';
 }
 
 function selectSimOption(el, idx, correct) {
@@ -51320,6 +51828,16 @@ function renderProfileTab() {
     restoreProfileCardStates();
   })();
 
+  // brand-08: Profile footer branding
+  (function() {
+    var _footer = document.getElementById('clari-footer-branding');
+    if (_footer) {
+      _footer.innerHTML =
+        clariWordmark(80) +
+        '<div class="clari-footer-love">Made with love by Clari</div>';
+    }
+  })();
+
 }
 
 
@@ -52125,7 +52643,19 @@ const SHOP_ITEMS = [
 function openGemShop() {
   const modal = document.getElementById('gem-shop-modal');
   if (!modal) return;
-  document.getElementById('gem-shop-clari').innerHTML = clariSVG('excited', 70);
+  // Clari shopkeeper with merchant hat and speech bubble
+  var _shopGreetings = [
+    "Welcome to my shop! What catches your eye?",
+    "Browse away! Everything here is earned, not bought.",
+    "You've been working hard! Treat yourself.",
+    "Gems well spent are gems well earned!"
+  ];
+  var _shopGreet = _shopGreetings[Math.floor(Math.random() * _shopGreetings.length)];
+  document.getElementById('gem-shop-clari').innerHTML =
+    '<div class="gem-shop-keeper">' +
+      '<div class="gem-shop-hat"><span class="clari-alive">' + clariSVG('excited', 60) + '</span></div>' +
+      '<div class="gem-shop-speech">' + _shopGreet + '</div>' +
+    '</div>';
   document.getElementById('gem-shop-balance').textContent = `You have ${S.gems || 0} gems`;
   const list = document.getElementById('shop-items-list');
   const THEME_ICONS = { theme_coral: clariSVG('happy', 36, 'coral'), theme_purple: clariSVG('happy', 36, 'purple'), theme_gold: clariSVG('happy', 36, 'gold') };
@@ -52154,6 +52684,12 @@ function buyShopItem(itemId, cost) {
   // Micro-interaction: sparkle the gems display
   var gemsEl = document.querySelector('.tb-gems');
   if (gemsEl) { gemsEl.classList.add('spending'); setTimeout(function() { gemsEl.classList.remove('spending'); }, 350); }
+  // Clari shopkeeper "Great choice!" reaction
+  var _shopSpeech = document.querySelector('.gem-shop-speech');
+  if (_shopSpeech) {
+    var _greatMsgs = ["Great choice!", "Ooh, nice pick!", "Excellent taste!", "You won't regret that!"];
+    _shopSpeech.textContent = _greatMsgs[Math.floor(Math.random() * _greatMsgs.length)];
+  }
   switch(itemId) {
     case 'streak_freeze': save('streak_freeze', true); showToast("Streak Freeze activated! <span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><line x1='12' y1='2' x2='12' y2='22'/><line x1='2' y1='12' x2='22' y2='12'/><line x1='4.9' y1='4.9' x2='19.1' y2='19.1'/><line x1='19.1' y1='4.9' x2='4.9' y2='19.1'/><line x1='12' y1='6' x2='10' y2='4'/><line x1='12' y1='6' x2='14' y2='4'/><line x1='12' y1='18' x2='10' y2='20'/><line x1='12' y1='18' x2='14' y2='20'/></svg></span>️", 'success'); break;
     case 'heart_refill':  save('hearts', 5); updateTopBar(); showToast("Hearts refilled! <span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><path d='M12 21C12 21 3 14 3 8a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6-9 13-9 13z' fill='var(--red)' stroke='#dc2626' stroke-width='1.5'/></svg></span>️", 'success'); break;
@@ -52631,6 +53167,89 @@ function updateLessonSoundToggle() {
 }
 
 // ============================================================
+// CLARI MASCOT ANIMATION SYSTEM
+// ============================================================
+var _clariBlinkInterval = null;
+var _clariLearnWaveShown = false;
+
+// Eye blink: periodically add .clari-blink to all visible SVGs with clari-alive
+function _startClariBlinkLoop() {
+  if (_clariBlinkInterval) return;
+  function doBlink() {
+    var svgs = document.querySelectorAll('.clari-alive svg');
+    svgs.forEach(function(svg) {
+      svg.classList.add('clari-blink');
+      setTimeout(function() { svg.classList.remove('clari-blink'); }, 180);
+    });
+  }
+  // Random interval between 5-8 seconds
+  function scheduleNext() {
+    var delay = 5000 + Math.random() * 3000;
+    _clariBlinkInterval = setTimeout(function() {
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        doBlink();
+      }
+      scheduleNext();
+    }, delay);
+  }
+  scheduleNext();
+}
+
+// Spawn a micro Clari reaction near the quiz feedback area
+function spawnClariReaction(isCorrect) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var fb = document.getElementById('quiz-feedback') ||
+           document.getElementById('tap-feedback') ||
+           document.getElementById('fill-feedback');
+  if (!fb) return;
+  // Ensure parent is positioned
+  if (getComputedStyle(fb).position === 'static') fb.style.position = 'relative';
+  // Remove any existing reaction
+  var old = fb.querySelector('.clari-micro-react');
+  if (old) old.remove();
+  // Create the reaction element
+  var wrap = document.createElement('div');
+  wrap.className = 'clari-micro-react ' + (isCorrect ? 'correct' : 'wrong');
+  var state = isCorrect ? 'celebrating' : 'encouraging';
+  wrap.innerHTML = (typeof clariMini === 'function' ? clariMini(state === 'celebrating' ? 'happy' : 'sad') : '');
+  // Add sparkles for correct
+  if (isCorrect) {
+    var sparkles = [
+      {sx: '10px', sy: '-12px'},
+      {sx: '-8px', sy: '-10px'},
+      {sx: '6px', sy: '-16px'}
+    ];
+    sparkles.forEach(function(s) {
+      var sp = document.createElement('span');
+      sp.className = 'clari-sparkle';
+      sp.style.setProperty('--sx', s.sx);
+      sp.style.setProperty('--sy', s.sy);
+      wrap.appendChild(sp);
+    });
+  }
+  fb.appendChild(wrap);
+  // Auto-remove after animation
+  setTimeout(function() { if (wrap.parentNode) wrap.remove(); }, 1100);
+}
+
+// Clari waving on learn tab (one-time per session)
+function _maybeShowClariWave() {
+  if (_clariLearnWaveShown) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  _clariLearnWaveShown = true;
+  var header = document.querySelector('.learn-header');
+  if (!header) return;
+  // Ensure header is positioned for absolute child
+  if (getComputedStyle(header).position === 'static') header.style.position = 'relative';
+  var wave = document.createElement('div');
+  wave.className = 'clari-wave-wrap';
+  wave.innerHTML = (typeof clariMini === 'function') ? clariMini('happy') : '';
+  header.appendChild(wave);
+  // Remove after animation settles
+  setTimeout(function() { if (wave.parentNode) wave.remove(); }, 2500);
+}
+
+// ============================================================
 // INIT
 // ============================================================
 function init() {
@@ -52661,6 +53280,9 @@ function init() {
   document.addEventListener('keydown', handleLessonKeyboard);
   // Global keyboard shortcuts system (?, Esc, D, /, 1-4, arrows, etc.)
   initKeyboardShortcuts();
+
+  // Start Clari eye blink animation loop
+  _startClariBlinkLoop();
 
   // Apply text size (font size slider)
   applyFontSize(S.font_size_idx != null ? S.font_size_idx : 1);
@@ -52743,8 +53365,6 @@ function init() {
   } else {
     // Show onboarding
     hideMainUI();
-    // Pre-fill mascots
-    document.getElementById('ob-welcome-mascot').innerHTML = clariSVG('waving', 100);
     obShowScreen('ob-welcome');
   }
 
