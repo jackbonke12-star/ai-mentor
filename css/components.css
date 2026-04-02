@@ -1,0 +1,241 @@
+/* ClariAI Component Library — v1.0 */
+/* Requires: design-tokens.css loaded first */
+
+/* ============================================
+   Cards
+   ============================================ */
+
+.clari-card {
+  background: var(--clari-surface, #fff);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-4);
+  border: 0.5px solid var(--clari-neutral-200);
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.clari-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+
+.clari-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  background: var(--clari-primary-500);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.clari-btn-primary:hover {
+  background: var(--clari-primary-600);
+  box-shadow: var(--shadow-sm);
+}
+
+.clari-btn-primary:active {
+  background: var(--clari-primary-700);
+  transform: scale(0.98);
+}
+
+.clari-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.clari-btn-primary:disabled:hover {
+  background: var(--clari-primary-500);
+  box-shadow: none;
+  transform: none;
+}
+
+.clari-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  background: transparent;
+  color: var(--clari-primary-500);
+  border: 1.5px solid var(--clari-primary-500);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.clari-btn-secondary:hover {
+  background: var(--clari-primary-50);
+  border-color: var(--clari-primary-600);
+  color: var(--clari-primary-600);
+}
+
+.clari-btn-secondary:active {
+  background: var(--clari-primary-100);
+  transform: scale(0.98);
+}
+
+.clari-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  background: transparent;
+  color: var(--clari-primary-500);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.clari-btn-ghost:hover {
+  background: var(--clari-primary-50);
+}
+
+.clari-btn-ghost:active {
+  background: var(--clari-primary-100);
+}
+
+/* ============================================
+   Badges
+   ============================================ */
+
+.clari-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  padding: var(--space-1) var(--space-2);
+  line-height: 1;
+  background: var(--clari-neutral-100);
+  color: var(--clari-neutral-700);
+}
+
+.clari-badge--primary {
+  background: var(--clari-primary-50);
+  color: var(--clari-primary-700);
+}
+
+.clari-badge--success {
+  background: var(--clari-success-light);
+  color: var(--clari-success-dark);
+}
+
+.clari-badge--warning {
+  background: var(--clari-warning-light);
+  color: var(--clari-warning-dark);
+}
+
+.clari-badge--danger {
+  background: var(--clari-danger-light);
+  color: var(--clari-danger-dark);
+}
+
+/* ============================================
+   Input
+   ============================================ */
+
+.clari-input {
+  width: 100%;
+  background: var(--clari-neutral-100);
+  border: 1.5px solid var(--clari-neutral-300);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-base);
+  color: var(--clari-text-primary);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.clari-input:focus {
+  border-color: var(--clari-primary-300);
+  box-shadow: 0 0 0 3px rgba(15, 157, 122, 0.15);
+  outline: none;
+}
+
+.clari-input::placeholder {
+  color: var(--clari-text-muted);
+}
+
+/* ============================================
+   Progress Bar
+   ============================================ */
+
+.clari-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--clari-neutral-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.clari-progress-bar__fill {
+  height: 100%;
+  background: var(--clari-primary-500);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-normal);
+}
+
+.clari-progress-bar--success .clari-progress-bar__fill {
+  background: var(--clari-success);
+}
+
+.clari-progress-bar--warning .clari-progress-bar__fill {
+  background: var(--clari-warning);
+}
+
+/* ============================================
+   Divider
+   ============================================ */
+
+.clari-divider {
+  height: 1px;
+  background: var(--clari-neutral-200);
+  margin: var(--space-4) 0;
+  border: none;
+}
+
+/* ============================================
+   Avatar
+   ============================================ */
+
+.clari-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  background: var(--clari-primary-100);
+  color: var(--clari-primary-700);
+  font-weight: var(--font-weight-bold);
+}
+
+.clari-avatar--sm {
+  width: 32px;
+  height: 32px;
+}
+
+.clari-avatar--md {
+  width: 40px;
+  height: 40px;
+}
+
+.clari-avatar--lg {
+  width: 56px;
+  height: 56px;
+}

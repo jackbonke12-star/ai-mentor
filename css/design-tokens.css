@@ -1,0 +1,206 @@
+/* ClariAI Design Tokens — v1.0 */
+
+:root {
+  /* ===========================
+     PRIMARY COLOR RAMP
+     Friendly teal/green, base #0F9D7A at 500
+     =========================== */
+  --clari-primary-50: #E6F7F3;
+  --clari-primary-100: #B3E8DA;
+  --clari-primary-200: #80D9C1;
+  --clari-primary-300: #4DCAA8;
+  --clari-primary-400: #26BE93;
+  --clari-primary-500: #0F9D7A;
+  --clari-primary-600: #0D8A6B;
+  --clari-primary-700: #0A6F56;
+  --clari-primary-800: #075441;
+  --clari-primary-900: #04392C;
+
+  /* ===========================
+     SECONDARY ACCENT RAMP
+     Warm coral, base #E85D30 at 500
+     =========================== */
+  --clari-secondary-50: #FEF0EB;
+  --clari-secondary-100: #FBD1C3;
+  --clari-secondary-200: #F8B29B;
+  --clari-secondary-300: #F59373;
+  --clari-secondary-400: #F27852;
+  --clari-secondary-500: #E85D30;
+  --clari-secondary-600: #CC4F28;
+  --clari-secondary-700: #A33F20;
+  --clari-secondary-800: #7A2F18;
+  --clari-secondary-900: #521F10;
+
+  /* ===========================
+     NEUTRAL GRAY RAMP
+     =========================== */
+  --clari-neutral-50: #F9FAFB;
+  --clari-neutral-100: #F3F4F6;
+  --clari-neutral-200: #E5E7EB;
+  --clari-neutral-300: #D1D5DB;
+  --clari-neutral-400: #9CA3AF;
+  --clari-neutral-500: #6B7280;
+  --clari-neutral-600: #4B5563;
+  --clari-neutral-700: #374151;
+  --clari-neutral-800: #1F2937;
+  --clari-neutral-900: #111827;
+
+  /* ===========================
+     SEMANTIC COLORS
+     =========================== */
+  --clari-success: #22C55E;
+  --clari-success-light: #DCFCE7;
+  --clari-success-dark: #15803D;
+
+  --clari-warning: #F59E0B;
+  --clari-warning-light: #FEF3C7;
+  --clari-warning-dark: #B45309;
+
+  --clari-danger: #EF4444;
+  --clari-danger-light: #FEE2E2;
+  --clari-danger-dark: #B91C1C;
+
+  --clari-info: #3B82F6;
+  --clari-info-light: #DBEAFE;
+  --clari-info-dark: #1D4ED8;
+
+  /* ===========================
+     SURFACE & TEXT (Light Mode)
+     =========================== */
+  --clari-bg: #FFFFFF;
+  --clari-surface: #FFFFFF;
+  --clari-surface-raised: #F9FAFB;
+  --clari-text-primary: #111827;
+  --clari-text-secondary: #4B5563;
+  --clari-text-muted: #9CA3AF;
+
+  /* ===========================
+     TYPOGRAPHY SCALE
+     =========================== */
+  --font-size-xs: 0.75rem;   /* 12px */
+  --font-size-sm: 0.875rem;  /* 14px */
+  --font-size-base: 1rem;    /* 16px */
+  --font-size-lg: 1.125rem;  /* 18px */
+  --font-size-xl: 1.375rem;  /* 22px */
+  --font-size-2xl: 1.75rem;  /* 28px */
+  --font-size-3xl: 2.25rem;  /* 36px */
+
+  /* ===========================
+     FONT WEIGHTS
+     =========================== */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  /* ===========================
+     SPACING SCALE
+     =========================== */
+  --space-0: 0;
+  --space-1: 0.25rem;   /* 4px  */
+  --space-2: 0.5rem;    /* 8px  */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-7: 1.75rem;   /* 28px */
+  --space-8: 2rem;      /* 32px */
+  --space-9: 2.25rem;   /* 36px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-11: 2.75rem;  /* 44px */
+  --space-12: 3rem;     /* 48px */
+
+  /* ===========================
+     BORDER RADII
+     =========================== */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* ===========================
+     SHADOWS
+     Soft, modern — no harsh black
+     =========================== */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.06);
+
+  /* ===========================
+     TRANSITIONS
+     =========================== */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 400ms ease;
+}
+
+/* ===========================
+   DARK MODE OVERRIDES
+   =========================== */
+[data-theme="dark"] {
+  /* Primary ramp — lighter values for contrast on dark backgrounds */
+  --clari-primary-50: #04392C;
+  --clari-primary-100: #075441;
+  --clari-primary-200: #0A6F56;
+  --clari-primary-300: #0D8A6B;
+  --clari-primary-400: #14B88E;
+  --clari-primary-500: #2DD4A0;
+  --clari-primary-600: #5EEABD;
+  --clari-primary-700: #8EF2D3;
+  --clari-primary-800: #B3E8DA;
+  --clari-primary-900: #E6F7F3;
+
+  /* Secondary ramp — slightly desaturated for comfort on dark */
+  --clari-secondary-50: #521F10;
+  --clari-secondary-100: #7A2F18;
+  --clari-secondary-200: #A33F20;
+  --clari-secondary-300: #CC4F28;
+  --clari-secondary-400: #E06A3E;
+  --clari-secondary-500: #F08060;
+  --clari-secondary-600: #F5A088;
+  --clari-secondary-700: #F8B9A5;
+  --clari-secondary-800: #FBD1C3;
+  --clari-secondary-900: #FEF0EB;
+
+  /* Neutral ramp — inverted for dark mode */
+  --clari-neutral-50: #111827;
+  --clari-neutral-100: #1F2937;
+  --clari-neutral-200: #374151;
+  --clari-neutral-300: #4B5563;
+  --clari-neutral-400: #6B7280;
+  --clari-neutral-500: #9CA3AF;
+  --clari-neutral-600: #D1D5DB;
+  --clari-neutral-700: #E5E7EB;
+  --clari-neutral-800: #F3F4F6;
+  --clari-neutral-900: #F9FAFB;
+
+  /* Semantic colors — muted/adjusted for dark backgrounds */
+  --clari-success: #4ADE80;
+  --clari-success-light: #14532D;
+  --clari-success-dark: #86EFAC;
+
+  --clari-warning: #FBBF24;
+  --clari-warning-light: #78350F;
+  --clari-warning-dark: #FCD34D;
+
+  --clari-danger: #F87171;
+  --clari-danger-light: #7F1D1D;
+  --clari-danger-dark: #FCA5A5;
+
+  --clari-info: #60A5FA;
+  --clari-info-light: #1E3A5F;
+  --clari-info-dark: #93C5FD;
+
+  /* Surface & text — dark mode */
+  --clari-bg: #0F172A;
+  --clari-surface: #1E293B;
+  --clari-surface-raised: #334155;
+  --clari-text-primary: #F1F5F9;
+  --clari-text-secondary: #94A3B8;
+  --clari-text-muted: #64748B;
+
+  /* Shadows — stronger for dark backgrounds */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.4);
+}
