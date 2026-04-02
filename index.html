@@ -1886,7 +1886,7 @@ input:focus, textarea:focus, select:focus {
 .learn-header {
   background: linear-gradient(135deg, var(--clari-blue), var(--purple));
   padding: 20px 16px 18px;
-  margin-bottom: 0;
+  margin-bottom: 8px;
   position: relative;
   overflow: hidden;
   padding-bottom: 24px;
@@ -11279,7 +11279,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
   scroll-snap-type: x mandatory;
   display: flex;
   gap: 10px;
-  padding: 12px;
+  padding: 4px 12px 8px;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
@@ -30963,7 +30963,7 @@ function renderLearnTab() {
     const _levelXp  = (S.xp || 0) % 100;
     const _curLevel = xpToLevel(S.xp || 0);
     const _mins     = estimateLessonMinutes(_cl);
-    html += `<div class="continue-card" onclick="startLesson(&apos;${_cl.id}&apos;)" style="margin:-12px 12px 12px;" tabindex="0" role="button" aria-label="Continue: ${escHtml(_cl.title)}" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
+    html += `<div class="continue-card" onclick="startLesson(&apos;${_cl.id}&apos;)" style="margin:0 12px 12px;" tabindex="0" role="button" aria-label="Continue: ${escHtml(_cl.title)}" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
       <div class="continue-card-unit" style="color:rgba(255,255,255,0.75)">Unit ${_cu.num}: ${_cu.title}</div>
       <div class="continue-card-title">${_cl.title}</div>
       <div class="continue-card-meta">~${_mins} min &bull; +${_cl.xp} XP</div>
