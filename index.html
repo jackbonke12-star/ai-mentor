@@ -12172,6 +12172,98 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 @media (prefers-reduced-motion: reduce) {
   .clari-breathe { animation: none; opacity: 1; }
 }
+
+/* === Clari Mascot Animations === */
+.clari-mascot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  line-height: 0;
+}
+.clari-mascot svg {
+  display: block;
+  transition: opacity 150ms ease;
+}
+.clari-mascot--fading svg {
+  opacity: 0;
+}
+
+/* Idle breathing */
+@keyframes clariBreathing {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+.clari-breathing {
+  animation: clariBreathing 3s ease-in-out infinite;
+}
+
+/* Sleeping breathing (slower, subtler) */
+@keyframes clariSleepBreathing {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.015); }
+}
+.clari-sleeping {
+  animation: clariSleepBreathing 5s ease-in-out infinite;
+}
+
+/* Happy/excited bounce */
+@keyframes clariBounce {
+  0% { transform: translateY(0); }
+  30% { transform: translateY(-4px); }
+  50% { transform: translateY(-2px); }
+  70% { transform: translateY(-3px); }
+  100% { transform: translateY(0); }
+}
+.clari-bounce {
+  animation: clariBounce 400ms cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* Blink animation — applied to the SVG inside the mascot */
+@keyframes clariBlink {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.1); }
+}
+.clari-blink svg {
+  animation: clariBlink 150ms ease-in-out;
+}
+
+/* Celebrating pulse */
+@keyframes clariCelebrate {
+  0% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.05) rotate(-3deg); }
+  50% { transform: scale(1.08) rotate(3deg); }
+  75% { transform: scale(1.05) rotate(-2deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+.clari-celebrate {
+  animation: clariCelebrate 600ms ease-in-out;
+}
+
+/* Mascot size variants */
+.clari-mascot--sm { width: 32px; height: 32px; }
+.clari-mascot--md { width: 48px; height: 48px; }
+.clari-mascot--lg { width: 64px; height: 64px; }
+.clari-mascot--xl { width: 80px; height: 80px; }
+.clari-mascot--2xl { width: 96px; height: 96px; }
+
+.clari-mascot svg {
+  width: 100%;
+  height: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clari-breathing,
+  .clari-sleeping,
+  .clari-bounce,
+  .clari-blink svg,
+  .clari-celebrate {
+    animation: none !important;
+  }
+  .clari-mascot svg {
+    transition: none !important;
+  }
+}
 </style>
 
 <script>
@@ -12207,7 +12299,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
   <!-- TOP BAR -->
   <div id="top-bar">
     <div class="tb-brand" id="tb-brand" aria-label="Clari">
-      <span id="tb-brand-icon"></span>
+      <span id="tb-brand-icon" class="clari-mascot clari-mascot--sm" style="display:inline-flex;"></span>
       <span class="tb-brand-text">Clari</span>
     </div>
     <div class="tb-streak" aria-label="Day Streak — how many days in a row you have done a lesson" title="Your learning streak! Come back tomorrow to keep it going. This counts how many days in a row you\'ve done at least one lesson. Miss a day and it resets to zero!">
@@ -12432,6 +12524,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
         </div>
       </div>
       <div id="daily-tips-carousel-wrap"></div>
+      <div id="learn-clari" class="clari-mascot clari-mascot--md" style="display:none;margin:0 auto 4px;"></div>
       <div id="clari-encouragement-wrap"></div>
       <div id="weekly-challenge-banner" style="margin:0 12px 8px;"></div>
       <div class="clari-divider" style="margin:8px 12px 12px;" aria-hidden="true"></div>
@@ -12942,6 +13035,7 @@ function openBadgeDetail(name,icon,desc,progress,status){var m=document.getEleme
   </div>
 </div>
 
+<script src="js/clari-mascot.js"></script>
 <script>
 /* ============================================================
    CLARI AI — COMPLETE JAVASCRIPT
@@ -12990,14 +13084,129 @@ function renderSkeletonCards(count, type) {
   return html;
 }
 
+/* === Clari Mascot Animation System === */
+
+// Crossfade to a new expression
+function setExpression(name, element) {
+  if (!element) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    element.innerHTML = getClariExpression(name);
+    _updateMascotAnimClass(name, element);
+    return;
+  }
+  element.classList.add('clari-mascot--fading');
+  setTimeout(function() {
+    element.innerHTML = getClariExpression(name);
+    _updateMascotAnimClass(name, element);
+    element.classList.remove('clari-mascot--fading');
+    // Trigger bounce for happy/excited/celebrating
+    if (name === 'happy' || name === 'excited') {
+      element.classList.remove('clari-bounce');
+      void element.offsetWidth;
+      element.classList.add('clari-bounce');
+      setTimeout(function() { element.classList.remove('clari-bounce'); }, 400);
+    }
+    if (name === 'celebrating') {
+      element.classList.remove('clari-celebrate');
+      void element.offsetWidth;
+      element.classList.add('clari-celebrate');
+      setTimeout(function() { element.classList.remove('clari-celebrate'); }, 600);
+      if (typeof triggerConfetti === 'function') triggerConfetti();
+    }
+  }, 150);
+}
+
+function _updateMascotAnimClass(name, element) {
+  element.classList.remove('clari-breathing', 'clari-sleeping');
+  if (name === 'sleeping') {
+    element.classList.add('clari-sleeping');
+  } else {
+    element.classList.add('clari-breathing');
+  }
+}
+
+// Random blink system
+var _blinkIntervals = new Map();
+
+function startMascotBlink(element) {
+  stopMascotBlink(element);
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  function scheduleBlink() {
+    var delay = 4000 + Math.random() * 4000; // 4-8 seconds
+    var timeoutId = setTimeout(function() {
+      if (element.isConnected) {
+        element.classList.add('clari-blink');
+        setTimeout(function() {
+          element.classList.remove('clari-blink');
+          scheduleBlink();
+        }, 150);
+      }
+    }, delay);
+    _blinkIntervals.set(element, timeoutId);
+  }
+  scheduleBlink();
+}
+
+function stopMascotBlink(element) {
+  if (_blinkIntervals.has(element)) {
+    clearTimeout(_blinkIntervals.get(element));
+    _blinkIntervals.delete(element);
+  }
+  element.classList.remove('clari-blink');
+}
+
+// Idle-to-sleeping timer
+var _idleTimer = null;
+var _currentIdleTarget = null;
+
+function startIdleTimer(element, timeoutMs) {
+  clearIdleTimer();
+  _currentIdleTarget = element;
+  _idleTimer = setTimeout(function() {
+    if (element && element.isConnected) {
+      setExpression('sleeping', element);
+      stopMascotBlink(element);
+    }
+  }, timeoutMs || 30000);
+}
+
+function clearIdleTimer() {
+  if (_idleTimer) {
+    clearTimeout(_idleTimer);
+    _idleTimer = null;
+  }
+}
+
+function resetIdleTimer(element, expression) {
+  clearIdleTimer();
+  if (element && element.isConnected) {
+    setExpression(expression || 'neutral', element);
+    startMascotBlink(element);
+    startIdleTimer(element, 30000);
+  }
+}
+
+// Initialize a mascot element with expression + breathing + blink
+function initMascot(element, expression) {
+  if (!element) return;
+  expression = expression || 'neutral';
+  element.innerHTML = getClariExpression(expression);
+  _updateMascotAnimClass(expression, element);
+  // Start blink for blinkable expressions
+  var blinkable = ['neutral', 'happy', 'encouraging'];
+  if (blinkable.indexOf(expression) !== -1) {
+    startMascotBlink(element);
+  }
+}
+
 // ============================================================
 // CLARI BRANDED STATE HELPERS
 // ============================================================
 function clariLoadingHTML(msg, size) {
   msg = msg || 'Clari is thinking';
-  size = size || 48;
+  var _sizeClass = (size && size >= 64) ? '--lg' : '--md';
   return '<div class="clari-loading">'
-    + '<div class="clari-loading-mascot">' + clariSVGCached('thinking', size) + '</div>'
+    + '<div class="clari-loading-mascot clari-mascot clari-mascot' + _sizeClass + ' clari-breathing">' + getClariExpression('thinking') + '</div>'
     + '<div class="clari-loading-text">' + msg
     + '<span class="clari-loading-dots"><span></span><span></span><span></span></span></div>'
     + '</div>';
@@ -13006,18 +13215,20 @@ function clariErrorHTML(heading, sub, retryAction) {
   heading = heading || 'Oops! Something didn\'t work right.';
   sub = sub || 'Your progress is safe. Try again in a moment.';
   var retryBtn = retryAction ? '<button class="btn-clari" onclick="' + retryAction + '">Try Again</button>' : '';
-  return '<div class="clari-error">' + clariSVGCached('sad', 56)
+  return '<div class="clari-error"><div class="clari-mascot clari-mascot--lg clari-breathing">' + getClariExpression('encouraging') + '</div>'
     + '<div class="clari-error-heading">' + heading + '</div>'
     + '<div class="clari-error-sub">' + sub + '</div>' + retryBtn + '</div>';
 }
 function clariEmptyHTML(emotion, heading, sub, size) {
-  size = size || 56;
-  return '<div class="clari-empty">' + clariSVGCached(emotion || 'default', size)
+  var _emptyExprMap = { 'sad': 'encouraging', 'default': 'neutral', 'confused': 'thinking', 'think': 'thinking', 'star': 'celebrating', 'proud': 'happy' };
+  var _emptyExpr = _emptyExprMap[emotion] || emotion || 'neutral';
+  var _sizeClass = (size && size >= 64) ? '--lg' : '--md';
+  return '<div class="clari-empty"><div class="clari-mascot clari-mascot' + _sizeClass + ' clari-breathing">' + getClariExpression(_emptyExpr) + '</div>'
     + '<div class="clari-empty-heading">' + (heading || '') + '</div>'
     + (sub ? '<div class="clari-empty-sub">' + sub + '</div>' : '') + '</div>';
 }
 function clari404HTML() {
-  return '<div class="clari-404">' + clariSVGCached('confused', 64)
+  return '<div class="clari-404"><div class="clari-mascot clari-mascot--lg clari-breathing">' + getClariExpression('thinking') + '</div>'
     + '<div class="clari-404-heading">This lesson seems to have wandered off...</div>'
     + '<div class="clari-404-sub">We couldn\'t find what you\'re looking for. Let\'s head back to the Learn tab.</div>'
     + '<button class="btn-clari" onclick="switchTab(\'learn\')">Back to Learn</button></div>';
@@ -29298,7 +29509,10 @@ function showClariTip(tipId) {
   const labelEl = document.getElementById('clari-tip-label');
   if (!popup || !avatarEl || !msgEl) return;
 
-  avatarEl.innerHTML = clariSVG(tip.clariState, 40);
+  var _tipExprMap = { 'think': 'thinking', 'sad': 'encouraging', 'default': 'neutral', 'star': 'celebrating', 'proud': 'happy', 'nervous_sweat': 'encouraging' };
+  var _tipExpr = _tipExprMap[tip.clariState] || tip.clariState || 'neutral';
+  avatarEl.className = (avatarEl.className || '').replace(/clari-mascot[^\s]*/g, '').trim() + ' clari-mascot clari-mascot--md clari-breathing';
+  avatarEl.innerHTML = getClariExpression(_tipExpr);
   msgEl.innerHTML = tip.msg;
   if (labelEl) labelEl.textContent = tip.label;
 
@@ -29403,7 +29617,7 @@ function getClariCompleteMessage(noErrors, wrongCount, isFirstLesson) {
   }
 
   return `<div class="clari-complete-msg">
-    <div class="clari-complete-avatar">${clariSVG(state, 72)}</div>
+    <div class="clari-complete-avatar clari-mascot clari-mascot--lg clari-breathing">${getClariExpression(state)}</div>
     <div class="clari-complete-bubble">${msg}</div>
   </div>`;
 }
@@ -29440,7 +29654,7 @@ function getClariProfileGreeting() {
   const greeting = greetings[Math.floor(Date.now() / 86400000) % greetings.length];
 
   return `<div class="profile-clari-wrap">
-    <div style="flex-shrink:0;">${clariSVG('happy', 44)}</div>
+    <div class="clari-mascot clari-mascot--md clari-breathing" style="flex-shrink:0;">${getClariExpression('happy')}</div>
     <div class="profile-clari-text">
       <div class="profile-clari-hi">${greeting}</div>
       <div class="profile-clari-stat">${statLine}</div>
@@ -29504,8 +29718,13 @@ function showStreakMilestone(streak) {
   var _gemBonus = data.gems ? ' +' + data.gems + ' gems!' : '';
   document.getElementById('streak-overlay-num').textContent = streak;
   document.getElementById('streak-overlay-msg').textContent = data.msg + _gemBonus;
-  var _clariHTML = (typeof clariSVGCached === 'function') ? clariSVGCached(data.clariState, 90) : clariSVG(data.clariState, 90);
-  document.getElementById('streak-overlay-clari').innerHTML = _clariHTML;
+  var _streakExprMap = { 'think': 'thinking', 'sad': 'encouraging', 'default': 'neutral', 'star': 'celebrating', 'proud': 'happy' };
+  var _streakExpr = _streakExprMap[data.clariState] || data.clariState || 'excited';
+  var _streakClariEl = document.getElementById('streak-overlay-clari');
+  if (_streakClariEl) {
+    _streakClariEl.className = (_streakClariEl.className || '').replace(/clari-mascot[^\s]*/g, '').trim() + ' clari-mascot clari-mascot--lg clari-breathing';
+    initMascot(_streakClariEl, _streakExpr);
+  }
 
   overlay.className = '';
   overlay.classList.add(data.milestoneClass);
@@ -29569,7 +29788,12 @@ function showLessonStreakOverlay(streak) {
   var badgeEl = document.getElementById('lso-badge');
   var msgEl   = document.getElementById('lso-msg');
   var fwEl    = document.getElementById('lso-fireworks');
-  if (clariEl) clariEl.innerHTML = clariSVG(data.state, 100);
+  if (clariEl) {
+    var _lsoExprMap = { 'think': 'thinking', 'sad': 'encouraging', 'default': 'neutral', 'star': 'celebrating', 'proud': 'happy' };
+    var _lsoExpr = _lsoExprMap[data.state] || data.state || 'excited';
+    clariEl.className = (clariEl.className || '').replace(/clari-mascot[^\s]*/g, '').trim() + ' clari-mascot clari-mascot--xl clari-breathing';
+    initMascot(clariEl, _lsoExpr);
+  }
   if (badgeEl) badgeEl.textContent = data.badge;
   if (msgEl)   msgEl.textContent   = data.msg;
 
@@ -29762,7 +29986,7 @@ function updateTopBar() {
   // Inject Clari brand icon if not yet rendered
   var _brandIcon = document.getElementById('tb-brand-icon');
   if (_brandIcon && !_brandIcon.hasChildNodes()) {
-    _brandIcon.innerHTML = clariSVG('default', 28);
+    _brandIcon.innerHTML = getClariExpression('neutral');
   }
   const tbs = document.getElementById('tb-streak-num');
   const tbh = document.getElementById('tb-hearts');
@@ -29995,6 +30219,9 @@ function switchTab(tab) {
     if (tabTipMap[tab]) setTimeout(function() { showClariTip(tabTipMap[tab]); }, 800);
   });
 
+  // Clear idle-to-sleeping timer when navigating away from learn tab
+  if (tab !== 'learn') clearIdleTimer();
+
   // Show/hide unit jump FAB
   var fab = document.getElementById('unit-jump-fab');
   if (fab) fab.style.display = tab === 'learn' ? 'flex' : 'none';
@@ -30085,13 +30312,13 @@ function setLanguage(lang) {
 // Onboarding screen order and config for progress indicator + mascot emotions
 var OB_SCREEN_ORDER = ['ob-welcome','ob-name','ob-experience','ob-techcomfort','ob-survey','ob-loading','ob-results'];
 var OB_SCREEN_CONFIG = {
-  'ob-welcome':     { step:0, emotion:'waving',     size:64 },
-  'ob-name':        { step:1, emotion:'happy',       size:48 },
-  'ob-experience':  { step:2, emotion:'thinking',    size:48 },
-  'ob-techcomfort': { step:3, emotion:'excited',     size:48 },
-  'ob-survey':      { step:4, emotion:'thinking',    size:48 },
-  'ob-loading':     { step:5, emotion:'think',       size:80 },
-  'ob-results':     { step:6, emotion:'celebrating', size:64 }
+  'ob-welcome':     { step:0, emotion:'waving',      size:'xl'  },
+  'ob-name':        { step:1, emotion:'happy',        size:'md'  },
+  'ob-experience':  { step:2, emotion:'thinking',     size:'lg'  },
+  'ob-techcomfort': { step:3, emotion:'thinking',     size:'lg'  },
+  'ob-survey':      { step:4, emotion:'thinking',     size:'lg'  },
+  'ob-loading':     { step:5, emotion:'thinking',     size:'xl'  },
+  'ob-results':     { step:6, emotion:'celebrating',  size:'xl'  }
 };
 
 function renderObTopProgress(activeScreenId) {
@@ -30128,7 +30355,10 @@ function obSetMascotForScreen(screenId) {
   var mascotId = mascotMap[screenId];
   if (mascotId) {
     var mascotEl = document.getElementById(mascotId);
-    if (mascotEl) mascotEl.innerHTML = clariSVGCached(config.emotion, config.size);
+    if (mascotEl) {
+      mascotEl.className = 'ob-mascot clari-mascot clari-mascot--' + config.size;
+      initMascot(mascotEl, config.emotion);
+    }
   }
 }
 
@@ -30214,7 +30444,7 @@ function obContinueName() {
   save("user_name", val);
   renderObDots("ob-dots-exp", 0, 6);
   var mascotEl = document.getElementById("ob-name-mascot");
-  if (mascotEl) mascotEl.innerHTML = clariSVG("happy", 80);
+  if (mascotEl) setExpression('happy', mascotEl);
   obShowScreen("ob-experience");
 }
 
@@ -30512,7 +30742,10 @@ function startObLoadingSequence() {
   const titleEl  = document.getElementById('ob-loading-title');
   const barEl    = document.getElementById('ob-loading-bar');
 
-  if (mascotEl) mascotEl.innerHTML = clariSVGCached('think', 80);
+  if (mascotEl) {
+    mascotEl.className = 'ob-mascot clari-mascot clari-mascot--xl';
+    initMascot(mascotEl, 'thinking');
+  }
 
   const introMsg = name ? ('Reading your answers, ' + name + '…') : 'Reading your answers…';
   if (titleEl) titleEl.textContent = introMsg;
@@ -30524,8 +30757,8 @@ function startObLoadingSequence() {
   });
 
   const steps = [
-    { id: 'ob-lstep-0', delay: 0,     pct: 8,   msg: introMsg,                                              mascot: 'think'       },
-    { id: 'ob-lstep-0', delay: 500,   pct: 22,  msg: 'Figuring out your learning style…',              mascot: 'think'       },
+    { id: 'ob-lstep-0', delay: 0,     pct: 8,   msg: introMsg,                                              mascot: 'thinking'    },
+    { id: 'ob-lstep-0', delay: 500,   pct: 22,  msg: 'Figuring out your learning style…',              mascot: 'thinking'    },
     { id: 'ob-lstep-1', delay: 1400,  pct: 44,  msg: 'Picking your first lessons…',                    mascot: 'happy'       },
     { id: 'ob-lstep-2', delay: 2500,  pct: 66,  msg: 'Matching you with the best AI tools…',           mascot: 'happy'       },
     { id: 'ob-lstep-3', delay: 3500,  pct: 86,  msg: 'Building your personal plan…',                   mascot: 'excited'     },
@@ -30536,7 +30769,7 @@ function startObLoadingSequence() {
     setTimeout(function() {
       if (barEl) barEl.style.width = step.pct + '%';
       if (titleEl) titleEl.textContent = step.msg;
-      if (mascotEl) mascotEl.innerHTML = clariSVG(step.mascot, 80);
+      if (mascotEl) setExpression(step.mascot, mascotEl);
 
       var allStepEls = document.querySelectorAll('.ob-loading-step');
       allStepEls.forEach(function(el) { el.classList.remove('active'); });
@@ -30637,7 +30870,11 @@ function renderObResults() {
     _clariResultState = 'celebrating';
   }
 
-  document.getElementById('ob-results-mascot').innerHTML = clariSVG(_clariResultState, 90);
+  var _obResultsMascot = document.getElementById('ob-results-mascot');
+  if (_obResultsMascot) {
+    _obResultsMascot.className = 'ob-mascot clari-mascot clari-mascot--xl';
+    initMascot(_obResultsMascot, _clariResultState);
+  }
   document.getElementById('ob-results-name-msg').textContent =
     name ? `Great job, ${name}! Based on your answers, here's your personal plan.` : 'Based on your answers, here\'s your personal plan.';
 
@@ -31001,10 +31238,11 @@ function showClariWelcome() {
   var overlay = document.createElement('div');
   overlay.id = 'clari-welcome-overlay';
   overlay.innerHTML = '<div class="clari-welcome-card">'
-    + clariSVGCached('waving', 72)
+    + '<div id="clari-welcome-mascot" class="clari-mascot clari-mascot--xl clari-breathing"></div>'
     + '<h2>Welcome to ClariAI!</h2>'
     + '<p>I\'ll be your guide. Let\'s learn something amazing together.</p>'
     + '</div>';
+  initMascot(document.getElementById('clari-welcome-mascot'), 'waving');
   overlay.addEventListener('click', function() { dismissClariWelcome(overlay); });
   document.body.appendChild(overlay);
   setTimeout(function() { dismissClariWelcome(overlay); }, 2500);
@@ -31141,7 +31379,7 @@ function renderLearnTab() {
     if (_encWrap) {
       var _encMsg = getClariEncouragement();
       _encWrap.innerHTML = '<div class="clari-encouragement-card">'
-        + '<span class="clari-enc-icon">' + clariMini('happy') + '</span>'
+        + '<span class="clari-enc-icon clari-mascot clari-mascot--sm clari-breathing">' + getClariExpression('happy') + '</span>'
         + '<span class="clari-enc-msg">' + _encMsg + '</span>'
         + '</div>';
     }
@@ -31495,7 +31733,7 @@ function renderLearnTab() {
         + '<div class="unit-num" style="background:' + unit.color + ';">' + unit.num + '</div>'
         + '<div style="flex:1;min-width:0;">'
           + '<div class="unit-title" style="display:flex;align-items:center;gap:6px;">'
-            + clariSVGCached('default', 20)
+            + '<span class="clari-mascot clari-mascot--sm" style="display:inline-flex;vertical-align:middle;">' + getClariExpression('neutral') + '</span>'
             + unit.title
           + '</div>'
           + '<div class="unit-sub">' + doneCount + ' / ' + unitLessons.length + ' lessons' + (_unitAllDoneHeader ? ' <span class="unit-all-done-label">✓ Complete</span>' : '') + '</div>'
@@ -31703,7 +31941,7 @@ ${_playHint}<button class="lesson-bookmark-btn ${(S.bookmarks||[]).includes(less
   // learn-13: empty state with Clari mascot when search/filter returns zero lessons
   if (activeSearch && totalMatches === 0) {
     html += '<div class="learn-empty-state">'
-      + '<div class="les-mascot">' + clariSVGCached('thinking', 60) + '</div>'
+      + '<div class="les-mascot clari-mascot clari-mascot--lg clari-breathing">' + getClariExpression('thinking') + '</div>'
       + '<div class="les-heading">Hmm, I couldn\'t find that.</div>'
       + '<div class="les-sub">Try different keywords or clear the filters?</div>'
       + '<button class="les-clear-btn" onclick="clearLearnSearch()">'
@@ -31873,6 +32111,16 @@ ${_playHint}<button class="lesson-bookmark-btn ${(S.bookmarks||[]).includes(less
       _nfab.setAttribute('title', 'Next: ' + _firstIncomplete.title);
     } else {
       _nfab.style.display = 'none';
+    }
+  })();
+
+  // Initialize learn-tab Clari mascot with idle timer (neutral -> sleeping after 30s)
+  (function() {
+    var _learnClari = document.getElementById('learn-clari');
+    if (_learnClari) {
+      _learnClari.style.display = '';
+      initMascot(_learnClari, 'neutral');
+      startIdleTimer(_learnClari, 30000);
     }
   })();
 }
@@ -41987,7 +42235,7 @@ function startLesson(id) {
     }
     setTimeout(function() {
       const el = document.querySelector('.slide-mascot-wrap');
-      if (el) { el.innerHTML = clariSVG('think', parseInt((el.querySelector('svg') || {}).getAttribute && (el.querySelector('svg')).getAttribute('width')) || 70); }
+      if (el) setExpression('thinking', el);
     }, 1300);
   }
 }
@@ -42203,7 +42451,7 @@ function renderLessonSlide() {
       break;
     default:
       contentHtml = `<div style="text-align:center;padding:32px 16px;">
-        <div class="slide-mascot-wrap" style="margin-bottom:12px;">${clariSVGCached('think', 80)}</div>
+        <div class="slide-mascot-wrap clari-mascot clari-mascot--xl clari-breathing" style="margin-bottom:12px;">${getClariExpression('thinking')}</div>
         <div style="font-size:15px;color:var(--text);margin-bottom:8px;">This activity type isn't supported yet.</div>
         <div style="font-size:13px;color:var(--muted);">Slide type: <code>${slide.type || 'unknown'}</code></div>
       </div>`;
@@ -42352,7 +42600,7 @@ function renderSlideInfo(slide) {
 
   const infoContent = document.getElementById('lesson-content');
   infoContent.innerHTML =
-    '<div class="slide-mascot-wrap">' + clariSVG('waving', 72) + '</div>' +
+    '<div class="slide-mascot-wrap clari-mascot clari-mascot--lg clari-breathing">' + getClariExpression('waving') + '</div>' +
     '<div class="slide-title">' + (slide.title || '') + '</div>' +
     mainText +
     (body ? '<div class="info-rich-body">' + body + '</div>' : '');
@@ -42436,7 +42684,7 @@ function renderSlideQuiz(slide) {
     }
   }, 50);
   return `<div class="slide-quiz">
-    <div class="slide-mascot-wrap" style="margin-bottom:8px;">${clariSVGCached('think', 70)}</div>
+    <div class="slide-mascot-wrap clari-mascot clari-mascot--lg clari-breathing" style="margin-bottom:8px;">${getClariExpression('thinking')}</div>
     <div class="slide-quiz-title">${slide.question}</div>
     <div class="quiz-options">${opts}</div>
     <div id="quiz-feedback" aria-live="polite"></div>
@@ -42604,7 +42852,7 @@ function renderSlideFillBlank(slide) {
   ).join('');
 
   return `<div class="slide-fill-blank">
-    <div class="slide-mascot-wrap" style="margin-bottom:8px;">${clariSVGCached('think', 70)}</div>
+    <div class="slide-mascot-wrap clari-mascot clari-mascot--lg clari-breathing" style="margin-bottom:8px;">${getClariExpression('thinking')}</div>
     <div style="font-size:18px;font-weight:800;color:var(--text);margin-bottom:16px;">Fill in the blanks:</div>
     <div class="fill-blank-sentence" id="fill-sentence">${partsHtml}</div>
     <div class="order-pool-label">Word bank — tap to place:</div>
@@ -42721,7 +42969,7 @@ function renderSlideTapCorrect(slide) {
     </div>`
   ).join('');
   return `<div class="slide-tap-correct">
-    <div class="slide-mascot-wrap" style="margin-bottom:8px;">${clariSVGCached('think', 70)}</div>
+    <div class="slide-mascot-wrap clari-mascot clari-mascot--lg clari-breathing" style="margin-bottom:8px;">${getClariExpression('thinking')}</div>
     <div class="tap-correct-title">${slide.question}</div>
     <div class="tap-correct-sub">Tap all that apply, then press Check.</div>
     <div class="tap-items">${itemsHtml}</div>
@@ -42809,14 +43057,14 @@ function renderSlideSimChat(slide) {
     } else {
       _aiIdxs.push(mi);
       return '<div class="sim-msg ai" data-ai-idx="' + mi + '" style="opacity:0;transition:opacity 0.3s ease;">' +
-        '<div class="sim-avatar clari-alive">' + clariSVG('happy', 30) + '</div>' +
+        '<div class="sim-avatar clari-alive clari-mascot clari-mascot--sm clari-breathing">' + getClariExpression('happy') + '</div>' +
         '<div class="sim-bubble">' + m.text.replace(/\n/g,'<br>') + '</div>' +
       '</div>';
     }
   }).join('');
   var typingHtml = _aiIdxs.length > 0
     ? '<div class="clari-typing-indicator" id="sim-typing-ind">' +
-        '<div class="clari-typing-avatar">' + (typeof clariMini === 'function' ? clariMini('thinking') : '') + '</div>' +
+        '<div class="clari-typing-avatar clari-mascot clari-mascot--sm clari-breathing">' + getClariExpression('thinking') + '</div>' +
         '<div class="clari-typing-bubble"><span class="clari-typing-dot"></span><span class="clari-typing-dot"></span><span class="clari-typing-dot"></span></div>' +
       '</div>'
     : '';
@@ -42890,7 +43138,7 @@ function renderSlideMatchPairs(slide) {
   ).join('');
 
   return `<div class="slide-match-pairs">
-    <div class="slide-mascot-wrap" style="margin-bottom:8px;">${clariSVGCached('think', 70)}</div>
+    <div class="slide-mascot-wrap clari-mascot clari-mascot--lg clari-breathing" style="margin-bottom:8px;">${getClariExpression('thinking')}</div>
     <div class="match-title">${slide.title || slide.question || 'Match each item with its pair.'}</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px;">
       <div class="match-label">Term</div><div class="match-label">Definition</div>
@@ -42957,11 +43205,11 @@ function matchSelect(side, idx) {
 
 // ---- CLARI REACT ----
 function renderSlideClariReact(slide, lesson) {
-  const moodMap = { celebrating: 'celebrating', happy: 'happy', excited: 'excited', encouraging: 'encouraging', warning: 'think', thinking: 'think', waving: 'waving' };
+  const moodMap = { celebrating: 'celebrating', happy: 'happy', excited: 'excited', encouraging: 'encouraging', warning: 'thinking', thinking: 'thinking', waving: 'waving', proud: 'happy' };
   const clariState = moodMap[slide.mood] || 'excited';
   const emojiHtml = slide.emoji ? `<div style="font-size:48px;text-align:center;margin-bottom:8px;animation:clariHappyBounce 0.6s ease both;">${slide.emoji}</div>` : '';
   return `<div class="slide-clari-react">
-    <div class="slide-mascot-wrap">${clariSVG(clariState, 110)}</div>
+    <div class="slide-mascot-wrap clari-mascot clari-mascot--2xl clari-breathing">${getClariExpression(clariState)}</div>
     ${emojiHtml}<div class="clari-react-msg">${slide.msg || slide.message || ''}</div>
   </div>`;
 }
@@ -42984,7 +43232,7 @@ function renderSlideOrderSteps(slide) {
   ).join('');
 
   return `<div class="order-steps-wrap">
-    <div class="slide-mascot-wrap" style="margin-bottom:8px;">${clariSVGCached('think', 70)}</div>
+    <div class="slide-mascot-wrap clari-mascot clari-mascot--lg clari-breathing" style="margin-bottom:8px;">${getClariExpression('thinking')}</div>
     <div class="order-steps-question">${slide.question}</div>
     <div class="order-pool-label">Tap to add in order:</div>
     <div class="order-pool" id="order-pool">${poolHtml}</div>
@@ -43117,7 +43365,7 @@ function renderSlideTypeAnswer(slide) {
     ? `<div class="type-hint-text" id="type-hint-text">${slide.hint}</div>`
     : '';
   return `<div class="type-answer-wrap">
-    <div class="slide-mascot-wrap" style="margin-bottom:8px;">${clariSVGCached('think', 70)}</div>
+    <div class="slide-mascot-wrap clari-mascot clari-mascot--lg clari-breathing" style="margin-bottom:8px;">${getClariExpression('thinking')}</div>
     <div class="type-answer-question">${slide.question}</div>
     <input class="type-answer-input" id="type-answer-input"
       type="text" placeholder="${slide.placeholder || 'Type your answer...'}"
@@ -43203,7 +43451,7 @@ function renderSlideDragCategory(slide) {
   ).join('');
 
   return `<div class="dc-wrap">
-    <div class="slide-mascot-wrap" style="margin-bottom:8px;">${clariSVGCached('think', 70)}</div>
+    <div class="slide-mascot-wrap clari-mascot clari-mascot--lg clari-breathing" style="margin-bottom:8px;">${getClariExpression('thinking')}</div>
     <div class="dc-question">${slide.question}</div>
     <div class="dc-items-label">Tap a chip then tap a bucket:</div>
     <div class="dc-items" id="dc-items">${chipsHtml}</div>
@@ -43410,7 +43658,7 @@ function selectScenarioNew(el, idx) {
     outcomeEl.innerHTML += `<div style="margin-top:6px;font-size:13px;border-top:1px solid rgba(0,0,0,0.08);padding-top:6px;"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><path d='M9 21h6M9 18h6M12 2a7 7 0 0 1 5 12H7A7 7 0 0 1 12 2z'/><line x1='9' y1='15' x2='9' y2='18'/><line x1='15' y1='15' x2='15' y2='18'/></svg></span> ${slide.explanation}</div>`;
   }
   outcomeEl.classList.remove('hidden');
-  lessonEl.innerHTML = `<div class="scenario-lesson-inner">${clariSVGCached('thinking', 36)} <span>${slide.lesson || slide.explanation || (isCorrect ? 'Well done!' : `Best answer: ${slide.options[_correctIdx]}`)}</span></div>`;
+  lessonEl.innerHTML = `<div class="scenario-lesson-inner"><span class="clari-mascot clari-mascot--sm clari-breathing" style="display:inline-block;vertical-align:middle;">${getClariExpression('thinking')}</span> <span>${slide.lesson || slide.explanation || (isCorrect ? 'Well done!' : `Best answer: ${slide.options[_correctIdx]}`)}</span></div>`;
   lessonEl.classList.remove('hidden');
 
   const btn = document.getElementById('lesson-next-btn');
@@ -43435,7 +43683,7 @@ function selectScenarioChoice(el, idx, slide) {
   outcomeEl.classList.remove('hidden');
 
   // Show Clari lesson text
-  lessonEl.innerHTML = `<div class="scenario-lesson-inner">${clariSVGCached('thinking', 36)} <span>${slide.lesson || slide.explanation || ''}</span></div>`;
+  lessonEl.innerHTML = `<div class="scenario-lesson-inner"><span class="clari-mascot clari-mascot--sm clari-breathing" style="display:inline-block;vertical-align:middle;">${getClariExpression('thinking')}</span> <span>${slide.lesson || slide.explanation || ''}</span></div>`;
   lessonEl.classList.remove('hidden');
 
   // Track correct scenario choices and award XP / deduct hearts
@@ -43538,7 +43786,7 @@ function renderSlideQuickFire(slide) {
         }
         document.getElementById('lesson-content').innerHTML = `
           <div class="qf-end">
-            <div class="qf-end-clari">${clariSVG(perfect ? 'celebrating' : 'default', 80)}</div>
+            <div class="qf-end-clari clari-mascot clari-mascot--xl clari-breathing">${getClariExpression(perfect ? 'celebrating' : 'neutral')}</div>
             <div class="qf-end-score">${qfState.correct} / ${slide.questions.length}</div>
             <div class="qf-end-label">${perfect ? "<span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><path d='M13 2L4 14h7l-1 8 9-12h-7z' fill='#fbbf24'/></svg></span> Perfect!" : qfState.correct >= Math.ceil(slide.questions.length * 0.6) ? 'Great job!' : 'Keep practising!'}</div>
 
@@ -43762,7 +44010,7 @@ function renderLessonComplete() {
     save('clari_perfect_streak', (S.clari_perfect_streak || 0) + 1);
     if (S.clari_perfect_streak === 3) {
       setTimeout(function() {
-        showToast('<div class="clari-reaction-toast"><span class="crt-icon">' + clariMini('happy') + '</span><span class="crt-msg">Three perfects in a row! You are on fire!</span></div>', 'success', 3500);
+        showToast('<div class="clari-reaction-toast"><span class="crt-icon clari-mascot clari-mascot--sm">' + getClariExpression('happy') + '</span><span class="crt-msg">Three perfects in a row! You are on fire!</span></div>', 'success', 3500);
       }, 2000);
     }
   } else {
@@ -43982,7 +44230,7 @@ function renderLessonComplete() {
   }
 
   document.getElementById('lesson-content').innerHTML = `<div class="lesson-complete">
-    <div>${clariSVG(noErrors ? 'star' : _wrong <= 2 ? 'celebrating' : 'encouraging', 110)}</div>
+    <div id="lesson-complete-mascot" class="clari-mascot clari-mascot--xl clari-breathing"></div>
     ${performanceHtml}
     ${_perfectBannerHtml}
     ${unitBadgeHtml}
@@ -44010,6 +44258,12 @@ function renderLessonComplete() {
     ${diffRatingHtml}
     ${ratingHtml}
   </div>`;
+
+  // Init lesson complete mascot with expression based on performance
+  (function() {
+    var _lcMascot = document.getElementById('lesson-complete-mascot');
+    if (_lcMascot) initMascot(_lcMascot, noErrors ? 'celebrating' : _wrong <= 2 ? 'celebrating' : 'encouraging');
+  })();
 
   // Confetti burst on lesson completion
   triggerConfetti();
@@ -44455,8 +44709,9 @@ function showUnitCompleteModal(unitName, unitColor) {
   overlay.setAttribute('aria-modal', 'true');
   overlay.setAttribute('aria-label', 'Unit Complete');
   var badgeColor = unitColor || 'var(--green)';
-  overlay.innerHTML = '<div class="unit-complete-card"><div class="unit-complete-ribbon">&#127942; Unit Complete!</div><div class="unit-complete-clari"><'+ clariSVG('celebrating', 110) +'</div><div class="unit-complete-badge" style="background:' + badgeColor + '"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg><div class="unit-complete-badge-label">Complete</div></div><div class="unit-complete-title">' + escHtml(unitName) + '</div><div class="unit-complete-sub">Incredible work! You finished every lesson in this unit. Keep the momentum going!</div><button class="unit-complete-continue" onclick="document.getElementById(&quot;unit-complete-overlay&quot;).remove()">Continue &#8594;</button></div>';
+  overlay.innerHTML = '<div class="unit-complete-card"><div class="unit-complete-ribbon">&#127942; Unit Complete!</div><div class="unit-complete-clari clari-mascot clari-mascot--xl clari-breathing" id="unit-complete-clari-mascot"></div><div class="unit-complete-badge" style="background:' + badgeColor + '"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg><div class="unit-complete-badge-label">Complete</div></div><div class="unit-complete-title">' + escHtml(unitName) + '</div><div class="unit-complete-sub">Incredible work! You finished every lesson in this unit. Keep the momentum going!</div><button class="unit-complete-continue" onclick="document.getElementById(&quot;unit-complete-overlay&quot;).remove()">Continue &#8594;</button></div>';
   document.body.appendChild(overlay);
+  initMascot(document.getElementById('unit-complete-clari-mascot'), 'celebrating');
   overlay.addEventListener('click', function(e) { if (e.target === overlay) overlay.remove(); });
   setTimeout(function() {
     var el = document.getElementById('unit-complete-overlay');
@@ -44627,7 +44882,7 @@ function addGems(amount) {
   var _newHundred = Math.floor(_newGems / 100);
   if (_newHundred > _oldHundred && _newGems >= 100) {
     setTimeout(function() {
-      showToast('<div class="clari-reaction-toast"><span class="crt-icon">' + clariMini('happy') + '</span><span class="crt-msg">You\u2019ve saved ' + _newGems + ' gems! Nice!</span></div>', 'info', 3000);
+      showToast('<div class="clari-reaction-toast"><span class="crt-icon clari-mascot clari-mascot--sm">' + getClariExpression('happy') + '</span><span class="crt-msg">You\u2019ve saved ' + _newGems + ' gems! Nice!</span></div>', 'info', 3000);
     }, 1500);
   }
 }
@@ -44802,7 +45057,10 @@ function showHeartsDepleted() {
   var modal = document.getElementById('hearts-depleted-modal');
   if (!modal) return;
   var clariEl = document.getElementById('hearts-depleted-clari');
-  if (clariEl && typeof clariSVG === 'function') clariEl.innerHTML = clariSVG('sad', 80);
+  if (clariEl) {
+    clariEl.className = (clariEl.className || '').replace(/clari-mascot[^\s]*/g, '').trim() + ' clari-mascot clari-mascot--md clari-breathing';
+    initMascot(clariEl, 'encouraging');
+  }
   var refillBtn = document.getElementById('hearts-depleted-refill-btn');
   if (refillBtn) { var ca = (S.gems||0) >= 30; refillBtn.disabled = !ca; refillBtn.style.opacity = ca ? '1' : '0.5'; }
   _startHeartsDepletedTimer();
@@ -44844,12 +45102,13 @@ function heartsDepletedWait() {
 }
 
 function animateClari(state, durationMs) {
-  const wrap = document.querySelector('.slide-mascot-wrap');
+  // Map old state names to new expression names
+  var _exprMap = { 'think': 'thinking', 'sad': 'encouraging', 'default': 'neutral', 'star': 'celebrating', 'proud': 'happy', 'nervous_sweat': 'encouraging' };
+  var expr = _exprMap[state] || state;
+  var wrap = document.querySelector('.slide-mascot-wrap');
   if (!wrap) return;
-  const original = wrap.innerHTML;
-  const currentSVG = wrap.querySelector('svg');
-  const size = currentSVG ? (parseInt(currentSVG.getAttribute('width')) || 70) : 70;
-  wrap.innerHTML = clariSVG(state, size);
+  var original = wrap.innerHTML;
+  setExpression(expr, wrap);
   setTimeout(function() { wrap.innerHTML = original; }, durationMs || 700);
 }
 
@@ -44889,9 +45148,11 @@ function showClariPopup(state, animClass, message, durationMs) {
     'text-align:center'
   ].join(';');
 
+  var _popupExprMap = { 'think': 'thinking', 'sad': 'encouraging', 'default': 'neutral', 'star': 'celebrating', 'proud': 'happy', 'nervous_sweat': 'encouraging' };
+  var _popupExpr = _popupExprMap[state] || state || 'happy';
   const svgWrap = document.createElement('div');
-  svgWrap.className = 'slide-mascot-wrap';
-  svgWrap.innerHTML = clariSVG(state || 'happy', 44);
+  svgWrap.className = 'slide-mascot-wrap clari-mascot clari-mascot--md clari-breathing';
+  svgWrap.innerHTML = getClariExpression(_popupExpr);
   popup.appendChild(svgWrap);
 
   if (animClass) {
@@ -45086,7 +45347,7 @@ function showAchievementToast(achId) {
   ov.setAttribute('aria-label', 'Achievement Unlocked');
   ov.innerHTML = '<div class="ach-unlock-card">' +
     '<div class="ach-unlock-confetti-area" id="ach-unlock-confetti"></div>' +
-    '<div class="ach-unlock-clari">' + clariSVGCached('star', 80) + '</div>' +
+    '<div class="ach-unlock-clari clari-mascot clari-mascot--xl clari-breathing">' + getClariExpression('celebrating') + '</div>' +
     '<div class="ach-unlock-badge">' + emoji + '</div>' +
     '<div class="ach-unlock-label">Achievement Unlocked</div>' +
     '<div class="ach-unlock-name">' + ach.label + '</div>' +
@@ -45185,7 +45446,7 @@ function renderAchievementGrid() {
       html += '<span class="badge-earned-date">' + earnedDate + '</span>';
     } else if (!isEarned) {
       html += '<span class="badge-lock-overlay">\uD83D\uDD12</span>' +
-        '<span class="badge-lock-msg">' + clariSVGCached('think', 14) + ' Keep going!</span>';
+        '<span class="badge-lock-msg"><span class="clari-mascot clari-mascot--sm" style="display:inline-block;vertical-align:middle;width:14px;height:14px;">' + getClariExpression('thinking') + '</span> Keep going!</span>';
     }
     html += '</div>';
   });
@@ -45216,7 +45477,7 @@ function showMilestoneCelebration(ms) {
   ov.setAttribute('role', 'dialog');
   ov.innerHTML = '<div class="milestone-cel-card">' +
     '<div class="milestone-cel-confetti-area" id="milestone-cel-confetti"></div>' +
-    '<div class="milestone-cel-clari">' + clariSVGCached('celebrating', 90) + '</div>' +
+    '<div class="milestone-cel-clari clari-mascot clari-mascot--xl clari-breathing">' + getClariExpression('celebrating') + '</div>' +
     '<div class="milestone-cel-icon">' + ms.icon + '</div>' +
     '<div class="milestone-cel-title">' + ms.title + '</div>' +
     '<div class="milestone-cel-sub">' + personalMsg + '</div>' +
@@ -45270,7 +45531,7 @@ function showDailyGoalCelebration() {
   ov.setAttribute('role', 'dialog');
   ov.innerHTML = '<div class="daily-goal-cel-card">' +
     '<div class="daily-goal-cel-clari"><div class="clari-sparkle">' +
-      clariSVGCached('star', 80) +
+      '<span class="clari-mascot clari-mascot--xl clari-breathing">' + getClariExpression('celebrating') + '</span>' +
       '<span class="clari-sparkle-star1">\u2B50</span>' +
       '<span class="clari-sparkle-star2">\u2B50</span>' +
       '<span class="clari-sparkle-star3">\u2B50</span>' +
@@ -45316,7 +45577,7 @@ function showLevelUp(level) {
     "Another level conquered! Onward and upward!"
   ];
   var _lmsg = _levelMsgs[level % _levelMsgs.length];
-  showToast('<div class="clari-reaction-toast"><span class="crt-icon">' + clariMini('happy') + '</span><span class="crt-msg">' + _lmsg + '</span></div>', 'success', 3000);
+  showToast('<div class="clari-reaction-toast"><span class="crt-icon clari-mascot clari-mascot--sm">' + getClariExpression('happy') + '</span><span class="crt-msg">' + _lmsg + '</span></div>', 'success', 3000);
 }
 
 // ============================================================
@@ -45332,7 +45593,11 @@ function selectPlan(plan) {
 
 function openPremiumModal() {
   const modal = document.getElementById('premium-modal');
-  document.getElementById('premium-clari').innerHTML = clariSVG('excited', 80);
+  var _premClari = document.getElementById('premium-clari');
+  if (_premClari) {
+    _premClari.className = (_premClari.className || '').replace(/clari-mascot[^\s]*/g, '').trim() + ' clari-mascot clari-mascot--xl clari-breathing';
+    initMascot(_premClari, 'excited');
+  }
   _premiumPlan = 'monthly';
   document.getElementById('plan-monthly').classList.add('selected');
   document.getElementById('plan-annual').classList.remove('selected');
@@ -45698,7 +45963,7 @@ function renderPracticeTab() {
   if (msgEl) msgEl.style.display = 'none';
   if (!history.length) {
     el.innerHTML = '<div class="clari-practice-empty">'
-      + clariSVGCached('waving', 60)
+      + '<div class="clari-mascot clari-mascot--lg clari-breathing">' + getClariExpression('waving') + '</div>'
       + '<div class="clari-practice-empty-msg">No sessions yet — and that\'s totally fine! When you complete your first lesson, I\'ll have practice questions ready here. It\'s how we make things stick.</div>'
       + '</div>';
     return;
@@ -45896,7 +46161,7 @@ function renderWrongReviewQuestion() {
   }).join('');
   document.getElementById('lesson-content').innerHTML =
     '<div class="wrong-review-banner">Reviewing mistake ' + (idx + 1) + ' of ' + total + '</div>' +
-    '<div class="slide-mascot-wrap" style="margin-bottom:8px;">' + clariSVGCached('think', 56) + '</div>' +
+    '<div class="slide-mascot-wrap clari-mascot clari-mascot--lg clari-breathing" style="margin-bottom:8px;">' + getClariExpression('thinking') + '</div>' +
     '<div class="slide-quiz-title">' + q.question + '</div>' +
     '<div class="quiz-options" style="pointer-events:none;">' + opts + '</div>';
   const isLast = idx >= total - 1;
@@ -45920,7 +46185,7 @@ function showPracticeMsg(clariState, text) {
   if (!el) return;
   el.style.display = 'block';
   el.innerHTML = `<div style="display:flex;align-items:flex-start;gap:12px;background:var(--white);border-radius:var(--radius);padding:16px;border:2px solid var(--gray2);">
-    <div style="flex-shrink:0;">${clariSVG(clariState, 48)}</div>
+    <div class="clari-mascot clari-mascot--md clari-breathing" style="flex-shrink:0;">${getClariExpression(({'think':'thinking','sad':'encouraging','default':'neutral','star':'celebrating','proud':'happy'})[clariState] || clariState)}</div>
     <div style="font-size:14px;font-weight:700;color:var(--text);padding-top:4px;">${text}</div>
   </div>`;
   setTimeout(() => { el.style.display = 'none'; }, 4000);
@@ -45991,7 +46256,7 @@ function startPractice(type, difficulty) {
     _clariPracticeTipShown = true;
     var _ptip = CLARI_PRACTICE_TIPS[Math.floor(Math.random() * CLARI_PRACTICE_TIPS.length)];
     setTimeout(function() {
-      showToast('<div class="clari-reaction-toast"><span class="crt-icon">' + clariMini('happy') + '</span><span class="crt-msg">' + _ptip + '</span></div>', 'info', 3500);
+      showToast('<div class="clari-reaction-toast"><span class="crt-icon clari-mascot clari-mascot--sm">' + getClariExpression('happy') + '</span><span class="crt-msg">' + _ptip + '</span></div>', 'info', 3500);
     }, 500);
   }
   let questions = [];
@@ -46089,7 +46354,7 @@ function startPractice(type, difficulty) {
       if (msgEl) {
         msgEl.style.display = 'block';
         msgEl.innerHTML = `<div style="display:flex;align-items:flex-start;gap:12px;background:var(--white);border-radius:var(--radius);padding:16px;border:2px solid var(--gray2);">
-          <div style="flex-shrink:0;">${clariSVGCached('happy', 48)}</div>
+          <div class="clari-mascot clari-mascot--md clari-breathing" style="flex-shrink:0;">${getClariExpression('happy')}</div>
           <div>
             <div style="font-size:14px;font-weight:700;color:var(--text);padding-top:4px;margin-bottom:8px;">No weak areas yet — you're crushing it! <span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><path d='M14 3a4 4 0 0 1 0 8H8'/><path d='M8 11a4 4 0 0 0 0 8h6'/><path d='M6 15h12'/></svg></span> Keep learning to build up your review queue.</div>
             ${suggestLesson ? `<button class="btn btn-blue btn-sm" onclick="startLesson(&apos;${suggestLesson.id}&apos;)">Start: ${suggestLesson.title} →</button>` : ''}
@@ -46408,7 +46673,7 @@ function renderPracticeQuestion() {
   })();
   document.getElementById('lesson-content').innerHTML = `
     <div style="font-size:12px;font-weight:800;color:var(--gray4);margin-bottom:12px;">Question ${idx+1} of ${total}${lessonState.practiceType === 'quick' && lessonState.adaptiveLevel ? ' &nbsp;<span style="font-size:11px;padding:2px 7px;border-radius:10px;background:' + (lessonState.adaptiveLevel === 3 ? '#fce7f3' : lessonState.adaptiveLevel === 2 ? 'var(--clari-blue-10)' : 'var(--green-5)') + ';color:' + (lessonState.adaptiveLevel === 3 ? '#be185d' : lessonState.adaptiveLevel === 2 ? 'var(--sky-dark)' : 'var(--green2)') + ';">' + (lessonState.adaptiveLevel === 3 ? 'Hard' : lessonState.adaptiveLevel === 2 ? 'Medium' : 'Easy') + '</span>' : ''}</div>
-    <div class="slide-mascot-wrap" style="margin-bottom:8px;">${clariSVGCached('think', 60)}</div>
+    <div class="slide-mascot-wrap clari-mascot clari-mascot--lg clari-breathing" style="margin-bottom:8px;">${getClariExpression('thinking')}</div>
     <div class="slide-quiz-title">${q.question}</div>
     <div class="quiz-options">${opts}</div>
     <div id="quiz-feedback" aria-live="polite"></div>
@@ -46817,7 +47082,7 @@ function renderPracticeSessionNotes() {
   if (!_container) return;
   var _notes = (S.practice_notes || []).slice(-3).reverse();
   if (_notes.length === 0) {
-    _container.innerHTML = '<div style="text-align:center;font-size:13px;color:var(--gray4);padding:8px 0;">' + clariSVGCached('default', 36) + '<div style="margin-top:4px;">No notes yet. Add your first note after a session!</div></div>';
+    _container.innerHTML = '<div style="text-align:center;font-size:13px;color:var(--gray4);padding:8px 0;"><div class="clari-mascot clari-mascot--md clari-breathing" style="margin:0 auto;">' + getClariExpression('neutral') + '</div><div style="margin-top:4px;">No notes yet. Add your first note after a session!</div></div>';
     return;
   }
   _container.innerHTML = _notes.map(function(n) {
@@ -47093,8 +47358,8 @@ function finishPractice() {
     var _grade = getGradeLetter(_accuracy);
     var _gradeClass = { 'A': 'grade-a', 'B': 'grade-b', 'C': 'grade-c', 'D': 'grade-d', 'F': 'grade-f' }[_grade] || 'grade-f';
     var _isCelebration = _accuracy >= 80;
-    var _clariState = _isCelebration ? 'celebrating' : 'think';
-    var _mascot = clariSVG(_clariState, 100);
+    var _clariState = _isCelebration ? 'celebrating' : 'thinking';
+    var _mascot = '<div class="clari-mascot clari-mascot--xl clari-breathing">' + getClariExpression(_clariState) + '</div>';
     var _gradeEmoji = { 'A': '🌟', 'B': '👍', 'C': '💪', 'D': '📚', 'F': '💡' }[_grade] || '';
     var _celebMsg = getCelebMessage(_grade);
     var _screenHtml;
@@ -47531,7 +47796,7 @@ function renderSessionTimeline() {
 
   if (_hist.length === 0) {
     _wrap.innerHTML = '<div class="psh-timeline-wrap"><div class="psh-empty">'
-      + clariSVGCached('thinking', 48)
+      + '<div class="clari-mascot clari-mascot--md clari-breathing">' + getClariExpression('thinking') + '</div>'
       + '<div>Ready to learn something new? Complete a practice to see your history here!</div>'
       + '</div></div>';
     return;
@@ -47898,7 +48163,7 @@ function renderPlanTab() {
   if (!sa.q1) {
     document.getElementById('plan-content').innerHTML =
       '<div style="text-align:center;padding:40px 20px;">' +
-        clariSVGCached('encouraging', 80) +
+        '<div class="clari-mascot clari-mascot--xl clari-breathing" style="margin:0 auto;">' + getClariExpression('encouraging') + '</div>' +
         '<div style="font-size:16px;font-weight:800;color:var(--text);margin-top:16px;">Personalize your AI plan!</div>' +
         '<div style="font-size:14px;font-weight:600;color:var(--gray4);margin-top:8px;margin-bottom:24px;">Answer 4 quick questions so I can recommend the right lessons and tools for you.</div>' +
         '<button class="btn btn-green" style="padding:14px 32px;font-size:16px;" onclick="retakePlanSurvey()">Build My Plan &rarr;</button>' +
@@ -49624,7 +49889,7 @@ function checkConsecutiveHardRatings() {
   var overlay = document.createElement('div');
   overlay.id = 'clari-difficulty-overlay';
   overlay.className = 'clari-difficulty-msg';
-  overlay.innerHTML = clariSVG('encouraging', 48)
+  overlay.innerHTML = '<div class="clari-mascot clari-mascot--md clari-breathing">' + getClariExpression('encouraging') + '</div>'
     + '<div class="clari-difficulty-msg-text">No worries! Would you like to try some easier lessons first?</div>'
     + '<button class="clari-difficulty-msg-btn" onclick="goToEarlierUnit(\'' + earlierUnit.id + '\')">Review Unit ' + earlierUnit.num + ': ' + earlierUnit.title + '</button>'
     + '<button class="clari-difficulty-msg-close" onclick="this.parentElement.remove()" aria-label="Close">&times;</button>';
@@ -50280,7 +50545,7 @@ function renderProfileTab() {
     var _keys = Object.keys(_dr);
     var _total = _keys.length;
     if (_total === 0) {
-      _fbEl.innerHTML = '<div style="text-align:center;padding:12px 0;color:var(--gray3);font-size:13px;">' + clariSVGCached('default', 40) + '<div style="margin-top:6px;">No lesson feedback yet. Complete a lesson and rate its difficulty to see your stats here.</div></div>';
+      _fbEl.innerHTML = '<div style="text-align:center;padding:12px 0;color:var(--gray3);font-size:13px;"><div class="clari-mascot clari-mascot--md clari-breathing" style="margin:0 auto;">' + getClariExpression('neutral') + '</div><div style="margin-top:6px;">No lesson feedback yet. Complete a lesson and rate its difficulty to see your stats here.</div></div>';
       // Hide the card if no feedback
       var _card = document.getElementById('profile-feedback-card');
       if (_card) { _card.style.display = 'none'; _card.setAttribute('aria-hidden', 'true'); }
@@ -50677,7 +50942,7 @@ function renderProfileTab() {
     if (_entries.length === 0) {
       _actCard.innerHTML =
         '<div class="section-title">Recent Activity</div>' +
-        '<div class="profile-activity-empty">' + clariSVGCached('waving', 50) + '<div style="margin-top:6px;">Ready to learn something new? Your activity will show up here!</div></div>';
+        '<div class="profile-activity-empty"><div class="clari-mascot clari-mascot--md clari-breathing">' + getClariExpression('waving') + '</div><div style="margin-top:6px;">Ready to learn something new? Your activity will show up here!</div></div>';
       return;
     }
     var _rows = _entries.map(function(e) {
@@ -51588,7 +51853,7 @@ function renderProfileTab() {
     if (_earned.length === 0) {
       _inner =
         '<div class="cert-showcase-empty">' +
-          clariSVGCached('encouraging', 48) +
+          '<div class="clari-mascot clari-mascot--md clari-breathing">' + getClariExpression('encouraging') + '</div>' +
           '<div>No certificates yet. Complete all lessons in a unit to earn your first one! You\'ve got this!</div>' +
         '</div>';
     } else {
@@ -51804,7 +52069,7 @@ function renderProfileTab() {
       _wsEl.innerHTML =
         '<div class="section-title">Weakness Spotlight</div>' +
         '<div class="weakness-empty">' +
-          clariSVGCached('celebrating', 48) +
+          '<div class="clari-mascot clari-mascot--md clari-breathing">' + getClariExpression('celebrating') + '</div>' +
           '<div>No weak spots found. Keep learning to build your review data!</div>' +
         '</div>';
       return;
@@ -51900,7 +52165,7 @@ function renderProfileTab() {
 
     _umEl.innerHTML =
       '<div class="section-title">Unit Mastery</div>' +
-      '<div class="unit-mastery-list">' + (_rows || '<div class="unit-mastery-empty">' + clariSVGCached('thinking', 48) + '<div>Ready to dive in? Start your first lesson to track progress here!</div></div>') + '</div>';
+      '<div class="unit-mastery-list">' + (_rows || '<div class="unit-mastery-empty"><div class="clari-mascot clari-mascot--md clari-breathing">' + getClariExpression('thinking') + '</div><div>Ready to dive in? Start your first lesson to track progress here!</div></div>') + '</div>';
   })();
 
   // profile-31: Accuracy Over Time Chart
@@ -51913,7 +52178,7 @@ function renderProfileTab() {
     if (_hist31.length < 2) {
       _acEl.innerHTML =
         '<div class="section-title">Accuracy Over Time</div>' +
-        '<div class="accuracy-chart-empty">' + clariSVGCached('thinking', 48) + '<div>Complete at least 2 practice sessions to see your accuracy trend.</div></div>';
+        '<div class="accuracy-chart-empty"><div class="clari-mascot clari-mascot--md clari-breathing">' + getClariExpression('thinking') + '</div><div>Complete at least 2 practice sessions to see your accuracy trend.</div></div>';
       return;
     }
 
@@ -52423,7 +52688,7 @@ function renderGlossary(filter) {
   if (countEl) countEl.textContent = (S.glossary || []).length + ' term' + ((S.glossary||[]).length !== 1 ? 's' : '') + ' saved';
   if (!terms.length) {
     container.innerHTML = `<div class="glossary-empty">
-      ${clariSVGCached('thinking', 48)}
+      <div class="clari-mascot clari-mascot--md clari-breathing">${getClariExpression('thinking')}</div>
       <div>${q ? 'Hmm, no terms match "' + q + '". Try different keywords?' : 'No terms saved yet. Complete lessons to build your glossary!'}</div>
     </div>`;
     return;
@@ -52790,7 +53055,7 @@ function renderProfileNotes() {
   if (exportBtn) exportBtn.style.display = keys.length > 0 ? '' : 'none';
 
   if (keys.length === 0) {
-    el.innerHTML = '<div class="notes-empty" style="text-align:center;padding:16px 0;">' + clariSVGCached('thinking', 60) + '<div style="margin-top:8px;">Bookmark lessons you want to revisit! Use the pencil button during lessons to jot notes down.</div></div>';
+    el.innerHTML = '<div class="notes-empty" style="text-align:center;padding:16px 0;"><div class="clari-mascot clari-mascot--lg clari-breathing" style="margin:0 auto;">' + getClariExpression('thinking') + '</div><div style="margin-top:8px;">Bookmark lessons you want to revisit! Use the pencil button during lessons to jot notes down.</div></div>';
     return;
   }
 
@@ -53002,7 +53267,7 @@ function showToast(msg, level, duration) {
     document.body.appendChild(toast);
   }
   // Icon + accent color per level
-  const _clariSuccessIcon = (typeof clariMini === 'function') ? clariMini('happy') : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" fill="#58CC02" stroke="none"/><polyline points="7 12 10.5 15.5 17 9" stroke="#fff" stroke-width="2.5"/></svg>';
+  const _clariSuccessIcon = '<span class="clari-mascot clari-mascot--sm" style="display:inline-block;vertical-align:middle;">' + getClariExpression('happy') + '</span>';
   const TOAST_LEVELS = {
     success: {
       color: 'var(--green)',
@@ -53010,7 +53275,7 @@ function showToast(msg, level, duration) {
     },
     error: {
       color: 'var(--red)',
-      icon: (typeof clariMini === 'function') ? clariMini('sad') : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" fill="#FF6B6B" stroke="none"/><line x1="8" y1="8" x2="16" y2="16"/><line x1="16" y1="8" x2="8" y2="16"/></svg>'
+      icon: '<span class="clari-mascot clari-mascot--sm" style="display:inline-block;vertical-align:middle;">' + getClariExpression('encouraging') + '</span>'
     },
     info: {
       color: 'var(--blue)',
@@ -53067,7 +53332,7 @@ function openGemShop() {
   var _shopGreet = _shopGreetings[Math.floor(Math.random() * _shopGreetings.length)];
   document.getElementById('gem-shop-clari').innerHTML =
     '<div class="gem-shop-keeper">' +
-      '<div class="gem-shop-hat"><span class="clari-alive">' + clariSVG('excited', 60) + '</span></div>' +
+      '<div class="gem-shop-hat"><span class="clari-alive clari-mascot clari-mascot--lg clari-breathing">' + getClariExpression('excited') + '</span></div>' +
       '<div class="gem-shop-speech">' + _shopGreet + '</div>' +
     '</div>';
   document.getElementById('gem-shop-balance').textContent = `You have ${S.gems || 0} gems`;
@@ -53628,7 +53893,7 @@ function spawnClariReaction(isCorrect) {
   var wrap = document.createElement('div');
   wrap.className = 'clari-micro-react ' + (isCorrect ? 'correct' : 'wrong');
   var state = isCorrect ? 'celebrating' : 'encouraging';
-  wrap.innerHTML = (typeof clariMini === 'function' ? clariMini(state === 'celebrating' ? 'happy' : 'sad') : '');
+  wrap.innerHTML = '<span class="clari-mascot clari-mascot--sm">' + getClariExpression(state === 'celebrating' ? 'happy' : 'encouraging') + '</span>';
   // Add sparkles for correct
   if (isCorrect) {
     var sparkles = [
@@ -53660,7 +53925,7 @@ function _maybeShowClariWave() {
   if (getComputedStyle(header).position === 'static') header.style.position = 'relative';
   var wave = document.createElement('div');
   wave.className = 'clari-wave-wrap';
-  wave.innerHTML = (typeof clariMini === 'function') ? clariMini('happy') : '';
+  wave.innerHTML = '<span class="clari-mascot clari-mascot--sm">' + getClariExpression('happy') + '</span>';
   header.appendChild(wave);
   // Remove after animation settles
   setTimeout(function() { if (wave.parentNode) wave.remove(); }, 2500);
@@ -53676,8 +53941,9 @@ function init() {
     if (splash) {
       var mascotEl = document.getElementById('splash-mascot');
       var wordmarkEl = document.getElementById('splash-wordmark');
-      if (mascotEl && typeof clariSVG === 'function') {
-        mascotEl.innerHTML = clariSVG('waving', 90);
+      if (mascotEl) {
+        mascotEl.className = (mascotEl.className || '') + ' clari-mascot clari-mascot--xl clari-breathing';
+        initMascot(mascotEl, 'waving');
       }
       if (wordmarkEl && typeof clariWordmark === 'function') {
         wordmarkEl.innerHTML = clariWordmark(120);
@@ -53750,7 +54016,7 @@ function init() {
     const _hr = new Date().getHours();
     const _timeWord = _hr < 12 ? 'morning' : _hr < 17 ? 'afternoon' : 'evening';
     const _heartsMsg = S.hearts === 5 ? ' Your hearts are fully refilled. ' : ' ';
-    setTimeout(function() { showToast('<div class="clari-reaction-toast"><span class="crt-icon">' + clariMini('happy') + '</span><span class="crt-msg">Welcome back! Good ' + _timeWord + '!' + _heartsMsg + S.streak + '-day streak \uD83D\uDD25</span></div>', 'success', 3500); }, 800);
+    setTimeout(function() { showToast('<div class="clari-reaction-toast"><span class="crt-icon clari-mascot clari-mascot--sm">' + getClariExpression('happy') + '</span><span class="crt-msg">Welcome back! Good ' + _timeWord + '!' + _heartsMsg + S.streak + '-day streak \uD83D\uDD25</span></div>', 'success', 3500); }, 800);
   }
 
   // onboarding-quiz: show tech literacy quiz on very first visit
@@ -53808,6 +54074,16 @@ function init() {
     document.addEventListener('keydown', _resetIdleTimer, { passive: true });
     _resetIdleTimer();
   })();
+
+  // Reset learn-tab Clari mascot idle timer on user interaction
+  document.addEventListener('touchstart', function() {
+    var el = document.getElementById('learn-clari');
+    if (el && el.isConnected) resetIdleTimer(el, 'neutral');
+  }, { passive: true });
+  document.addEventListener('click', function() {
+    var el = document.getElementById('learn-clari');
+    if (el && el.isConnected) resetIdleTimer(el, 'neutral');
+  }, { passive: true });
 }
 
 // ============================================================
@@ -53950,7 +54226,10 @@ function finishOnboardingQuiz(mode) {
   // Hand off to the normal first-time onboarding flow
   hideMainUI();
   var mascotEl = document.getElementById('ob-welcome-mascot');
-  if (mascotEl && typeof clariSVG === 'function') mascotEl.innerHTML = clariSVG('waving', 100);
+  if (mascotEl) {
+    mascotEl.className = 'ob-mascot clari-mascot clari-mascot--xl';
+    initMascot(mascotEl, 'waving');
+  }
   if (typeof obShowScreen === 'function') obShowScreen('ob-welcome');
 }
 
@@ -54390,7 +54669,7 @@ function renderLearningPath() {
     var barColor = allDone ? 'var(--green)' : (unit.color || 'var(--clari-blue)');
     var nodeBg = (nodeState === 'current') ? 'background:' + (unit.color || 'var(--clari-blue)') + ';' : '';
     var clariHead = '';
-    if (nodeState === 'current') { clariHead = '<div class="lp-clari-indicator">' + clariSVGCached('waving', 30) + '</div>'; }
+    if (nodeState === 'current') { clariHead = '<div class="lp-clari-indicator clari-mascot clari-mascot--sm clari-breathing">' + getClariExpression('waving') + '</div>'; }
     var nodeInner;
     if (allDone) { nodeInner = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'; }
     else if (nodeState === 'locked') { nodeInner = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>'; }
