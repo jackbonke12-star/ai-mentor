@@ -4323,19 +4323,130 @@ mark.search-hl {
 .timed-bar-wrap { display: none; }
 .timed-bar      { display: none; }
 
-/* SVG countdown ring */
+/* SVG countdown ring — enhanced timed challenge */
+.timed-ring-container {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.timed-ring-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.timed-ring-bg {
+  fill: none;
+  stroke: var(--clari-neutral-200, var(--gray2, #E5E7EB));
+  stroke-width: 4;
+}
+.timed-ring-fill {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear, stroke 0.5s ease;
+}
+.timed-ring-fill--green { stroke: var(--clari-primary-500, var(--green2, #0F9D7A)); }
+.timed-ring-fill--amber { stroke: var(--clari-warning, var(--yellow, #F59E0B)); }
+.timed-ring-fill--red   { stroke: var(--clari-danger, var(--red, #EF4444)); }
+
+.timed-ring-text {
+  font-size: var(--font-size-lg, 18px);
+  font-weight: var(--font-weight-bold, 700);
+  font-family: 'SF Mono', 'Menlo', monospace;
+  color: var(--clari-text-primary, var(--text, #111827));
+  z-index: 1;
+  line-height: 1;
+}
+
+@keyframes timedPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+.timed-ring-container.timed-urgent {
+  animation: timedPulse 1s ease-in-out infinite;
+}
+
+/* Timed score counter */
+.timed-score {
+  font-size: var(--font-size-xl, 22px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--clari-primary-500, var(--green2, #0F9D7A));
+  font-family: 'SF Mono', 'Menlo', monospace;
+  min-width: 60px;
+  text-align: center;
+}
+
+/* Speed bonus floating text */
+@keyframes speedBonusFloat {
+  0%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  50%  { opacity: 1; transform: translate(-50%, calc(-50% - 20px)) scale(1.1); }
+  100% { opacity: 0; transform: translate(-50%, calc(-50% - 40px)) scale(0.9); }
+}
+.speed-bonus-float {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: var(--font-size-xl, 22px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--clari-warning, var(--yellow, #F59E0B));
+  text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  pointer-events: none;
+  z-index: 10000;
+  animation: speedBonusFloat 1s ease-out forwards;
+}
+
+/* Time's up overlay */
+.timed-up-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: modalIn 250ms ease forwards;
+}
+.timed-up-card {
+  background: var(--clari-surface, var(--white, #fff));
+  border-radius: var(--radius-xl, 24px);
+  padding: var(--space-6, 24px);
+  width: 90%;
+  max-width: 340px;
+  text-align: center;
+  box-shadow: var(--shadow-lg, 0 10px 40px rgba(0,0,0,0.2));
+}
+.timed-up-title {
+  font-size: var(--font-size-xl, 22px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--clari-danger, var(--red, #EF4444));
+  margin-bottom: var(--space-2, 8px);
+}
+.timed-up-score {
+  font-size: var(--font-size-3xl, 36px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--clari-primary-500, var(--green2, #0F9D7A));
+  margin: var(--space-3, 12px) 0;
+}
+.timed-up-detail {
+  font-size: var(--font-size-sm, 14px);
+  color: var(--clari-text-secondary, var(--gray4, #6B7280));
+  margin-bottom: var(--space-3, 12px);
+}
+.timed-up-btn {
+  margin-top: var(--space-3, 12px);
+}
+
+/* Legacy ring — keep classes for compatibility */
 .timed-ring-wrap {
   display: flex; align-items: center; justify-content: center;
   padding: 8px 0 4px;
-}
-.timed-ring-svg { transform: rotate(-90deg); }
-.timed-ring-track { fill: none; stroke: var(--gray2); stroke-width: 6; }
-.timed-ring-fill  {
-  fill: none;
-  stroke: var(--green2, var(--green));
-  stroke-width: 6;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 1s linear, stroke 0.4s ease;
 }
 .timed-ring-label {
   position: absolute;
@@ -4351,6 +4462,7 @@ mark.search-hl {
   align-items: center;
   justify-content: center;
 }
+.timed-ring-track { fill: none; stroke: var(--gray2); stroke-width: 4; }
 
 /* Practice pause overlay */
 .practice-pause-overlay {
@@ -5296,6 +5408,153 @@ mark.search-hl {
 .practice-more-toggle-btn.open { border-style: solid; color: var(--text); }
 .pmtb-chevron { font-size: var(--font-size-xs); transition: transform 0.2s; }
 .practice-more-toggle-btn.open .pmtb-chevron { transform: rotate(180deg); }
+
+/* ============================================================
+   PRACTICE MODE CARDS (redesigned r8)
+   ============================================================ */
+.pmode-cards { display: flex; flex-direction: column; gap: var(--space-3, 12px); padding: 0 0 var(--space-3, 12px); }
+
+.pmode-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 12px);
+  padding: var(--space-4, 16px);
+  background: var(--white);
+  border-radius: var(--radius-lg, 16px);
+  border: 1.5px solid var(--gray2);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  cursor: pointer;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+.pmode-card:active { transform: scale(0.98); }
+@media (hover: hover) {
+  .pmode-card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+}
+
+.pmode-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius, 10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.pmode-icon--teal { background: var(--green-10, #E6F7F3); color: var(--green2, #0D8A6B); }
+.pmode-icon--coral { background: var(--orange-5, #FEF0EB); color: var(--coral, #CC4F28); }
+.pmode-icon--amber { background: var(--amber-5, #FEF3C7); color: var(--amber-dark, #B45309); }
+
+.pmode-info { flex: 1; min-width: 0; }
+.pmode-title {
+  font-size: var(--font-size-lg, 18px);
+  font-weight: 800;
+  color: var(--text);
+}
+.pmode-desc {
+  font-size: var(--font-size-sm, 14px);
+  color: var(--gray4);
+  margin-top: 2px;
+}
+.pmode-stat {
+  position: absolute;
+  top: var(--space-3, 12px);
+  right: var(--space-4, 16px);
+  font-size: var(--font-size-xs, 12px);
+  color: var(--gray3);
+  font-weight: 800;
+}
+.pmode-chevron {
+  font-size: 24px;
+  color: var(--gray3);
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* Daily Challenge Banner (redesigned r8) */
+.pmode-daily-banner {
+  margin: 0 0 var(--space-3, 12px);
+  padding: var(--space-4, 16px);
+  background: var(--white);
+  border-radius: var(--radius-lg, 16px);
+  border: 1.5px solid var(--gray2);
+  border-left: 4px solid var(--green);
+  position: relative;
+  cursor: pointer;
+  transition: transform 150ms ease;
+}
+.pmode-daily-banner:active { transform: scale(0.98); }
+@media (hover: hover) {
+  .pmode-daily-banner:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+}
+.pmode-daily-title {
+  font-size: var(--font-size-base, 16px);
+  font-weight: 800;
+  color: var(--text);
+}
+.pmode-daily-topic {
+  font-size: var(--font-size-sm, 14px);
+  color: var(--gray4);
+  margin-top: 2px;
+}
+.pmode-daily-reward {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1, 4px);
+  margin-top: var(--space-2, 8px);
+  padding: 4px 10px;
+  background: var(--green-10, #E6F7F3);
+  border-radius: 9999px;
+  font-size: var(--font-size-xs, 12px);
+  font-weight: 800;
+  color: var(--green2, #0A6F56);
+}
+.pmode-daily-timer {
+  position: absolute;
+  top: var(--space-3, 12px);
+  right: var(--space-4, 16px);
+  font-size: var(--font-size-xs, 12px);
+  color: var(--gray3);
+  font-family: 'SF Mono', ui-monospace, monospace;
+}
+.pmode-daily-banner.pmode-daily-done {
+  opacity: 0.6;
+  pointer-events: none;
+}
+.pmode-daily-done .pmode-daily-title::after {
+  content: ' \2713';
+  color: var(--green);
+}
+
+/* Dark mode: practice mode cards (r8) */
+:root[data-theme="dark"] .pmode-card {
+  background: var(--white);
+  border-color: var(--gray2);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+:root[data-theme="dark"] .pmode-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+:root[data-theme="dark"] .pmode-icon--teal { background: var(--dm-green-bg, #0d2b1c); color: var(--green-bright, #4ade80); }
+:root[data-theme="dark"] .pmode-icon--coral { background: var(--dm-red-bg, #2d0a0a); color: var(--orange-bright, #ff9600); }
+:root[data-theme="dark"] .pmode-icon--amber { background: var(--dm-amber-bg, #2a1a07); color: var(--amber-text, #fbbf24); }
+:root[data-theme="dark"] .pmode-title { color: var(--text); }
+:root[data-theme="dark"] .pmode-desc { color: var(--gray4); }
+:root[data-theme="dark"] .pmode-stat { color: var(--gray3); }
+:root[data-theme="dark"] .pmode-chevron { color: var(--gray3); }
+
+:root[data-theme="dark"] .pmode-daily-banner {
+  background: var(--white);
+  border-color: var(--gray2);
+  border-left-color: var(--green-bright, #4ade80);
+}
+:root[data-theme="dark"] .pmode-daily-title { color: var(--text); }
+:root[data-theme="dark"] .pmode-daily-topic { color: var(--gray4); }
+:root[data-theme="dark"] .pmode-daily-reward { background: var(--dm-green-bg, #0d2b1c); color: var(--green-bright, #4ade80); }
+:root[data-theme="dark"] .pmode-daily-timer { color: var(--gray3); }
+:root[data-theme="dark"] .pmode-daily-done .pmode-daily-title::after { color: var(--green-bright); }
 
 /* ============================================================
    MY PLAN TAB
@@ -12120,9 +12379,12 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
   .streak-fire,
   .confetti-piece,
   .answer-correct-anim,
-  .answer-wrong-anim {
+  .answer-wrong-anim,
+  .timed-ring-container.timed-urgent,
+  .speed-bonus-float {
     animation: none !important;
   }
+  .speed-bonus-float { opacity: 1 !important; transform: translate(-50%, -50%) !important; }
   .profile-xp-ring-fill,
   .commit-score-ring-fill,
   .weekly-ring-fill,
@@ -13186,6 +13448,167 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
   .lpath-line-drawing { animation: none !important; }
   .lpath-node--just-unlocked { animation: none !important; opacity: 1 !important; }
 }
+
+/* ============================================================
+   PRACTICE STATS DASHBOARD
+   ============================================================ */
+.pstats-scroll {
+  display: flex;
+  gap: var(--space-3, 12px);
+  padding: var(--space-4, 16px);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+.pstats-scroll::-webkit-scrollbar { display: none; }
+
+.pstats-card {
+  flex-shrink: 0;
+  width: 140px;
+  padding: var(--space-3, 12px);
+  background: var(--clari-surface, var(--card-bg, #fff));
+  border-radius: var(--radius-lg, 16px);
+  border: 1px solid var(--clari-neutral-200, var(--gray2, #E5E7EB));
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.06));
+  scroll-snap-align: start;
+  text-align: center;
+}
+.pstats-card-label {
+  font-size: var(--font-size-xs, 12px);
+  color: var(--clari-text-muted, var(--gray4, #9CA3AF));
+  font-weight: var(--font-weight-medium, 500);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: var(--space-2, 8px);
+}
+.pstats-card-value {
+  font-size: var(--font-size-2xl, 28px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--clari-text-primary, var(--text, #111827));
+  line-height: 1;
+}
+.pstats-card-sub {
+  font-size: var(--font-size-xs, 12px);
+  color: var(--clari-text-muted, var(--gray4, #9CA3AF));
+  margin-top: var(--space-1, 4px);
+}
+.pstats-trend-up { color: var(--clari-success, var(--green, #22C55E)); }
+.pstats-trend-down { color: var(--clari-danger, var(--red, #EF4444)); }
+
+/* Accuracy ring */
+.pstats-ring {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto var(--space-2, 8px);
+}
+.pstats-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.pstats-ring-bg {
+  fill: none;
+  stroke: var(--clari-neutral-200, var(--gray2, #E5E7EB));
+  stroke-width: 5;
+}
+.pstats-ring-fill {
+  fill: none;
+  stroke: var(--clari-primary-500, var(--green, #0F9D7A));
+  stroke-width: 5;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 600ms ease-out;
+}
+.pstats-ring-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm, 14px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--clari-text-primary, var(--text, #111827));
+}
+
+/* Recent sessions */
+.pstats-recent { padding: 0 var(--space-4, 16px) var(--space-4, 16px); }
+.pstats-recent-title {
+  font-size: var(--font-size-sm, 14px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--clari-text-primary, var(--text, #111827));
+  margin-bottom: var(--space-3, 12px);
+}
+.pstats-session {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 12px);
+  padding: var(--space-3, 12px) 0;
+  border-bottom: 1px solid var(--clari-neutral-100, var(--gray1, #F3F4F6));
+}
+.pstats-session:last-child { border-bottom: none; }
+.pstats-session-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md, var(--radius, 10px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.pstats-session-info { flex: 1; min-width: 0; }
+.pstats-session-name {
+  font-size: var(--font-size-sm, 14px);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--clari-text-primary, var(--text, #111827));
+}
+.pstats-session-time {
+  font-size: var(--font-size-xs, 12px);
+  color: var(--clari-text-muted, var(--gray4, #9CA3AF));
+}
+.pstats-session-score {
+  font-size: var(--font-size-sm, 14px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--clari-primary-500, var(--green, #0F9D7A));
+  flex-shrink: 0;
+}
+/* Mini bar chart */
+.pstats-mini-bars {
+  display: flex;
+  gap: 2px;
+  align-items: flex-end;
+  height: 20px;
+  flex-shrink: 0;
+}
+.pstats-mini-bar {
+  width: 6px;
+  border-radius: 2px;
+  min-height: 3px;
+}
+.pstats-mini-bar--correct { background: var(--clari-success, var(--green, #22C55E)); }
+.pstats-mini-bar--wrong { background: var(--clari-danger, var(--red, #EF4444)); }
+.pstats-mini-bar--skip { background: var(--clari-neutral-300, var(--gray3, #D1D5DB)); }
+
+/* Dark mode: practice stats */
+:root[data-theme="dark"] .pstats-card {
+  background: var(--card-bg, #1a1a2e);
+  border-color: var(--gray2, #333);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+:root[data-theme="dark"] .pstats-card-label { color: var(--gray4, #888); }
+:root[data-theme="dark"] .pstats-card-value { color: var(--text, #e8e8e8); }
+:root[data-theme="dark"] .pstats-card-sub { color: var(--gray4, #888); }
+:root[data-theme="dark"] .pstats-ring-bg { stroke: var(--gray2, #333); }
+:root[data-theme="dark"] .pstats-ring-fill { stroke: var(--green-bright, #4ade80); }
+:root[data-theme="dark"] .pstats-ring-text { color: var(--text, #e8e8e8); }
+:root[data-theme="dark"] .pstats-recent-title { color: var(--text, #e8e8e8); }
+:root[data-theme="dark"] .pstats-session { border-bottom-color: var(--gray2, #333); }
+:root[data-theme="dark"] .pstats-session-name { color: var(--text, #e8e8e8); }
+:root[data-theme="dark"] .pstats-session-time { color: var(--gray4, #888); }
+:root[data-theme="dark"] .pstats-session-score { color: var(--green-bright, #4ade80); }
+:root[data-theme="dark"] .pstats-mini-bar--correct { background: var(--green-bright, #4ade80); }
+:root[data-theme="dark"] .pstats-mini-bar--wrong { background: var(--red-bright, #f87171); }
 </style>
 
 <script>
@@ -13536,56 +13959,12 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
       <div class="clari-divider green" aria-hidden="true"></div>
       <div id="practice-daily-goal-bar" style="margin-bottom:12px;"></div>
       <div id="practice-unit-filter-row" style="margin-bottom:10px;"></div>
-      <div id="practice-daily-challenge-wrap" style="margin-bottom:0;"></div>
       <div id="practice-escalator-wrap" style="margin-bottom:0;"></div>
-      <button class="practice-quick5-btn" onclick="startQuick5()" aria-label="Quick 5 practice session">
-        <span class="practice-quick5-icon">⚡</span>
-        <span class="practice-quick5-text">
-          <span class="practice-quick5-label">Quick 5</span>
-          <span class="practice-quick5-sub">5 questions, no setup needed</span>
-        </span>
-        <span class="practice-quick5-arrow">&rsaquo;</span>
-      </button>
-      <div class="practice-modes">
-        <div class="practice-card">
-
-          <div class="practice-card-info">
-            <div class="practice-card-title">Quick Practice</div>
-            <div class="practice-card-sub">5 random questions</div>
-            <div id="practice-pool-size-quick" style="font-size:11px;font-weight:700;color:var(--gray4);margin-top:3px;"></div>
-            <div id="pbs-chip-quick"></div>
-          </div>
-          <button class="btn btn-blue btn-sm" onclick="showDifficultySelector(&apos;quick&apos;)">Start</button>
-        </div>
-      </div><!-- /.practice-modes primary -->
-      <button class="practice-more-toggle-btn" id="practice-more-toggle-btn"
-        onclick="(function(btn){var ex=document.getElementById('practice-modes-extra');var open=ex.classList.toggle('open');btn.classList.toggle('open',open);btn.querySelector('.pmtb-chevron').textContent=open?'&#9650;':'&#9660;';btn.querySelector('.pmtb-label').textContent=open?'Fewer options':'More options';})(this)"
-        aria-expanded="false">
-        <span class="pmtb-label">More options</span>
-        <span class="pmtb-chevron">&#9660;</span>
-      </button>
-      <div class="practice-modes-extra" id="practice-modes-extra">
-        <!-- weak-areas-card removed r5-cleanup -->
-        <div class="practice-card">
-
-          <div class="practice-card-info">
-            <div class="practice-card-title">Timed Challenge</div>
-            <div class="practice-card-sub">10 questions, 60 seconds</div>
-            <div id="practice-pool-size-timed" style="font-size:11px;font-weight:700;color:var(--gray4);margin-top:3px;"></div>
-            <div id="pbs-chip-timed"></div>
-          </div>
-          <button class="btn btn-purple btn-sm" onclick="showDifficultySelector(&apos;timed&apos;)">Challenge</button>
-        </div>
-        <div class="practice-card" id="weak-drill-card">
-
-          <div class="practice-card-info">
-            <div class="practice-card-title">Weak Spots Drill</div>
-            <div class="practice-card-sub">7 hardest-topic questions</div>
-            <div id="practice-weak-drill-target" style="font-size:11px;font-weight:700;color:var(--gray4);margin-top:3px;"></div>
-          </div>
-          <button class="btn btn-sm" id="weak-drill-start-btn" style="background:var(--red);color:#fff;border:none;" onclick="startWeakDrill()">Drill</button>
-        </div>
-      </div><!-- /.practice-modes-extra -->
+      <!-- r8: practice mode cards + daily challenge banner (dynamically rendered) -->
+      <div id="pmode-cards-wrap"></div>
+      <div id="pmode-daily-banner-wrap"></div>
+      <div id="practice-daily-challenge-wrap"></div>
+      <div id="pstats-wrap"></div>
       <div style="display:flex;justify-content:flex-end;gap:8px;margin:4px 0 10px;">
         <button id="quiz-timer-toggle-btn" class="quiz-timer-toggle" onclick="toggleQuizTimer()" aria-label="Toggle Quiz Timer">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/><path d="M9 1h6"/><path d="M12 1v3"/></svg>
@@ -28952,6 +29331,7 @@ function loadState() {
     practice_history: [],
     practice_best: {},
     practice_sessions_week: { week: '', count: 0 },
+    questionHistory: [],
     dark_mode: false, sound_enabled: true,
     resume_lesson: null,
     clari_theme: 'default', xp_boost_active: false, streak_freeze: false,
@@ -43886,6 +44266,25 @@ function trackQuestionResult(isCorrect, detail) {
     lessonState.questionDetails.push({ question: '', userAnswer: '', correctAnswer: '', explanation: '', type: '' });
   }
   updateSegmentedProgress();
+
+  // Record to persistent questionHistory for weak spots tracking
+  var _qhLessonId = lessonState.lessonId;
+  // For practice modes, try to get the real lessonId from the current practice question
+  if (lessonState.practiceMode && lessonState.practiceQuestions && lessonState.practiceQuestions[lessonState.practiceIdx]) {
+    var _pq = lessonState.practiceQuestions[lessonState.practiceIdx];
+    if (_pq.lessonId) _qhLessonId = _pq.lessonId;
+  }
+  var _qhSlideIdx = lessonState.practiceMode ? (lessonState.practiceIdx || 0) : (lessonState.slideIdx || 0);
+  // Compute response time in ms
+  var _qhResponseMs = 0;
+  if (lessonState.questionStartTime) {
+    _qhResponseMs = Date.now() - lessonState.questionStartTime;
+  } else if (typeof _timedQuestionStartTime !== 'undefined') {
+    _qhResponseMs = Date.now() - _timedQuestionStartTime;
+  }
+  if (typeof recordQuestionHistory === 'function') {
+    recordQuestionHistory(_qhLessonId, _qhSlideIdx, isCorrect, _qhResponseMs);
+  }
 }
 
 function showFeedback(correct, msg, correctAnswerText, explanation) {
@@ -46854,6 +47253,177 @@ function recordWrongAnswer(lessonId, question, idx) {
   save('wrong_answers', arr);
 }
 
+// ── Question History Tracking (weak spots engine) ────────────────────────────
+function recordQuestionHistory(lessonId, slideIndex, correct, responseTimeMs) {
+  if (!lessonId || lessonId === '__practice__') return; // skip generic practice sessions without real lesson IDs
+  var hist = S.questionHistory || [];
+
+  // Find the unit/topic for this lesson
+  var topic = 'General';
+  var unitIndex = -1;
+  for (var ui = 0; ui < COURSE.length; ui++) {
+    for (var li = 0; li < COURSE[ui].lessons.length; li++) {
+      var lid = COURSE[ui].lessons[li].id || ('u' + (ui + 1) + 'l' + (li + 1));
+      if (lid === lessonId) {
+        topic = COURSE[ui].title || ('Unit ' + (ui + 1));
+        unitIndex = ui;
+        break;
+      }
+    }
+    if (unitIndex >= 0) break;
+  }
+
+  var entry = {
+    questionId: lessonId + '_q' + slideIndex,
+    topic: topic,
+    unitIndex: unitIndex,
+    lessonId: lessonId,
+    correct: !!correct,
+    timestamp: Date.now(),
+    responseTimeMs: responseTimeMs || 0
+  };
+
+  hist.push(entry);
+
+  // Keep last 500 entries to prevent localStorage bloat
+  if (hist.length > 500) {
+    hist = hist.slice(-500);
+  }
+
+  save('questionHistory', hist);
+}
+
+// ── Weak Spots Analysis ──────────────────────────────────────────────────────
+function getWeakTopics() {
+  var history = S.questionHistory || [];
+  if (history.length === 0) return [];
+
+  // Group by topic
+  var topicStats = {};
+  history.forEach(function(entry) {
+    if (!topicStats[entry.topic]) {
+      topicStats[entry.topic] = { total: 0, correct: 0, topic: entry.topic, unitIndex: entry.unitIndex };
+    }
+    topicStats[entry.topic].total++;
+    if (entry.correct) topicStats[entry.topic].correct++;
+  });
+
+  // Calculate accuracy and sort by error rate
+  var topics = [];
+  for (var key in topicStats) {
+    var stat = topicStats[key];
+    stat.accuracy = stat.total > 0 ? Math.round(stat.correct / stat.total * 100) : 0;
+    stat.errorRate = 100 - stat.accuracy;
+    topics.push(stat);
+  }
+
+  // Sort by error rate (highest first)
+  topics.sort(function(a, b) { return b.errorRate - a.errorRate; });
+
+  // Weak = below 70% accuracy and at least 3 attempts
+  return topics.filter(function(t) { return t.accuracy < 70 && t.total >= 3; });
+}
+
+function getWeakQuestions(limit) {
+  limit = limit || 7;
+  var history = S.questionHistory || [];
+  if (history.length === 0) return [];
+
+  // Group by questionId
+  var questionStats = {};
+  history.forEach(function(entry) {
+    if (!questionStats[entry.questionId]) {
+      questionStats[entry.questionId] = {
+        questionId: entry.questionId,
+        lessonId: entry.lessonId,
+        topic: entry.topic,
+        unitIndex: entry.unitIndex,
+        total: 0,
+        wrong: 0,
+        lastAttempt: 0
+      };
+    }
+    var qs = questionStats[entry.questionId];
+    qs.total++;
+    if (!entry.correct) qs.wrong++;
+    if (entry.timestamp > qs.lastAttempt) qs.lastAttempt = entry.timestamp;
+  });
+
+  // Filter to questions with at least 1 wrong answer
+  var weakQs = [];
+  for (var key in questionStats) {
+    var qs = questionStats[key];
+    if (qs.wrong > 0) {
+      qs.errorRate = qs.wrong / qs.total;
+      weakQs.push(qs);
+    }
+  }
+
+  // Sort by error rate (highest first), then by recency
+  weakQs.sort(function(a, b) {
+    if (b.errorRate !== a.errorRate) return b.errorRate - a.errorRate;
+    return b.lastAttempt - a.lastAttempt;
+  });
+
+  return weakQs.slice(0, limit);
+}
+
+function getTopicImprovements(preTopics) {
+  if (!preTopics) return [];
+  var postHist = S.questionHistory || [];
+  // Build post-drill topic stats
+  var postTopics = {};
+  postHist.forEach(function(e) {
+    if (!postTopics[e.topic]) {
+      postTopics[e.topic] = { correct: 0, total: 0 };
+    }
+    postTopics[e.topic].total++;
+    if (e.correct) postTopics[e.topic].correct++;
+  });
+
+  var improvements = [];
+  for (var topic in postTopics) {
+    var pre = preTopics[topic];
+    var post = postTopics[topic];
+    if (!pre || pre.total === 0 || post.total === 0) continue;
+    var preAcc = Math.round(pre.correct / pre.total * 100);
+    var postAcc = Math.round(post.correct / post.total * 100);
+    var delta = postAcc - preAcc;
+    if (delta > 0) {
+      improvements.push({
+        topic: topic,
+        preAccuracy: preAcc,
+        postAccuracy: postAcc,
+        delta: delta
+      });
+    }
+  }
+
+  // Sort by biggest improvement first
+  improvements.sort(function(a, b) { return b.delta - a.delta; });
+  return improvements;
+}
+
+function buildImprovementsHtml() {
+  if (!window._weakDrillPreTopics) return '';
+  var improvements = getTopicImprovements(window._weakDrillPreTopics);
+  if (improvements.length === 0) return '';
+
+  var html = '<div style="margin:12px 0;padding:12px 16px;background:var(--green-5,#e8f5e9);border-radius:12px;">';
+  html += '<div style="font-size:13px;font-weight:800;color:var(--green2,#2e7d32);margin-bottom:6px;">\u2191 Topic Improvements</div>';
+  improvements.forEach(function(imp) {
+    html += '<div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:3px 0;">';
+    html += '<span style="color:var(--text);">' + imp.topic + '</span>';
+    html += '<span style="font-weight:800;color:var(--green2,#2e7d32);">\u2191 +' + imp.delta + '% <span style="font-weight:400;color:var(--gray4);">(' + imp.preAccuracy + '% \u2192 ' + imp.postAccuracy + '%)</span></span>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  // Clean up
+  window._weakDrillPreTopics = null;
+  return html;
+}
+
 function updateStreak() {
   // Day Off Pass: skip streak reset if active
   if (S.day_off_until && Date.now() < S.day_off_until) return;
@@ -47455,6 +48025,9 @@ function renderPracticeTab() {
   }
 
   renderDailyChallenge();
+  renderPracticeModeCards();
+  renderPmodeDailyBanner();
+  if (typeof renderPracticeStats === 'function') renderPracticeStats();
   renderSessionTimeline();
   renderAccuracySparkline();
   renderBestScoreChips();
@@ -48083,6 +48656,7 @@ function startPractice(type, difficulty) {
 function startTimedBar() {
   // NOTE: DOM bar is injected by renderPracticeQuestion on each render — no injection here
   lessonState.timedSeconds = 60;
+  lessonState.timedTotalSeconds = 60;
   // practice-57: inject top countdown bar
   (function() {
     var _lc57 = document.getElementById('lesson-content');
@@ -48098,20 +48672,11 @@ function startTimedBar() {
       _lc57.parentNode.insertBefore(_bar57, _lc57);
     }
   })();
-  lessonState.timedInterval = setInterval(() => {
+  lessonState.timedInterval = setInterval(function() {
     lessonState.timedSeconds--;
-    var _tPct = (lessonState.timedSeconds / 60) * 100;
-    var _tCirc = 138.23;
-    var _tFill = document.getElementById('timed-ring-fill');
-    var _tLabel = document.getElementById('timed-ring-label');
-    if (_tFill) {
-      _tFill.setAttribute('stroke-dashoffset', String(_tCirc * (1 - _tPct / 100)));
-      _tFill.setAttribute('stroke',
-        lessonState.timedSeconds <= 5 ? 'var(--red)' :
-        lessonState.timedSeconds <= 10 ? 'var(--orange)' : 'var(--green)');
-    }
-    if (_tLabel) _tLabel.textContent = String(lessonState.timedSeconds);
+    updateTimedRing(lessonState.timedSeconds, lessonState.timedTotalSeconds || 60);
     // practice-57: update top countdown bar
+    var _tPct = (lessonState.timedSeconds / (lessonState.timedTotalSeconds || 60)) * 100;
     var _ctd57 = document.getElementById('ptcb-time-display');
     var _ctf57 = document.getElementById('ptcb-fill');
     if (_ctd57) {
@@ -48124,9 +48689,115 @@ function startTimedBar() {
     if (bar) bar.style.width = _tPct + '%';
     if (lessonState.timedSeconds <= 0) {
       clearInterval(lessonState.timedInterval);
-      finishPractice();
+      showTimedUpOverlay();
     }
   }, 1000);
+}
+
+// Enhanced circular SVG ring update with color transitions and pulse
+function updateTimedRing(secondsLeft, totalSeconds) {
+  var ring = document.getElementById('timed-ring-fill');
+  var text = document.getElementById('timed-ring-text');
+  var container = document.getElementById('timed-ring');
+  if (!ring || !text) return;
+
+  var circumference = 175.93;
+  var progress = secondsLeft / totalSeconds;
+  ring.style.strokeDashoffset = circumference * (1 - progress);
+
+  text.textContent = secondsLeft;
+
+  // Color transitions via CSS classes
+  ring.classList.remove('timed-ring-fill--green', 'timed-ring-fill--amber', 'timed-ring-fill--red');
+  if (secondsLeft > 30) {
+    ring.classList.add('timed-ring-fill--green');
+  } else if (secondsLeft > 15) {
+    ring.classList.add('timed-ring-fill--amber');
+  } else {
+    ring.classList.add('timed-ring-fill--red');
+  }
+
+  // Pulse animation at <10s
+  if (container) {
+    if (secondsLeft <= 10 && secondsLeft > 0) {
+      container.classList.add('timed-urgent');
+    } else {
+      container.classList.remove('timed-urgent');
+    }
+  }
+}
+
+// Speed bonus system for timed mode
+var _timedQuestionStartTime = Date.now();
+
+function markTimedQuestionStart() {
+  _timedQuestionStartTime = Date.now();
+}
+
+function checkSpeedBonus() {
+  var elapsed = (Date.now() - _timedQuestionStartTime) / 1000;
+  if (elapsed <= 3) {
+    addXP(10); // extra 10 XP on top of the normal 5 XP
+    showSpeedBonusFloat();
+    return true;
+  }
+  return false;
+}
+
+function showSpeedBonusFloat() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var el = document.createElement('div');
+  el.className = 'speed-bonus-float';
+  el.textContent = 'SPEED BONUS! +20 XP';
+  document.body.appendChild(el);
+  setTimeout(function() { if (el.parentNode) el.remove(); }, 1100);
+}
+
+// Update running score display in timed mode
+function updateTimedScoreDisplay() {
+  var scoreEl = document.getElementById('timed-score-display');
+  if (!scoreEl) return;
+  var newScore = (lessonState.practiceScore || 0) * 10;
+  var oldScore = parseInt(scoreEl.textContent) || 0;
+  if (typeof animateCounter === 'function' && oldScore !== newScore) {
+    animateCounter(scoreEl, oldScore, newScore, 300);
+  } else {
+    scoreEl.textContent = newScore;
+  }
+}
+
+// Time's up overlay
+function showTimedUpOverlay() {
+  var score = lessonState.practiceScore || 0;
+  var total = lessonState.practiceQuestions ? lessonState.practiceQuestions.length : 0;
+  var answered = lessonState.practiceIdx || 0;
+  var accuracy = answered > 0 ? Math.round((score / answered) * 100) : 0;
+  var xpEarned = score * 10;
+
+  var overlay = document.createElement('div');
+  overlay.className = 'timed-up-overlay';
+  overlay.id = 'timed-up-overlay';
+  overlay.innerHTML = '<div class="timed-up-card">'
+    + '<div class="timed-up-title">Time\'s Up!</div>'
+    + '<div class="clari-mascot clari-mascot--lg clari-breathing" style="margin:8px auto;">' + getClariExpression(accuracy >= 70 ? 'celebrating' : 'encouraging') + '</div>'
+    + '<div class="timed-up-score">' + score + ' / ' + answered + '</div>'
+    + '<div class="timed-up-detail">' + accuracy + '% accuracy</div>'
+    + '<button class="btn btn-green btn-full timed-up-btn" onclick="dismissTimedUpOverlay()">See Results</button>'
+    + '</div>';
+  document.body.appendChild(overlay);
+
+  // Auto-dismiss after 4 seconds if not tapped
+  overlay._autoDismiss = setTimeout(function() {
+    dismissTimedUpOverlay();
+  }, 4000);
+}
+
+function dismissTimedUpOverlay() {
+  var overlay = document.getElementById('timed-up-overlay');
+  if (!overlay) return;
+  if (overlay._autoDismiss) clearTimeout(overlay._autoDismiss);
+  overlay.remove();
+  finishPractice();
 }
 
 var _practiceKbHandler = null;
@@ -48246,25 +48917,25 @@ function resumePractice() {
   // Remove overlay
   var _overlay = document.getElementById('practice-pause-overlay');
   if (_overlay) _overlay.remove();
-  // Restart interval
+  // Restart interval — using shared updateTimedRing function
   lessonState.timedInterval = setInterval(function() {
     lessonState.timedSeconds--;
-    var _tPct = (lessonState.timedSeconds / 60) * 100;
-    var _tCirc = 138.23;
-    var _tFill = document.getElementById('timed-ring-fill');
-    var _tLabel = document.getElementById('timed-ring-label');
-    if (_tFill) {
-      _tFill.setAttribute('stroke-dashoffset', String(_tCirc * (1 - _tPct / 100)));
-      _tFill.setAttribute('stroke',
-        lessonState.timedSeconds <= 5 ? 'var(--red)' :
-        lessonState.timedSeconds <= 10 ? 'var(--orange)' : 'var(--green)');
+    updateTimedRing(lessonState.timedSeconds, lessonState.timedTotalSeconds || 60);
+    // practice-57: update top countdown bar
+    var _tPct = (lessonState.timedSeconds / (lessonState.timedTotalSeconds || 60)) * 100;
+    var _ctd57 = document.getElementById('ptcb-time-display');
+    var _ctf57 = document.getElementById('ptcb-fill');
+    if (_ctd57) {
+      _ctd57.textContent = String(lessonState.timedSeconds);
+      _ctd57.className = 'ptcb-time' + (lessonState.timedSeconds <= 5 ? ' danger' : lessonState.timedSeconds <= 10 ? ' warn' : '');
     }
-    if (_tLabel) _tLabel.textContent = String(lessonState.timedSeconds);
+    if (_ctf57) _ctf57.style.width = _tPct + '%';
+    // Legacy bar
     var bar = document.getElementById('timed-bar');
     if (bar) bar.style.width = _tPct + '%';
     if (lessonState.timedSeconds <= 0) {
       clearInterval(lessonState.timedInterval);
-      finishPractice();
+      showTimedUpOverlay();
     }
   }, 1000);
   // Restore pause button label
@@ -48359,28 +49030,28 @@ function renderPracticeQuestion() {
   })();
 
   if (lessonState.practiceType === 'timed') {
-    var _rPct = (lessonState.timedSeconds / 60) * 100;
-    var _rCirc = 138.23;
-    var _rOffset = _rCirc * (1 - _rPct / 100);
-    var _rColour = lessonState.timedSeconds <= 5 ? 'var(--red)' : lessonState.timedSeconds <= 10 ? 'var(--orange)' : 'var(--green)';
-    var _ringHtml = '<div class="timed-ring-wrap">' +
-      '<div class="timed-ring-outer">' +
-      '<svg class="timed-ring-svg" width="56" height="56" viewBox="0 0 56 56">' +
-        '<circle class="timed-ring-track" cx="28" cy="28" r="22"/>' +
-        '<circle class="timed-ring-fill" id="timed-ring-fill" cx="28" cy="28" r="22"' +
-          ' stroke="' + _rColour + '"' +
+    var _rCirc = 175.93;
+    var _rProgress = lessonState.timedSeconds / 60;
+    var _rOffset = _rCirc * (1 - _rProgress);
+    var _rColorClass = lessonState.timedSeconds > 30 ? 'timed-ring-fill--green' : lessonState.timedSeconds > 15 ? 'timed-ring-fill--amber' : 'timed-ring-fill--red';
+    var _rUrgent = lessonState.timedSeconds <= 10 && lessonState.timedSeconds > 0 ? ' timed-urgent' : '';
+    var _ringHtml = '<div class="timed-ring-container' + _rUrgent + '" id="timed-ring">' +
+      '<svg class="timed-ring-svg" viewBox="0 0 64 64">' +
+        '<circle class="timed-ring-bg" cx="32" cy="32" r="28"/>' +
+        '<circle class="timed-ring-fill ' + _rColorClass + '" cx="32" cy="32" r="28"' +
           ' stroke-dasharray="' + _rCirc + '"' +
-          ' stroke-dashoffset="' + _rOffset + '"/>' +
+          ' stroke-dashoffset="' + _rOffset + '" id="timed-ring-fill"/>' +
       '</svg>' +
-      '<div class="timed-ring-label" id="timed-ring-label">' + lessonState.timedSeconds + '</div>' +
-      '</div>' +
+      '<span class="timed-ring-text" id="timed-ring-text">' + lessonState.timedSeconds + '</span>' +
     '</div>';
+    var _scoreHtml = '<div class="timed-score" id="timed-score-display">' + (lessonState.practiceScore || 0) * 10 + '</div>';
     var footer = document.getElementById('lesson-footer');
     // Capture the Next button HTML before overwriting footer
     var _nextBtnOuter = footer.innerHTML;
     var _pauseBtnHtml = '<button id="practice-pause-btn" class="practice-pause-btn" onclick="lessonState.practicePaused ? resumePractice() : pausePractice()">'
       + '&#9208; Pause</button>';
     footer.innerHTML = '<div style="display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap;">'
+      + _scoreHtml
       + _ringHtml
       + _pauseBtnHtml
       + '</div>'
@@ -48388,6 +49059,8 @@ function renderPracticeQuestion() {
     // Re-disable the next button
     var _nxtBtn = document.getElementById('lesson-next-btn');
     if (_nxtBtn) _nxtBtn.disabled = true;
+    // Mark question start time for speed bonus
+    markTimedQuestionStart();
   }
   // Quiz timer: start per-question countdown if enabled and not in timed mode
   if (S.quiz_timer_enabled && lessonState.practiceType !== 'timed' && typeof startQuizTimer === 'function') {
@@ -48454,6 +49127,14 @@ function selectPracticeOption(el, idx, correct) {
       lessonState.practiceMaxStreak = lessonState.correctStreak;
     }
     addXP(5);
+    // Speed bonus: award extra XP for fast answers in timed mode
+    if (lessonState.practiceType === 'timed' && typeof checkSpeedBonus === 'function') {
+      checkSpeedBonus();
+    }
+    // Update running score display in timed mode
+    if (lessonState.practiceType === 'timed' && typeof updateTimedScoreDisplay === 'function') {
+      updateTimedScoreDisplay();
+    }
     SoundManager.playCorrect();
     // Practice-specific ascending sweep (200hz -> 400hz, 100ms)
     if (S.practice_sounds !== false) {
@@ -48893,10 +49574,14 @@ function finishPractice() {
   hist.push({
     type: lessonState.practiceType,
     score, total,
-    date: todayStr()
+    correct: score,
+    date: todayStr(),
+    timestamp: Date.now()
   });
   if (hist.length > 20) hist.shift();
   save('practice_history', hist);
+  // Re-render practice stats after session completes
+  if (typeof renderPracticeStats === 'function') setTimeout(renderPracticeStats, 100);
   // profile-25: persist total questions answered
   (function() {
     var _sessionTotal = typeof total !== 'undefined' ? (total || 0) : 0;
@@ -48982,6 +49667,8 @@ function finishPractice() {
 
   // practice-57: remove countdown bar on finish
   (function() { var _cb57 = document.getElementById('practice-timed-countdown-bar'); if (_cb57) _cb57.remove(); })();
+  // Clean up time's-up overlay if still present
+  (function() { var _tuo = document.getElementById('timed-up-overlay'); if (_tuo) { if (_tuo._autoDismiss) clearTimeout(_tuo._autoDismiss); _tuo.remove(); } })();
   document.getElementById('lesson-progress-bar').style.width = '100%';
   const _elapsed = Math.round((Date.now() - (lessonState.practiceStartTime || Date.now())) / 1000);
   const _elapsedStr = _elapsed >= 60 ? Math.floor(_elapsed/60) + 'm ' + (_elapsed%60) + 's' : _elapsed + 's';
@@ -49016,6 +49703,11 @@ function finishPractice() {
         ? '<div style="font-size:12px;font-weight:800;color:var(--green2);margin-top:-4px;">&#x2B50; New best! ' + _accuracy + '%</div>'
         : '<div style="font-size:12px;font-weight:600;color:var(--gray4);margin-top:-4px;">Best: ' + _prevBest + '%</div>')
     : '';
+  // Weak drill improvement display
+  var _weakDrillImprovementsHtml = '';
+  if (lessonState.practiceType === 'weak_drill' && typeof buildImprovementsHtml === 'function') {
+    _weakDrillImprovementsHtml = buildImprovementsHtml();
+  }
   (function() {
     var _grade = getGradeLetter(_accuracy);
     var _gradeClass = { 'A': 'grade-a', 'B': 'grade-b', 'C': 'grade-c', 'D': 'grade-d', 'F': 'grade-f' }[_grade] || 'grade-f';
@@ -49034,6 +49726,7 @@ function finishPractice() {
         + _bestLine
         + '<div class="practice-celeb-msg">' + _celebMsg + '</div>'
         + _comebackHtml55
+        + _weakDrillImprovementsHtml
         + '<div class="xp-earned-pill"><svg width="18" height="18" viewBox="0 0 24 24" fill="#5c4200"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>+' + (20 + bonusXP) + ' XP earned</div>'
 
         + '<div id="practice-xp-breakdown-panel"></div>'
@@ -49046,6 +49739,7 @@ function finishPractice() {
         + '<div style="font-size:15px;font-weight:800;color:var(--gray4);">' + score + ' / ' + total + ' correct</div>'
         + _bestLine
         + '<div class="practice-encourage-msg">' + _celebMsg + ' You\'re closer than you think!</div>'
+        + _weakDrillImprovementsHtml
         + '<div class="xp-earned-pill"><svg width="18" height="18" viewBox="0 0 24 24" fill="#5c4200"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>+' + (20 + bonusXP) + ' XP earned</div>'
         + '<div id="practice-xp-breakdown-panel"></div>'
         + '</div>';
@@ -49308,6 +50002,259 @@ function renderDiffEscalator() {
 function startQuick5() {
   if (typeof showToast === 'function') showToast('⚡ Quick 5 starting!', 'info', 1800);
   startPractice('quick', 'mixed');
+}
+
+// ============================================================
+// PRACTICE STATS DASHBOARD
+// ============================================================
+function calcPracticeStreak(history) {
+  if (!history || !history.length) return 0;
+  var days = {};
+  history.forEach(function(s) {
+    var d = s.timestamp ? new Date(s.timestamp).toDateString() : (s.date ? new Date(s.date + 'T12:00:00').toDateString() : '');
+    if (d) days[d] = true;
+  });
+  var streak = 0;
+  var d = new Date();
+  while (days[d.toDateString()]) {
+    streak++;
+    d.setDate(d.getDate() - 1);
+  }
+  return streak;
+}
+
+function getPracticeRelativeTime(timestamp) {
+  if (!timestamp) return '';
+  var diff = Date.now() - timestamp;
+  var mins = Math.floor(diff / 60000);
+  if (mins < 1) return 'Just now';
+  if (mins < 60) return mins + 'm ago';
+  var hrs = Math.floor(mins / 60);
+  if (hrs < 24) return hrs + 'h ago';
+  var days = Math.floor(hrs / 24);
+  if (days < 7) return days + 'd ago';
+  return Math.floor(days / 7) + 'w ago';
+}
+
+function renderPracticeStats() {
+  var _pstatsWrap = document.getElementById('pstats-wrap');
+  if (!_pstatsWrap) return;
+
+  var _S = (typeof S !== 'undefined') ? S : (typeof load === 'function' ? load() : {});
+  var _history = _S.practice_history || [];
+  var _qHistory = _S.questionHistory || [];
+
+  if (_history.length === 0 && _qHistory.length === 0) {
+    _pstatsWrap.innerHTML = '';
+    return;
+  }
+
+  // Calculate overall accuracy from questionHistory
+  var _totalQ = _qHistory.length;
+  var _correctQ = 0;
+  for (var _qi = 0; _qi < _qHistory.length; _qi++) {
+    if (_qHistory[_qi].correct) _correctQ++;
+  }
+  var _accuracy = _totalQ > 0 ? Math.round(_correctQ / _totalQ * 100) : 0;
+
+  // Average response time
+  var _timesWithMs = [];
+  for (var _ti = 0; _ti < _qHistory.length; _ti++) {
+    if (_qHistory[_ti].responseTimeMs > 0) _timesWithMs.push(_qHistory[_ti]);
+  }
+  var _avgTime;
+  if (_timesWithMs.length > 0) {
+    var _sumMs = 0;
+    for (var _si = 0; _si < _timesWithMs.length; _si++) _sumMs += _timesWithMs[_si].responseTimeMs;
+    _avgTime = (_sumMs / _timesWithMs.length / 1000).toFixed(1);
+  } else {
+    _avgTime = '\u2014';
+  }
+
+  // Speed trend (compare last 10 to previous 10)
+  var _speedTrend = '';
+  if (_timesWithMs.length >= 20) {
+    var _recent10sum = 0, _prev10sum = 0;
+    for (var _r10 = _timesWithMs.length - 10; _r10 < _timesWithMs.length; _r10++) _recent10sum += _timesWithMs[_r10].responseTimeMs;
+    for (var _p10 = _timesWithMs.length - 20; _p10 < _timesWithMs.length - 10; _p10++) _prev10sum += _timesWithMs[_p10].responseTimeMs;
+    var _recent10avg = _recent10sum / 10;
+    var _prev10avg = _prev10sum / 10;
+    if (_recent10avg < _prev10avg * 0.9) _speedTrend = '<span class="pstats-trend-up">\u2191 Faster</span>';
+    else if (_recent10avg > _prev10avg * 1.1) _speedTrend = '<span class="pstats-trend-down">\u2193 Slower</span>';
+  }
+
+  // Practice streak (consecutive days)
+  var _practiceStreak = calcPracticeStreak(_history);
+
+  // Total questions lifetime
+  var _lifetime = _totalQ;
+
+  // Build stats cards
+  var _circumference = 2 * Math.PI * 22; // r=22 for a 56px SVG
+  var _dashoffset = _circumference * (1 - _accuracy / 100);
+
+  var _html = '<div class="pstats-scroll">';
+
+  // Accuracy card
+  _html += '<div class="pstats-card"><div class="pstats-card-label">Accuracy</div>';
+  _html += '<div class="pstats-ring"><svg viewBox="0 0 56 56">';
+  _html += '<circle class="pstats-ring-bg" cx="28" cy="28" r="22"/>';
+  _html += '<circle class="pstats-ring-fill" cx="28" cy="28" r="22" stroke-dasharray="' + _circumference.toFixed(1) + '" stroke-dashoffset="' + _dashoffset.toFixed(1) + '"/>';
+  _html += '</svg><div class="pstats-ring-text">' + _accuracy + '%</div></div></div>';
+
+  // Speed card
+  _html += '<div class="pstats-card"><div class="pstats-card-label">Speed</div>';
+  _html += '<div class="pstats-card-value">' + _avgTime + '</div>';
+  _html += '<div class="pstats-card-sub">sec/answer ' + _speedTrend + '</div></div>';
+
+  // Streak card
+  _html += '<div class="pstats-card"><div class="pstats-card-label">Streak</div>';
+  _html += '<div class="pstats-card-value">\uD83D\uDD25 ' + _practiceStreak + '</div>';
+  _html += '<div class="pstats-card-sub">days</div></div>';
+
+  // Total card
+  _html += '<div class="pstats-card"><div class="pstats-card-label">Total</div>';
+  _html += '<div class="pstats-card-value">' + _lifetime + '</div>';
+  _html += '<div class="pstats-card-sub">questions</div></div>';
+
+  _html += '</div>';
+
+  // Recent sessions (last 5)
+  if (_history.length > 0) {
+    _html += '<div class="pstats-recent">';
+    _html += '<div class="pstats-recent-title">Recent Sessions</div>';
+    var _recent = _history.slice(-5).reverse();
+    for (var _ri = 0; _ri < _recent.length; _ri++) {
+      var _session = _recent[_ri];
+      var _modeIcon = _session.type === 'timed' ? '\u23F1' : (_session.type === 'weak' || _session.type === 'weak_drill') ? '\uD83C\uDFAF' : '\u26A1';
+      var _modeBg = _session.type === 'timed' ? 'pmode-icon--coral' : (_session.type === 'weak' || _session.type === 'weak_drill') ? 'pmode-icon--amber' : 'pmode-icon--teal';
+      var _modeName = _session.type === 'timed' ? 'Timed' : _session.type === 'weak' ? 'Weak Areas' : _session.type === 'weak_drill' ? 'Weak Drill' : _session.type === 'review' ? 'Review' : _session.type === 'daily' ? 'Daily' : 'Quick 5';
+
+      var _sessionScore = (_session.score != null ? _session.score : _session.correct || 0);
+      var _sessionTotal = _session.total || 5;
+      var _scoreText = _sessionScore + '/' + _sessionTotal;
+
+      // Relative time: prefer timestamp, fall back to date string
+      var _timeAgo;
+      if (_session.timestamp) {
+        _timeAgo = getPracticeRelativeTime(_session.timestamp);
+      } else if (_session.date) {
+        _timeAgo = _session.date;
+      } else {
+        _timeAgo = '';
+      }
+
+      // Mini bar chart (up to 5 blocks showing correct/wrong)
+      var _bars = '';
+      var _barsTotal = Math.min(_sessionTotal, 5);
+      var _barsCorrect = Math.min(_sessionScore, _barsTotal);
+      for (var _b = 0; _b < _barsTotal; _b++) {
+        var _barH = _b < _barsCorrect ? 16 : 8;
+        var _barCls = _b < _barsCorrect ? 'pstats-mini-bar--correct' : 'pstats-mini-bar--wrong';
+        _bars += '<div class="pstats-mini-bar ' + _barCls + '" style="height:' + _barH + 'px"></div>';
+      }
+
+      _html += '<div class="pstats-session">';
+      _html += '<div class="pstats-session-icon ' + _modeBg + '">' + _modeIcon + '</div>';
+      _html += '<div class="pstats-session-info"><div class="pstats-session-name">' + _modeName + '</div>';
+      _html += '<div class="pstats-session-time">' + _timeAgo + '</div></div>';
+      _html += '<div class="pstats-mini-bars">' + _bars + '</div>';
+      _html += '<div class="pstats-session-score">' + _scoreText + '</div>';
+      _html += '</div>';
+    }
+    _html += '</div>';
+  }
+
+  _pstatsWrap.innerHTML = _html;
+}
+
+// ============================================================
+// r8: PRACTICE MODE CARDS + DAILY CHALLENGE BANNER
+// ============================================================
+function renderPracticeModeCards() {
+  var _wrap = document.getElementById('pmode-cards-wrap');
+  if (!_wrap) return;
+  var _best = S.practice_best || {};
+  var _hist = S.practice_history || [];
+
+  // Quick 5 best
+  var _q5Best = _best['quick'] != null ? _best['quick'] + '%' : '\u2014';
+  // Timed best
+  var _timedBest = _best['timed'] != null ? _best['timed'] + '%' : '\u2014';
+  // Weak spots last accuracy: find the last 'weak' session in history
+  var _weakLast = '\u2014';
+  for (var _wi = _hist.length - 1; _wi >= 0; _wi--) {
+    if (_hist[_wi].type === 'weak' && _hist[_wi].total > 0) {
+      _weakLast = Math.round((_hist[_wi].score / _hist[_wi].total) * 100) + '%';
+      break;
+    }
+  }
+
+  var _html = '<div class="pmode-cards">';
+
+  // Quick 5
+  _html += '<div class="pmode-card" onclick="startQuick5()" role="button" tabindex="0" aria-label="Quick 5 practice session">';
+  _html += '<div class="pmode-icon pmode-icon--teal">\u26A1</div>';
+  _html += '<div class="pmode-info"><div class="pmode-title">Quick 5</div>';
+  _html += '<div class="pmode-desc">5 random questions from completed lessons</div></div>';
+  _html += '<div class="pmode-stat">Best: ' + _q5Best + '</div>';
+  _html += '<div class="pmode-chevron">\u203A</div></div>';
+
+  // Timed Challenge
+  _html += '<div class="pmode-card" onclick="showDifficultySelector(\'timed\')" role="button" tabindex="0" aria-label="Start Timed Challenge">';
+  _html += '<div class="pmode-icon pmode-icon--coral">\u23F1</div>';
+  _html += '<div class="pmode-info"><div class="pmode-title">Timed Challenge</div>';
+  _html += '<div class="pmode-desc">Race the clock \u2014 60 seconds, max questions</div></div>';
+  _html += '<div class="pmode-stat">Best: ' + _timedBest + '</div>';
+  _html += '<div class="pmode-chevron">\u203A</div></div>';
+
+  // Weak Spots
+  _html += '<div class="pmode-card" onclick="startWeakDrill()" role="button" tabindex="0" aria-label="Start Weak Spots Drill">';
+  _html += '<div class="pmode-icon pmode-icon--amber">\uD83C\uDFAF</div>';
+  _html += '<div class="pmode-info"><div class="pmode-title">Weak Spots</div>';
+  _html += '<div class="pmode-desc">Practice your weakest topics</div></div>';
+  _html += '<div class="pmode-stat">Last: ' + _weakLast + '</div>';
+  _html += '<div class="pmode-chevron">\u203A</div></div>';
+
+  _html += '</div>';
+  _wrap.innerHTML = _html;
+}
+
+function renderPmodeDailyBanner() {
+  var _wrap = document.getElementById('pmode-daily-banner-wrap');
+  if (!_wrap) return;
+  var _today = (typeof todayStr === 'function') ? todayStr() : new Date().toISOString().split('T')[0];
+  var _dcState = S.daily_challenge || {};
+  var _isDone = _dcState.date === _today && _dcState.completed;
+
+  // Check if there are any completed lessons (needed for daily challenge)
+  var _completed = S.completed || [];
+  if (_completed.length === 0) { _wrap.innerHTML = ''; return; }
+
+  // Deterministic daily topic based on date
+  var _topics = ['AI Ethics', 'Machine Learning Basics', 'Neural Networks', 'NLP', 'Computer Vision', 'Reinforcement Learning', 'Data Science'];
+  var _seed = _today.split('').reduce(function(acc, c) { return acc + c.charCodeAt(0); }, 0);
+  var _topic = _topics[_seed % _topics.length];
+
+  // Countdown to midnight
+  var _now = new Date();
+  var _midnight = new Date(_now);
+  _midnight.setHours(24, 0, 0, 0);
+  var _diff = _midnight - _now;
+  var _hrs = Math.floor(_diff / 3600000);
+  var _mins = Math.floor((_diff % 3600000) / 60000);
+  var _timer = _hrs + 'h ' + _mins + 'm';
+
+  var _cls = 'pmode-daily-banner' + (_isDone ? ' pmode-daily-done' : '');
+  var _html = '<div class="' + _cls + '"' + (_isDone ? '' : ' onclick="startDailyChallenge()"') + ' role="button" tabindex="0">';
+  _html += '<div class="pmode-daily-title">' + (_isDone ? 'Daily Challenge Complete' : 'Daily Challenge') + '</div>';
+  _html += '<div class="pmode-daily-topic">' + (_isDone ? 'Come back tomorrow!' : _topic) + '</div>';
+  if (!_isDone) {
+    _html += '<div class="pmode-daily-reward">\u2B50 +30 Bonus XP</div>';
+  }
+  _html += '<div class="pmode-daily-timer">Resets in ' + _timer + '</div>';
+  _html += '</div>';
+  _wrap.innerHTML = _html;
 }
 
 // ============================================================
@@ -49621,58 +50568,141 @@ function renderSessionTimeline() {
       if (typeof addXP === 'function') addXP(30);
       if (typeof showToast === 'function') showToast("👑 Daily Challenge complete! +30 bonus XP", 'success', 3200);
       if (typeof renderDailyChallenge === 'function') renderDailyChallenge();
+      if (typeof renderPmodeDailyBanner === 'function') renderPmodeDailyBanner();
     }
   };
 })();
 
 // ============================================================
-// practice-39: WEAK SPOTS DRILL
+// practice-39: WEAK SPOTS DRILL (enhanced with questionHistory tracking)
 // ============================================================
-function startWeakDrill() {
-  var _wrong = S.wrong_answers || [];
-  if (_wrong.length === 0) {
-    showToast('No weak spots yet! Complete a few lessons first.', 'info', 2800);
-    return;
+
+function showNoWeakSpots() {
+  hideAllViews();
+  document.getElementById('view-practice').classList.add('active');
+  document.getElementById('top-bar').classList.add('visible');
+  document.getElementById('bottom-nav').classList.add('visible');
+  var _practiceEl = document.getElementById('view-practice');
+  if (!_practiceEl) return;
+  var _prevHtml = _practiceEl.innerHTML;
+  var html = '<div style="text-align:center;padding:48px 24px;">';
+  html += '<div class="clari-mascot clari-mascot--xl clari-breathing" id="no-weak-mascot">' + getClariExpression('celebrating') + '</div>';
+  html += '<h2 style="margin:16px 0 8px;font-size:var(--font-size-xl);font-weight:var(--font-weight-bold)">No Weak Spots!</h2>';
+  html += '<p style="color:var(--clari-text-secondary);font-size:var(--font-size-sm)">You\'re doing great! Keep practicing to maintain your streak.</p>';
+  html += '<button class="btn btn-green" onclick="switchTab(\'practice\')" style="margin-top:24px">Back to Practice</button>';
+  html += '</div>';
+  _practiceEl.innerHTML = html;
+  if (typeof initMascot === 'function') {
+    var _mascotEl = document.getElementById('no-weak-mascot');
+    if (_mascotEl) initMascot(_mascotEl, 'celebrating');
   }
-  // Find weakest unit (most wrong answers)
-  var _unitCounts = {};
-  _wrong.forEach(function(wa) {
-    var _m = (wa.lessonId || '').match(/^u(\d+)/i);
-    var _k = _m ? _m[1] : null;
-    if (_k) _unitCounts[_k] = (_unitCounts[_k] || 0) + 1;
+}
+
+function startWeakDrill() {
+  // Snapshot pre-drill accuracy per topic (for post-drill improvement display)
+  window._weakDrillPreTopics = {};
+  var _preHist = S.questionHistory || [];
+  _preHist.forEach(function(e) {
+    if (!window._weakDrillPreTopics[e.topic]) {
+      window._weakDrillPreTopics[e.topic] = { correct: 0, total: 0 };
+    }
+    window._weakDrillPreTopics[e.topic].total++;
+    if (e.correct) window._weakDrillPreTopics[e.topic].correct++;
   });
-  var _worstUnitNum = Object.keys(_unitCounts).reduce(function(a, b) {
-    return _unitCounts[a] >= _unitCounts[b] ? a : b;
-  });
-  // Gather all quiz questions from that unit's completed lessons
+
+  // Try new questionHistory-based weak question selection first
+  var _weakQs = (typeof getWeakQuestions === 'function') ? getWeakQuestions(7) : [];
   var _pool = [];
-  var _seen = new Set();
-  (S.completed || []).forEach(function(id) {
-    var _m = id.match(/^u(\d+)/i);
-    if (!_m || _m[1] !== _worstUnitNum) return;
-    var _lesson = findLesson(id);
-    if (!_lesson) return;
-    var _slides = (_lesson.slides || []).concat(_lesson.pool || []);
-    _slides.forEach(function(s) {
-      if (s.type === 'quiz' && !_seen.has(s.question)) {
-        _seen.add(s.question);
-        _pool.push(Object.assign({}, s, { lessonId: id, practiceType: 'quiz' }));
+  var _weakTopicLabel = '';
+
+  if (_weakQs.length > 0) {
+    // Use questionHistory-based selection: look up actual slides for each weak question
+    var _seen = new Set();
+    _weakQs.forEach(function(wq) {
+      if (_seen.has(wq.questionId)) return;
+      var _lesson = findLesson(wq.lessonId);
+      if (!_lesson) return;
+      // Parse slide index from questionId (format: lessonId_qN)
+      var _qMatch = wq.questionId.match(/_q(\d+)$/);
+      var _slideIdx = _qMatch ? parseInt(_qMatch[1], 10) : -1;
+      var _allSlides = (_lesson.slides || []).concat(_lesson.pool || []);
+      // Try to find the exact slide, or search for quiz slides from this lesson
+      if (_slideIdx >= 0 && _slideIdx < _allSlides.length && _allSlides[_slideIdx].type === 'quiz') {
+        _seen.add(wq.questionId);
+        _pool.push(Object.assign({}, _allSlides[_slideIdx], { lessonId: wq.lessonId, practiceType: 'quiz' }));
+      } else {
+        // Fallback: grab any quiz slide from this lesson
+        for (var si = 0; si < _allSlides.length; si++) {
+          var _slideKey = wq.lessonId + '_q' + si;
+          if (_allSlides[si].type === 'quiz' && !_seen.has(_slideKey)) {
+            _seen.add(_slideKey);
+            _pool.push(Object.assign({}, _allSlides[si], { lessonId: wq.lessonId, practiceType: 'quiz' }));
+            break;
+          }
+        }
       }
     });
-  });
-  // Prioritise questions the user got wrong
-  var _wrongQs = new Set(_wrong.map(function(wa) { return wa.question; }));
-  _pool.sort(function(a, b) {
-    var _aW = _wrongQs.has(a.question) ? 0 : 1;
-    var _bW = _wrongQs.has(b.question) ? 0 : 1;
-    return _aW - _bW;
-  });
-  if (_pool.length === 0) {
-    showToast('Complete lessons in Unit ' + _worstUnitNum + ' to unlock the drill!', 'info', 3000);
-    return;
+    // Determine the primary weak topic for the toast
+    var _topicCounts = {};
+    _weakQs.forEach(function(wq) {
+      _topicCounts[wq.topic] = (_topicCounts[wq.topic] || 0) + 1;
+    });
+    var _maxCount = 0;
+    for (var _tk in _topicCounts) {
+      if (_topicCounts[_tk] > _maxCount) { _maxCount = _topicCounts[_tk]; _weakTopicLabel = _tk; }
+    }
   }
+
+  // Fallback to original wrong_answers approach if questionHistory didn't yield enough
+  if (_pool.length < 3) {
+    _pool = [];
+    var _wrong = S.wrong_answers || [];
+    if (_wrong.length === 0) {
+      // No wrong answers AND no question history — show congratulations
+      showNoWeakSpots();
+      return;
+    }
+    // Find weakest unit (most wrong answers)
+    var _unitCounts = {};
+    _wrong.forEach(function(wa) {
+      var _m = (wa.lessonId || '').match(/^u(\d+)/i);
+      var _k = _m ? _m[1] : null;
+      if (_k) _unitCounts[_k] = (_unitCounts[_k] || 0) + 1;
+    });
+    var _worstUnitNum = Object.keys(_unitCounts).reduce(function(a, b) {
+      return _unitCounts[a] >= _unitCounts[b] ? a : b;
+    });
+    // Gather all quiz questions from that unit's completed lessons
+    var _seenLegacy = new Set();
+    (S.completed || []).forEach(function(id) {
+      var _m = id.match(/^u(\d+)/i);
+      if (!_m || _m[1] !== _worstUnitNum) return;
+      var _lesson = findLesson(id);
+      if (!_lesson) return;
+      var _slides = (_lesson.slides || []).concat(_lesson.pool || []);
+      _slides.forEach(function(s) {
+        if (s.type === 'quiz' && !_seenLegacy.has(s.question)) {
+          _seenLegacy.add(s.question);
+          _pool.push(Object.assign({}, s, { lessonId: id, practiceType: 'quiz' }));
+        }
+      });
+    });
+    // Prioritise questions the user got wrong
+    var _wrongQSet = new Set(_wrong.map(function(wa) { return wa.question; }));
+    _pool.sort(function(a, b) {
+      var _aW = _wrongQSet.has(a.question) ? 0 : 1;
+      var _bW = _wrongQSet.has(b.question) ? 0 : 1;
+      return _aW - _bW;
+    });
+    _weakTopicLabel = 'Unit ' + _worstUnitNum;
+    if (_pool.length === 0) {
+      showToast('Complete lessons in Unit ' + _worstUnitNum + ' to unlock the drill!', 'info', 3000);
+      return;
+    }
+  }
+
   var _questions = _pool.slice(0, 7);
-  showToast('⚠️ Weak Spots Drill: Unit ' + _worstUnitNum + ' — ' + _questions.length + ' questions', 'info', 2500);
+  showToast('\u26A0\uFE0F Weak Spots Drill: ' + (_weakTopicLabel || 'Mixed Topics') + ' \u2014 ' + _questions.length + ' questions', 'info', 2500);
   matchPendingLeft = null;
   lessonState = {
     lessonId: '__practice__',
@@ -54665,7 +55695,7 @@ function confirmReset() {
       'accessibility_mode','onboarding_done','activity_log',
       'day_off_until','hint_tokens','streak_before_reset','double_gems_active','profile_frame','freeze_used_dates',
       'review_streak','review_streak_date','review_streak_best',
-      'difficulty_ratings','difficulty_rating_order'];
+      'difficulty_ratings','difficulty_rating_order','questionHistory'];
     keys.forEach(function(k) { localStorage.removeItem('clariai_' + k); });
     location.reload();
   });
