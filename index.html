@@ -3413,6 +3413,138 @@ mark.search-hl {
 .info-tip-icon { font-size:18px; flex-shrink:0; }
 .info-tip-text { font-size:14px; font-weight:700; color:var(--yellow-dark); line-height:1.4; }
 
+/* ── Enhanced info slide content cards ─────────────────────────── */
+.lesson-concept-card {
+  background: var(--clari-primary-50, #E6F7F3);
+  border-left: 3px solid var(--clari-primary-500, #0F9D7A);
+  border-radius: var(--radius-md, 10px);
+  padding: var(--space-4, 16px);
+  margin: var(--space-3, 12px) 0;
+  position: relative;
+}
+.lesson-concept-icon {
+  position: absolute;
+  top: var(--space-3, 12px);
+  right: var(--space-3, 12px);
+  font-size: var(--font-size-xl, 22px);
+}
+.lesson-concept-title {
+  font-size: var(--font-size-lg, 18px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--clari-primary-700, #0A6F56);
+  margin-bottom: var(--space-2, 8px);
+}
+.lesson-concept-text {
+  font-size: calc(14px * var(--text-scale, 1));
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.lesson-example-card {
+  background: var(--clari-neutral-100, #F3F4F6);
+  border-radius: var(--radius-md, 10px);
+  padding: var(--space-4, 16px);
+  margin: var(--space-3, 12px) 0;
+  font-size: var(--font-size-sm, 14px);
+  line-height: 1.6;
+  position: relative;
+}
+.lesson-example-label {
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--clari-text-muted, #9CA3AF);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-2, 8px);
+}
+
+.lesson-didyouknow-card {
+  background: var(--clari-secondary-50, #FEF0EB);
+  border-left: 3px solid var(--clari-secondary-500, #E85D30);
+  border-radius: var(--radius-md, 10px);
+  padding: var(--space-4, 16px);
+  margin: var(--space-3, 12px) 0;
+}
+.lesson-didyouknow-label {
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--clari-secondary-600, #CC4F28);
+  margin-bottom: var(--space-2, 8px);
+}
+.lesson-didyouknow-text {
+  font-size: calc(14px * var(--text-scale, 1));
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Start Quiz prompt */
+.start-quiz-prompt {
+  text-align: center;
+  padding: var(--space-6, 24px) var(--space-4, 16px);
+}
+.start-quiz-prompt-label {
+  font-size: var(--font-size-sm, 14px);
+  color: var(--gray4);
+  margin-bottom: var(--space-3, 12px);
+  font-weight: 600;
+}
+.start-quiz-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+  padding: var(--space-3, 12px) var(--space-8, 32px);
+  background: var(--clari-primary-500, #0F9D7A);
+  color: white;
+  border: none;
+  border-radius: var(--radius-lg, 16px);
+  font-size: var(--font-size-lg, 18px);
+  font-weight: var(--font-weight-bold, 700);
+  cursor: pointer;
+  transition: background var(--transition-fast, 150ms ease), transform var(--transition-fast, 150ms ease);
+  box-shadow: 0 4px 12px rgba(15, 157, 122, 0.3);
+  -webkit-tap-highlight-color: transparent;
+}
+.start-quiz-btn:hover { background: var(--clari-primary-600, #0D8A6A); }
+.start-quiz-btn:active { transform: scale(0.97); }
+@keyframes quizBtnPulse {
+  0%, 100% { box-shadow: 0 4px 12px rgba(15, 157, 122, 0.3); }
+  50% { box-shadow: 0 4px 20px rgba(15, 157, 122, 0.5); }
+}
+.start-quiz-btn { animation: quizBtnPulse 2s ease-in-out infinite; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .start-quiz-btn { animation: none; }
+}
+
+/* Dark mode — enhanced info cards */
+:root[data-theme="dark"] .lesson-concept-card {
+  background: var(--dm-green-bg, #0d2b1c);
+  border-left-color: var(--green-bright, #58cc02);
+}
+:root[data-theme="dark"] .lesson-concept-title { color: var(--green-bright, #58cc02); }
+:root[data-theme="dark"] .lesson-concept-text { color: var(--text); }
+
+:root[data-theme="dark"] .lesson-example-card {
+  background: var(--dm-card, #2a2a2a);
+}
+:root[data-theme="dark"] .lesson-example-label { color: var(--gray3); }
+
+:root[data-theme="dark"] .lesson-didyouknow-card {
+  background: var(--dm-amber-bg, #2a1a07);
+  border-left-color: var(--orange-bright, #ff9600);
+}
+:root[data-theme="dark"] .lesson-didyouknow-label { color: var(--orange-bright, #ff9600); }
+:root[data-theme="dark"] .lesson-didyouknow-text { color: var(--text); }
+
+:root[data-theme="dark"] .start-quiz-btn {
+  background: var(--green, #58cc02);
+  box-shadow: 0 4px 12px rgba(88, 204, 2, 0.3);
+}
+:root[data-theme="dark"] .start-quiz-prompt-label { color: var(--gray3); }
+
 /* Continue pill */
 .continue-pill {
   display:flex; align-items:center; gap:12px;
@@ -12264,6 +12396,349 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
     transition: none !important;
   }
 }
+
+/* ── TRUE / FALSE ── */
+.tf-cards { display: flex; gap: var(--space-3, 12px); padding: var(--space-4, 16px); }
+.tf-card {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+  border-radius: var(--radius-lg, 16px);
+  border: 2px solid var(--clari-neutral-200, #E5E7EB);
+  background: var(--clari-surface, #fff);
+  font-size: var(--font-size-xl, 22px);
+  font-weight: var(--font-weight-bold, 700);
+  cursor: pointer;
+  transition: transform var(--transition-fast, 150ms ease), opacity var(--transition-fast, 150ms ease), border-color var(--transition-fast, 150ms ease);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.tf-card:active { transform: scale(0.97); }
+.tf-card.tf-selected {
+  transform: scale(1.03);
+  border-color: var(--clari-primary-500, #0F9D7A);
+  background: var(--clari-primary-50, #E6F7F3);
+}
+.tf-card.tf-dimmed { opacity: 0.4; pointer-events: none; }
+.tf-card.tf-correct { border-color: var(--clari-success, #22C55E); background: var(--clari-success-light, #DCFCE7); }
+.tf-card.tf-wrong { border-color: var(--clari-danger, #EF4444); background: var(--clari-danger-light, #FEE2E2); }
+
+/* ── FILL-IN-THE-BLANK CHIPS ── */
+.fbc-sentence { font-size: var(--font-size-lg, 18px); line-height: 1.8; padding: var(--space-4, 16px); text-align: center; }
+.fbc-blank {
+  display: inline-block;
+  min-width: 100px;
+  border-bottom: 2px dashed var(--clari-primary-500, #0F9D7A);
+  padding: var(--space-1, 4px) var(--space-2, 8px);
+  color: var(--clari-primary-500, #0F9D7A);
+  font-weight: var(--font-weight-bold, 700);
+  transition: all var(--transition-fast, 150ms ease);
+}
+.fbc-blank.fbc-filled { border-bottom-style: solid; background: var(--clari-primary-50, #E6F7F3); border-radius: var(--radius-sm, 6px); }
+.fbc-chips { display: flex; flex-wrap: wrap; gap: var(--space-2, 8px); justify-content: center; padding: var(--space-4, 16px); }
+.fbc-chip {
+  padding: var(--space-2, 8px) var(--space-4, 16px);
+  border-radius: var(--radius-full, 9999px);
+  border: 1.5px solid var(--clari-neutral-300, #D1D5DB);
+  background: var(--clari-surface, #fff);
+  font-size: var(--font-size-base, 16px);
+  cursor: pointer;
+  transition: all var(--transition-fast, 150ms ease);
+  user-select: none;
+}
+.fbc-chip:active { transform: scale(0.95); }
+.fbc-chip.fbc-chip-selected { border-color: var(--clari-primary-500, #0F9D7A); background: var(--clari-primary-50, #E6F7F3); color: var(--clari-primary-700, #0A6F56); }
+.fbc-chip.fbc-chip-dimmed { opacity: 0.4; }
+.fbc-chip.fbc-chip-correct { border-color: var(--clari-success, #22C55E); background: var(--clari-success-light, #DCFCE7); }
+.fbc-chip.fbc-chip-wrong { border-color: var(--clari-danger, #EF4444); background: var(--clari-danger-light, #FEE2E2); }
+
+/* ── MATCH CONNECT ── */
+.mc-container { display: flex; gap: var(--space-4, 16px); padding: var(--space-4, 16px); }
+.mc-column { flex: 1; display: flex; flex-direction: column; gap: var(--space-2, 8px); }
+.mc-item {
+  padding: var(--space-3, 12px);
+  border-radius: var(--radius-md, 10px);
+  border: 2px solid var(--clari-neutral-200, #E5E7EB);
+  background: var(--clari-surface, #fff);
+  font-size: var(--font-size-sm, 14px);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast, 150ms ease);
+  user-select: none;
+}
+.mc-item:active { transform: scale(0.97); }
+.mc-item.mc-highlighted { border-color: var(--clari-primary-500, #0F9D7A); background: var(--clari-primary-50, #E6F7F3); }
+.mc-item.mc-matched {
+  opacity: 0.5;
+  pointer-events: none;
+  border-color: var(--clari-success, #22C55E);
+  background: var(--clari-success-light, #DCFCE7);
+}
+.mc-item.mc-wrong { animation: answerWrongShake 300ms ease; border-color: var(--clari-danger, #EF4444); }
+
+@media (prefers-reduced-motion: reduce) {
+  .tf-card,
+  .fbc-blank,
+  .fbc-chip,
+  .mc-item {
+    transition: none !important;
+  }
+  .mc-item.mc-wrong {
+    animation: none !important;
+  }
+}
+
+/* ---- Unified lesson feedback banner ---- */
+.lesson-feedback-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-4, 16px);
+  padding-bottom: max(var(--space-4, 16px), env(safe-area-inset-bottom));
+  border-radius: var(--radius-lg, 16px) var(--radius-lg, 16px) 0 0;
+  border-top: 0.5px solid;
+  transform: translateY(100%);
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+}
+.lesson-feedback-banner.lfb-visible {
+  transform: translateY(0);
+}
+.lesson-feedback-banner.lfb-correct {
+  background: var(--clari-success-light, #DCFCE7);
+  border-top-color: var(--clari-success, #22C55E);
+}
+.lesson-feedback-banner.lfb-wrong {
+  background: var(--clari-danger-light, #FEE2E2);
+  border-top-color: var(--clari-danger, #EF4444);
+}
+.lfb-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 12px);
+  margin-bottom: var(--space-2, 8px);
+}
+.lfb-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full, 9999px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-lg, 18px);
+  font-weight: var(--font-weight-bold, 700);
+  flex-shrink: 0;
+}
+.lfb-correct .lfb-icon { background: var(--clari-success, #22C55E); color: white; }
+.lfb-wrong .lfb-icon { background: var(--clari-danger, #EF4444); color: white; }
+.lfb-title {
+  font-size: var(--font-size-lg, 18px);
+  font-weight: var(--font-weight-bold, 700);
+}
+.lfb-correct .lfb-title { color: var(--clari-success-dark, #15803D); }
+.lfb-wrong .lfb-title { color: var(--clari-danger-dark, #B91C1C); }
+.lfb-body {
+  font-size: var(--font-size-sm, 14px);
+  color: var(--clari-text-secondary, #4B5563);
+  margin-bottom: var(--space-2, 8px);
+  line-height: 1.5;
+}
+.lfb-correct-answer {
+  font-size: var(--font-size-sm, 14px);
+  color: var(--clari-success-dark, #15803D);
+  font-weight: var(--font-weight-bold, 700);
+  margin-bottom: var(--space-2, 8px);
+}
+.lfb-explanation {
+  font-size: var(--font-size-sm, 14px);
+  color: var(--clari-text-secondary, #4B5563);
+  margin-bottom: var(--space-3, 12px);
+  line-height: 1.5;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  padding-top: var(--space-2, 8px);
+}
+.lfb-continue-btn {
+  width: 100%;
+  padding: var(--space-3, 12px);
+  border-radius: var(--radius-md, 10px);
+  border: none;
+  font-size: var(--font-size-base, 16px);
+  font-weight: var(--font-weight-bold, 700);
+  cursor: pointer;
+  transition: background var(--transition-fast, 150ms ease), transform var(--transition-fast, 150ms ease);
+}
+.lfb-continue-btn:active { transform: scale(0.97); }
+.lfb-correct .lfb-continue-btn { background: var(--clari-success, #22C55E); color: white; }
+.lfb-wrong .lfb-continue-btn { background: var(--clari-danger, #EF4444); color: white; }
+.lfb-clari-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+  margin-bottom: var(--space-2, 8px);
+}
+.lfb-clari-wrap .clari-mascot { flex-shrink: 0; }
+
+/* Dark mode: lesson feedback banner */
+:root[data-theme="dark"] .lesson-feedback-banner.lfb-correct {
+  background: #0d2b1c;
+  border-top-color: var(--green2, #22C55E);
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
+}
+:root[data-theme="dark"] .lesson-feedback-banner.lfb-wrong {
+  background: #2d0a0a;
+  border-top-color: #7f1d1d;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
+}
+:root[data-theme="dark"] .lfb-correct .lfb-title { color: var(--green-bright, #4ADE80); }
+:root[data-theme="dark"] .lfb-wrong .lfb-title { color: var(--red-20, #FCA5A5); }
+:root[data-theme="dark"] .lfb-body { color: var(--text-secondary, #9CA3AF); }
+:root[data-theme="dark"] .lfb-correct-answer { color: var(--green-bright, #4ADE80); }
+:root[data-theme="dark"] .lfb-explanation { color: var(--text-secondary, #9CA3AF); border-top-color: rgba(255,255,255,0.1); }
+:root[data-theme="dark"] .lfb-correct .lfb-continue-btn { background: var(--green2, #22C55E); }
+:root[data-theme="dark"] .lfb-wrong .lfb-continue-btn { background: var(--red, #EF4444); }
+
+@media (prefers-reduced-motion: reduce) {
+  .lesson-feedback-banner { transition: none; }
+}
+
+/* ============================================================
+   Segmented Progress Bar
+   ============================================================ */
+.seg-progress { padding: 0 var(--space-4, 16px); flex: 1; }
+.seg-progress-bar {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+.seg-bar-segment {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--clari-neutral-200, #E5E7EB);
+  transition: background var(--transition-fast, 150ms ease);
+}
+.seg-bar-segment.seg-correct { background: var(--clari-success, #22C55E); }
+.seg-bar-segment.seg-wrong { background: var(--clari-danger, #EF4444); }
+.seg-bar-segment.seg-current { background: var(--clari-primary-500, #0F9D7A); }
+.seg-bar-segment.seg-skipped { background: var(--clari-warning, #F59E0B); }
+.seg-progress-label {
+  text-align: center;
+  font-size: var(--font-size-sm, 14px);
+  color: var(--clari-text-secondary, #4B5563);
+  margin-top: var(--space-1, 4px);
+}
+
+/* Timer in lesson header */
+.seg-timer {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: var(--font-size-sm, 14px);
+  color: var(--clari-text-muted, #9CA3AF);
+  text-align: right;
+  min-width: 45px;
+}
+
+/* ============================================================
+   Lesson Results Screen — Redesigned
+   ============================================================ */
+.lesson-results {
+  text-align: center;
+  padding: var(--space-6, 24px) var(--space-4, 16px);
+}
+.lesson-results-score {
+  font-size: var(--font-size-3xl, 36px);
+  font-weight: var(--font-weight-bold, 700);
+  margin: var(--space-3, 12px) 0;
+}
+.lesson-results-score .score-correct { color: var(--clari-success, #22C55E); }
+.lesson-results-score .score-total { color: var(--clari-text-secondary, #4B5563); }
+.lesson-results-stats {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-6, 24px);
+  margin: var(--space-4, 16px) 0;
+}
+.lesson-results-stat {
+  text-align: center;
+}
+.lesson-results-stat-value {
+  font-size: var(--font-size-xl, 22px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--clari-primary-500, #0F9D7A);
+}
+.lesson-results-stat-label {
+  font-size: var(--font-size-xs, 12px);
+  color: var(--clari-text-muted, #9CA3AF);
+}
+.lesson-results-bar { margin: var(--space-4, 16px) 0; }
+
+/* Review Mistakes */
+.review-mistakes-wrap {
+  margin-top: var(--space-4, 16px);
+  text-align: left;
+}
+.review-mistakes-title {
+  font-size: var(--font-size-lg, 18px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--text);
+  margin-bottom: var(--space-3, 12px);
+  text-align: center;
+}
+.review-mistake-card {
+  text-align: left;
+  padding: var(--space-4, 16px);
+  margin-bottom: var(--space-3, 12px);
+  border-radius: var(--radius-md, 10px);
+  background: var(--clari-surface, #fff);
+  border: 1px solid var(--clari-neutral-200, #E5E7EB);
+}
+.review-mistake-q {
+  font-size: var(--font-size-base, 16px);
+  font-weight: var(--font-weight-medium, 500);
+  margin-bottom: var(--space-2, 8px);
+  color: var(--text);
+}
+.review-mistake-yours {
+  color: var(--clari-danger, #EF4444);
+  font-size: var(--font-size-sm, 14px);
+  margin-bottom: 2px;
+}
+.review-mistake-correct {
+  color: var(--clari-success, #22C55E);
+  font-size: var(--font-size-sm, 14px);
+}
+.review-mistake-explanation {
+  font-size: var(--font-size-xs, 12px);
+  color: var(--clari-text-muted, #9CA3AF);
+  margin-top: var(--space-2, 8px);
+  border-top: 1px solid var(--clari-neutral-200, #E5E7EB);
+  padding-top: var(--space-2, 8px);
+}
+:root[data-theme="dark"] .review-mistake-card {
+  background: var(--gray1, #1F2937);
+  border-color: var(--gray2, #374151);
+}
+:root[data-theme="dark"] .review-mistake-q { color: var(--text); }
+:root[data-theme="dark"] .review-mistake-explanation {
+  color: var(--text-secondary, #9CA3AF);
+  border-top-color: var(--gray2, #374151);
+}
+:root[data-theme="dark"] .seg-bar-segment {
+  background: var(--gray2, #374151);
+}
+:root[data-theme="dark"] .seg-progress-label {
+  color: var(--text-secondary, #9CA3AF);
+}
+:root[data-theme="dark"] .lesson-results-score .score-total {
+  color: var(--text-secondary, #9CA3AF);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seg-bar-segment { transition: none !important; }
+}
 </style>
 
 <script>
@@ -12553,7 +13028,10 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
         <button class="lesson-close-btn" onclick="closeLesson()" aria-label="Close lesson">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#777" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
         </button>
-        <div style="display:flex;flex-direction:column;flex:1;gap:3px;">
+        <div class="seg-progress" id="seg-progress-wrap">
+          <div class="seg-progress-bar" id="seg-progress-bar"></div>
+        </div>
+        <div style="display:none;">
           <div class="lesson-progress-bar-wrap"><div class="lesson-progress-bar" id="lesson-progress-bar" style="width:0%"></div></div>
         </div>
         <div class="lesson-hearts" id="lesson-hearts"></div>
@@ -28275,7 +28753,8 @@ function startReviewSession() {
     adaptiveLevel: 1, adaptiveWindow: [],
     matchSelected: null, matchLeftDone: new Set(), matchRightDone: new Set(),
     matchPairs: [], fillBlanks: [], fillBankUsed: [],
-    tapSelected: new Set(), correctStreak: 0
+    tapSelected: new Set(), correctStreak: 0,
+    questionResults: [], questionDetails: []
   };
   var _fromView = document.getElementById('view-' + currentTab);
   var _toLessonView = document.getElementById('view-lesson');
@@ -32326,7 +32805,9 @@ let lessonState = {
   fillBankUsed: [],
   tapSelected: new Set(),
   matchRightOrder: [],
-  correctStreak: 0
+  correctStreak: 0,
+  questionResults: [],
+  questionDetails: []
 };
 
 const LESSON_POOLS = {
@@ -42163,7 +42644,9 @@ function startLesson(id) {
     orderRail: [], orderAnswered: false,
     dcPlacements: {}, dcSelected: null, dcAnswered: false,
     correctStreak: 0,
-    startTime: Date.now()
+    startTime: Date.now(),
+    questionResults: [],  // 'correct', 'wrong', or 'skipped' per quiz question
+    questionDetails: []   // { question, userAnswer, correctAnswer, explanation, type } for review
   };
 
   var _fromView = document.getElementById('view-' + currentTab);
@@ -42353,14 +42836,23 @@ function triggerSlideEnter(el) {
 }
 
 function renderLessonSlide() {
+  // Clean up any lingering feedback banner from previous slide
+  var _oldBanner = document.querySelector('.lesson-feedback-banner');
+  if (_oldBanner) {
+    if (_oldBanner._lfbKeyHandler) document.removeEventListener('keydown', _oldBanner._lfbKeyHandler);
+    _oldBanner.remove();
+  }
+  _lfbDismissing = false;
+
   const slides = getSessionSlides();
   const totalSlides = slides.length;
   const idx = lessonState.slideIdx;
   const lesson = findLesson(lessonState.lessonId);
 
-  // Progress bar
+  // Progress bar — update segmented bar
   const pct = totalSlides > 1 ? (idx / totalSlides) * 100 : 0;
   document.getElementById('lesson-progress-bar').style.width = pct + '%';
+  updateSegmentedProgress();
   // r5-02: lesson-read-progress JS update removed
   document.getElementById('lesson-hearts').innerHTML = renderHearts(lessonState.hearts, 5);
 
@@ -42372,6 +42864,12 @@ function renderLessonSlide() {
   const slide = slides[idx];
   lessonState.slideAnswered = false;
   lessonState.hintUsed = false;
+  // seg-progress: reset per-slide tracking flags for retryable question types
+  lessonState._fillBlankTracked = false;
+  lessonState._tapTracked = false;
+  lessonState._orderTracked = false;
+  lessonState._matchPairsWrong = false;
+  lessonState._matchConnectWrong = false;
 
   let contentHtml = '';
   let footerHtml = '';
@@ -42448,6 +42946,19 @@ function renderLessonSlide() {
       lessonState.dcAnswered = false;
       contentHtml = renderSlideDragCategory(slide);
       footerHtml = `<button class="btn btn-green btn-full" id="lesson-next-btn" onclick="checkDragCategory()" disabled>Check</button>`;
+      break;
+    case 'true_false':
+      contentHtml = renderSlideTrueFalse(slide);
+      footerHtml = `<button class="btn btn-green btn-full" id="lesson-next-btn" onclick="advanceSlide()" disabled>Continue</button>`;
+      break;
+    case 'fill_blank_chips':
+      lessonState.fbcSelected = null;
+      contentHtml = renderSlideFillBlankChips(slide);
+      footerHtml = `<button class="btn btn-green btn-full" id="lesson-next-btn" onclick="checkFillBlankChips()" disabled>Check</button>`;
+      break;
+    case 'match_connect':
+      contentHtml = renderSlideMatchConnect(slide);
+      footerHtml = `<button class="btn btn-green btn-full" id="lesson-next-btn" onclick="advanceSlide()" disabled>Continue</button>`;
       break;
     default:
       contentHtml = `<div style="text-align:center;padding:32px 16px;">
@@ -42561,49 +43072,107 @@ function _showSwipeHint() {
 function renderSlideInfo(slide) {
   let body = '';
 
-  // bullets
-  if (slide.bullets && slide.bullets.length) {
-    body += '<div class="info-bullets">';
-    slide.bullets.forEach(function(b) {
-      // Check for [iconname] tag at start, e.g. "[book] Some text"
-      const tagMatch = b.match(/^\[(\w+)\]\s+(.+)$/);
-      if (tagMatch) {
-        body += '<div class="info-bullet">' + bulletIcon(tagMatch[1]) + '<div class="info-bullet-text">' + tagMatch[2] + '</div></div>';
-      } else {
-        // Strip any leading emoji (characters in emoji range) for backwards compat
-        const stripped = b.replace(/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u2705\u274C\u26A0\u2139\uFE0F\u20E3]+\s*/u, '');
-        body += '<div class="info-bullet">' + bulletIcon('check') + '<div class="info-bullet-text">' + stripped + '</div></div>';
-      }
-    });
+  // ── Build "Key Concept" card: wraps title + text + bullets ──
+  var hasConcept = slide.title && (slide.text || (slide.bullets && slide.bullets.length));
+  if (hasConcept) {
+    body += '<div class="lesson-concept-card">';
+    body += '<div class="lesson-concept-icon" aria-hidden="true">&#x1F4A1;</div>';
+    body += '<div class="lesson-concept-title">' + escHtml(slide.title) + '</div>';
+    if (slide.text) {
+      body += '<div class="lesson-concept-text">' + slide.text + '</div>';
+    }
+    // bullets inside concept card
+    if (slide.bullets && slide.bullets.length) {
+      body += '<div class="info-bullets" style="margin-top:10px;">';
+      slide.bullets.forEach(function(b) {
+        var tagMatch = b.match(/^\[(\w+)\]\s+(.+)$/);
+        if (tagMatch) {
+          body += '<div class="info-bullet">' + bulletIcon(tagMatch[1]) + '<div class="info-bullet-text">' + tagMatch[2] + '</div></div>';
+        } else {
+          var stripped = b.replace(/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u2705\u274C\u26A0\u2139\uFE0F\u20E3]+\s*/u, '');
+          body += '<div class="info-bullet">' + bulletIcon('check') + '<div class="info-bullet-text">' + stripped + '</div></div>';
+        }
+      });
+      body += '</div>';
+    }
     body += '</div>';
+  } else {
+    // Fallback: render bullets outside concept card if no title+text combo
+    if (slide.bullets && slide.bullets.length) {
+      body += '<div class="info-bullets">';
+      slide.bullets.forEach(function(b) {
+        var tagMatch = b.match(/^\[(\w+)\]\s+(.+)$/);
+        if (tagMatch) {
+          body += '<div class="info-bullet">' + bulletIcon(tagMatch[1]) + '<div class="info-bullet-text">' + tagMatch[2] + '</div></div>';
+        } else {
+          var stripped = b.replace(/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u2705\u274C\u26A0\u2139\uFE0F\u20E3]+\s*/u, '');
+          body += '<div class="info-bullet">' + bulletIcon('check') + '<div class="info-bullet-text">' + stripped + '</div></div>';
+        }
+      });
+      body += '</div>';
+    }
   }
 
-  // example
+  // ── "Real Example" card ──
   if (slide.example) {
     const _promptEsc = slide.example.prompt.replace(/'/g, "\\'").replace(/\n/g, ' ');
-    body += '<div class="info-example">' +
-      '<div class="info-example-label" style="display:flex;align-items:center;gap:6px;">' + ICONS.chat + ' REAL EXAMPLE</div>' +
+    body += '<div class="lesson-example-card">' +
+      '<div class="lesson-example-label">Real Example</div>' +
       '<div class="info-example-prompt-wrap"><div class="info-example-prompt">You type: &quot;' + slide.example.prompt + '&quot;</div>' +
       '<button class="copy-prompt-btn" onclick="copyPromptText(\'' + _promptEsc + '\', this)" title="Copy prompt">&#x2398; Copy</button></div>' +
       '<div class="info-example-response">AI replies: &quot;' + slide.example.response + '&quot;</div>' +
       '</div>';
   }
 
-  // tip
+  // ── "Did you know?" card for tips ──
   if (slide.tip) {
-    body += '<div class="info-tip"><div class="info-tip-icon" style="color:var(--amber);">' + ICONS.bulb + '</div><div class="info-tip-text">' + slide.tip + '</div></div>';
+    body += '<div class="lesson-didyouknow-card">' +
+      '<div class="lesson-didyouknow-label">&#x1F4A1; Did you know?</div>' +
+      '<div class="lesson-didyouknow-text">' + slide.tip + '</div>' +
+      '</div>';
   }
 
-  const mainText = slide.text
-    ? '<div class="slide-info-body" style="margin-bottom:' + (body ? 14 : 0) + 'px;">' + slide.text + '</div>'
-    : '';
+  // ── Determine if this is the last info/structural slide before quiz questions ──
+  var _isLastInfoBeforeQuiz = false;
+  var _slides = getSessionSlides();
+  var _curIdx = lessonState.slideIdx;
+  if (_curIdx < _slides.length - 1) {
+    // Check if any subsequent slide is a non-structural quiz-type slide
+    var _nextSlide = _slides[_curIdx + 1];
+    var _structuralTypes = { info: 1, sim_chat: 1, clari_react: 1 };
+    if (_nextSlide && !_structuralTypes[_nextSlide.type]) {
+      // This is the last structural slide before quiz content
+      // But only flag it if there isn't another structural slide after us
+      _isLastInfoBeforeQuiz = true;
+    }
+  }
+
+  // When concept card is used, title and text are inside the card — don't duplicate
+  var titleHtml = '';
+  var mainText = '';
+  if (!hasConcept) {
+    titleHtml = '<div class="slide-title">' + (slide.title || '') + '</div>';
+    mainText = slide.text
+      ? '<div class="slide-info-body" style="margin-bottom:' + (body ? 14 : 0) + 'px;">' + slide.text + '</div>'
+      : '';
+  }
+
+  // ── "Start Quiz" prompt if this is the last info slide before questions ──
+  var startQuizHtml = '';
+  if (_isLastInfoBeforeQuiz) {
+    startQuizHtml = '<div class="start-quiz-prompt">' +
+      '<div class="start-quiz-prompt-label">You\'ve got the concepts — now let\'s test them!</div>' +
+      '<button class="start-quiz-btn" onclick="advanceSlide()">Start Quiz &#x1F680;</button>' +
+      '</div>';
+  }
 
   const infoContent = document.getElementById('lesson-content');
   infoContent.innerHTML =
     '<div class="slide-mascot-wrap clari-mascot clari-mascot--lg clari-breathing">' + getClariExpression('waving') + '</div>' +
-    '<div class="slide-title">' + (slide.title || '') + '</div>' +
+    titleHtml +
     mainText +
-    (body ? '<div class="info-rich-body">' + body + '</div>' : '');
+    (body ? '<div class="info-rich-body">' + body + '</div>' : '') +
+    startQuizHtml;
   // Inject slide bookmark button
   injectSlideBookmarkBtn(infoContent);
   infoContent.scrollTop = 0;
@@ -42730,6 +43299,16 @@ function selectQuizOption(el, idx, correct) {
   lessonState.slideAnswered = true;
   const isCorrect = idx === correct;
 
+  // seg-progress: track result for segmented progress bar
+  var _qSlide = getSessionSlides()[lessonState.slideIdx];
+  trackQuestionResult(isCorrect, {
+    question: _qSlide ? _qSlide.question : '',
+    userAnswer: el.textContent.trim(),
+    correctAnswer: allOpts[correct] ? allOpts[correct].textContent.trim() : '',
+    explanation: _qSlide ? (_qSlide.explanation || '') : '',
+    type: 'quiz'
+  });
+
   if (isCorrect) {
     el.classList.add('correct');
     el.classList.add('correct-anim');
@@ -42793,32 +43372,184 @@ function selectQuizOption(el, idx, correct) {
   if (btn) btn.disabled = false;
 }
 
+/**
+ * Update the segmented progress bar to reflect current question results.
+ * Each quiz-type slide gets a segment; info/sim_chat/clari_react do not.
+ */
+function updateSegmentedProgress() {
+  var bar = document.getElementById('seg-progress-bar');
+  if (!bar) return;
+
+  var slides = getSessionSlides();
+  // Count only quiz-type slides (not structural/info slides)
+  var quizIndices = [];
+  for (var si = 0; si < slides.length; si++) {
+    var sType = slides[si].type;
+    if (sType !== 'info' && sType !== 'sim_chat' && sType !== 'clari_react') {
+      quizIndices.push(si);
+    }
+  }
+  var totalQ = quizIndices.length;
+  if (totalQ === 0) {
+    // All info slides — show a simple smooth bar instead
+    bar.innerHTML = '';
+    return;
+  }
+
+  var results = lessonState.questionResults || [];
+  var answeredCount = results.length;
+
+  // Build segment HTML
+  var html = '';
+  for (var qi = 0; qi < totalQ; qi++) {
+    var result = results[qi];
+    var cls = 'seg-bar-segment';
+    if (result === 'correct') cls += ' seg-correct';
+    else if (result === 'wrong') cls += ' seg-wrong';
+    else if (result === 'skipped') cls += ' seg-skipped';
+    else if (qi === answeredCount) cls += ' seg-current';
+    html += '<div class="' + cls + '"></div>';
+  }
+  bar.innerHTML = html;
+
+  // Update the old progress bar too (for any code that reads it)
+  var oldBar = document.getElementById('lesson-progress-bar');
+  if (oldBar) {
+    var pct = totalQ > 0 ? ((answeredCount / totalQ) * 100) : 0;
+    oldBar.style.width = pct + '%';
+  }
+}
+
+/**
+ * Track per-question result for the segmented progress bar and review screen.
+ * @param {boolean} isCorrect - Whether the answer was correct
+ * @param {object} [detail] - Optional detail: { question, userAnswer, correctAnswer, explanation, type }
+ */
+function trackQuestionResult(isCorrect, detail) {
+  if (!lessonState || !lessonState.questionResults) return;
+  lessonState.questionResults.push(isCorrect ? 'correct' : 'wrong');
+  if (detail) {
+    lessonState.questionDetails.push(detail);
+  } else {
+    lessonState.questionDetails.push({ question: '', userAnswer: '', correctAnswer: '', explanation: '', type: '' });
+  }
+  updateSegmentedProgress();
+}
+
 function showFeedback(correct, msg, correctAnswerText, explanation) {
-  const fb = document.getElementById('quiz-feedback') ||
+  // Also write the inline feedback element for backward compat (some handlers read it)
+  var fb = document.getElementById('quiz-feedback') ||
              document.getElementById('tap-feedback') ||
-             document.getElementById('fill-feedback');
-  if (!fb) return;
-  const icon = correct
-    ? `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>`
-    : `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
-  const correctLine = (!correct && correctAnswerText)
-    ? `<div style="margin-top:6px;font-size:13px;font-weight:700;color:var(--text);border-top:1px solid var(--border);padding-top:6px;">
-        Correct answer: <span style="color:var(--green2);font-weight:900;">${correctAnswerText}</span>
-       </div>`
-    : '';
-  const whySection = (!correct && explanation)
-    ? `<div class="feedback-why" onclick="this.classList.toggle('open')">
-        <span class="feedback-why-label">\u{1F4A1} Why?</span>
-        <div class="feedback-why-text">${explanation.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>
-      </div>`
-    : '';
-  fb.innerHTML = `<div class="feedback-banner ${correct ? 'correct' : 'wrong'}">
-    <div style="display:flex;align-items:flex-start;gap:8px;">${icon}<div>${msg}</div></div>
-    ${correctLine}
-    ${whySection}
-  </div>`;
+             document.getElementById('fill-feedback') ||
+             document.getElementById('tf-feedback') ||
+             document.getElementById('fbc-feedback') ||
+             document.getElementById('mc-feedback');
+  if (fb) {
+    var icon = correct
+      ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>'
+      : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+    fb.innerHTML = '<div class="feedback-banner ' + (correct ? 'correct' : 'wrong') + '">' +
+      '<div style="display:flex;align-items:flex-start;gap:8px;">' + icon + '<div>' + msg + '</div></div>' +
+    '</div>';
+  }
+
+  // Show the unified slide-up banner
+  showLessonFeedback(correct, msg, correctAnswerText, explanation);
+
   // Clari micro-reaction near feedback
   if (typeof spawnClariReaction === 'function') spawnClariReaction(correct);
+}
+
+// ---- Unified lesson feedback banner (slide-up from bottom) ----
+var _lfbDismissing = false;
+
+function showLessonFeedback(isCorrect, msg, correctAnswerText, explanation) {
+  // Debounce: don't show if already dismissing
+  if (_lfbDismissing) return;
+
+  // Remove any existing banner immediately
+  var existing = document.querySelector('.lesson-feedback-banner');
+  if (existing) {
+    if (existing._lfbKeyHandler) document.removeEventListener('keydown', existing._lfbKeyHandler);
+    existing.remove();
+  }
+
+  // Hide the footer Continue button to prevent double-advance
+  var footerBtn = document.getElementById('lesson-next-btn');
+  if (footerBtn) footerBtn.style.display = 'none';
+
+  var banner = document.createElement('div');
+  banner.className = 'lesson-feedback-banner ' + (isCorrect ? 'lfb-correct' : 'lfb-wrong');
+  banner.setAttribute('role', 'alert');
+  banner.setAttribute('aria-live', 'assertive');
+
+  var html = '<div class="lfb-header">';
+  html += '<div class="lfb-icon">' + (isCorrect ? '\u2713' : '\u2717') + '</div>';
+  html += '<div class="lfb-title">' + (isCorrect ? (msg || 'Correct!') : 'Not quite!') + '</div>';
+  html += '</div>';
+
+  if (!isCorrect && correctAnswerText) {
+    html += '<div class="lfb-correct-answer">Correct answer: ' + escHtml(correctAnswerText) + '</div>';
+  }
+  if (explanation) {
+    html += '<div class="lfb-explanation">' + escHtml(explanation) + '</div>';
+  } else if (!isCorrect && msg && msg !== 'Not quite!') {
+    // Show the wrong message as body text if no explanation
+    html += '<div class="lfb-body">' + msg + '</div>';
+  }
+
+  html += '<button class="lfb-continue-btn" onclick="dismissFeedbackBanner()">Continue</button>';
+
+  banner.innerHTML = html;
+  document.body.appendChild(banner);
+
+  // Trigger slide-up after DOM insertion (double rAF for reliable paint)
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      if (banner.parentNode) banner.classList.add('lfb-visible');
+    });
+  });
+
+  // Keyboard support: Enter/Space to dismiss
+  function _lfbKeyHandler(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      dismissFeedbackBanner();
+    }
+  }
+  document.addEventListener('keydown', _lfbKeyHandler);
+  banner._lfbKeyHandler = _lfbKeyHandler;
+}
+
+function dismissFeedbackBanner() {
+  if (_lfbDismissing) return;
+  var banner = document.querySelector('.lesson-feedback-banner');
+  if (!banner) return;
+  _lfbDismissing = true;
+
+  // Remove keyboard handler
+  if (banner._lfbKeyHandler) {
+    document.removeEventListener('keydown', banner._lfbKeyHandler);
+  }
+
+  banner.classList.remove('lfb-visible');
+
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var delay = reducedMotion ? 0 : 300;
+
+  setTimeout(function() {
+    if (banner.parentNode) banner.remove();
+    _lfbDismissing = false;
+    // Restore footer button visibility (renderLessonSlide will rebuild it anyway)
+    var footerBtn = document.getElementById('lesson-next-btn');
+    if (footerBtn) footerBtn.style.display = '';
+    // Use the correct advance function depending on mode
+    if (typeof lessonState !== 'undefined' && lessonState.practiceMode && typeof nextPracticeQuestion === 'function') {
+      nextPracticeQuestion();
+    } else {
+      advanceSlide();
+    }
+  }, delay);
 }
 
 // ---- FILL BLANK ----
@@ -42915,15 +43646,24 @@ function checkFillBlank() {
     if (!correct) allCorrect = false;
   });
 
+  // seg-progress: track result (only on first attempt — retries don't re-track)
+  if (!lessonState._fillBlankTracked) {
+    lessonState._fillBlankTracked = true;
+    var _userWords = lessonState.fillBlanks.map(function(e) { return e ? e.word : '?'; }).join(', ');
+    trackQuestionResult(allCorrect, {
+      question: slide.sentence || '',
+      userAnswer: _userWords,
+      correctAnswer: (slide.answers || []).join(', '),
+      explanation: slide.explanation || '',
+      type: 'fill_blank'
+    });
+  }
+
   if (allCorrect) {
     addXP(10);
     SoundManager.playCorrect();
     lessonState.correctStreak = (lessonState.correctStreak || 0) + 1;
-    const fb = document.getElementById('fill-feedback');
-    if (fb) fb.innerHTML = `<div class="feedback-banner correct" role="alert">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-      ${getCorrectMsg()}
-    </div>`;
+    showFeedback(true, getCorrectMsg());
     const btn = document.getElementById('lesson-next-btn');
     if (btn) { btn.textContent = 'Continue'; btn.onclick = advanceSlide; btn.disabled = false; }
   } else {
@@ -43018,15 +43758,24 @@ function checkTapCorrect() {
     }
   });
 
+  // seg-progress: track result on first attempt only
+  if (!lessonState._tapTracked) {
+    lessonState._tapTracked = true;
+    var _tapCorrectItems = slide.items.filter(function(it) { return it.correct; }).map(function(it) { return it.text; }).join(', ');
+    trackQuestionResult(allGood, {
+      question: slide.question || '',
+      userAnswer: Array.from(lessonState.tapSelected).map(function(i) { return slide.items[i] ? slide.items[i].text : ''; }).join(', '),
+      correctAnswer: _tapCorrectItems,
+      explanation: slide.explanation || '',
+      type: 'tap_correct'
+    });
+  }
+
   if (allGood) {
     addXP(10);
     SoundManager.playCorrect();
     animateClari('happy', 800);
-    const fb = document.getElementById('tap-feedback');
-    if (fb) fb.innerHTML = `<div class="feedback-banner correct" style="margin-top:12px;" role="alert">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-      ${getCorrectMsg()}
-    </div>`;
+    showFeedback(true, getCorrectMsg());
     const btn = document.getElementById('lesson-next-btn');
     if (btn) { btn.textContent = 'Keep going!'; btn.onclick = advanceSlide; btn.disabled = false; }
   } else {
@@ -43096,6 +43845,16 @@ function selectSimOption(el, idx, correct) {
   const allOpts = el.closest('.quiz-options').querySelectorAll('.quiz-option');
   allOpts.forEach(o => o.classList.remove('selected'));
   lessonState.slideAnswered = true;
+
+  // seg-progress: track result
+  var _simSlide = getSessionSlides()[lessonState.slideIdx];
+  trackQuestionResult(idx === correct, {
+    question: _simSlide ? (_simSlide.question || '') : '',
+    userAnswer: el.textContent.trim(),
+    correctAnswer: allOpts[correct] ? allOpts[correct].textContent.trim() : '',
+    explanation: _simSlide ? (_simSlide.explanation || '') : '',
+    type: 'sim_option'
+  });
 
   if (idx === correct) {
     el.classList.add('correct');
@@ -43181,16 +43940,22 @@ function matchSelect(side, idx) {
       const total = slide.pairs.length;
       const matched = document.querySelectorAll('#match-left .matched').length;
       if (matched === total) {
-        const fb = document.getElementById('match-feedback');
-        if (fb) fb.innerHTML = `<div class="feedback-banner correct" style="margin-top:12px;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-          All matched correctly!
-        </div>`;
+        // seg-progress: track match_pairs result (correct if no wrong attempts)
+        var _mpHadWrong = lessonState._matchPairsWrong || false;
+        trackQuestionResult(!_mpHadWrong, {
+          question: slide.title || slide.question || 'Match each item with its pair',
+          userAnswer: _mpHadWrong ? 'Had wrong attempts' : 'All matched correctly',
+          correctAnswer: 'All pairs matched',
+          explanation: slide.explanation || '',
+          type: 'match_pairs'
+        });
+        showFeedback(true, 'All matched correctly!');
         const btn = document.getElementById('lesson-next-btn');
         if (btn) btn.disabled = false;
       }
     } else {
       // Wrong match
+      lessonState._matchPairsWrong = true;
       leftEl.classList.add('wrong');
       el.classList.add('wrong');
       loseHeart();
@@ -43199,6 +43964,276 @@ function matchSelect(side, idx) {
         el.classList.remove('wrong');
         matchPendingLeft = null;
       }, 800);
+    }
+  }
+}
+
+// ---- TRUE / FALSE ----
+function renderSlideTrueFalse(slide) {
+  return `<div class="slide-true-false">
+    <div class="slide-mascot-wrap clari-mascot clari-mascot--lg clari-breathing" style="margin-bottom:8px;">${getClariExpression('thinking')}</div>
+    <div style="font-size:18px;font-weight:800;color:var(--text);margin-bottom:4px;">True or False?</div>
+    <div style="font-size:17px;color:var(--text);padding:var(--space-3,12px) var(--space-4,16px);text-align:center;line-height:1.5;">${escHtml(slide.statement)}</div>
+    <div class="tf-cards">
+      <div class="tf-card" id="tf-true" data-val="true" onclick="selectTrueFalse(true)">True</div>
+      <div class="tf-card" id="tf-false" data-val="false" onclick="selectTrueFalse(false)">False</div>
+    </div>
+    <div id="tf-feedback" aria-live="polite"></div>
+  </div>`;
+}
+
+function selectTrueFalse(val) {
+  if (lessonState.slideAnswered) return;
+  lessonState.slideAnswered = true;
+  const slide = getSessionSlides()[lessonState.slideIdx];
+  if (!slide) return;
+
+  const trueCard = document.getElementById('tf-true');
+  const falseCard = document.getElementById('tf-false');
+  const selectedCard = val ? trueCard : falseCard;
+  const otherCard = val ? falseCard : trueCard;
+  const isCorrect = val === slide.correct;
+
+  // seg-progress: track result
+  trackQuestionResult(isCorrect, {
+    question: slide.statement || '',
+    userAnswer: val ? 'True' : 'False',
+    correctAnswer: slide.correct ? 'True' : 'False',
+    explanation: slide.explanation || '',
+    type: 'true_false'
+  });
+
+  selectedCard.classList.add('tf-selected');
+  otherCard.classList.add('tf-dimmed');
+
+  const fb = document.getElementById('tf-feedback');
+
+  if (isCorrect) {
+    selectedCard.classList.remove('tf-selected');
+    selectedCard.classList.add('tf-correct');
+    spawnCorrectBurst(selectedCard);
+    addXP(10);
+    SoundManager.playCorrect();
+    animateClari('happy', 800);
+    lessonState.correctStreak = (lessonState.correctStreak || 0) + 1;
+    if (lessonState.correctStreak >= 3) {
+      var _streak = lessonState.correctStreak;
+      var _streakEmoji = _streak >= 7 ? '\u{1F9E8}' : _streak >= 5 ? '\u{1F525}\u{1F525}' : '\u{1F525}';
+      var _streakLabel = _streak === 3 ? '3 in a row!' : _streak === 5 ? '5 in a row!' : _streak + ' in a row!';
+      setTimeout(function() { showToast(_streakEmoji + ' ' + _streakLabel, 'success', 1500); }, 200);
+    }
+    showFeedback(true, getCorrectMsg());
+  } else {
+    selectedCard.classList.remove('tf-selected');
+    selectedCard.classList.add('tf-wrong');
+    var correctLabel = slide.correct ? 'True' : 'False';
+    otherCard.classList.remove('tf-dimmed');
+    otherCard.classList.add('tf-correct');
+    loseHeart();
+    SoundManager.playIncorrect();
+    animateClari('sad', 1200);
+    lessonState.correctStreak = 0;
+    recordWrongAnswer(lessonState.lessonId, slide.statement, val ? 1 : 0);
+    showFeedback(false, getWrongMsg(), correctLabel, slide.explanation);
+  }
+
+  const btn = document.getElementById('lesson-next-btn');
+  if (btn) btn.disabled = false;
+}
+
+// ---- FILL-IN-THE-BLANK CHIPS ----
+function renderSlideFillBlankChips(slide) {
+  var sentenceHtml = escHtml(slide.sentence).replace('___', '<span class="fbc-blank" id="fbc-blank">&nbsp;</span>');
+  var chipsHtml = slide.options.map(function(opt, i) {
+    return '<button class="fbc-chip" id="fbc-chip-' + i + '" data-idx="' + i + '" onclick="selectFbcChip(' + i + ')">' + escHtml(opt) + '</button>';
+  }).join('');
+
+  return '<div class="slide-fill-blank-chips">' +
+    '<div class="slide-mascot-wrap clari-mascot clari-mascot--lg clari-breathing" style="margin-bottom:8px;">' + getClariExpression('thinking') + '</div>' +
+    '<div style="font-size:18px;font-weight:800;color:var(--text);margin-bottom:4px;">Fill in the blank:</div>' +
+    '<div class="fbc-sentence" id="fbc-sentence">' + sentenceHtml + '</div>' +
+    '<div class="fbc-chips" id="fbc-chips">' + chipsHtml + '</div>' +
+    '<div id="fbc-feedback" aria-live="polite"></div>' +
+  '</div>';
+}
+
+function selectFbcChip(idx) {
+  if (lessonState.slideAnswered) return;
+  var slide = getSessionSlides()[lessonState.slideIdx];
+  if (!slide) return;
+
+  // Update selection state
+  lessonState.fbcSelected = idx;
+  var chips = document.querySelectorAll('#fbc-chips .fbc-chip');
+  chips.forEach(function(c, i) {
+    c.classList.remove('fbc-chip-selected', 'fbc-chip-dimmed');
+    if (i === idx) {
+      c.classList.add('fbc-chip-selected');
+    } else {
+      c.classList.add('fbc-chip-dimmed');
+    }
+  });
+
+  // Fill blank with selected word
+  var blank = document.getElementById('fbc-blank');
+  if (blank) {
+    blank.textContent = slide.options[idx];
+    blank.classList.add('fbc-filled');
+  }
+
+  var btn = document.getElementById('lesson-next-btn');
+  if (btn) btn.disabled = false;
+}
+
+function checkFillBlankChips() {
+  if (lessonState.slideAnswered) return;
+  lessonState.slideAnswered = true;
+  var slide = getSessionSlides()[lessonState.slideIdx];
+  if (!slide) return;
+
+  var idx = lessonState.fbcSelected;
+  if (idx == null) return;
+  var isCorrect = idx === slide.correct;
+  var selectedChip = document.getElementById('fbc-chip-' + idx);
+  var blank = document.getElementById('fbc-blank');
+  var fb = document.getElementById('fbc-feedback');
+
+  // seg-progress: track result
+  trackQuestionResult(isCorrect, {
+    question: slide.sentence || '',
+    userAnswer: slide.options[idx] || '',
+    correctAnswer: slide.options[slide.correct] || '',
+    explanation: slide.explanation || '',
+    type: 'fill_blank_chips'
+  });
+
+  if (isCorrect) {
+    if (selectedChip) selectedChip.classList.add('fbc-chip-correct');
+    if (blank) { blank.classList.add('fbc-filled'); blank.style.borderColor = 'var(--clari-success, #22C55E)'; blank.style.background = 'var(--clari-success-light, #DCFCE7)'; }
+    spawnCorrectBurst(selectedChip || blank);
+    addXP(10);
+    SoundManager.playCorrect();
+    animateClari('happy', 800);
+    lessonState.correctStreak = (lessonState.correctStreak || 0) + 1;
+    if (lessonState.correctStreak >= 3) {
+      var _streak = lessonState.correctStreak;
+      var _streakEmoji = _streak >= 7 ? '\u{1F9E8}' : _streak >= 5 ? '\u{1F525}\u{1F525}' : '\u{1F525}';
+      var _streakLabel = _streak === 3 ? '3 in a row!' : _streak === 5 ? '5 in a row!' : _streak + ' in a row!';
+      setTimeout(function() { showToast(_streakEmoji + ' ' + _streakLabel, 'success', 1500); }, 200);
+    }
+    showFeedback(true, getCorrectMsg());
+    var btn = document.getElementById('lesson-next-btn');
+    if (btn) { btn.textContent = 'Continue'; btn.onclick = advanceSlide; btn.disabled = false; }
+  } else {
+    if (selectedChip) selectedChip.classList.add('fbc-chip-wrong');
+    if (blank) { blank.style.borderColor = 'var(--clari-danger, #EF4444)'; blank.style.background = 'var(--clari-danger-light, #FEE2E2)'; }
+    loseHeart();
+    SoundManager.playIncorrect();
+    animateClari('sad', 1200);
+    lessonState.correctStreak = 0;
+    recordWrongAnswer(lessonState.lessonId, slide.sentence, idx);
+    var correctText = slide.options[slide.correct];
+    showFeedback(false, getWrongMsg(), correctText, slide.explanation);
+    // Highlight the correct chip
+    var correctChip = document.getElementById('fbc-chip-' + slide.correct);
+    if (correctChip) { correctChip.classList.remove('fbc-chip-dimmed'); correctChip.classList.add('fbc-chip-correct'); }
+    var btn = document.getElementById('lesson-next-btn');
+    if (btn) { btn.textContent = 'Continue'; btn.onclick = advanceSlide; btn.disabled = false; }
+  }
+}
+
+// ---- MATCH CONNECT ----
+function renderSlideMatchConnect(slide) {
+  // Shuffle definition order
+  var defsShuffled = slide.pairs.map(function(p, i) { return { definition: p.definition, origIdx: i }; });
+  shuffleArray(defsShuffled);
+  lessonState.mcDefsOrder = defsShuffled;
+  lessonState.mcSelectedTerm = null;
+  lessonState.mcMatched = new Set();
+  lessonState.mcTotalPairs = slide.pairs.length;
+
+  var termsHtml = slide.pairs.map(function(p, i) {
+    return '<div class="mc-item" id="mc-term-' + i + '" data-side="term" data-idx="' + i + '" onclick="mcSelect(\'term\',' + i + ')">' + escHtml(p.term) + '</div>';
+  }).join('');
+  var defsHtml = defsShuffled.map(function(p, i) {
+    return '<div class="mc-item" id="mc-def-' + i + '" data-side="def" data-idx="' + i + '" onclick="mcSelect(\'def\',' + i + ')">' + escHtml(p.definition) + '</div>';
+  }).join('');
+
+  return '<div class="slide-match-connect">' +
+    '<div class="slide-mascot-wrap clari-mascot clari-mascot--lg clari-breathing" style="margin-bottom:8px;">' + getClariExpression('thinking') + '</div>' +
+    '<div style="font-size:18px;font-weight:800;color:var(--text);margin-bottom:4px;">Match each term to its definition:</div>' +
+    '<div class="mc-container">' +
+      '<div class="mc-column" id="mc-terms">' + termsHtml + '</div>' +
+      '<div class="mc-column" id="mc-defs">' + defsHtml + '</div>' +
+    '</div>' +
+    '<div id="mc-feedback" aria-live="polite"></div>' +
+  '</div>';
+}
+
+function mcSelect(side, idx) {
+  var slide = getSessionSlides()[lessonState.slideIdx];
+  if (!slide) return;
+  var el = document.getElementById(side === 'term' ? 'mc-term-' + idx : 'mc-def-' + idx);
+  if (!el || el.classList.contains('mc-matched')) return;
+
+  if (side === 'term') {
+    // Deselect any previously highlighted term
+    document.querySelectorAll('#mc-terms .mc-item.mc-highlighted').forEach(function(e) { e.classList.remove('mc-highlighted'); });
+    lessonState.mcSelectedTerm = idx;
+    el.classList.add('mc-highlighted');
+  } else {
+    // Definition selected — check match
+    if (lessonState.mcSelectedTerm === null) return;
+    var termIdx = lessonState.mcSelectedTerm;
+    var termEl = document.getElementById('mc-term-' + termIdx);
+    var defsOrder = lessonState.mcDefsOrder;
+    var isCorrect = defsOrder[idx].origIdx === termIdx;
+
+    if (isCorrect) {
+      termEl.classList.remove('mc-highlighted');
+      termEl.classList.add('mc-matched');
+      el.classList.add('mc-matched');
+      lessonState.mcMatched.add(termIdx);
+      lessonState.mcSelectedTerm = null;
+      addXP(5);
+
+      // Check if all pairs matched
+      if (lessonState.mcMatched.size === lessonState.mcTotalPairs) {
+        // seg-progress: track match_connect result
+        var _mcHadWrong = lessonState._matchConnectWrong || false;
+        trackQuestionResult(!_mcHadWrong, {
+          question: slide.question || 'Match each term to its definition',
+          userAnswer: _mcHadWrong ? 'Had wrong attempts' : 'All matched correctly',
+          correctAnswer: 'All pairs matched',
+          explanation: slide.explanation || '',
+          type: 'match_connect'
+        });
+        SoundManager.playCorrect();
+        animateClari('happy', 800);
+        lessonState.correctStreak = (lessonState.correctStreak || 0) + 1;
+        if (lessonState.correctStreak >= 3) {
+          var _streak = lessonState.correctStreak;
+          var _streakEmoji = _streak >= 7 ? '\u{1F9E8}' : _streak >= 5 ? '\u{1F525}\u{1F525}' : '\u{1F525}';
+          var _streakLabel = _streak === 3 ? '3 in a row!' : _streak === 5 ? '5 in a row!' : _streak + ' in a row!';
+          setTimeout(function() { showToast(_streakEmoji + ' ' + _streakLabel, 'success', 1500); }, 200);
+        }
+        showFeedback(true, 'All matched correctly!', null, slide.explanation || null);
+        var btn = document.getElementById('lesson-next-btn');
+        if (btn) btn.disabled = false;
+      }
+    } else {
+      // Wrong match — red flash on both, reset
+      lessonState._matchConnectWrong = true;
+      termEl.classList.add('mc-wrong');
+      el.classList.add('mc-wrong');
+      loseHeart();
+      SoundManager.playIncorrect();
+      lessonState.correctStreak = 0;
+      setTimeout(function() {
+        termEl.classList.remove('mc-wrong', 'mc-highlighted');
+        el.classList.remove('mc-wrong');
+        lessonState.mcSelectedTerm = null;
+      }, 500);
     }
   }
 }
@@ -43313,13 +44348,25 @@ function checkOrderSteps() {
 
   lessonState.orderAnswered = true;
 
+  // seg-progress: track result on first attempt only
+  if (!lessonState._orderTracked) {
+    lessonState._orderTracked = true;
+    trackQuestionResult(allCorrect, {
+      question: slide.question || 'Put the steps in order',
+      userAnswer: rail.map(function(i) { return slide.items[i] || '?'; }).join(' -> '),
+      correctAnswer: slide.items.join(' -> '),
+      explanation: slide.explanation || '',
+      type: 'order_steps'
+    });
+  }
+
   const fb = document.getElementById('order-feedback');
   if (allCorrect) {
     addXP(10);
     SoundManager.playCorrect();
     animateClari('happy', 800);
     lessonState.correctStreak = (lessonState.correctStreak || 0) + 1;
-    if (fb) fb.innerHTML = `<div class="feedback-banner correct" role="alert" style="margin-top:12px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> ${getCorrectMsg()}</div>`;
+    showFeedback(true, getCorrectMsg());
     const btn = document.getElementById('lesson-next-btn');
     if (btn) { btn.textContent = 'Continue'; btn.onclick = advanceSlide; btn.disabled = false; }
   } else {
@@ -43400,6 +44447,16 @@ function checkTypeAnswer() {
   const isCorrect = slide.answers.some(a => userVal.includes(a.toLowerCase()) || a.toLowerCase().includes(userVal));
   lessonState.slideAnswered = true;
   inp.disabled = true;
+
+  // seg-progress: track result
+  trackQuestionResult(isCorrect, {
+    question: slide.question || slide.placeholder || '',
+    userAnswer: inp.value.trim(),
+    correctAnswer: (slide.answers || []).join(', '),
+    explanation: slide.explanation || '',
+    type: 'type_answer'
+  });
+
   const fb = document.getElementById('type-feedback');
   if (isCorrect) {
     inp.classList.add('correct');
@@ -43407,7 +44464,7 @@ function checkTypeAnswer() {
     SoundManager.playCorrect();
     animateClari('happy', 800);
     lessonState.correctStreak = (lessonState.correctStreak || 0) + 1;
-    if (fb) fb.innerHTML = `<div class="feedback-banner correct" role="alert"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> ${getCorrectMsg()}</div>`;
+    showFeedback(true, getCorrectMsg());
     const btn = document.getElementById('lesson-next-btn');
     if (btn) { btn.textContent = 'Continue'; btn.onclick = advanceSlide; btn.disabled = false; }
     // Auto-save to glossary
@@ -43428,7 +44485,7 @@ function checkTypeAnswer() {
     recordWrongAnswer(lessonState.lessonId, inp.value.trim(), lessonState.slideIdx);
     setTimeout(function() { const _s = document.querySelector('.slide-mascot-wrap svg'); if (_s) { _s.classList.add('clari-shake'); setTimeout(function(){ _s.classList.remove('clari-shake'); }, 600); } }, 50);
     const accepted = slide.answers.join(', ');
-    if (fb) fb.innerHTML = `<div class="feedback-banner wrong" role="alert"><div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" style="vertical-align:middle;margin-right:6px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>${getWrongMsg()}<div style="margin-top:6px;font-size:13px;border-top:1px solid rgba(0,0,0,0.08);padding-top:6px;">Accepted answers: <strong>${accepted}</strong></div></div></div>`;
+    showFeedback(false, getWrongMsg(), accepted, slide.explanation);
     const btn = document.getElementById('lesson-next-btn');
     if (btn) { btn.textContent = 'Continue'; btn.onclick = advanceSlide; btn.disabled = false; }
   }
@@ -43568,13 +44625,22 @@ function checkDragCategory() {
     if (hasPlaced && !hasWrong) zone.classList.add('correct-zone');
   });
 
+  // seg-progress: track drag_category result
+  trackQuestionResult(!anyWrong, {
+    question: slide.question || 'Sort into categories',
+    userAnswer: anyWrong ? 'Some items in wrong category' : 'All items placed correctly',
+    correctAnswer: 'All items in correct categories',
+    explanation: slide.explanation || '',
+    type: 'drag_category'
+  });
+
   const fb = document.getElementById('dc-feedback');
   if (!anyWrong) {
     addXP(xpGained);
     SoundManager.playCorrect();
     animateClari('happy', 800);
     lessonState.correctStreak = (lessonState.correctStreak || 0) + 1;
-    if (fb) fb.innerHTML = `<div class="feedback-banner correct" role="alert" style="margin-top:12px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> ${getCorrectMsg()} +${xpGained} XP!</div>`;
+    showFeedback(true, getCorrectMsg());
     const btn = document.getElementById('lesson-next-btn');
     if (btn) { btn.textContent = 'Continue'; btn.onclick = advanceSlide; btn.disabled = false; }
   } else {
@@ -43585,10 +44651,7 @@ function checkDragCategory() {
     recordWrongAnswer(lessonState.lessonId, slide.question || '', lessonState.slideIdx);
     setTimeout(function() { const _s = document.querySelector('.slide-mascot-wrap svg'); if (_s) { _s.classList.add('clari-shake'); setTimeout(function(){ _s.classList.remove('clari-shake'); }, 600); } }, 50);
     if (xpGained > 0) addXP(xpGained); // partial credit for correct placements
-    if (fb) {
-      const expText = slide.explanation ? `<div style="margin-top:6px;font-size:13px;border-top:1px solid rgba(0,0,0,0.08);padding-top:6px;"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><path d='M9 21h6M9 18h6M12 2a7 7 0 0 1 5 12H7A7 7 0 0 1 12 2z'/><line x1='9' y1='15' x2='9' y2='18'/><line x1='15' y1='15' x2='15' y2='18'/></svg></span> ${slide.explanation}</div>` : '';
-      fb.innerHTML = `<div class="feedback-banner wrong" role="alert" style="margin-top:12px;"><div>${getWrongMsg()} Red items are in the wrong bucket.${expText}</div></div>`;
-    }
+    showFeedback(false, getWrongMsg(), null, slide.explanation);
     const btn = document.getElementById('lesson-next-btn');
     if (btn) { btn.textContent = 'Continue'; btn.onclick = advanceSlide; btn.disabled = false; }
   }
@@ -43634,6 +44697,15 @@ function selectScenarioNew(el, idx) {
   const isCorrect = idx === _correctIdx;
   const outcomeEl = document.getElementById('scenario-outcome');
   const lessonEl = document.getElementById('scenario-lesson');
+
+  // seg-progress: track scenario result
+  trackQuestionResult(isCorrect, {
+    question: slide.question || slide.situation || '',
+    userAnswer: el.textContent.trim(),
+    correctAnswer: slide.options && slide.options[_correctIdx] ? slide.options[_correctIdx] : '',
+    explanation: slide.explanation || '',
+    type: 'scenario'
+  });
 
   if (isCorrect) {
     el.classList.add('answer-correct-anim');
@@ -43686,8 +44758,18 @@ function selectScenarioChoice(el, idx, slide) {
   lessonEl.innerHTML = `<div class="scenario-lesson-inner"><span class="clari-mascot clari-mascot--sm clari-breathing" style="display:inline-block;vertical-align:middle;">${getClariExpression('thinking')}</span> <span>${slide.lesson || slide.explanation || ''}</span></div>`;
   lessonEl.classList.remove('hidden');
 
+  // seg-progress: track scenario choice result
+  var _scIsCorrect = idx === slide.correct;
+  trackQuestionResult(_scIsCorrect, {
+    question: slide.setup || slide.character || '',
+    userAnswer: choice.text || el.textContent.trim(),
+    correctAnswer: slide.choices[slide.correct] ? slide.choices[slide.correct].text : '',
+    explanation: slide.lesson || slide.explanation || '',
+    type: 'scenario_choice'
+  });
+
   // Track correct scenario choices and award XP / deduct hearts
-  if (idx === slide.correct) {
+  if (_scIsCorrect) {
     save('scenario_correct', (S.scenario_correct || 0) + 1);
     checkAchievements();
     addXP(10);
@@ -43776,6 +44858,14 @@ function renderSlideQuickFire(slide) {
         // End screen
         clearInterval(qfState.timerInterval);
         const perfect = qfState.correct === slide.questions.length;
+        // seg-progress: track quick_fire result (>= 60% is pass)
+        trackQuestionResult(qfState.correct >= Math.ceil(slide.questions.length * 0.6), {
+          question: 'Speed Round: ' + slide.questions.length + ' questions',
+          userAnswer: qfState.correct + '/' + slide.questions.length + ' correct',
+          correctAnswer: slide.questions.length + '/' + slide.questions.length,
+          explanation: '',
+          type: 'quick_fire'
+        });
         if (perfect) {
           save('quickfire_perfect', (S.quickfire_perfect || 0) + 1);
           checkAchievements();
@@ -44030,8 +45120,9 @@ function renderLessonComplete() {
   const shareBar = checkMilestoneShare();
 
   // Progress bar to 100
-
   document.getElementById('lesson-progress-bar').style.width = '100%';
+  // seg-progress: mark all segments as complete
+  updateSegmentedProgress();
   // practice-56b: hide sticky progress bar on finish
   (function() {
     var _pw56f = document.getElementById('practice-session-prog-wrap');
@@ -44229,6 +45320,57 @@ function renderLessonComplete() {
       + '</div>';
   }
 
+  // ── Segmented progress bar recap + score + time for results screen ──
+  var _qResults = lessonState.questionResults || [];
+  var _qDetails = lessonState.questionDetails || [];
+  var _totalQuestions = _qResults.length;
+  var _correctCount = _qResults.filter(function(r) { return r === 'correct'; }).length;
+  var _wrongCount = _qResults.filter(function(r) { return r === 'wrong'; }).length;
+
+  // Build segmented bar recap HTML
+  var _segRecapHtml = '';
+  if (_totalQuestions > 0) {
+    var _segBarHtml = '';
+    for (var _sbi = 0; _sbi < _totalQuestions; _sbi++) {
+      var _segCls = 'seg-bar-segment';
+      if (_qResults[_sbi] === 'correct') _segCls += ' seg-correct';
+      else if (_qResults[_sbi] === 'wrong') _segCls += ' seg-wrong';
+      else if (_qResults[_sbi] === 'skipped') _segCls += ' seg-skipped';
+      _segBarHtml += '<div class="' + _segCls + '"></div>';
+    }
+    _segRecapHtml = '<div class="lesson-results-bar">'
+      + '<div class="seg-progress-bar" style="gap:3px;">' + _segBarHtml + '</div>'
+      + '</div>';
+  }
+
+  // Score display
+  var _scoreHtml = '';
+  if (_totalQuestions > 0) {
+    _scoreHtml = '<div class="lesson-results-score">'
+      + '<span class="score-correct">' + _correctCount + '</span>'
+      + '<span class="score-total"> / ' + _totalQuestions + ' correct</span>'
+      + '</div>';
+  }
+
+  // Time + XP stats row
+  var _elapsedSecs = lessonState.startTime ? Math.round((Date.now() - lessonState.startTime) / 1000) : 0;
+  var _timeMins = Math.floor(_elapsedSecs / 60);
+  var _timeSecs = _elapsedSecs % 60;
+  var _timeDisplay = (_timeMins > 0 ? _timeMins + 'm ' : '') + _timeSecs + 's';
+  var _statsRowHtml = '<div class="lesson-results-stats">'
+    + '<div class="lesson-results-stat"><div class="lesson-results-stat-value">+' + (lessonState.xpEarned || 0) + '</div><div class="lesson-results-stat-label">XP Earned</div></div>'
+    + '<div class="lesson-results-stat"><div class="lesson-results-stat-value">' + _timeDisplay + '</div><div class="lesson-results-stat-label">Time</div></div>'
+    + (_totalQuestions > 0 ? '<div class="lesson-results-stat"><div class="lesson-results-stat-value">' + Math.round((_correctCount / _totalQuestions) * 100) + '%</div><div class="lesson-results-stat-label">Accuracy</div></div>' : '')
+    + '</div>';
+
+  // Review Mistakes button
+  var _reviewBtnHtml = '';
+  if (_wrongCount > 0) {
+    _reviewBtnHtml = '<button class="btn btn-ghost btn-full mt8" onclick="showMistakeReview()" id="review-mistakes-btn" style="border:1px solid var(--clari-danger, #EF4444);color:var(--clari-danger, #EF4444);margin-top:12px;">'
+      + '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="vertical-align:middle;margin-right:6px;"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>'
+      + 'Review ' + _wrongCount + ' Mistake' + (_wrongCount > 1 ? 's' : '') + '</button>';
+  }
+
   document.getElementById('lesson-content').innerHTML = `<div class="lesson-complete">
     <div id="lesson-complete-mascot" class="clari-mascot clari-mascot--xl clari-breathing"></div>
     ${performanceHtml}
@@ -44236,6 +45378,9 @@ function renderLessonComplete() {
     ${unitBadgeHtml}
     <div class="lesson-complete-title">${titleText}</div>
     <div class="lesson-complete-stars">${starsHtml}</div>
+    ${_scoreHtml}
+    ${_segRecapHtml}
+    ${_statsRowHtml}
     ${difficultyHtml}
     ${pbHtml}
     ${progressRingHtml}
@@ -44250,6 +45395,8 @@ function renderLessonComplete() {
       <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--blue2)"><path d="M6 2h12l4 7-10 13L2 9z"/></svg>
       +${lessonGems} gems
     </div>
+    ${_reviewBtnHtml}
+    <div id="mistake-review-container"></div>
     ${shareBar}
     ${certBtn}
     ${quoteHtml}
@@ -44335,6 +45482,59 @@ function renderLessonComplete() {
     var _footer = document.getElementById('lesson-footer');
     if (_footer) _footer.appendChild(_sfr);
   }
+}
+
+// ============================================================
+// REVIEW MISTAKES — shown on lesson complete screen
+// ============================================================
+function showMistakeReview() {
+  var container = document.getElementById('mistake-review-container');
+  if (!container) return;
+  var _rmBtn = document.getElementById('review-mistakes-btn');
+
+  // Toggle: if already showing, hide it
+  if (container.innerHTML.trim()) {
+    container.innerHTML = '';
+    if (_rmBtn) _rmBtn.textContent = _rmBtn.textContent.replace('Hide', 'Review');
+    return;
+  }
+
+  if (_rmBtn) _rmBtn.textContent = _rmBtn.textContent.replace('Review', 'Hide');
+
+  var results = lessonState.questionResults || [];
+  var details = lessonState.questionDetails || [];
+  var cards = '';
+  var mistakeNum = 0;
+
+  for (var i = 0; i < results.length; i++) {
+    if (results[i] !== 'wrong') continue;
+    mistakeNum++;
+    var d = details[i] || {};
+    var qText = d.question || 'Question ' + (i + 1);
+    var userAns = d.userAnswer || '—';
+    var correctAns = d.correctAnswer || '—';
+    var explanation = d.explanation || '';
+
+    cards += '<div class="review-mistake-card">'
+      + '<div class="review-mistake-q">' + mistakeNum + '. ' + escHtml(qText) + '</div>'
+      + '<div class="review-mistake-yours">Your answer: ' + escHtml(userAns) + '</div>'
+      + '<div class="review-mistake-correct">Correct answer: ' + escHtml(correctAns) + '</div>'
+      + (explanation ? '<div class="review-mistake-explanation">' + escHtml(explanation) + '</div>' : '')
+      + '</div>';
+  }
+
+  if (!cards) {
+    container.innerHTML = '<div style="text-align:center;color:var(--gray4);padding:12px;">No mistakes to review!</div>';
+    return;
+  }
+
+  container.innerHTML = '<div class="review-mistakes-wrap">'
+    + '<div class="review-mistakes-title">Mistakes to Review</div>'
+    + cards
+    + '</div>';
+
+  // Scroll to the review section
+  container.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // ============================================================
@@ -46399,7 +47599,8 @@ function startPractice(type, difficulty) {
     fillBlanks: [],
     fillBankUsed: [],
     tapSelected: new Set(),
-    correctStreak: 0
+    correctStreak: 0,
+    questionResults: [], questionDetails: []
   };
 
   var _fromPracticeView = document.getElementById('view-practice');
@@ -46619,6 +47820,14 @@ function resumePractice() {
 }
 
 function renderPracticeQuestion() {
+  // Clean up any lingering feedback banner from previous question
+  var _oldBanner = document.querySelector('.lesson-feedback-banner');
+  if (_oldBanner) {
+    if (_oldBanner._lfbKeyHandler) document.removeEventListener('keydown', _oldBanner._lfbKeyHandler);
+    _oldBanner.remove();
+  }
+  _lfbDismissing = false;
+
   const q = lessonState.practiceQuestions[lessonState.practiceIdx];
   const total = lessonState.practiceQuestions.length;
   const idx = lessonState.practiceIdx;
@@ -47932,7 +49141,8 @@ function renderSessionTimeline() {
       practiceMaxStreak: 0,
       correctStreak: 0,
       hearts: S.hearts,
-      wrongThisLesson: 0
+      wrongThisLesson: 0,
+      questionResults: [], questionDetails: []
     };
     // Switch to lesson view and render the practice question
     document.getElementById('bottom-nav').classList.remove('visible');
@@ -48038,7 +49248,8 @@ function startWeakDrill() {
     fillBlanks: [],
     fillBankUsed: [],
     tapSelected: new Set(),
-    correctStreak: 0
+    correctStreak: 0,
+    questionResults: [], questionDetails: []
   };
   hideAllViews();
   document.getElementById('view-lesson').classList.add('active');
