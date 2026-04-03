@@ -13609,6 +13609,534 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
 :root[data-theme="dark"] .pstats-session-score { color: var(--green-bright, #4ade80); }
 :root[data-theme="dark"] .pstats-mini-bar--correct { background: var(--green-bright, #4ade80); }
 :root[data-theme="dark"] .pstats-mini-bar--wrong { background: var(--red-bright, #f87171); }
+
+/* ============================================================
+   PROFILE PAGE — ENHANCED LAYOUT (Agent 1)
+   ============================================================ */
+
+/* --- Level subtitle --- */
+.profile-level-subtitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 2px;
+  text-align: center;
+}
+
+/* --- Scrollable profile body --- */
+#view-profile {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+#view-profile .profile-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding-bottom: var(--space-8);
+}
+
+/* --- Stat pills row --- */
+.profile-stat-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  justify-content: center;
+  padding: var(--space-3) var(--space-4);
+}
+.profile-stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: var(--font-size-sm);
+  font-weight: 800;
+  white-space: nowrap;
+}
+.profile-stat-pill .pill-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.profile-stat-pill .pill-value {
+  font-weight: 900;
+  font-size: var(--font-size-sm);
+}
+.profile-stat-pill .pill-label {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-xs);
+  opacity: 0.8;
+}
+.profile-stat-pill.pill-streak {
+  background: rgba(249, 115, 22, 0.12);
+  color: var(--orange);
+}
+.profile-stat-pill.pill-xp {
+  background: rgba(251, 191, 36, 0.12);
+  color: var(--amber-dark);
+}
+.profile-stat-pill.pill-lessons {
+  background: rgba(88, 204, 2, 0.12);
+  color: var(--green2);
+}
+.profile-stat-pill.pill-gems {
+  background: rgba(96, 165, 250, 0.12);
+  color: var(--blue2);
+}
+:root[data-theme="dark"] .profile-stat-pill.pill-streak { background: rgba(249, 115, 22, 0.18); }
+:root[data-theme="dark"] .profile-stat-pill.pill-xp { background: rgba(251, 191, 36, 0.18); }
+:root[data-theme="dark"] .profile-stat-pill.pill-lessons { background: rgba(88, 204, 2, 0.18); }
+:root[data-theme="dark"] .profile-stat-pill.pill-gems { background: rgba(96, 165, 250, 0.18); }
+
+/* --- Achievements grid placeholder (3-col) --- */
+.profile-achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+/* --- Weekly bar chart --- */
+.profile-weekly-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-2);
+  height: 110px;
+  padding: var(--space-3) var(--space-2) 0;
+}
+.weekly-chart-bar-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  gap: 4px;
+}
+.weekly-chart-bar {
+  width: 100%;
+  max-width: 32px;
+  min-height: 4px;
+  border-radius: 6px 6px 2px 2px;
+  background: linear-gradient(180deg, var(--clari-blue), var(--blue2));
+  transition: height 0.3s ease;
+}
+.weekly-chart-bar.bar-empty {
+  background: var(--gray1);
+  min-height: 4px;
+}
+:root[data-theme="dark"] .weekly-chart-bar.bar-empty { background: var(--gray2, #333); }
+.weekly-chart-bar-label {
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  color: var(--gray4);
+  text-align: center;
+}
+.weekly-chart-bar-val {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--clari-blue);
+  min-height: 14px;
+}
+
+/* --- Profile edit name modal --- */
+.profile-edit-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.profile-edit-modal {
+  background: var(--white, #fff);
+  border-radius: var(--radius);
+  padding: var(--space-6);
+  max-width: 360px;
+  width: 100%;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+}
+:root[data-theme="dark"] .profile-edit-modal { background: var(--dm-card, #1a1a2e); }
+.profile-edit-modal h3 {
+  font-size: var(--font-size-xl);
+  font-weight: 900;
+  color: var(--text);
+  margin: 0 0 var(--space-4) 0;
+}
+.profile-edit-modal input[type="text"] {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid var(--gray2);
+  border-radius: 12px;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  font-family: 'Nunito', sans-serif;
+  color: var(--text);
+  background: var(--white);
+  outline: none;
+  box-sizing: border-box;
+}
+.profile-edit-modal input[type="text"]:focus {
+  border-color: var(--clari-blue);
+}
+:root[data-theme="dark"] .profile-edit-modal input[type="text"] {
+  background: var(--gray1, #222);
+  color: var(--text);
+  border-color: var(--gray2, #444);
+}
+.profile-edit-modal-btns {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+.profile-edit-modal-btns button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  font-size: var(--font-size-sm);
+  font-weight: 800;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+}
+.profile-edit-modal-btns .btn-save {
+  background: var(--green);
+  color: white;
+}
+.profile-edit-modal-btns .btn-cancel {
+  background: var(--gray1);
+  color: var(--text);
+}
+
+/* --- About modal --- */
+.profile-about-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.profile-about-modal {
+  background: var(--white, #fff);
+  border-radius: var(--radius);
+  padding: var(--space-8) var(--space-6);
+  max-width: 300px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+}
+:root[data-theme="dark"] .profile-about-modal { background: var(--dm-card, #1a1a2e); }
+.profile-about-modal .about-version {
+  font-size: var(--font-size-xl);
+  font-weight: 900;
+  color: var(--text);
+  margin-bottom: var(--space-2);
+}
+.profile-about-modal .about-sub {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--gray4);
+  margin-bottom: var(--space-6);
+}
+.profile-about-modal .about-close-btn {
+  padding: 10px 28px;
+  border: none;
+  border-radius: 12px;
+  background: var(--clari-blue);
+  color: white;
+  font-size: var(--font-size-sm);
+  font-weight: 800;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+}
+
+/* --- Notifications toggle visual (re-use toggle-switch) --- */
+.settings-row .toggle-status {
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  margin-left: 6px;
+}
+.settings-row .toggle-status.on { color: var(--green); }
+.settings-row .toggle-status.off { color: var(--gray3); }
+
+/* --- Achievement Badge System (tiered badges) --- */
+.achievement-badge { display:flex; flex-direction:column; align-items:center; padding: var(--space-3); border-radius: var(--radius-lg); background: var(--clari-surface, var(--white)); text-align:center; position:relative; transition: transform 0.2s; }
+.achievement-badge.unlocked { box-shadow: 0 0 12px rgba(91,192,248, 0.3); }
+.achievement-badge.locked { filter: grayscale(0.8); opacity: 0.6; }
+.achievement-badge .badge-icon { font-size: 32px; margin-bottom: var(--space-1); }
+.achievement-badge .badge-title { font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold, 600); }
+.achievement-badge .badge-lock { position:absolute; top:4px; right:4px; font-size:12px; }
+.achievement-badge .badge-tier { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+.badge-tier.bronze { color: #CD7F32; }
+.badge-tier.silver { color: #A0A0A0; }
+.badge-tier.gold { color: #FFD700; }
+.achievement-badge.unlocked.gold { box-shadow: 0 0 16px rgba(255,215,0,0.4); }
+.achievement-badge.unlocked.silver { box-shadow: 0 0 12px rgba(160,160,160,0.3); }
+.achievement-badge.unlocked.bronze { box-shadow: 0 0 12px rgba(205,127,50,0.3); }
+
+/* ============================================================
+   ACHIEVEMENT UNLOCK MODAL
+   ============================================================ */
+@keyframes achievement-slide-up {
+  from { transform: translateY(100px) scale(0.8); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+@keyframes achievement-shimmer {
+  from { background-position: -200% center; }
+  to { background-position: 200% center; }
+}
+.achievement-modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 10000;
+  display: flex; align-items: center; justify-content: center;
+}
+.achievement-modal {
+  background: var(--white);
+  border-radius: var(--radius-xl, 24px);
+  padding: var(--space-6, 1.5rem);
+  max-width: 300px; width: 90%;
+  text-align: center;
+  animation: achievement-slide-up 300ms ease-out both;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  position: relative;
+  overflow: hidden;
+}
+.achievement-modal-header {
+  color: #D4A017;
+  font-size: var(--font-size-lg, 1.125rem);
+  font-weight: 800;
+  margin-bottom: 12px;
+  letter-spacing: 0.3px;
+}
+.achievement-modal-icon {
+  font-size: 64px;
+  line-height: 1.1;
+  margin: 8px 0 12px;
+  position: relative;
+  display: inline-block;
+}
+.achievement-modal-shimmer {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 25%,
+    rgba(255,215,0,0.35) 45%,
+    rgba(255,215,0,0.55) 50%,
+    rgba(255,215,0,0.35) 55%,
+    transparent 75%
+  );
+  background-size: 200% 100%;
+  animation: achievement-shimmer 600ms ease-in-out;
+  pointer-events: none;
+  border-radius: 12px;
+  mix-blend-mode: screen;
+}
+.achievement-modal-title {
+  font-size: var(--font-size-base, 1rem);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.achievement-modal-desc {
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--gray4);
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+.achievement-modal-clari {
+  width: 48px; height: 48px;
+  margin: 0 auto 8px;
+}
+.achievement-modal-xp {
+  color: var(--green);
+  font-weight: 800;
+  font-size: var(--font-size-base, 1rem);
+  margin-bottom: 16px;
+}
+.achievement-modal-btn {
+  display: block; width: 100%;
+  padding: 14px 0;
+  border: none; border-radius: 16px;
+  background: var(--clari-blue);
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-size: var(--font-size-base, 1rem);
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 150ms ease, transform 100ms ease;
+}
+.achievement-modal-btn:hover { background: var(--clari-dark); }
+.achievement-modal-btn:active { transform: scale(0.96); }
+
+:root[data-theme="dark"] .achievement-modal {
+  background: var(--dm-card, #2a2a2a);
+}
+
+/* ============================================================
+   PROFILE NOTIFICATION DOT
+   ============================================================ */
+.profile-notif-dot {
+  position: absolute; top: 2px; right: 2px;
+  width: 8px; height: 8px;
+  background: var(--red, #ef4444);
+  border-radius: 50%;
+  animation: notif-pulse 2s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+@keyframes notif-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+/* ============================================================
+   LEVEL PROGRESS BAR (profile header)
+   ============================================================ */
+.profile-level-bar-wrap { width: 100%; padding: 0 var(--space-4, 16px); margin-top: var(--space-2, 8px); }
+.profile-level-bar-text { font-size: var(--font-size-xs, 0.75rem); color: rgba(255,255,255,0.8); text-align: center; margin-bottom: var(--space-1, 4px); font-weight: 700; }
+.profile-level-bar { width: 100%; height: 8px; background: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden; }
+.profile-level-bar-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--clari-blue, #5BC0F8), var(--purple, #7c3aed)); transition: width 0.6s ease; }
+
+/* ============================================================
+   LEVEL-UP MODAL
+   ============================================================ */
+@keyframes level-up-scale-in {
+  from { transform: scale(0.6); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.level-up-modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 10001;
+  display: flex; align-items: center; justify-content: center;
+}
+.level-up-modal {
+  background: var(--white, #fff);
+  border-radius: var(--radius-xl, 24px);
+  padding: var(--space-6, 1.5rem);
+  max-width: 300px; width: 90%;
+  text-align: center;
+  animation: level-up-scale-in 400ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  position: relative;
+  overflow: hidden;
+}
+.level-up-modal-header {
+  color: var(--gold, #D4A017);
+  font-size: 1.4rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.level-up-modal-clari {
+  width: 64px; height: 64px;
+  margin: 0 auto 12px;
+}
+.level-up-modal-level {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--clari-blue, #5BC0F8);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.level-up-modal-title {
+  font-size: var(--font-size-base, 1rem);
+  font-weight: 700;
+  color: var(--text, #3c3c3c);
+  margin-bottom: 16px;
+}
+.level-up-modal-btn {
+  display: block; width: 100%;
+  padding: 14px 0;
+  border: none; border-radius: 16px;
+  background: var(--clari-blue, #5BC0F8);
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-size: var(--font-size-base, 1rem);
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 150ms ease, transform 100ms ease;
+}
+.level-up-modal-btn:hover { background: var(--clari-dark, #3DAEE0); }
+.level-up-modal-btn:active { transform: scale(0.96); }
+:root[data-theme="dark"] .level-up-modal {
+  background: var(--dm-card, #2a2a2a);
+}
+
+/* ============================================================
+   AVATAR COLOR PICKER (profile page)
+   ============================================================ */
+.avatar-color-picker-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+}
+.avatar-color-picker {
+  background: var(--white, #fff);
+  border-radius: var(--radius-xl, 24px);
+  padding: 20px 24px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+  text-align: center;
+  max-width: 240px; width: 90%;
+  animation: level-up-scale-in 250ms ease-out both;
+}
+.avatar-color-picker-title {
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: 800;
+  color: var(--text, #3c3c3c);
+  margin-bottom: 14px;
+}
+.avatar-color-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  justify-items: center;
+}
+.avatar-color-option {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  cursor: pointer;
+  position: relative;
+  transition: transform 150ms ease, border-color 150ms ease;
+}
+.avatar-color-option:hover { transform: scale(1.1); }
+.avatar-color-option:active { transform: scale(0.95); }
+.avatar-color-option.selected {
+  border-color: rgba(255,255,255,0.95);
+  box-shadow: 0 0 0 2px var(--text, #3c3c3c);
+}
+.avatar-color-option.selected::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px; height: 16px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+:root[data-theme="dark"] .avatar-color-picker {
+  background: var(--dm-card, #2a2a2a);
+}
+:root[data-theme="dark"] .avatar-color-option.selected {
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.7);
+}
+/* Profile avatar initial circle (color customizable) */
+.profile-avatar-initial {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px; font-weight: 900;
+  color: #fff;
+  border-radius: 50%;
+  text-transform: uppercase;
+  user-select: none;
+  cursor: pointer;
+}
 </style>
 
 <script>
@@ -14049,6 +14577,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
       <div class="profile-name" id="profile-name-text">You</div>
       <button class="profile-name-edit-btn" onclick="editProfileName()" title="Edit name"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M17 3L21 7L8 20L3 21L4 16Z'/><line x1='14' y1='6' x2='18' y2='10'/></svg></span></button>
     </div>
+    <div class="profile-level-subtitle" id="profile-level-subtitle"></div>
     <div id="profile-xp-bar-wrap-outer" style="text-align:center;padding:0 20px;"></div>
     <div id="profile-goal-row-wrap" style="margin-top:2px;"></div>
     <div id="profile-clari-greeting" style="margin-top:10px;padding:0;"></div>
@@ -14059,6 +14588,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
     <div id="profile-bio-wrap-outer"></div>
   </div>
   <div class="profile-body" id="profile-body-wrap">
+    <div id="profile-stat-pills-row" class="profile-stat-pills"></div>
     <div class="profile-compact-bar" id="profile-compact-bar">
       <span class="profile-compact-label">Compact</span>
       <label class="profile-compact-toggle" title="Compact mode">
@@ -14080,6 +14610,10 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
     <div class="clari-divider coral" aria-hidden="true"></div>
     <div class="section-card" id="profile-streak-cal-card"></div>
     <div id="profile-weekly-report"></div>
+    <div class="section-card" id="profile-weekly-chart-card">
+      <div class="section-title">This Week</div>
+      <div id="profile-weekly-chart" class="profile-weekly-chart"></div>
+    </div>
     <div class="section-card collapsible collapsed" id="profile-feedback-card">
       <div class="section-card-header" onclick="toggleProfileCard(this)" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
         <div class="section-title" style="margin-bottom:0">Lesson Feedback</div>
@@ -14098,6 +14632,7 @@ body.accessibility-simple [data-simple-label]::after { content: attr(data-simple
       <div class="section-title">Achievements</div>
       <div id="ach-progress-label" class="ach-progress-label"></div>
       <div id="badges-grid-container"></div>
+      <div id="profile-achievements-grid" class="profile-achievements-grid"></div>
     </div>
     <div class="section-card collapsible collapsed" id="profile-activity-card"></div>
     <div class="section-card collapsible collapsed" id="profile-streak-stats-card"></div>
@@ -14341,6 +14876,7 @@ function openBadgeDetail(name,icon,desc,progress,status){var m=document.getEleme
 </div>
 
 <script src="js/clari-mascot.js"></script>
+<script src="js/achievements.js"></script>
 <script>
 /* ============================================================
    CLARI AI — COMPLETE JAVASCRIPT
@@ -14356,6 +14892,60 @@ window.onerror = function(msg, src, line, col, err) {
 window.addEventListener('unhandledrejection', function(e) {
   console.error('ClariAI promise error:', e.reason);
 });
+
+// ============================================================
+// LEVEL SYSTEM — thresholds and avatar colors
+// ============================================================
+const LEVEL_THRESHOLDS = [
+  { level: 1, title: 'Beginner', xp: 0 },
+  { level: 2, title: 'Novice', xp: 100 },
+  { level: 3, title: 'Apprentice', xp: 300 },
+  { level: 4, title: 'Student', xp: 600 },
+  { level: 5, title: 'Scholar', xp: 1000 },
+  { level: 6, title: 'Adept', xp: 1500 },
+  { level: 7, title: 'Expert', xp: 2100 },
+  { level: 8, title: 'Master', xp: 2800 },
+  { level: 9, title: 'Grandmaster', xp: 3600 },
+  { level: 10, title: 'AI Master', xp: 5000 }
+];
+
+const AVATAR_COLORS = [
+  '#5BC0F8', // clari-blue
+  '#0F9D7A', // teal/green
+  '#7c3aed', // purple
+  '#E85D30', // coral
+  '#ef4444', // red
+  '#f59e0b', // amber
+  '#ec4899', // pink
+  '#6366f1'  // indigo
+];
+
+function getUserLevel(xp) {
+  var _xp = xp || 0;
+  var _cur = LEVEL_THRESHOLDS[0];
+  for (var i = LEVEL_THRESHOLDS.length - 1; i >= 0; i--) {
+    if (_xp >= LEVEL_THRESHOLDS[i].xp) { _cur = LEVEL_THRESHOLDS[i]; break; }
+  }
+  var _next = LEVEL_THRESHOLDS[_cur.level] || null; // next threshold or null if max
+  var _currentXp, _nextXp, _progress;
+  if (!_next) {
+    // Max level
+    _currentXp = _xp - _cur.xp;
+    _nextXp = null;
+    _progress = 1;
+  } else {
+    _currentXp = _xp - _cur.xp;
+    _nextXp = _next.xp - _cur.xp;
+    _progress = _nextXp > 0 ? Math.min(_currentXp / _nextXp, 1) : 1;
+  }
+  return {
+    level: _cur.level,
+    title: _cur.title,
+    currentXp: _currentXp,
+    nextXp: _nextXp,
+    progress: _progress
+  };
+}
 
 // perf-02: debounce utility for search inputs — prevents excessive re-renders while typing
 var _debounceTimers = {};
@@ -29398,7 +29988,17 @@ function loadState() {
     review_streak: 0,                 // consecutive days all due reviews completed
     review_streak_date: '',           // last date all reviews were completed
     review_streak_best: 0,            // best review streak ever
-    badges_seen: []                   // badge IDs user has viewed (to show "new" dot)
+    achievements_unlocked: [],         // badge achievement IDs (from js/achievements.js)
+    perfect_lessons: 0,                // count of lessons scored 100%
+    fast_lessons: 0,                   // count of lessons completed in under 2 minutes
+    practice_sessions: 0,              // total practice sessions completed
+    night_lessons: 0,                  // lessons completed after 10 PM
+    early_lessons: 0,                  // lessons completed before 7 AM
+    badges_seen: [],                  // badge IDs user has viewed (to show "new" dot)
+    weeklyActivity: [0,0,0,0,0,0,0], // Mon-Sun lessons completed this week
+    notificationsEnabled: true,        // notifications toggle
+    avatar_color: '#5BC0F8',           // avatar background color
+    previousLevel: 1                   // last known level (for level-up detection)
   };
   S = {};
   for (const [k, v] of Object.entries(defaults)) {
@@ -29681,7 +30281,7 @@ function showReviewCompleteOverlay(score, total, streakResult) {
   document.body.appendChild(overlay);
 }
 
-function xpToLevel(xp) { return Math.floor(xp / 100) + 1; }
+function xpToLevel(xp) { return getUserLevel(xp).level; }
 
 // ============================================================
 // CLARI SVG MASCOT — Kawaii round robot, white-sclera eyes, nub arms
@@ -31271,9 +31871,9 @@ function renderHearts(count, max) {
 
 function xpRingHTML(xp, size) {
   size = size || 36;
-  const level = xpToLevel(xp);
-  const progress = xp % 100;
-  const pct = progress / 100;
+  const _ulInfo = getUserLevel(xp);
+  const level = _ulInfo.level;
+  const pct = _ulInfo.progress;
   const r = (size - 6) / 2;
   const circ = 2 * Math.PI * r;
   const dash = circ * pct;
@@ -31339,7 +31939,7 @@ function updateTopBar() {
   if (tbg) tbg.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="var(--blue2)"><path d="M6 2h12l4 7-10 13L2 9z"/></svg>${S.gems || 0}`;
   updateNavBadges();
   const _xpFill = document.getElementById('tb-xp-bar-fill');
-  if (_xpFill) { _xpFill.style.width = ((S.xp || 0) % 100) + '%'; }
+  if (_xpFill) { var _tbLvl = getUserLevel(S.xp || 0); _xpFill.style.width = Math.round(_tbLvl.progress * 100) + '%'; }
   var _lsEl = document.getElementById('tb-lesson-streak');
   if (_lsEl) {
     var _sesLs = S.session_lesson_streak || 0;
@@ -31511,6 +32111,11 @@ function switchTab(tab) {
   if (tab === 'practice') renderPracticeTab();
   if (tab === 'plan')     renderPlanTab();
   if (tab === 'profile')  renderProfileTab();
+
+  // Clear achievement notification dot when visiting Profile tab
+  if (tab === 'profile' && typeof _clearProfileNotifDot === 'function') {
+    _clearProfileNotifDot();
+  }
 
   // Clari wave on first learn tab visit per session
   if (tab === 'learn') setTimeout(_maybeShowClariWave, 400);
@@ -32842,8 +33447,11 @@ function renderLearnTab() {
   // Enhanced Continue Card — PRIMARY CTA (first)
   if (nextLesson) {
     const { lesson: _cl, unit: _cu } = nextLesson;
-    const _levelXp  = (S.xp || 0) % 100;
-    const _curLevel = xpToLevel(S.xp || 0);
+    const _ccLvlInfo = getUserLevel(S.xp || 0);
+    const _curLevel = _ccLvlInfo.level;
+    const _levelXpPct = Math.round(_ccLvlInfo.progress * 100);
+    const _levelXpCur = _ccLvlInfo.currentXp;
+    const _levelXpNext = _ccLvlInfo.nextXp || 'MAX';
     const _mins     = estimateLessonMinutes(_cl);
     html += `<div class="continue-card" onclick="startLesson(&apos;${_cl.id}&apos;)" style="margin:0 12px 12px;" tabindex="0" role="button" aria-label="Continue: ${escHtml(_cl.title)}" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
       <div class="continue-card-unit" style="color:rgba(255,255,255,0.75)">Unit ${_cu.num}: ${_cu.title}</div>
@@ -32852,9 +33460,9 @@ function renderLearnTab() {
       <div class="continue-card-xp-wrap">
         <div class="continue-card-xp-label">Level ${_curLevel} &rarr; ${_curLevel + 1}</div>
         <div class="continue-card-xp-bar-outer">
-          <div class="continue-card-xp-bar-inner" style="width:${_levelXp}%"></div>
+          <div class="continue-card-xp-bar-inner" style="width:${_levelXpPct}%"></div>
         </div>
-        <div class="continue-card-xp-num">${_levelXp}/100 XP</div>
+        <div class="continue-card-xp-num">${_levelXpCur}/${_levelXpNext} XP</div>
       </div>
       <div class="continue-card-btn">Continue &rarr;</div>
     </div>`;
@@ -45932,6 +46540,30 @@ function renderLessonComplete() {
   // Achievements
   checkAchievements();
 
+  // Badge achievement tracking (tiered system from js/achievements.js)
+  (function() {
+    // Track perfect lessons (100% — no wrong answers)
+    if (lessonState.wrongThisLesson === 0) {
+      save('perfect_lessons', (S.perfect_lessons || 0) + 1);
+    }
+    // Track fast lessons (completed in under 2 minutes / 120 seconds)
+    var _badgeElapsed = lessonState.startTime ? Math.round((Date.now() - lessonState.startTime) / 1000) : 0;
+    if (_badgeElapsed > 0 && _badgeElapsed < 120) {
+      save('fast_lessons', (S.fast_lessons || 0) + 1);
+    }
+    // Track night owl (lesson completed after 10 PM)
+    var _badgeHour = new Date().getHours();
+    if (_badgeHour >= 22) {
+      save('night_lessons', (S.night_lessons || 0) + 1);
+    }
+    // Track early bird (lesson completed before 7 AM)
+    if (_badgeHour < 7) {
+      save('early_lessons', (S.early_lessons || 0) + 1);
+    }
+    // Check and notify badge achievements
+    checkAndNotifyAchievements();
+  })();
+
   // Milestone celebrations
   checkMilestones();
 
@@ -46156,11 +46788,12 @@ function renderLessonComplete() {
 
   // Detect if this lesson caused a level-up
   var _levelAfter = xpToLevel(S.xp || 0);
+  var _levelUpInfo = getUserLevel(S.xp || 0);
   var _levelUpBadgeHtml = '';
   if (_levelAfter > _levelBefore) {
     _levelUpBadgeHtml = '<div class="complete-levelup-badge" role="status" aria-live="polite">'
       + '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>'
-      + 'Level Up! \u2192 Level ' + _levelAfter
+      + 'Level Up! \u2192 Level ' + _levelAfter + ' ' + _levelUpInfo.title
       + '</div>';
   }
 
@@ -46904,13 +47537,8 @@ function addXP(amount) {
   save('level', newLevel);
   if (newLevel > oldLevel) {
     showLevelUp(newLevel);
-    if (newLevel === 5) {
-      setTimeout(function() { showClariPopup('celebrating', 'clari-tada', "Level 5! You're on your way!", 2000); }, 800);
-    } else if (newLevel === 10) {
-      setTimeout(function() { showClariPopup('excited', 'clari-tada', "Level 10! You're a rising star!", 2000); }, 800);
-    } else if (newLevel === 20) {
-      setTimeout(function() { showClariPopup('love', 'clari-tada', "Level 20! You're an AI expert!", 2000); }, 800);
-    }
+    // Update previousLevel and save immediately
+    save('previousLevel', newLevel);
   }
   updateTopBar();
   // Micro-interaction: pulse the XP display
@@ -47678,6 +48306,188 @@ function renderAchievementGrid() {
 }
 
 // ============================================================
+// TIERED ACHIEVEMENT BADGES (from js/achievements.js)
+// ============================================================
+function renderAchievementsGrid() {
+  var grid = document.getElementById('profile-achievements-grid');
+  if (!grid) return;
+  if (typeof BADGE_ACHIEVEMENTS === 'undefined') return;
+  var unlocked = S.achievements_unlocked || [];
+  var html = '';
+  for (var i = 0; i < BADGE_ACHIEVEMENTS.length; i++) {
+    var a = BADGE_ACHIEVEMENTS[i];
+    var isUnlocked = unlocked.indexOf(a.id) !== -1;
+    var tierClass = a.tier || 'bronze';
+    var cls = 'achievement-badge ' + (isUnlocked ? 'unlocked ' + tierClass : 'locked');
+    html += '<div class="' + cls + '" title="' + (isUnlocked ? a.title : a.description).replace(/"/g, '&quot;') + '">';
+    html += '<div class="badge-icon">' + a.icon + '</div>';
+    if (!isUnlocked) {
+      html += '<div class="badge-lock">\uD83D\uDD12</div>';
+    }
+    html += '<div class="badge-title">' + a.title + '</div>';
+    html += '<div class="badge-tier ' + tierClass + '">' + tierClass + '</div>';
+    if (!isUnlocked) {
+      html += '<div style="font-size:10px;color:var(--gray3);margin-top:2px;">' + a.description + '</div>';
+    }
+    html += '</div>';
+  }
+  grid.innerHTML = html;
+}
+
+function checkAndNotifyAchievements() {
+  if (typeof checkBadgeAchievements !== 'function') return [];
+  // Build the state object expected by achievements.js
+  var achState = {
+    lessons_completed: (S.completed || []).length,
+    perfect_lessons: S.perfect_lessons || 0,
+    fast_lessons: S.fast_lessons || 0,
+    streak: S.streak || 0,
+    practice_sessions: S.practice_sessions || 0,
+    questionHistory: S.questionHistory || [],
+    gems: S.gems || 0,
+    night_lessons: S.night_lessons || 0,
+    early_lessons: S.early_lessons || 0,
+    achievements_unlocked: S.achievements_unlocked || []
+  };
+  var newIds = checkBadgeAchievements(achState);
+  if (newIds.length > 0) {
+    var current = (S.achievements_unlocked || []).slice();
+    for (var i = 0; i < newIds.length; i++) {
+      if (current.indexOf(newIds[i]) === -1) {
+        current.push(newIds[i]);
+      }
+    }
+    save('achievements_unlocked', current);
+    // Show achievement unlock modals for newly unlocked badges
+    queueAchievementNotifications(newIds);
+  }
+  return newIds;
+}
+
+// ============================================================
+// ACHIEVEMENT UNLOCK MODAL + NOTIFICATION QUEUE
+// ============================================================
+var _achievementQueue = [];
+var _achievementModalActive = false;
+
+function showAchievementModal(achievementId) {
+  if (typeof getBadgeAchievementById !== 'function') return;
+  var ach = getBadgeAchievementById(achievementId);
+  if (!ach) return;
+
+  _achievementModalActive = true;
+
+  // Award +25 XP
+  S.xp = (S.xp || 0) + 25;
+  save('xp', S.xp);
+
+  // Check if this XP award triggers a level-up
+  checkLevelUp();
+
+  // Show red notification dot on Profile tab
+  _showProfileNotifDot();
+
+  // Play achievement sound
+  if (typeof SoundManager !== 'undefined' && SoundManager.playAchievement) {
+    SoundManager.playAchievement();
+  }
+
+  // Build the modal overlay
+  var ov = document.createElement('div');
+  ov.className = 'achievement-modal-overlay';
+  ov.setAttribute('role', 'dialog');
+  ov.setAttribute('aria-label', 'Achievement unlocked: ' + ach.title);
+
+  // Build the Clari celebrating expression
+  var clariHtml = '';
+  if (typeof getClariExpression === 'function') {
+    clariHtml = '<div class="achievement-modal-clari clari-mascot clari-breathing">' + getClariExpression('celebrating') + '</div>';
+  }
+
+  ov.innerHTML =
+    '<div class="achievement-modal">' +
+      '<div class="achievement-modal-header">Achievement Unlocked!</div>' +
+      '<div class="achievement-modal-icon">' +
+        ach.icon +
+        '<div class="achievement-modal-shimmer"></div>' +
+      '</div>' +
+      '<div class="achievement-modal-title">' + ach.title + '</div>' +
+      '<div class="achievement-modal-desc">' + ach.description + '</div>' +
+      clariHtml +
+      '<div class="achievement-modal-xp">+25 XP</div>' +
+      '<button class="achievement-modal-btn">Awesome!</button>' +
+    '</div>';
+
+  document.body.appendChild(ov);
+
+  // Dismiss handler
+  function dismissModal() {
+    if (ov._dismissed) return;
+    ov._dismissed = true;
+    ov.style.opacity = '0';
+    ov.style.transition = 'opacity 200ms ease';
+    setTimeout(function() {
+      if (ov.parentNode) ov.remove();
+      _achievementModalActive = false;
+      // Show next queued achievement after 500ms
+      if (_achievementQueue.length > 0) {
+        var nextId = _achievementQueue.shift();
+        setTimeout(function() { showAchievementModal(nextId); }, 500);
+      }
+    }, 200);
+  }
+
+  // Button click
+  var btn = ov.querySelector('.achievement-modal-btn');
+  if (btn) btn.addEventListener('click', dismissModal);
+
+  // Backdrop click
+  ov.addEventListener('click', function(e) {
+    if (e.target === ov) dismissModal();
+  });
+}
+
+function queueAchievementNotifications(newUnlockIds) {
+  if (!newUnlockIds || newUnlockIds.length === 0) return;
+
+  for (var i = 0; i < newUnlockIds.length; i++) {
+    _achievementQueue.push(newUnlockIds[i]);
+  }
+
+  // If no modal is currently showing, start showing from queue
+  if (!_achievementModalActive) {
+    var firstId = _achievementQueue.shift();
+    showAchievementModal(firstId);
+  }
+}
+
+function _showProfileNotifDot() {
+  var navProfile = document.getElementById('nav-profile');
+  if (!navProfile) return;
+  // Don't add duplicate dot
+  if (navProfile.querySelector('.profile-notif-dot')) return;
+  var dot = document.createElement('span');
+  dot.className = 'profile-notif-dot';
+  // Place dot on the nav-pill (icon area) for proper positioning
+  var pill = navProfile.querySelector('.nav-pill');
+  if (pill) {
+    pill.style.position = 'relative';
+    pill.appendChild(dot);
+  } else {
+    navProfile.appendChild(dot);
+  }
+}
+
+function _clearProfileNotifDot() {
+  var navProfile = document.getElementById('nav-profile');
+  if (!navProfile) return;
+  var dots = navProfile.querySelectorAll('.profile-notif-dot');
+  for (var i = 0; i < dots.length; i++) {
+    dots[i].remove();
+  }
+}
+
+// ============================================================
 // MILESTONE CELEBRATIONS
 // ============================================================
 const MILESTONES=[{key:'first_lesson',check:function(){return(S.completed||[]).length>=1},title:'First Lesson!',sub:'You started your AI learning journey!',icon:'\uD83C\uDFAF'},{key:'five_lessons',check:function(){return(S.completed||[]).length>=5},title:'5 Lessons Done!',sub:"You're building real AI knowledge!",icon:'\u2B50'},{key:'ten_lessons',check:function(){return(S.completed||[]).length>=10},title:'10 Lessons!',sub:"Double digits \u2014 you're on fire!",icon:'\uD83D\uDD25'},{key:'first_unit',check:function(){return COURSE.some(function(u){return u.lessons.length>0&&u.lessons.every(function(l){return(S.completed||[]).includes(l.id)})})},title:'Unit Complete!',sub:'You finished an entire unit \u2014 huge milestone!',icon:'\uD83C\uDF93'},{key:'streak_3',check:function(){return(S.streak||0)>=3},title:'3-Day Streak!',sub:'Three days of learning \u2014 keep going!',icon:'\uD83D\uDD25'},{key:'streak_7',check:function(){return(S.streak||0)>=7},title:'Week Streak!',sub:'A full week of daily learning!',icon:'\uD83C\uDFC6'},{key:'streak_14',check:function(){return(S.streak||0)>=14},title:'2-Week Streak!',sub:'Two weeks strong \u2014 amazing dedication!',icon:'\uD83D\uDCAA'},{key:'streak_30',check:function(){return(S.streak||0)>=30},title:'Month Streak!',sub:"30 days! You're an AI learning champion!",icon:'\uD83D\uDC51'},{key:'xp_100',check:function(){return(S.xp||0)>=100},title:'100 XP!',sub:'Your first hundred experience points!',icon:'\uD83D\uDCAF'},{key:'xp_500',check:function(){return(S.xp||0)>=500},title:'500 XP!',sub:'Half a thousand XP \u2014 incredible!',icon:'\uD83D\uDE80'}];
@@ -47780,27 +48590,64 @@ function dismissDailyGoalCel() {
 // ============================================================
 function showLevelUp(level) {
   SoundManager.playLevelUp();
-  // milestone-cel-01: special celebration for every 5 levels
-  if (level > 0 && level % 5 === 0) {
-    setTimeout(function() {
-      showMilestoneCelebration({
-        key: 'level_' + level,
-        title: 'Level ' + level + '!',
-        sub: "You've reached level " + level + "! Clari is so proud of you!",
-        icon: '\uD83C\uDFC6'
-      });
-    }, 400);
-    return;
+  // Use the new level-up modal for threshold-based levels
+  var _ulInfo = getUserLevel(S.xp || 0);
+  showLevelUpModal(_ulInfo.level);
+}
+
+function showLevelUpModal(newLevel) {
+  // Remove any existing level-up modal
+  var _existing = document.querySelector('.level-up-modal-overlay');
+  if (_existing) _existing.remove();
+
+  var _info = LEVEL_THRESHOLDS.find(function(t) { return t.level === newLevel; }) || { level: newLevel, title: 'Learner' };
+
+  // Build Clari celebrating expression
+  var _clariHtml = '';
+  if (typeof getClariExpression === 'function') {
+    _clariHtml = '<div class="level-up-modal-clari clari-mascot clari-breathing">' + getClariExpression('celebrating') + '</div>';
   }
-  var _levelMsgs = [
-    "You leveled up! Keep climbing!",
-    "New level unlocked! You're getting stronger!",
-    "Level " + level + " \u2014 I knew you could do it!",
-    "Rising through the ranks! Level " + level + "!",
-    "Another level conquered! Onward and upward!"
-  ];
-  var _lmsg = _levelMsgs[level % _levelMsgs.length];
-  showToast('<div class="clari-reaction-toast"><span class="crt-icon clari-mascot clari-mascot--sm">' + getClariExpression('happy') + '</span><span class="crt-msg">' + _lmsg + '</span></div>', 'success', 3000);
+
+  var _ov = document.createElement('div');
+  _ov.className = 'level-up-modal-overlay';
+  _ov.setAttribute('role', 'dialog');
+  _ov.setAttribute('aria-label', 'Level up to level ' + newLevel);
+  _ov.innerHTML =
+    '<div class="level-up-modal">' +
+      '<div class="level-up-modal-header">Level Up!</div>' +
+      _clariHtml +
+      '<div class="level-up-modal-level">' + newLevel + '</div>' +
+      '<div class="level-up-modal-title">' + _info.title + '</div>' +
+      '<button class="level-up-modal-btn">Continue</button>' +
+    '</div>';
+
+  document.body.appendChild(_ov);
+
+  // Trigger confetti
+  if (typeof triggerConfetti === 'function') triggerConfetti();
+
+  // Dismiss handler
+  function _dismissLevelUp() {
+    if (_ov._dismissed) return;
+    _ov._dismissed = true;
+    _ov.style.opacity = '0';
+    _ov.style.transition = 'opacity 200ms ease';
+    setTimeout(function() { _ov.remove(); }, 220);
+  }
+  _ov.querySelector('.level-up-modal-btn').addEventListener('click', _dismissLevelUp);
+  _ov.addEventListener('click', function(e) { if (e.target === _ov) _dismissLevelUp(); });
+}
+
+function checkLevelUp() {
+  var _prevLevel = S.previousLevel || 1;
+  var _curInfo = getUserLevel(S.xp || 0);
+  if (_curInfo.level > _prevLevel) {
+    showLevelUpModal(_curInfo.level);
+    save('previousLevel', _curInfo.level);
+  } else if (_curInfo.level !== _prevLevel) {
+    // Sync previousLevel in case it was never initialized
+    save('previousLevel', _curInfo.level);
+  }
 }
 
 // ============================================================
@@ -49607,6 +50454,10 @@ function finishPractice() {
     const _newCount = (_psw.week === _cw) ? (_psw.count + 1) : 1;
     save('practice_sessions_week', { week: _cw, count: _newCount });
   })();
+  // Badge achievement: increment practice_sessions counter
+  save('practice_sessions', (S.practice_sessions || 0) + 1);
+  // Check and notify tiered badge achievements after practice
+  if (typeof checkAndNotifyAchievements === 'function') checkAndNotifyAchievements();
   // Track best score per practice type
   const _bestMap = S.practice_best || {};
   const _typeKey = lessonState.practiceType;
@@ -52248,20 +53099,19 @@ function renderPlanTab() {
     // ---- Candidate milestones ----
     var _candidates24 = [];
 
-    // 1. Next XP level boundary (every 100 XP)
-    var _curLvl24  = Math.floor(_xp24 / 100) + 1;
-    var _nextLvlXp = _curLvl24 * 100;           // XP needed for next level
-    var _xpNeeded24 = _nextLvlXp - _xp24;
-    var _xpPct24    = Math.round(((_xp24 % 100) / 100) * 100);
+    // 1. Next XP level boundary (threshold-based)
+    var _lvlInfo24 = getUserLevel(_xp24);
+    var _xpNeeded24 = _lvlInfo24.nextXp !== null ? (_lvlInfo24.nextXp - _lvlInfo24.currentXp) : 0;
+    var _xpPct24 = Math.round(_lvlInfo24.progress * 100);
     _candidates24.push({
       type: 'level',
       icon: '&#11088;',
-      name: 'Level ' + (_curLvl24 + 1),
-      detail: _xpNeeded24 + ' XP to go',
-      cur: _xp24 % 100,
-      goal: 100,
+      name: 'Level ' + (_lvlInfo24.level + 1),
+      detail: _xpNeeded24 > 0 ? (_xpNeeded24 + ' XP to go') : 'MAX LEVEL',
+      cur: _lvlInfo24.currentXp,
+      goal: _lvlInfo24.nextXp || _lvlInfo24.currentXp,
       pct: _xpPct24,
-      distance: _xpNeeded24  // lower = closer
+      distance: _xpNeeded24 > 0 ? _xpNeeded24 : 999999
     });
 
     // 2. Next achievement (first unearned achievement by lesson count)
@@ -52876,6 +53726,44 @@ function saveProfileName() {
   renderProfileTab();
 }
 
+function showAvatarColorPicker() {
+  // Remove any existing picker
+  var _existing = document.querySelector('.avatar-color-picker-overlay');
+  if (_existing) { _existing.remove(); return; }
+
+  var _curColor = S.avatar_color || AVATAR_COLORS[0];
+  var _ov = document.createElement('div');
+  _ov.className = 'avatar-color-picker-overlay';
+
+  var _gridHtml = AVATAR_COLORS.map(function(c) {
+    var _sel = (c === _curColor) ? ' selected' : '';
+    return '<div class="avatar-color-option' + _sel + '" style="background:' + c + ';" data-color="' + c + '"></div>';
+  }).join('');
+
+  _ov.innerHTML =
+    '<div class="avatar-color-picker">' +
+      '<div class="avatar-color-picker-title">Choose Avatar Color</div>' +
+      '<div class="avatar-color-grid">' + _gridHtml + '</div>' +
+    '</div>';
+
+  document.body.appendChild(_ov);
+
+  // Handle color selection
+  _ov.querySelectorAll('.avatar-color-option').forEach(function(opt) {
+    opt.addEventListener('click', function() {
+      var _newColor = opt.getAttribute('data-color');
+      save('avatar_color', _newColor);
+      _ov.remove();
+      renderProfileTab();
+    });
+  });
+
+  // Dismiss on backdrop tap
+  _ov.addEventListener('click', function(e) {
+    if (e.target === _ov) _ov.remove();
+  });
+}
+
 function editProfileGoal() {
   var _wrap = document.getElementById('profile-goal-row-wrap');
   var _textEl = document.getElementById('profile-goal-text-el');
@@ -52913,30 +53801,36 @@ function saveProfileGoal() {
 }
 
 function renderProfileTab() {
-  const level = xpToLevel(S.xp);
+  const _levelInfo = getUserLevel(S.xp || 0);
+  const level = _levelInfo.level;
 
   // Profile top
     // profile-01: animated avatar with circular XP progress ring
   (function() {
-    var _xpInLevel01 = (S.xp || 0) % 100;  // computed inline (safe before _xpInLevel declared below)
-    var _xpPct   = (_xpInLevel01 / 100);
+    var _xpPct   = _levelInfo.progress;
     var _circumf = 283; // 2*pi*r where r=45
     var _offset  = _circumf - (_xpPct * _circumf);
     var _ringEl  = document.getElementById('profile-avatar-ring');
     if (_ringEl) {
       _ringEl.className = 'profile-avatar-outer';
       _ringEl.style.cssText = '';
+      var _avatarBg = S.avatar_color || AVATAR_COLORS[0];
+      var _displayName = S.user_name || 'Learner';
+      var _avatarInitial = _displayName.charAt(0).toUpperCase() || 'L';
       _ringEl.innerHTML =
         '<svg class="profile-xp-ring-svg" viewBox="0 0 104 104">' +
           '<circle class="profile-xp-ring-track" cx="52" cy="52" r="45"/>' +
           '<circle class="profile-xp-ring-fill" cx="52" cy="52" r="45" style="stroke-dashoffset:' + _offset.toFixed(1) + '"/>' +
         '</svg>' +
-        '<div class="profile-avatar-ring-animated' + (S.profile_frame === 'gold' ? ' frame-gold' : S.profile_frame === 'rainbow' ? ' frame-rainbow' : '') + '">' +
-          avatarSVG(S.avatar_custom ? null : (S.avatar || 0), 82, S.avatar_custom || undefined) +
+        '<div class="profile-avatar-ring-animated' + (S.profile_frame === 'gold' ? ' frame-gold' : S.profile_frame === 'rainbow' ? ' frame-rainbow' : '') + '" style="background:' + _avatarBg + ';cursor:pointer;" onclick="showAvatarColorPicker()">' +
+          '<div class="profile-avatar-initial" style="background:' + _avatarBg + ';" title="Tap to change color">' + _avatarInitial + '</div>' +
         '</div>';
     }
   })();
   document.getElementById('profile-name-text').textContent = S.user_name || 'Learner';
+  // Agent-1: Level subtitle — now shows level title from threshold system
+  var _levelSubEl = document.getElementById('profile-level-subtitle');
+  if (_levelSubEl) _levelSubEl.textContent = 'Level ' + level + ' — ' + _levelInfo.title;
   // profile-03: goal row
   (function() {
     var _goalWrap = document.getElementById('profile-goal-row-wrap');
@@ -52957,36 +53851,22 @@ function renderProfileTab() {
   // profile-level-chip-glow removed (redundant with XP bar label)
   const _levelChipWrap = document.getElementById('profile-level-chip-wrap');
   if (_levelChipWrap) _levelChipWrap.innerHTML = '';
-  const _xpInLevel = (S.xp || 0) % 100;
   const _xpBarOuter = document.getElementById('profile-xp-bar-wrap-outer');
-  // Build 7-day XP sparkline
+  // Level progress bar using threshold-based system
   (function() {
-    const _spDays = Array.from({ length: 7 }, (_, i) => {
-      const d = new Date(); d.setDate(d.getDate() - (6 - i));
-      return d.toISOString().split('T')[0];
-    });
-    const _spLog = S.xp_log || [];
-    const _spVals = _spDays.map(d => { const e = _spLog.find(x => x.d === d); return e ? e.xp : 0; });
-    const _spMax = Math.max(..._spVals, 1);
-    const _spW = 80, _spH = 22, _spPad = 2;
-    const _spPoints = _spVals.map((v, i) => {
-      const x = _spPad + i * ((_spW - _spPad * 2) / 6);
-      const y = _spH - _spPad - (v / _spMax) * (_spH - _spPad * 2);
-      return x.toFixed(1) + ',' + y.toFixed(1);
-    }).join(' ');
-    const _hasAnyXp = _spVals.some(v => v > 0);
-    const _spSvg = _hasAnyXp
-      ? `<svg class="xp-sparkline-svg" width="${_spW}" height="${_spH}" viewBox="0 0 ${_spW} ${_spH}">
-          <polyline points="${_spPoints}" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-          ${_spVals.map((v, i) => {
-            if (v === 0) return '';
-            const x = (_spPad + i * ((_spW - _spPad * 2) / 6)).toFixed(1);
-            const y = (_spH - _spPad - (v / _spMax) * (_spH - _spPad * 2)).toFixed(1);
-            return `<circle cx="${x}" cy="${y}" r="2" fill="rgba(255,255,255,0.85)"/>`;
-          }).join('')}
-        </svg>`
-      : `<svg class="xp-sparkline-svg" width="${_spW}" height="${_spH}" viewBox="0 0 ${_spW} ${_spH}"><line x1="${_spPad}" y1="${_spH/2}" x2="${_spW-_spPad}" y2="${_spH/2}" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="3,3"/></svg>`;
-    if (_xpBarOuter) _xpBarOuter.innerHTML = `<div class="profile-xp-bar-wrap"><div class="profile-xp-bar-label">${_xpInLevel} / 100 XP to Level ${level + 1}</div><div class="profile-xp-bar-track"><div class="profile-xp-bar-fill" style="width:${_xpInLevel}%"></div></div></div>`; // prof-r3-01: sparkline removed
+    var _li = _levelInfo;
+    var _barPct = Math.round(_li.progress * 100);
+    var _barText = '';
+    if (_li.nextXp === null) {
+      _barText = 'MAX LEVEL';
+    } else {
+      _barText = _li.currentXp + ' / ' + _li.nextXp + ' XP to Level ' + (_li.level + 1);
+    }
+    if (_xpBarOuter) _xpBarOuter.innerHTML =
+      '<div class="profile-level-bar-wrap">' +
+        '<div class="profile-level-bar-text">' + _barText + '</div>' +
+        '<div class="profile-level-bar"><div class="profile-level-bar-fill" style="width:' + _barPct + '%"></div></div>' +
+      '</div>';
   })();
   const _strip = document.getElementById('profile-stat-strip');
   if (_strip) _strip.innerHTML = `<div class="profile-stat-strip"><div class="profile-stat-strip-item"><div class="profile-strip-val"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24'><path d='M12 22c5 0 8-3 8-7 0-2.5-1.5-4.5-3-6 .5 2-1 3.5-2 4 .5-2-1-4-3-5.5 0 3-2 4.5-3 7-.5-1-.5-2.5.5-4C7.5 12 5 14.5 5 17c0 3 3 5 7 5z' fill='#f97316'/></svg></span> ${S.streak || 0}</div><div class="profile-strip-label">Streak</div></div><div class="profile-stat-strip-item"><div class="profile-strip-val"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='#fbbf24'><path d='M12 2l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 17l-5.8 3 1.1-6.5L2.5 8.9l6.6-.9L12 2z'/></svg></span> ${S.xp || 0}</div><div class="profile-strip-label">Total XP</div></div><div class="profile-stat-strip-item"><div class="profile-strip-val"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><rect x='4' y='4' width='6' height='16' rx='1'/><rect x='11' y='6' width='5' height='14' rx='1'/><rect x='17' y='8' width='4' height='12' rx='1'/></svg></span> ${S.completed.length}</div><div class="profile-strip-label">Lessons</div></div></div>`;
@@ -52994,6 +53874,33 @@ function renderProfileTab() {
   // Share My Progress button
   var _shareBtnWrap = document.getElementById('profile-share-btn-wrap');
   if (_shareBtnWrap) _shareBtnWrap.innerHTML = '<button class="btn-share-my-progress" onclick="showShareCard()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Share My Progress</button>';
+
+  // Agent-1: Stat pills row (in profile body)
+  (function() {
+    var _existingPills = document.getElementById('profile-stat-pills-row');
+    if (!_existingPills) return;
+    _existingPills.innerHTML =
+      '<div class="profile-stat-pill pill-streak">' +
+        '<span class="pill-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 22c5 0 8-3 8-7 0-2.5-1.5-4.5-3-6 .5 2-1 3.5-2 4 .5-2-1-4-3-5.5 0 3-2 4.5-3 7-.5-1-.5-2.5.5-4C7.5 12 5 14.5 5 17c0 3 3 5 7 5z" fill="currentColor"/></svg></span>' +
+        '<span class="pill-value">' + (S.streak || 0) + '</span>' +
+        '<span class="pill-label">Streak</span>' +
+      '</div>' +
+      '<div class="profile-stat-pill pill-xp">' +
+        '<span class="pill-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 17l-5.8 3 1.1-6.5L2.5 8.9l6.6-.9L12 2z"/></svg></span>' +
+        '<span class="pill-value">' + (S.xp || 0) + '</span>' +
+        '<span class="pill-label">XP</span>' +
+      '</div>' +
+      '<div class="profile-stat-pill pill-lessons">' +
+        '<span class="pill-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="16" rx="1"/><rect x="11" y="6" width="5" height="14" rx="1"/><rect x="17" y="8" width="4" height="12" rx="1"/></svg></span>' +
+        '<span class="pill-value">' + (S.completed || []).length + '</span>' +
+        '<span class="pill-label">Lessons</span>' +
+      '</div>' +
+      '<div class="profile-stat-pill pill-gems">' +
+        '<span class="pill-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5"><path d="M4 9l3-5h10l3 5-10 11L4 9z"/><path d="M4 9h16"/></svg></span>' +
+        '<span class="pill-value">' + (S.gems || 0) + '</span>' +
+        '<span class="pill-label">Gems</span>' +
+      '</div>';
+  })();
 
   // Avatar picker — 12 presets + customizer
   const _cust = S.avatar_custom;
@@ -53231,6 +54138,9 @@ function renderProfileTab() {
       '</div>';
   })();
 
+  // Agent-1: Weekly bar chart (This Week — Mon-Sun)
+  renderWeeklyChart();
+
 // ---- Feedback summary card ----
   (function() {
     var _fbEl = document.getElementById('profile-feedback-summary');
@@ -53324,11 +54234,19 @@ function renderProfileTab() {
   const _achLabelEl = document.getElementById('ach-progress-label');
   if (_achLabelEl) _achLabelEl.textContent = `${_earnedCount} / ${_totalCount} earned`;
   renderAchievementGrid();
+  renderAchievementsGrid();
 
   // 90-day heatmap — removed (r4-03)
 
   // Settings
   document.getElementById('settings-rows').innerHTML = `
+    <div class="settings-row" onclick="openEditProfileModal()" style="cursor:pointer;">
+      <div class="settings-label-wrap">
+        <span class="settings-row-icon"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M17 3L21 7L8 20L3 21L4 16Z'/><line x1='14' y1='6' x2='18' y2='10'/></svg></span></span>
+        <span class="settings-label">Edit Profile</span>
+      </div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gray3)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg>
+    </div>
     <div class="settings-row">
       <div class="settings-label-wrap">
         <span class="settings-row-icon"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' ><circle cx='12' cy='12' r='10'/><circle cx='12' cy='12' r='6'/><circle cx='12' cy='12' r='2' fill='currentColor'/></svg></span></span>
@@ -53361,6 +54279,19 @@ function renderProfileTab() {
         <input type="checkbox" ${S.sound_enabled !== false ? 'checked' : ''} onchange="toggleSound()">
         <span class="toggle-track"></span>
       </label>
+    </div>
+    <div class="settings-row">
+      <div class="settings-label-wrap">
+        <span class="settings-row-icon"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9'/><path d='M13.73 21a2 2 0 0 1-3.46 0'/></svg></span></span>
+        <span class="settings-label">Notifications</span>
+      </div>
+      <div style="display:flex;align-items:center;">
+        <label class="toggle-switch">
+          <input type="checkbox" ${S.notificationsEnabled !== false ? 'checked' : ''} onchange="toggleNotifications()">
+          <span class="toggle-track"></span>
+        </label>
+        <span class="toggle-status ${S.notificationsEnabled !== false ? 'on' : 'off'}">${S.notificationsEnabled !== false ? 'On' : 'Off'}</span>
+      </div>
     </div>
     <div class="settings-row">
       <div class="settings-label-wrap">
@@ -53434,12 +54365,19 @@ function renderProfileTab() {
 <div class="accent-swatch ${(S.accent_color||'var(--clari-blue)')==='var(--clari-blue)'?'selected':''}" data-hex="var(--clari-blue)" style="background:var(--clari-blue);" title="Blue" onclick="setAccentColor(&apos;var(--clari-blue)&apos;)"></div><div class="accent-swatch ${(S.accent_color||'var(--clari-blue)')==='var(--green)'?'selected':''}" data-hex="var(--green)" style="background:var(--green);" title="Green" onclick="setAccentColor(&apos;var(--green)&apos;)"></div><div class="accent-swatch ${(S.accent_color||'var(--clari-blue)')==='var(--purple)'?'selected':''}" data-hex="var(--purple)" style="background:var(--purple);" title="Purple" onclick="setAccentColor(&apos;var(--purple)&apos;)"></div><div class="accent-swatch ${(S.accent_color||'var(--clari-blue)')==='var(--orange)'?'selected':''}" data-hex="var(--orange)" style="background:var(--orange);" title="Orange" onclick="setAccentColor(&apos;var(--orange)&apos;)"></div><div class="accent-swatch ${(S.accent_color||'var(--clari-blue)')==='var(--coral)'?'selected':''}" data-hex="var(--coral)" style="background:var(--coral);" title="Pink" onclick="setAccentColor(&apos;var(--coral)&apos;)"></div>
       </div>
     </div>
-    <div class="settings-row" style="border-bottom:none;">
+    <div class="settings-row">
       <div class="settings-label-wrap">
         <span class="settings-row-icon"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3L22 20H2Z'/><line x1='12' y1='9' x2='12' y2='14'/><circle cx='12' cy='17.5' r='0.75' fill='currentColor'/></svg></span>️</span>
         <span class="settings-label">Reset Progress</span>
       </div>
       <button class="btn btn-ghost-red btn-xs" onclick="confirmReset()">Reset</button>
+    </div>
+    <div class="settings-row" style="border-bottom:none;cursor:pointer;" onclick="openAboutModal()">
+      <div class="settings-label-wrap">
+        <span class="settings-row-icon"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><line x1='12' y1='16' x2='12' y2='12'/><line x1='12' y1='8' x2='12.01' y2='8'/></svg></span></span>
+        <span class="settings-label">About</span>
+      </div>
+      <span style="font-size:var(--font-size-xs);font-weight:700;color:var(--gray3);">ClariAI v1.0</span>
     </div>`;
 
   // profile-12: Weekly XP Challenge Card
@@ -55213,6 +56151,136 @@ function renderProfileTab() {
 
 }
 
+// ============================================================
+// Agent-1: Weekly Activity Chart
+// ============================================================
+function renderWeeklyChart() {
+  var _chartEl = document.getElementById('profile-weekly-chart');
+  if (!_chartEl) return;
+
+  // Compute weekly activity from lesson_log_dates (lessons completed each day Mon-Sun)
+  var _dayNames = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  var _today = new Date();
+  // Find Monday of current week
+  var _todayDow = _today.getDay(); // 0=Sun, 1=Mon...6=Sat
+  var _mondayOffset = (_todayDow === 0 ? -6 : 1 - _todayDow);
+  var _monday = new Date(_today);
+  _monday.setDate(_today.getDate() + _mondayOffset);
+  _monday.setHours(0, 0, 0, 0);
+
+  // Build day strings for Mon-Sun
+  var _weekDays = [];
+  for (var i = 0; i < 7; i++) {
+    var d = new Date(_monday);
+    d.setDate(_monday.getDate() + i);
+    _weekDays.push(d.toISOString().split('T')[0]);
+  }
+
+  // Count lessons per day from lesson_log_dates
+  var _lld = S.lesson_log_dates || {};
+  var _activity = [0, 0, 0, 0, 0, 0, 0];
+  Object.keys(_lld).forEach(function(lessonId) {
+    var ts = _lld[lessonId];
+    if (typeof ts !== 'number') return;
+    var dayStr = new Date(ts).toISOString().split('T')[0];
+    var idx = _weekDays.indexOf(dayStr);
+    if (idx !== -1) _activity[idx]++;
+  });
+
+  // Store in state for external use
+  save('weeklyActivity', _activity);
+
+  var _max = Math.max.apply(null, _activity);
+  if (_max === 0) _max = 1;
+  var _maxBarHeight = 80; // px
+
+  var _barsHTML = _dayNames.map(function(name, i) {
+    var val = _activity[i];
+    var barHeight = val > 0 ? Math.max(4, Math.round((val / _max) * _maxBarHeight)) : 4;
+    var isEmpty = val === 0;
+    var isToday = i === ((_todayDow === 0 ? 6 : _todayDow - 1));
+    return '<div class="weekly-chart-bar-col">' +
+      '<div class="weekly-chart-bar-val">' + (val > 0 ? val : '') + '</div>' +
+      '<div class="weekly-chart-bar' + (isEmpty ? ' bar-empty' : '') + '" style="height:' + barHeight + 'px;' + (isToday && !isEmpty ? 'background:linear-gradient(180deg, var(--green), var(--green2));' : '') + '"></div>' +
+      '<div class="weekly-chart-bar-label' + (isToday ? '" style="color:var(--clari-blue);font-weight:900;"' : '"') + '>' + name + '</div>' +
+    '</div>';
+  }).join('');
+
+  _chartEl.innerHTML = _barsHTML;
+}
+
+// ============================================================
+// Agent-1: Profile Edit Name Modal
+// ============================================================
+function openEditProfileModal() {
+  var _existing = document.getElementById('_profile_edit_name_modal');
+  if (_existing) _existing.remove();
+
+  var _curName = (S.user_name || 'Learner').replace(/"/g, '&quot;');
+  var _overlay = document.createElement('div');
+  _overlay.id = '_profile_edit_name_modal';
+  _overlay.className = 'profile-edit-modal-overlay';
+  _overlay.onclick = function(e) { if (e.target === _overlay) _overlay.remove(); };
+  _overlay.innerHTML =
+    '<div class="profile-edit-modal">' +
+      '<h3>Edit Display Name</h3>' +
+      '<input type="text" id="_profile_edit_name_input" maxlength="30" value="' + _curName + '" placeholder="Enter your name...">' +
+      '<div class="profile-edit-modal-btns">' +
+        '<button class="btn-cancel" onclick="document.getElementById(\'_profile_edit_name_modal\').remove()">Cancel</button>' +
+        '<button class="btn-save" onclick="saveEditProfileModal()">Save</button>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(_overlay);
+  var _inp = document.getElementById('_profile_edit_name_input');
+  if (_inp) { _inp.focus(); _inp.select(); }
+  _inp.onkeydown = function(e) {
+    if (e.key === 'Enter') saveEditProfileModal();
+    if (e.key === 'Escape') _overlay.remove();
+  };
+}
+
+function saveEditProfileModal() {
+  var _inp = document.getElementById('_profile_edit_name_input');
+  if (!_inp) return;
+  var _val = _inp.value.trim();
+  if (_val) {
+    save('user_name', _val);
+    var _nameEl = document.getElementById('profile-name-text');
+    if (_nameEl) _nameEl.textContent = _val;
+  }
+  var _modal = document.getElementById('_profile_edit_name_modal');
+  if (_modal) _modal.remove();
+  renderProfileTab();
+}
+
+// ============================================================
+// Agent-1: About Modal
+// ============================================================
+function openAboutModal() {
+  var _existing = document.getElementById('_profile_about_modal');
+  if (_existing) _existing.remove();
+
+  var _overlay = document.createElement('div');
+  _overlay.id = '_profile_about_modal';
+  _overlay.className = 'profile-about-modal-overlay';
+  _overlay.onclick = function(e) { if (e.target === _overlay) _overlay.remove(); };
+  _overlay.innerHTML =
+    '<div class="profile-about-modal">' +
+      '<div class="about-version">ClariAI v1.0</div>' +
+      '<div class="about-sub">Your Friendly AI Learning Guide</div>' +
+      '<button class="about-close-btn" onclick="document.getElementById(\'_profile_about_modal\').remove()">Close</button>' +
+    '</div>';
+  document.body.appendChild(_overlay);
+}
+
+// ============================================================
+// Agent-1: Notifications Toggle
+// ============================================================
+function toggleNotifications() {
+  var _cur = S.notificationsEnabled !== false;
+  save('notificationsEnabled', !_cur);
+  renderProfileTab();
+}
 
 
 
@@ -55527,12 +56595,11 @@ function selectAvatar(idx) {
   save('avatar', idx);
   save('avatar_custom', null);
   document.querySelectorAll('.avatar-option').forEach((el, i) => el.classList.toggle('selected', i === idx));
-    var _ringOuter = document.getElementById('profile-avatar-ring');
-  if (_ringOuter) {
-    var _inner = _ringOuter.querySelector('.profile-avatar-ring-animated');
-    if (_inner) { _inner.innerHTML = avatarSVG(idx, 82); }
-    else { _ringOuter.innerHTML = avatarSVG(idx, 88); }
-  }
+  // Update preview in avatar customizer
+  var _prevEl = document.getElementById('av-preview');
+  if (_prevEl) _prevEl.innerHTML = avatarSVG(idx, 72);
+  // Profile ring keeps the colored initial
+  renderProfileTab();
 }
 
 function updateAvatarCustom(prop, val) {
@@ -55545,12 +56612,11 @@ function updateAvatarCustom(prop, val) {
   // Update preview
   const prev = document.getElementById('av-preview');
   if (prev) prev.innerHTML = avatarSVG(null, 88, next);
-  // Update ring
-  const ring = document.getElementById('profile-avatar-ring');
-    if (ring) {
-    var _ri = ring.querySelector('.profile-avatar-ring-animated');
-    if (_ri) { _ri.innerHTML = avatarSVG(null, 82, next); }
-    else { ring.innerHTML = avatarSVG(null, 88, next); }
+  // Update ring avatar initial background
+  var _ringOuter = document.getElementById('profile-avatar-ring');
+  if (_ringOuter) {
+    var _ri = _ringOuter.querySelector('.profile-avatar-initial');
+    if (_ri) { /* initial stays as-is; color managed by avatar_color */ }
   }
   // Deselect preset
   document.querySelectorAll('.avatar-option').forEach(el => el.classList.remove('selected'));
@@ -55695,7 +56761,10 @@ function confirmReset() {
       'accessibility_mode','onboarding_done','activity_log',
       'day_off_until','hint_tokens','streak_before_reset','double_gems_active','profile_frame','freeze_used_dates',
       'review_streak','review_streak_date','review_streak_best',
-      'difficulty_ratings','difficulty_rating_order','questionHistory'];
+      'difficulty_ratings','difficulty_rating_order','questionHistory',
+      'weeklyActivity','notificationsEnabled',
+      'achievements_unlocked','perfect_lessons','fast_lessons','practice_sessions',
+      'night_lessons','early_lessons','avatar_color','previousLevel'];
     keys.forEach(function(k) { localStorage.removeItem('clariai_' + k); });
     location.reload();
   });
@@ -56650,6 +57719,13 @@ function init() {
   })();
 
   loadState();
+  // Sync previousLevel with actual level from XP (for existing users upgrading)
+  (function() {
+    var _actualLevel = getUserLevel(S.xp || 0).level;
+    if ((S.previousLevel || 1) !== _actualLevel) {
+      save('previousLevel', _actualLevel);
+    }
+  })();
   checkHeartsAutoRefill();
   initSrScheduleForCompleted();
   // profile-07: apply saved accent color on startup
