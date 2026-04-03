@@ -6,9 +6,10 @@
 <link rel="manifest" href="manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="ClariAI">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/icon-192.png">
 <meta name="theme-color" content="#5BC0F8">
 <title>ClariAI — Your Friendly AI Guide</title>
 <script>
@@ -491,8 +492,7 @@
 :root[data-theme="dark"] #clari-toast { background: var(--white) !important; color: var(--text) !important; box-shadow: 0 8px 24px rgba(0,0,0,0.4) !important; }
 
 /* --- Offline banner --- */
-:root[data-theme="dark"] #offline-banner { background: #2d0a0a; color: var(--red-20); }
-:root[data-theme="dark"] .online-toast { background: #0d2b1c; color: var(--green-bright); }
+:root[data-theme="dark"] .clari-offline-banner { background: linear-gradient(135deg, #b45309, #92400e); }
 
 /* --- Avatar toggle buttons --- */
 :root[data-theme="dark"] .av-toggle-btn {
@@ -3563,50 +3563,98 @@ mark.search-hl {
 .copy-prompt-btn.copied { background: var(--green); color: white; border-color: var(--green); }
 
 /* Offline indicator */
-.offline-banner {
+.clari-offline-banner {
   position: fixed;
-  top: 0; left: 0; right: 0;
-  background: var(--red);
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
   color: white;
-  text-align: center;
-  padding: 6px 12px;
+  padding: 6px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
-  z-index: 10001;
+  font-weight: 600;
   transform: translateY(-100%);
   transition: transform 0.3s ease;
-  font-family: 'Nunito', sans-serif;
 }
-.offline-banner.visible {
+.clari-offline-banner.visible {
   transform: translateY(0);
 }
-.offline-banner-inner {
+.clari-offline-banner svg {
+  flex-shrink: 0;
+}
+
+/* Install App banner */
+.clari-install-banner {
+  position: fixed;
+  bottom: 70px;
+  left: 16px;
+  right: 16px;
+  background: var(--white);
+  border-radius: var(--radius-lg, 16px);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+  padding: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  z-index: 9000;
+  animation: slide-up-in 0.3s ease;
+}
+:root[data-theme="dark"] .clari-install-banner {
+  background: var(--clari-surface, #1e1e2e);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+}
+@keyframes slide-up-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.clari-install-banner-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--clari-blue, #5BC0F8), #7c3aed);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-}
-.online-toast {
-  position: fixed;
-  top: 10px; left: 50%;
-  transform: translateX(-50%);
-  background: var(--green);
   color: white;
-  padding: 8px 20px;
-  border-radius: 12px;
+  font-size: 24px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+.clari-install-banner-text {
+  flex: 1;
+}
+.clari-install-banner-title {
+  font-weight: 700;
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
-  z-index: 10001;
-  animation: onlineToastIn 0.3s ease-out, onlineToastOut 0.3s ease-in 2.5s forwards;
-  font-family: 'Nunito', sans-serif;
 }
-@keyframes onlineToastIn {
-  from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+.clari-install-banner-desc {
+  font-size: var(--font-size-xs);
+  color: var(--clari-text-secondary, #6b7280);
 }
-@keyframes onlineToastOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+.clari-install-btn {
+  background: var(--clari-blue, #5BC0F8);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md, 12px);
+  padding: 8px 16px;
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.clari-install-dismiss {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  color: var(--clari-text-muted, #9ca3af);
+  cursor: pointer;
+  padding: 4px;
 }
 
 /* XP float animation */
@@ -14805,11 +14853,9 @@ select {
   <div class="splash-dots"><span></span><span></span><span></span></div>
 </div>
 <div id="onboarding-quiz-overlay" role="dialog" aria-modal="true" aria-label="Quick setup quiz"></div>
-<div class="offline-banner" id="offline-banner">
-  <div class="offline-banner-inner">
-    <span>&#x1F4E1;</span>
-    <span>You're offline &mdash; some features may be limited</span>
-  </div>
+<div id="clari-offline-banner" class="clari-offline-banner">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0119 12.55"/><path d="M5 12.55a10.94 10.94 0 015.17-2.39"/><path d="M10.71 5.05A16 16 0 0122.56 9"/><path d="M1.42 9a15.91 15.91 0 014.7-2.88"/><path d="M8.53 16.11a6 6 0 016.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+  You're offline &mdash; your progress is saved locally
 </div>
 <div id="app">
   <!-- TOP BAR -->
@@ -15518,6 +15564,7 @@ function openBadgeDetail(name,icon,desc,progress,status){var m=document.getEleme
   </div>
 </div>
 
+<script src="js/data-manager.js"></script>
 <script src="js/clari-mascot.js"></script>
 <script src="js/achievements.js"></script>
 <script>
@@ -30665,6 +30712,7 @@ function loadState() {
     goal_target_date: '',          // target completion date
     practice_notes: {},             // practice notes
     hearts_depleted_at: 0,          // timestamp when hearts hit 0 (auto-refill after 30 min)
+    hearts_last_lost: 0,             // timestamp of last heart loss (for regeneration)
     milestones_achieved: [],         // milestone celebration keys already shown
     quiz_timer_enabled: false,       // optional per-question countdown timer
     certificates_earned: [],         // [{unitIdx, unitId, date, stats: {lessons, xp, avgScore}}]
@@ -30685,33 +30733,59 @@ function loadState() {
     previousLevel: 1                   // last known level (for level-up detection)
   };
   S = {};
+  // Initialize DataManager (runs version check & migrations)
+  if (typeof DataManager !== 'undefined') DataManager.init();
+
   for (const [k, v] of Object.entries(defaults)) {
-    const raw = localStorage.getItem('clariai_' + k);
-    if (raw !== null) {
-      try { S[k] = JSON.parse(raw); } catch(e) { S[k] = v; }
+    if (typeof DataManager !== 'undefined') {
+      const loaded = DataManager.loadData(k);
+      S[k] = loaded !== null ? loaded : v;
     } else {
-      S[k] = v;
+      const raw = localStorage.getItem('clariai_' + k);
+      if (raw !== null) {
+        try { S[k] = JSON.parse(raw); } catch(e) { S[k] = v; }
+      } else {
+        S[k] = v;
+      }
     }
   }
   // Reset hearts if new day
   const today = todayStr();
   if (S.streak_date !== today && S.hearts < 5) {
     S.hearts = 5;
-    localStorage.setItem('clariai_hearts', JSON.stringify(5));
+    save('hearts', 5);
     // Clear depletion timestamp on daily reset
     S.hearts_depleted_at = 0;
-    localStorage.setItem('clariai_hearts_depleted_at', JSON.stringify(0));
+    save('hearts_depleted_at', 0);
+  }
+  // Heart regeneration: restore hearts based on elapsed time
+  if (typeof HeartManager !== 'undefined' && S.hearts < 5) {
+    const lastLost = S.hearts_last_lost || 0;
+    const regenerated = HeartManager.calculateHearts(S.hearts, lastLost);
+    if (regenerated > S.hearts) {
+      S.hearts = regenerated;
+      save('hearts', S.hearts);
+      // If hearts are full, clear the timestamp
+      if (S.hearts >= 5) {
+        S.hearts_last_lost = 0;
+        save('hearts_last_lost', 0);
+      }
+    }
   }
 }
 
 function save(key, val) {
   S[key] = val;
-  try {
-    localStorage.setItem('clariai_' + key, JSON.stringify(val));
-  } catch(e) {
-    console.warn('localStorage write failed:', key, e.message);
-    if (typeof showToast === 'function') {
-      showToast('Hmm, storage is getting full. Some data may not save.', 'warning', 4000);
+  if (typeof DataManager !== 'undefined') {
+    DataManager.saveData(key, val);
+  } else {
+    try {
+      localStorage.setItem('clariai_' + key, JSON.stringify(val));
+    } catch(e) {
+      console.warn('localStorage write failed:', key, e.message);
+      if (typeof showToast === 'function') {
+        showToast('Hmm, storage is getting full. Some data may not save.', 'warning', 4000);
+      }
     }
   }
 }
@@ -48398,6 +48472,9 @@ function loseHeart() {
   lessonState.wrongThisLesson++;
   lessonState.hearts = Math.max(0, lessonState.hearts - 1);
   save('hearts', lessonState.hearts);
+  // Record timestamp for heart regeneration
+  S.hearts_last_lost = Date.now();
+  save('hearts_last_lost', S.hearts_last_lost);
   SoundManager.playHeartLost();
   document.getElementById('lesson-hearts').innerHTML = renderHearts(lessonState.hearts, 5);
   updateTopBar();
@@ -54994,6 +55071,13 @@ function renderProfileTab() {
         <div class="chip ${(S.tts_rate||1.0) > 1.0 ? 'active' : ''}" onclick="setTTSRate(1.5)">Fast</div>
       </div>
     </div>` : ''}
+    <div class="settings-row" onclick="checkOfflineCache()" style="cursor:pointer;">
+      <div class="settings-label-wrap">
+        <span class="settings-row-icon">${clariIcon('bookmark', 20)}</span>
+        <span class="settings-label">Download Lessons</span>
+      </div>
+      <span style="font-size:var(--font-size-xs);color:var(--clari-text-secondary)" id="offline-cache-status">Check</span>
+    </div>
     <div class="settings-row">
       <div class="settings-label-wrap">
         <span class="settings-row-icon"><span class='ico' aria-hidden='true'><svg width='18' height='18' viewBox='0 0 24 24' fill='#60a5fa' stroke='var(--clari-blue)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M4 9l3-5h10l3 5-10 11L4 9z'/><path d='M4 9h16'/><path d='M9 4L7 9l5 11M15 4l2 5-5 11'/></svg></span></span>
@@ -57446,7 +57530,11 @@ function confirmReset() {
       'weeklyActivity','notificationsEnabled',
       'achievements_unlocked','perfect_lessons','fast_lessons','practice_sessions',
       'night_lessons','early_lessons','avatar_color','previousLevel'];
-    keys.forEach(function(k) { localStorage.removeItem('clariai_' + k); });
+    if (typeof DataManager !== 'undefined') {
+      DataManager.clearAllData();
+    } else {
+      keys.forEach(function(k) { localStorage.removeItem('clariai_' + k); });
+    }
     location.reload();
   });
   setTimeout(function() { var nb = _m18.querySelectorAll('button')[1]; if (nb) nb.focus(); }, 50);
@@ -58277,12 +58365,17 @@ function profileToggleTheme() {
 function profileExportData() {
   // profile-36: export all localStorage clariai_ keys as JSON
   var _btn = document.querySelector('.settings-export-btn');
-  var _data = {};
-  for (var i = 0; i < localStorage.length; i++) {
-    var _k = localStorage.key(i);
-    if (_k && _k.indexOf('clariai_') === 0) {
-      try { _data[_k.replace('clariai_', '')] = JSON.parse(localStorage.getItem(_k)); }
-      catch(e) { _data[_k.replace('clariai_', '')] = localStorage.getItem(_k); }
+  var _data;
+  if (typeof DataManager !== 'undefined') {
+    _data = DataManager.getAllData();
+  } else {
+    _data = {};
+    for (var i = 0; i < localStorage.length; i++) {
+      var _k = localStorage.key(i);
+      if (_k && _k.indexOf('clariai_') === 0) {
+        try { _data[_k.replace('clariai_', '')] = JSON.parse(localStorage.getItem(_k)); }
+        catch(e) { _data[_k.replace('clariai_', '')] = localStorage.getItem(_k); }
+      }
     }
   }
   _data._exported_at = new Date().toISOString();
@@ -58417,6 +58510,165 @@ function _maybeShowClariWave() {
 }
 
 // ============================================================
+// CONNECTION MONITOR — robust offline/online detection
+// ============================================================
+const ConnectionMonitor = {
+  _online: navigator.onLine,
+  _listeners: [],
+  _checkInterval: null,
+
+  init() {
+    window.addEventListener('online', () => this._update(true));
+    window.addEventListener('offline', () => this._update(false));
+
+    // Periodic connectivity check every 30 seconds
+    this._checkInterval = setInterval(() => this._check(), 30000);
+
+    // Set initial state
+    this._update(navigator.onLine);
+  },
+
+  _update(isOnline) {
+    const wasOnline = this._online;
+    this._online = isOnline;
+
+    const banner = document.getElementById('clari-offline-banner');
+    if (banner) {
+      if (isOnline) {
+        banner.classList.remove('visible');
+      } else {
+        banner.classList.add('visible');
+      }
+    }
+
+    // Push content down when banner is visible
+    const app = document.getElementById('app');
+    if (app) {
+      app.style.marginTop = isOnline ? '' : '32px';
+    }
+
+    // Show toast when coming back online
+    if (isOnline && !wasOnline && typeof showToast === 'function') {
+      showToast('Back online!', 'success', 2000);
+    }
+  },
+
+  _check() {
+    // Try fetching a tiny resource to verify actual connectivity
+    if (navigator.onLine && this._online) return; // Skip if both agree we're online
+    // Use navigator.onLine as truth since we can't fetch offline
+    this._update(navigator.onLine);
+  },
+
+  isOnline() {
+    return this._online;
+  }
+};
+
+// ============================================================
+// INSTALL APP BANNER — PWA install prompt
+// ============================================================
+let _installPromptEvent = null;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  _installPromptEvent = e;
+
+  // Check if we showed this in the last 7 days
+  const lastShown = DataManager.loadData('install_prompt_shown', 0);
+  const sevenDays = 7 * 24 * 60 * 60 * 1000;
+  if (Date.now() - lastShown < sevenDays) return;
+
+  // Show install banner after a short delay
+  setTimeout(() => showInstallBanner(), 3000);
+});
+
+function showInstallBanner() {
+  if (!_installPromptEvent) return;
+
+  // Remove any existing banner
+  const existing = document.getElementById('clari-install-banner');
+  if (existing) existing.remove();
+
+  const banner = document.createElement('div');
+  banner.id = 'clari-install-banner';
+  banner.className = 'clari-install-banner';
+  banner.innerHTML = `
+    <div class="clari-install-banner-icon">C</div>
+    <div class="clari-install-banner-text">
+      <div class="clari-install-banner-title">Install ClariAI</div>
+      <div class="clari-install-banner-desc">Learn offline, get notifications</div>
+    </div>
+    <button class="clari-install-btn" onclick="installApp()">Install</button>
+    <button class="clari-install-dismiss" onclick="dismissInstallBanner()">${typeof clariIcon === 'function' ? clariIcon('close', 16) : '\u2715'}</button>
+  `;
+  document.body.appendChild(banner);
+
+  DataManager.saveData('install_prompt_shown', Date.now());
+}
+
+function installApp() {
+  if (!_installPromptEvent) return;
+  _installPromptEvent.prompt();
+  _installPromptEvent.userChoice.then(result => {
+    if (result.outcome === 'accepted') {
+      if (typeof showToast === 'function') showToast('App installed!', 'success');
+    }
+    _installPromptEvent = null;
+    dismissInstallBanner();
+  });
+}
+
+function dismissInstallBanner() {
+  const banner = document.getElementById('clari-install-banner');
+  if (banner) {
+    banner.style.opacity = '0';
+    banner.style.transform = 'translateY(20px)';
+    banner.style.transition = 'opacity 0.2s, transform 0.2s';
+    setTimeout(() => banner.remove(), 200);
+  }
+}
+
+// ============================================================
+// OFFLINE CACHE — download lessons for offline use
+// ============================================================
+function checkOfflineCache() {
+  if (!('caches' in window)) {
+    showToast('Caching not supported', 'info');
+    return;
+  }
+  caches.open('clari-v1').then(cache => {
+    cache.keys().then(keys => {
+      const statusEl = document.getElementById('offline-cache-status');
+      if (keys.length >= 5) {
+        if (statusEl) statusEl.textContent = '\u2713 All lessons available offline';
+        if (statusEl) statusEl.style.color = 'var(--green, #22c55e)';
+        showToast('All lessons available offline!', 'success');
+      } else {
+        // Trigger cache population
+        if (statusEl) statusEl.textContent = 'Caching...';
+        cache.addAll([
+          '/ai-mentor/',
+          '/ai-mentor/index.html',
+          '/ai-mentor/css/design-tokens.css',
+          '/ai-mentor/css/components.css',
+          '/ai-mentor/js/clari-mascot.js',
+          '/ai-mentor/js/achievements.js',
+          '/ai-mentor/js/data-manager.js'
+        ]).then(() => {
+          if (statusEl) statusEl.textContent = '\u2713 All lessons available offline';
+          if (statusEl) statusEl.style.color = 'var(--green, #22c55e)';
+          showToast('Lessons cached for offline use!', 'success');
+        }).catch(() => {
+          if (statusEl) statusEl.textContent = 'Failed';
+          showToast('Cache failed \u2014 check connection', 'error');
+        });
+      }
+    });
+  });
+}
+
+// ============================================================
 // INIT
 // ============================================================
 function init() {
@@ -58465,24 +58717,8 @@ function init() {
   // Initialize ThemeManager (handles dark mode, system preference, localStorage sync)
   ThemeManager.init();
 
-  // Offline detection banner
-  (function() {
-    var _offlineBanner = document.getElementById('offline-banner');
-    window.addEventListener('online', function() {
-      if (_offlineBanner) _offlineBanner.classList.remove('visible');
-      var toast = document.createElement('div');
-      toast.className = 'online-toast';
-      toast.textContent = '\u2713 Back online!';
-      document.body.appendChild(toast);
-      setTimeout(function() { toast.remove(); }, 3000);
-    });
-    window.addEventListener('offline', function() {
-      if (_offlineBanner) _offlineBanner.classList.add('visible');
-    });
-    if (!navigator.onLine) {
-      if (_offlineBanner) _offlineBanner.classList.add('visible');
-    }
-  })();
+  // Connection monitor + offline banner
+  ConnectionMonitor.init();
 
   // Check Stripe payment success
   const urlParams = new URLSearchParams(window.location.search);
@@ -58980,11 +59216,16 @@ function copyShareText(){var t=_getShareText();var b=document.getElementById('sh
 </script>
 
 <script>
+// Register service worker
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('./sw.js')
-      .then(function(r) { console.log('SW registered', r.scope); })
-      .catch(function(e) { console.log('SW error', e); });
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/ai-mentor/sw.js', { scope: '/ai-mentor/' })
+      .then(reg => {
+        console.log('SW registered:', reg.scope);
+        // Check for updates periodically
+        setInterval(() => reg.update(), 60 * 60 * 1000); // hourly
+      })
+      .catch(err => console.log('SW registration failed:', err));
   });
 }
 </script>
