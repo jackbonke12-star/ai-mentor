@@ -35,6 +35,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/design-tokens.css">
 <link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/skill-tree-styles.css">
 <style>
 /* ============================================================
    learn-17: swipe-to-bookmark yellow flash
@@ -15062,6 +15063,12 @@ select {
 
     <!-- ======== LEARN TAB ======== -->
     <div class="view" id="view-learn" role="main">
+      <div class="st-view-toggle" id="learn-view-toggle">
+        <button id="st-btn-lessons" class="active" onclick="toggleLearnView('lessons')">Lessons</button>
+        <button id="st-btn-tree" onclick="toggleLearnView('tree')">Skill Tree</button>
+      </div>
+      <div id="skill-tree-container" style="display:none;"></div>
+      <div id="learn-content">
       <button class="qref-fab" onclick="showQuickRef()" title="Quick Reference" aria-label="AI cheat sheet">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
       </button>
@@ -15093,6 +15100,7 @@ select {
       <div id="units-container"></div>
       <div id="lpath-container" class="lpath-container" style="display:none;"></div>
       <div id="lp-tooltip"><div class="lp-tip-title" id="lp-tip-title"></div><div class="lp-tip-body" id="lp-tip-body"></div><div class="lp-tip-hint clari-breathe">Tap to open lesson</div></div>
+      </div><!-- /learn-content -->
     </div>
 
     <!-- ======== LEARNING PATH OVERLAY ======== -->
@@ -15567,6 +15575,9 @@ function openBadgeDetail(name,icon,desc,progress,status){var m=document.getEleme
 <script src="js/data-manager.js"></script>
 <script src="js/clari-mascot.js"></script>
 <script src="js/achievements.js"></script>
+<script src="js/skill-tree-data.js"></script>
+<script src="js/skill-tree-progress.js"></script>
+<script src="js/skill-tree-renderer.js"></script>
 <script>
 /* ============================================================
    CLARI AI — COMPLETE JAVASCRIPT
@@ -34018,6 +34029,27 @@ function showLearnSkeleton() {
     html += '</div>';
   }
   container.innerHTML = html;
+}
+
+var _currentLearnView = 'lessons';
+function toggleLearnView(view) {
+  _currentLearnView = view;
+  var treeContainer = document.getElementById('skill-tree-container');
+  var lessonsContent = document.getElementById('learn-content');
+  var btnLessons = document.getElementById('st-btn-lessons');
+  var btnTree = document.getElementById('st-btn-tree');
+  if (view === 'tree') {
+    if (lessonsContent) lessonsContent.style.display = 'none';
+    treeContainer.style.display = 'block';
+    btnLessons.classList.remove('active');
+    btnTree.classList.add('active');
+    SkillTreeRenderer.render('skill-tree-container');
+  } else {
+    if (lessonsContent) lessonsContent.style.display = '';
+    treeContainer.style.display = 'none';
+    btnLessons.classList.add('active');
+    btnTree.classList.remove('active');
+  }
 }
 
 function renderLearnTab() {
