@@ -1,0 +1,234 @@
+/* ═══════════════════════════════════════
+   FLOWER TREE — Petal View (zoomed in)
+   ═══════════════════════════════════════ */
+
+.fpetal-view {
+  padding: 0 16px 120px;
+}
+.fpetal-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+}
+.fpetal-back {
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  color: var(--text-secondary, #57534E);
+  border-radius: 8px;
+  -webkit-tap-highlight-color: transparent;
+}
+.fpetal-back:active {
+  background: var(--border, #E7E5E4);
+}
+.fpetal-header-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.fpetal-header-title {
+  font-size: 17px;
+  font-weight: 700;
+}
+.fpetal-header-desc {
+  font-size: 12px;
+  color: var(--text-secondary, #57534E);
+}
+.fpetal-zoom-btn {
+  background: none;
+  border: 1px solid var(--border, #E7E5E4);
+  border-radius: 8px;
+  padding: 6px;
+  cursor: pointer;
+  color: var(--text-secondary, #57534E);
+  -webkit-tap-highlight-color: transparent;
+}
+.fpetal-zoom-btn:active {
+  background: var(--border, #E7E5E4);
+}
+
+/* Progress bar */
+.fpetal-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 0 16px;
+}
+.fpetal-progress-bar {
+  flex: 1;
+  height: 6px;
+  background: var(--border, #E7E5E4);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.fpetal-progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+.fpetal-progress-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary, #57534E);
+}
+
+/* Node tree */
+.fpetal-tree {
+  position: relative;
+  padding: 8px 0;
+}
+.fpetal-connectors {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.fpetal-row {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  padding: 16px 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Nodes */
+.fpetal-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  width: 85px;
+  flex-shrink: 0;
+}
+.fpetal-node--locked {
+  cursor: default;
+  opacity: 0.5;
+}
+.fpetal-node-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 3px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+}
+.fpetal-node--completed .fpetal-node-circle {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.fpetal-node--pulse .fpetal-node-circle {
+  animation: fpetalPulse 2s ease-in-out infinite;
+}
+@keyframes fpetalPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+.fpetal-node:active .fpetal-node-circle {
+  transform: scale(0.92);
+}
+.fpetal-node--locked:active .fpetal-node-circle {
+  transform: none;
+}
+
+/* Node glow */
+.fpetal-node-glow {
+  position: absolute;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: fpetalGlow 2s ease-in-out infinite;
+}
+@keyframes fpetalGlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+/* Node label */
+.fpetal-node-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-primary, #292524);
+  text-align: center;
+  line-height: 1.3;
+  max-width: 85px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.fpetal-node-label--locked {
+  color: var(--text-tertiary, #A8A29E);
+}
+
+/* Certificate node */
+.fpetal-cert {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.fpetal-cert-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 3px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fpetal-cert--earned .fpetal-cert-circle {
+  animation: fpetalCertShimmer 3s ease-in-out infinite;
+}
+@keyframes fpetalCertShimmer {
+  0%, 100% { box-shadow: 0 0 8px rgba(245,158,11,0.3); }
+  50% { box-shadow: 0 0 20px rgba(245,158,11,0.6); }
+}
+.fpetal-cert-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary, #57534E);
+}
+.fpetal-cert--earned .fpetal-cert-label {
+  color: #F59E0B;
+  font-weight: 700;
+}
+
+/* Dark mode */
+body.dark-mode .fpetal-back {
+  color: #A8A29E;
+}
+body.dark-mode .fpetal-back:active {
+  background: #292524;
+}
+body.dark-mode .fpetal-header-desc,
+body.dark-mode .fpetal-progress-text {
+  color: #A8A29E;
+}
+body.dark-mode .fpetal-node-label {
+  color: #FAFAF9;
+}
+body.dark-mode .fpetal-node-label--locked {
+  color: #57534E;
+}
+body.dark-mode .fpetal-node--available .fpetal-node-circle {
+  background: #1C1917 !important;
+}
+body.dark-mode .fpetal-node--locked .fpetal-node-circle {
+  background: #292524 !important;
+  border-color: #57534E !important;
+}
+body.dark-mode .fpetal-zoom-btn {
+  border-color: #292524;
+  color: #A8A29E;
+}
+body.dark-mode .fpetal-zoom-btn:active {
+  background: #292524;
+}
