@@ -192,5 +192,22 @@ var FlowerPetalView = {
     }
 
     svg.innerHTML = paths;
+  },
+
+  animateCompletion: function(lessonId) {
+    var nodeEl = document.querySelector('[data-node="' + lessonId + '"]');
+    if (!nodeEl) return;
+
+    var circle = nodeEl.querySelector('.fpetal-node-circle');
+    if (!circle) return;
+
+    // Add completion flash
+    circle.style.transition = 'all 0.5s ease';
+    circle.classList.add('fpetal-node-completing');
+
+    // Remove after animation
+    setTimeout(function() {
+      circle.classList.remove('fpetal-node-completing');
+    }, 1000);
   }
 };
