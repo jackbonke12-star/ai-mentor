@@ -299,18 +299,21 @@ body.dark-mode .fhub-petal--locked {
   opacity: 0.5;
 }
 .fpetal-node-circle {
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  border: 3px solid;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: 3px solid var(--border, #D6D3D1);
+  background: var(--bg, #FAFAF9);
   position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06), inset 0 1px 2px rgba(255,255,255,0.3);
 }
-.fpetal-node--completed .fpetal-node-circle {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+body.dark-mode .fpetal-node-circle {
+  background: #292524;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.05);
 }
 .fpetal-node--pulse .fpetal-node-circle {
   animation: fpetalPulse 2s ease-in-out infinite;
@@ -328,6 +331,7 @@ body.dark-mode .fhub-petal--locked {
 
 /* Available node pulse */
 .fpetal-node--available .fpetal-node-circle {
+  border-color: currentColor;
   animation: nodePulse 2s ease-in-out infinite;
   box-shadow: 0 0 0 0 rgba(15,157,122,0.3);
 }
@@ -339,7 +343,8 @@ body.dark-mode .fhub-petal--locked {
 
 /* Locked node styling */
 .fpetal-node--locked .fpetal-node-circle {
-  opacity: 0.4;
+  border-color: var(--border, #E7E5E4);
+  opacity: 0.45;
   filter: grayscale(0.8);
 }
 .fpetal-node--locked .fpetal-node-label {
@@ -348,8 +353,15 @@ body.dark-mode .fhub-petal--locked {
 
 /* Completed node styling */
 .fpetal-node--completed .fpetal-node-circle {
-  background: var(--primary, #0F9D7A);
   border-color: var(--primary, #0F9D7A);
+  background: var(--primary, #0F9D7A);
+  box-shadow: 0 2px 12px rgba(15,157,122,0.25);
+}
+.fpetal-node--completed .fpetal-node-circle::after {
+  content: '\2713';
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
 }
 .fpetal-node--completed .fpetal-node-circle .fpetal-node-icon {
   filter: brightness(10);
@@ -445,11 +457,11 @@ body.dark-mode .fpetal-node-label--locked {
   color: #57534E;
 }
 body.dark-mode .fpetal-node--available .fpetal-node-circle {
-  background: #1C1917 !important;
+  background: #1C1917;
 }
 body.dark-mode .fpetal-node--locked .fpetal-node-circle {
-  background: #292524 !important;
-  border-color: #57534E !important;
+  background: #292524;
+  border-color: #57534E;
 }
 body.dark-mode .fpetal-zoom-btn {
   border-color: #292524;
