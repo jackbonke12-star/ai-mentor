@@ -264,27 +264,28 @@ body.dark-mode .fpetal-header-title {
 
 /* Progress bar */
 .fpetal-progress {
+  padding: 8px 16px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 0 0 16px;
+  gap: 10px;
 }
 .fpetal-progress-bar {
   flex: 1;
-  height: 6px;
+  height: 8px;
   background: var(--border, #E7E5E4);
-  border-radius: 3px;
+  border-radius: 4px;
   overflow: hidden;
 }
 .fpetal-progress-fill {
   height: 100%;
-  border-radius: 3px;
+  border-radius: 4px;
   transition: width 0.4s ease;
 }
 .fpetal-progress-text {
   font-size: 12px;
   font-weight: 600;
-  color: var(--text-secondary, #57534E);
+  color: var(--text-secondary, #78716C);
+  white-space: nowrap;
 }
 
 /* Node tree */
