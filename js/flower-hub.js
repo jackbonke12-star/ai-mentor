@@ -89,9 +89,13 @@ var FlowerHub = {
     var width = isRec && unlocked ? '2.5' : '1.5';
     var dash = unlocked ? '' : ' stroke-dasharray="4,3"';
 
+    var filterDef = (isRec && unlocked) ? '<defs><filter id="fhub-glow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>' : '';
+    var filterAttr = (isRec && unlocked) ? ' filter="url(#fhub-glow)"' : '';
+
     return '<svg class="fhub-spoke" style="position:absolute;top:50%;left:50%;overflow:visible;pointer-events:none;">'
+      + filterDef
       + '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '"'
-      + ' stroke="' + strokeColor + '" stroke-width="' + width + '" opacity="' + opacity + '"' + dash + '/>'
+      + ' stroke="' + strokeColor + '" stroke-width="' + width + '" opacity="' + opacity + '"' + dash + filterAttr + '/>'
       + '</svg>';
   }
 };
