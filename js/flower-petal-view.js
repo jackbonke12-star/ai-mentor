@@ -83,6 +83,8 @@ var FlowerPetalView = {
   renderNode: function(node, petal, isRec) {
     var state = getFlowerNodeState(node, petal.id);
     var color = petal.color;
+    var lesson = findLesson(node.id);
+    var isFree = lesson && lesson.free;
 
     var classes = 'fpetal-node fpetal-node--' + state;
     if (state === 'available') classes += ' fpetal-node--pulse';
@@ -116,6 +118,9 @@ var FlowerPetalView = {
 
     // Label
     html += '<span class="fpetal-node-label' + (state === 'locked' ? ' fpetal-node-label--locked' : '') + '">' + node.title + '</span>';
+    if (isFree && state !== 'completed') {
+      html += '<span class="fpetal-free-badge">FREE</span>';
+    }
 
     html += '</div>';
     return html;

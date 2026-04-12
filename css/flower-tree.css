@@ -423,3 +423,16 @@ body.dark-mode .fpetal-zoom-btn:active {
   60% { transform: scale(0.95); }
   100% { transform: scale(1); }
 }
+
+.fpetal-free-badge {
+  font-size: 9px;
+  font-weight: 700;
+  color: #16A34A;
+  background: #DCFCE7;
+  padding: 1px 5px;
+  border-radius: 4px;
+  letter-spacing: 0.03em;
+}
+body.dark-mode .fpetal-free-badge {
+  background: rgba(22,163,74,0.15);
+}
