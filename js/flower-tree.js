@@ -62,6 +62,7 @@ var FlowerTree = {
       var self = this;
       setTimeout(function() {
         FlowerPetalView.render(container, self.currentPetal);
+        self.renderDots();
         container.classList.remove('ft-transition-out');
         container.classList.add('ft-transition-in');
         setTimeout(function() { container.classList.remove('ft-transition-in'); }, 300);
@@ -111,5 +112,21 @@ var FlowerTree = {
     if (this.currentPetal > 0) {
       this.openPetal(this.currentPetal - 1);
     }
+  },
+
+  renderDots: function() {
+    var existing = document.getElementById('ft-petal-dots');
+    if (existing) existing.remove();
+
+    var html = '<div class="ft-petal-dots" id="ft-petal-dots">';
+    for (var i = 0; i < FLOWER_PETALS.length; i++) {
+      var isActive = i === this.currentPetal;
+      var color = FLOWER_PETALS[i].color;
+      html += '<div class="ft-dot' + (isActive ? ' ft-dot--active' : '') + '" style="background:' + (isActive ? color : 'var(--border, #D6D3D1)') + '"></div>';
+    }
+    html += '</div>';
+
+    var container = document.getElementById('flower-tree-container');
+    if (container) container.insertAdjacentHTML('beforeend', html);
   }
 };

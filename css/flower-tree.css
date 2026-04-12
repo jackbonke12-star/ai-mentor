@@ -394,3 +394,22 @@ body.dark-mode .fpetal-zoom-btn {
 body.dark-mode .fpetal-zoom-btn:active {
   background: #292524;
 }
+
+.ft-petal-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 0;
+  position: sticky;
+  bottom: 60px;
+  z-index: 10;
+}
+.ft-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transition: background 0.2s, transform 0.2s;
+}
+.ft-dot--active {
+  transform: scale(1.3);
+}
