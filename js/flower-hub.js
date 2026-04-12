@@ -98,15 +98,40 @@ var FlowerHub = {
     var x2 = Math.cos(radians) * outerR;
     var y2 = Math.sin(radians) * outerR;
 
-    var strokeColor = unlocked ? color : '#D6D3D1';
-    var opacity = unlocked ? (isRec ? '0.8' : '0.4') : '0.2';
-    var width = isRec && unlocked ? '2.5' : '1.5';
-    var dash = unlocked ? '' : ' stroke-dasharray="4,3"';
+    var isComplete = pct >= 100;
+    var strokeColor, opacity, width, dash, filterDef, filterAttr;
 
-    var filterDef = (isRec && unlocked) ? '<defs><filter id="fhub-glow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>' : '';
-    var filterAttr = (isRec && unlocked) ? ' filter="url(#fhub-glow)"' : '';
+    if (!unlocked) {
+      strokeColor = '#D6D3D1';
+      opacity = '0.3';
+      width = '2';
+      dash = ' stroke-dasharray="4,3"';
+      filterDef = '';
+      filterAttr = '';
+    } else if (isRec) {
+      strokeColor = color;
+      opacity = '1';
+      width = '4';
+      filterDef = '<defs><filter id="fhub-glow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
+      filterAttr = ' filter="url(#fhub-glow)"';
+      dash = '';
+    } else if (isComplete) {
+      strokeColor = color;
+      opacity = '1';
+      width = '3';
+      dash = '';
+      filterDef = '';
+      filterAttr = '';
+    } else {
+      strokeColor = color;
+      opacity = '0.5';
+      width = '3';
+      dash = '';
+      filterDef = '';
+      filterAttr = '';
+    }
 
-    return '<svg class="fhub-spoke" style="position:absolute;top:50%;left:50%;overflow:visible;pointer-events:none;">'
+    return '<svg class="fhub-spoke" style="overflow:visible;pointer-events:none;">'
       + filterDef
       + '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '"'
       + ' stroke="' + strokeColor + '" stroke-width="' + width + '" opacity="' + opacity + '"' + dash + filterAttr + '/>'
