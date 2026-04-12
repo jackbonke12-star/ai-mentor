@@ -62,15 +62,15 @@
   z-index: 2;
 }
 .fhub-clari {
-  width: 56px;
-  height: 56px;
+  width: 64px;
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .fhub-clari svg, .fhub-clari img {
-  width: 48px;
-  height: 48px;
+  width: 100%;
+  height: 100%;
 }
 .fhub-center-label {
   font-size: 11px;
@@ -96,8 +96,9 @@
   -webkit-tap-highlight-color: transparent;
   transition: transform 0.2s ease;
   z-index: 1;
-  margin-top: -28px;
-  margin-left: -28px;
+  width: 72px;
+  margin-top: -36px;
+  margin-left: -36px;
 }
 .fhub-petal:active {
   transform: scale(0.92) !important;
@@ -113,6 +114,8 @@
 /* Progress ring */
 .fhub-petal-ring {
   display: block;
+  width: 52px;
+  height: 52px;
 }
 .fhub-petal-icon {
   position: absolute;
@@ -120,6 +123,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   margin-top: -7px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -127,7 +132,7 @@
 
 /* Label */
 .fhub-petal-label {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--text-secondary, #57534E);
   margin-top: 2px;

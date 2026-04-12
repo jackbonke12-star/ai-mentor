@@ -46,7 +46,7 @@ var FlowerHub = {
 
   renderPetalIcon: function(petal, angle, unlocked, progress, isRec, index) {
     var radians = angle * (Math.PI / 180);
-    var radius = 120; // distance from center in px
+    var radius = 140; // distance from center in px
     var x = Math.cos(radians) * radius;
     var y = Math.sin(radians) * radius;
 
@@ -91,8 +91,8 @@ var FlowerHub = {
 
   renderSpoke: function(angle, color, unlocked, isRec, pct) {
     var radians = angle * (Math.PI / 180);
-    var innerR = 36; // edge of center circle
-    var outerR = 88; // start of petal icon
+    var innerR = 40; // edge of center circle
+    var outerR = 108; // start of petal icon
     var x1 = Math.cos(radians) * innerR;
     var y1 = Math.sin(radians) * innerR;
     var x2 = Math.cos(radians) * outerR;
