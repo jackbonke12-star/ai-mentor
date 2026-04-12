@@ -326,6 +326,35 @@ body.dark-mode .fhub-petal--locked {
   transform: none;
 }
 
+/* Available node pulse */
+.fpetal-node--available .fpetal-node-circle {
+  animation: nodePulse 2s ease-in-out infinite;
+  box-shadow: 0 0 0 0 rgba(15,157,122,0.3);
+}
+@keyframes nodePulse {
+  0% { box-shadow: 0 0 0 0 rgba(15,157,122,0.3); }
+  50% { box-shadow: 0 0 0 8px rgba(15,157,122,0); }
+  100% { box-shadow: 0 0 0 0 rgba(15,157,122,0); }
+}
+
+/* Locked node styling */
+.fpetal-node--locked .fpetal-node-circle {
+  opacity: 0.4;
+  filter: grayscale(0.8);
+}
+.fpetal-node--locked .fpetal-node-label {
+  opacity: 0.4;
+}
+
+/* Completed node styling */
+.fpetal-node--completed .fpetal-node-circle {
+  background: var(--primary, #0F9D7A);
+  border-color: var(--primary, #0F9D7A);
+}
+.fpetal-node--completed .fpetal-node-circle .fpetal-node-icon {
+  filter: brightness(10);
+}
+
 /* Node glow */
 .fpetal-node-glow {
   position: absolute;
