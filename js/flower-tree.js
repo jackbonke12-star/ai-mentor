@@ -42,14 +42,15 @@ var FlowerTree = {
     this.isZoomedOut = true;
     var container = document.getElementById('flower-tree-container');
     if (container) {
-      container.classList.add('ft-transition-out');
-      var self = this;
-      setTimeout(function() {
-        FlowerHub.render(container);
-        container.classList.remove('ft-transition-out');
-        container.classList.add('ft-transition-in');
-        setTimeout(function() { container.classList.remove('ft-transition-in'); }, 300);
-      }, 150);
+      container.classList.add('ft-fade-enter');
+      container.classList.remove('ft-fade-active');
+      FlowerHub.render(container);
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          container.classList.add('ft-fade-active');
+          container.classList.remove('ft-fade-enter');
+        });
+      });
     }
   },
 
@@ -57,16 +58,18 @@ var FlowerTree = {
     this.currentPetal = index;
     this.isZoomedOut = false;
     var container = document.getElementById('flower-tree-container');
+    var self = this;
     if (container) {
-      container.classList.add('ft-transition-out');
-      var self = this;
-      setTimeout(function() {
-        FlowerPetalView.render(container, self.currentPetal);
-        self.renderDots();
-        container.classList.remove('ft-transition-out');
-        container.classList.add('ft-transition-in');
-        setTimeout(function() { container.classList.remove('ft-transition-in'); }, 300);
-      }, 150);
+      container.classList.add('ft-fade-enter');
+      container.classList.remove('ft-fade-active');
+      FlowerPetalView.render(container, self.currentPetal);
+      self.renderDots();
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          container.classList.add('ft-fade-active');
+          container.classList.remove('ft-fade-enter');
+        });
+      });
     }
   },
 

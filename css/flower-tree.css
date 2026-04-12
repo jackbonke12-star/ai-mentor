@@ -28,17 +28,14 @@
 }
 
 /* Transitions */
-.ft-transition-out {
+.ft-fade-enter {
   opacity: 0;
   transform: scale(0.96);
-  transition: opacity 0.15s ease, transform 0.15s ease;
 }
-.ft-transition-in {
-  animation: ftFadeIn 0.3s ease forwards;
-}
-@keyframes ftFadeIn {
-  from { opacity: 0; transform: scale(0.96); }
-  to { opacity: 1; transform: scale(1); }
+.ft-fade-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 /* Hub wrapper */
