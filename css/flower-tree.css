@@ -116,9 +116,19 @@ body.dark-mode .fhub-wrap {
 .fhub-petal:active {
   transform: scale(0.92) !important;
 }
+.fhub-petal:not(.fhub-petal--locked):hover .fhub-petal-ring {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  transform: scale(1.05);
+}
 .fhub-petal--locked {
   cursor: default;
-  opacity: 0.5;
+}
+.fhub-petal--locked .fhub-petal-ring {
+  opacity: 0.35;
+  filter: grayscale(0.8);
+}
+.fhub-petal--locked .fhub-petal-label {
+  opacity: 0.35;
 }
 .fhub-petal--locked:active {
   transform: none !important;
@@ -130,6 +140,7 @@ body.dark-mode .fhub-wrap {
   width: 52px;
   height: 52px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 body.dark-mode .fhub-petal-ring {
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
@@ -173,6 +184,9 @@ body.dark-mode .fhub-petal-ring {
 }
 
 /* Complete petal glow */
+.fhub-petal--complete .fhub-petal-ring {
+  box-shadow: 0 0 16px rgba(15,157,122,0.25);
+}
 .fhub-petal--complete .fhub-petal-ring circle:first-child {
   filter: drop-shadow(0 0 6px currentColor);
 }
@@ -182,8 +196,8 @@ body.dark-mode .fhub-center-label,
 body.dark-mode .fhub-petal-label {
   color: #A8A29E;
 }
-body.dark-mode .fhub-petal--locked {
-  opacity: 0.4;
+body.dark-mode .fhub-petal--locked .fhub-petal-ring {
+  opacity: 0.3;
 }
 
 /* ═══════════════════════════════════════
