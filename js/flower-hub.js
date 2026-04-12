@@ -26,6 +26,20 @@ var FlowerHub = {
       html += this.renderSpoke(angle, petal.color, unlocked, isRec, progress.pct);
     }
 
+    // Overall progress
+    var totalDone = 0;
+    var totalAll = 0;
+    for (var p = 0; p < FLOWER_PETALS.length; p++) {
+      var prog = getPetalProgress(FLOWER_PETALS[p]);
+      totalDone += prog.done;
+      totalAll += prog.total;
+    }
+    var totalPct = totalAll > 0 ? Math.round((totalDone / totalAll) * 100) : 0;
+    html += '<div class="fhub-total">';
+    html += '<div class="fhub-total-bar"><div class="fhub-total-fill" style="width:' + totalPct + '%"></div></div>';
+    html += '<span class="fhub-total-text">' + totalDone + ' of ' + totalAll + ' lessons complete</span>';
+    html += '</div>';
+
     html += '</div>'; // fhub-wrap
     container.innerHTML = html;
   },

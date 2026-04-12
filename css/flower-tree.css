@@ -436,3 +436,28 @@ body.dark-mode .fpetal-zoom-btn:active {
 body.dark-mode .fpetal-free-badge {
   background: rgba(22,163,74,0.15);
 }
+
+.fhub-total {
+  text-align: center;
+  padding: 0 32px;
+}
+.fhub-total-bar {
+  height: 6px;
+  background: var(--border, #E7E5E4);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.fhub-total-fill {
+  height: 100%;
+  background: var(--primary, #0F9D7A);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+.fhub-total-text {
+  font-size: 12px;
+  color: var(--text-secondary, #57534E);
+}
+body.dark-mode .fhub-total-text {
+  color: #A8A29E;
+}
