@@ -44324,6 +44324,11 @@ function doCloseLesson() {
   animateViewSwitch(_lessonView, _targetTab, 'view-transition-enter', 'lesson-transition-exit', function() {
     if (_tipFn) _tipFn();
   });
+
+  // If user was viewing the skill tree, re-show it
+  if (_ftCurrentView === 'tree') {
+    setTimeout(function() { ftToggleView('tree'); }, 50);
+  }
 }
 
 /** Trigger slide-enter animation on an element */
