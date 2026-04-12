@@ -123,6 +123,25 @@ function buildPetalNodes(petal) {
     row++;
   }
 
+  // Add certificate/trophy node at the end
+  var lastRow = nodes.length > 0 ? nodes[nodes.length - 1].row : 0;
+  var lastRowPrereqs = [];
+  for (var t = 0; t < nodes.length; t++) {
+    if (nodes[t].row === lastRow) lastRowPrereqs.push(nodes[t].id);
+  }
+  nodes.push({
+    id: petal.id + '-trophy',
+    title: petal.label + ' Certificate',
+    unitNum: 0,
+    unitTitle: 'Certificate',
+    unitColor: '#FFD700',
+    row: lastRow + 1,
+    col: 0,
+    rowSize: 1,
+    prereqs: lastRowPrereqs,
+    isTrophy: true
+  });
+
   return nodes;
 }
 

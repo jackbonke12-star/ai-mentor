@@ -81,6 +81,28 @@ var FlowerPetalView = {
   },
 
   renderNode: function(node, petal, isRec) {
+    if (node.isTrophy) {
+      var S = typeof loadProgress === 'function' ? loadProgress() : {};
+      var trophyState = 'locked';
+      var allPreqsDone = true;
+      for (var tp = 0; tp < node.prereqs.length; tp++) {
+        if (!S.completed || S.completed.indexOf(node.prereqs[tp]) === -1) { allPreqsDone = false; break; }
+      }
+      if (allPreqsDone && node.prereqs.length > 0) trophyState = 'available';
+      // Check if all petal lessons are complete
+      var petalObj = null;
+      for (var pp = 0; pp < FLOWER_PETALS.length; pp++) {
+        if (node.id.indexOf(FLOWER_PETALS[pp].id) === 0) { petalObj = FLOWER_PETALS[pp]; break; }
+      }
+      if (petalObj) {
+        var prog = getPetalProgress(petalObj);
+        if (prog.done === prog.total) trophyState = 'completed';
+      }
+      var tClass = 'fpetal-trophy fpetal-trophy--' + trophyState;
+      return '<div class="fpetal-node ' + tClass + '" data-node="' + node.id + '">' +
+        '<div class="fpetal-trophy-icon">' + (trophyState === 'completed' ? '\uD83C\uDFC6' : '\uD83C\uDFC5') + '</div>' +
+        '<span class="fpetal-node-label">' + node.title + '</span></div>';
+    }
     var state = getFlowerNodeState(node, petal.id);
     var color = petal.color;
     var lesson = findLesson(node.id);

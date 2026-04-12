@@ -499,3 +499,31 @@ body.dark-mode .ft-toggle-btn.active {
   color: #34D399;
   border-bottom-color: #34D399;
 }
+
+/* ===== TROPHY NODE ===== */
+.fpetal-trophy {
+  text-align: center;
+  padding: 12px;
+}
+.fpetal-trophy-icon {
+  font-size: 32px;
+  margin-bottom: 4px;
+}
+.fpetal-trophy--locked .fpetal-trophy-icon {
+  filter: grayscale(1);
+  opacity: 0.4;
+}
+.fpetal-trophy--available .fpetal-trophy-icon {
+  animation: trophyPulse 2s ease-in-out infinite;
+}
+.fpetal-trophy--completed .fpetal-trophy-icon {
+  animation: trophyShimmer 3s ease-in-out infinite;
+}
+@keyframes trophyPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+@keyframes trophyShimmer {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(255,215,0,0.3)); }
+  50% { filter: drop-shadow(0 0 12px rgba(255,215,0,0.6)); }
+}
