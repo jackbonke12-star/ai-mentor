@@ -461,3 +461,41 @@ body.dark-mode .fpetal-free-badge {
 body.dark-mode .fhub-total-text {
   color: #A8A29E;
 }
+
+/* ===== TOGGLE BUTTONS ===== */
+.ft-toggle {
+  display: flex;
+  gap: 0;
+  padding: 12px 16px 4px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--bg, #FAFAF9);
+}
+body.dark-mode .ft-toggle {
+  background: var(--bg, #1C1917);
+}
+.ft-toggle-btn {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text-secondary, #78716C);
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.ft-toggle-btn.active {
+  color: var(--primary, #0F9D7A);
+  border-bottom-color: var(--primary, #0F9D7A);
+}
+body.dark-mode .ft-toggle-btn {
+  color: #A8A29E;
+}
+body.dark-mode .ft-toggle-btn.active {
+  color: #34D399;
+  border-bottom-color: #34D399;
+}
