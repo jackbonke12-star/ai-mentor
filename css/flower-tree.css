@@ -364,6 +364,15 @@ body.dark-mode .fhub-petal--locked {
 }
 
 /* Dark mode */
+body.dark-mode .fpetal-progress-bar {
+  background: #292524;
+}
+body.dark-mode .fpetal-cert-label {
+  color: #A8A29E;
+}
+body.dark-mode .fhub-total-bar {
+  background: #292524;
+}
 body.dark-mode .fpetal-back {
   color: #A8A29E;
 }
@@ -435,6 +444,7 @@ body.dark-mode .fpetal-zoom-btn:active {
 }
 body.dark-mode .fpetal-free-badge {
   background: rgba(22,163,74,0.15);
+  color: #4ADE80;
 }
 
 .fhub-total {
