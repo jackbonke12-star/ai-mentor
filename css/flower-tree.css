@@ -592,3 +592,12 @@ body.dark-mode .ft-toggle-btn.active {
   0%, 100% { filter: drop-shadow(0 0 4px rgba(255,215,0,0.3)); }
   50% { filter: drop-shadow(0 0 12px rgba(255,215,0,0.6)); }
 }
+
+/* ===== CONNECTOR ANIMATIONS ===== */
+.fpetal-connector-active {
+  stroke-dasharray: 6 4;
+  animation: connectorFlow 1s linear infinite;
+}
+@keyframes connectorFlow {
+  to { stroke-dashoffset: -10; }
+}

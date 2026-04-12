@@ -193,28 +193,27 @@ var FlowerPetalView = {
         var parentState = getFlowerNodeState(parent, petal.id);
         var childState = getFlowerNodeState(nodes[j], petal.id);
 
-        var strokeColor, strokeWidth, dashArray, opacity;
+        var strokeColor, strokeWidth, opacity, extraClass;
         if (parentState === 'completed' && childState === 'completed') {
           strokeColor = petal.color;
-          strokeWidth = '2.5';
-          dashArray = '';
-          opacity = isRec ? '0.9' : '0.7';
+          strokeWidth = '3';
+          opacity = '1';
+          extraClass = '';
         } else if (parentState === 'completed' && childState === 'available') {
           strokeColor = petal.color;
           strokeWidth = '2';
-          dashArray = '';
           opacity = '0.6';
+          extraClass = ' class="fpetal-connector-active"';
         } else {
           strokeColor = '#D6D3D1';
-          strokeWidth = '1';
-          dashArray = '4,3';
-          opacity = '0.3';
+          strokeWidth = '1.5';
+          opacity = '0.2';
+          extraClass = '';
         }
 
         paths += '<path d="M' + x1 + ',' + y1 + ' C' + x1 + ',' + midY + ' ' + x2 + ',' + midY + ' ' + x2 + ',' + y2 + '"';
         paths += ' fill="none" stroke="' + strokeColor + '" stroke-width="' + strokeWidth + '"';
-        if (dashArray) paths += ' stroke-dasharray="' + dashArray + '"';
-        paths += ' opacity="' + opacity + '"/>';
+        paths += ' opacity="' + opacity + '" stroke-linecap="round"' + extraClass + '/>';
       }
     }
 
