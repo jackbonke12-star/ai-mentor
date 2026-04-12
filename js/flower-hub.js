@@ -63,11 +63,14 @@ var FlowerHub = {
     var circumference = 2 * Math.PI * 22; // r=22
     var offset = circumference - (progress.pct / 100) * circumference;
 
+    var fillBg = !unlocked ? '#E7E5E4' : (progress.pct === 100 ? petal.color + '26' : 'var(--card-bg, #fff)');
+    var strokeBorder = unlocked ? petal.color : '#D6D3D1';
+
     html += '<svg class="fhub-petal-ring" width="56" height="56" viewBox="0 0 56 56">';
     // Background circle
-    html += '<circle cx="28" cy="28" r="22" fill="' + (unlocked ? 'var(--card-bg, #fff)' : '#E7E5E4') + '" stroke="' + (unlocked ? petal.color + '33' : '#D6D3D1') + '" stroke-width="3"/>';
+    html += '<circle cx="28" cy="28" r="22" fill="' + fillBg + '" stroke="' + strokeBorder + '" stroke-width="3"/>';
     // Progress arc
-    if (unlocked && progress.pct > 0) {
+    if (unlocked && progress.pct > 0 && progress.pct < 100) {
       html += '<circle cx="28" cy="28" r="22" fill="none" stroke="' + petal.color + '" stroke-width="3" stroke-linecap="round" stroke-dasharray="' + circumference + '" stroke-dashoffset="' + offset + '" transform="rotate(-90 28 28)"/>';
     }
     html += '</svg>';
@@ -79,6 +82,11 @@ var FlowerHub = {
 
     // Label
     html += '<div class="fhub-petal-label">' + petal.label + '</div>';
+
+    // Mini progress indicator
+    if (unlocked && progress.pct > 0 && progress.pct < 100) {
+      html += '<div class="fhub-petal-progress" style="background:conic-gradient(' + petal.color + ' ' + progress.pct + '%, transparent ' + progress.pct + '%)"></div>';
+    }
 
     // Recommended glow
     if (isRec && unlocked) {

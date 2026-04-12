@@ -161,6 +161,21 @@ body.dark-mode .fhub-petal-ring {
   justify-content: center;
 }
 
+/* Mini progress indicator */
+.fhub-petal-progress {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--bg, #FAFAF9);
+}
+body.dark-mode .fhub-petal-progress {
+  border-color: var(--bg, #1C1917);
+}
+
 /* Label */
 .fhub-petal-label {
   font-size: 11px;
