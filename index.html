@@ -14349,6 +14349,12 @@ select {
 
     <!-- ======== LEARN TAB ======== -->
     <div class="view" id="view-learn" role="main">
+      <div class="ft-toggle" id="ft-toggle">
+        <button id="ft-btn-lessons" class="active" onclick="ftToggleView('lessons')">Lessons</button>
+        <button id="ft-btn-tree" onclick="ftToggleView('tree')">Skill Tree</button>
+      </div>
+      <div id="flower-tree-container" style="display:none;"></div>
+      <div id="ft-learn-content">
       <button class="qref-fab" onclick="showQuickRef()" title="Quick Reference" aria-label="AI cheat sheet">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
       </button>
@@ -14377,6 +14383,7 @@ select {
       <div id="weekly-challenge-banner" style="margin:0 12px 8px;"></div>
       <div class="clari-divider" style="margin:8px 12px 12px;" aria-hidden="true"></div>
       <div id="units-container"></div>
+      </div><!-- /ft-learn-content -->
     </div>
 
 
@@ -33293,6 +33300,27 @@ function showLearnSkeleton() {
     html += '</div>';
   }
   container.innerHTML = html;
+}
+
+var _ftCurrentView = 'lessons';
+function ftToggleView(view) {
+  _ftCurrentView = view;
+  var treeContainer = document.getElementById('flower-tree-container');
+  var lessonsContent = document.getElementById('ft-learn-content');
+  var btnLessons = document.getElementById('ft-btn-lessons');
+  var btnTree = document.getElementById('ft-btn-tree');
+  if (view === 'tree') {
+    if (lessonsContent) lessonsContent.style.display = 'none';
+    treeContainer.style.display = 'block';
+    btnLessons.classList.remove('active');
+    btnTree.classList.add('active');
+    FlowerTree.init('flower-tree-container');
+  } else {
+    if (lessonsContent) lessonsContent.style.display = '';
+    treeContainer.style.display = 'none';
+    btnLessons.classList.add('active');
+    btnTree.classList.remove('active');
+  }
 }
 
 function renderLearnTab() {
