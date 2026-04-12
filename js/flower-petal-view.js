@@ -10,6 +10,7 @@ var FlowerPetalView = {
 
     var html = '';
     html += '<div class="fpetal-view" data-petal="' + petal.id + '">';
+    html += '<div class="fpetal-color-bar" style="background:' + petal.color + '"></div>';
 
     // Header with back button and petal info
     html += '<div class="fpetal-header">';
